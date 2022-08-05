@@ -7,7 +7,7 @@ module.exports = function(env) {
         output: {
             path: path.resolve('public'),
             filename: 'main.js',
-            assetModuleFilename:'assets/images/[hash][ext]'
+            assetModuleFilename:'../src/assets/img/[hash][ext]'
         },
         module:{
             rules:[{

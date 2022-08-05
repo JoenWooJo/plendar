@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/scss/_footer.scss';
-import '../assets/css/Plendar.css';
+import '../assets/css/plendar.css';
 import '../assets/css/bootstrap.css';
 
 export default function App() {

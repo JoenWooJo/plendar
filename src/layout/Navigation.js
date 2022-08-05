@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/Plendar.css';
+import '../assets/css/plendar.css';
 import '../assets/scss/navs/_sidebar.scss';
 
 
