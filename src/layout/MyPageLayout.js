@@ -10,7 +10,7 @@ const MyPageLayout = ({children}) => {
     return (     
        <>
         <Fragment>
-        <div class="container">
+        <div className="container">
             <div className='row'>
             <Navigation active={'mypage'}/>
             <div className="col-xl-10">

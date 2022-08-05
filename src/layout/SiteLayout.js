@@ -10,7 +10,6 @@ const SiteLayout = ({children}) => {
     return (     
        <>
         <Fragment>
-        <div class="container">
             <div className='row'>
             <Navigation active={'default'}/>
             <div className="col-xl-10">
@@ -18,7 +17,6 @@ const SiteLayout = ({children}) => {
             <Header />
             {children}
             <Footer />
-            </div>
             </div>
             </div>
             </div>
