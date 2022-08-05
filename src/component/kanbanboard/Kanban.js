@@ -3,9 +3,13 @@ import SiteLayout from '../../layout/SiteLayout';
 
 const kanban = () => {
     return (
+        
         <SiteLayout>
-            칸반보드
+            <div class="col-md-8">
+            <h1>칸반보드</h1>
+           </div>
         </SiteLayout>
+        
     );
 };
 

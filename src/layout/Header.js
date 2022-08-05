@@ -1,51 +1,47 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
 
-
 const Header = () => {
-   return (
-    <body id="page-top">
-
-        {/* <!-- Page Wrapper --> */}
-        <div id="wrapper">
-
-            {/* <!-- Contesnt Wrapper --> */}
-            <div id="content-wrapper" className="d-flex flex-column">
-
-                {/* <!-- Main Content --> */}
-                <div id="content">
-
+    return (
+        <div className='col-md-9'>
+        <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-md-8.5">
                     {/* <!-- Topbar --> */}
-                    <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    
-                        {/* <!-- Topbar Search --> */}
-                        <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div className="input-group">
-                                <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
-                                    aria-label="Search" aria-describedby="basic-addon2" />
-                                <div className="input-group-append">
-                                    <button className="btn btn-primary" type="button">
-                                        <i className="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        {/* <!-- Topbar Navbar --> */}
+                        <ul className="navbar-nav ml-auto">
+                            {/* <!-- Nav Item - Alerts --> */}
+                            <li className="nav-item dropdown no-arrow mx-1">
+                                
+                                <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i className="fas fa-bell fa-fw"></i>
+                                    {/* <!-- Counter - Alerts --> */}
+                                    <span className="badge badge-danger badge-counter">3+</span>
+                                </a>
+                                {/* <!-- Dropdown - Alerts --> */}
+                            </li>
+                            {/* <!-- Nav Item - Messages --> */}
+                            <li className="nav-item dropdown no-arrow mx-1">
+                                <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i className="fas fa-envelope fa-fw"></i>
+                                    {/* <!-- Counter - Messages --> */}
+                                    <span className="badge badge-danger badge-counter">7</span>
+                                </a>
+                            </li>
+                            <div className="topbar-divider d-none d-sm-block"></div>
 
-                    </div>
+                            {/* <!-- Nav Item - User Logout Botton--> */}
+                            <li className="nav-item logout botton">
+                                <a className="nav-link " href="/pages/Login" id="usrlogout" role="button"
+                                    data-toggle="botton" aria-haspopup="true" aria-expanded="false">
+                                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
+                                </a>
+                            </li>
+                        </ul>
                     {/* <!-- End of Topbar --> */}
-
-                </div>
-                {/* <!-- End of Main Content --> */}
-
-
-            </div>
-            {/* <!-- End of Content Wrapper --> */}
-
-        {/* <!-- End of Page Wrapper --> */}
-        </div>
-
-    </body>
-   );
+                    </div>
+                    </div>
+    );
 };
 
 export default Header;

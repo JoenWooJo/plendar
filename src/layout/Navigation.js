@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../assets/css/Plendar.css';
+import '../assets/css/plendar.css';
 //import '../assets/scss/navs/_sidebar.scss';
 //import '../assets/vendor/bootstrap/scss/_navbar.scss';
 import '../assets/scss/sb-admin-2.scss';
@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
     return (
+        <div class="col-md-3">
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <NavLink className="sidebar-brand d-flex align-items-center justify-content-center " 
                      to={'/'}> plendar </NavLink>
@@ -52,9 +53,8 @@ const Navigation = () => {
                          fileSharing 
                 </NavLink>
             </li>
-
-            
-        </ul>
+            </ul>
+            </div>
 
      );
 };
