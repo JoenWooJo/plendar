@@ -2,8 +2,8 @@ import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
 
 const Header = () => {
-   return (
-                    <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-sm-7" >
+    return (
+        <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-sm-9">
                     {/* <!-- Topbar --> */}
                         {/* <!-- Topbar Navbar --> */}
                         <ul className="navbar-nav ml-auto">
@@ -39,7 +39,7 @@ const Header = () => {
                         </ul>
                     {/* <!-- End of Topbar --> */}
                     </div>
-   );
+    );
 };
 
 export default Header;

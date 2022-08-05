@@ -6,15 +6,27 @@ import Footer from "../layout/Footer";
 import '../assets/scss/sb-admin-2.scss';
 
 
-const SiteLayout = () => {
-    return (
-        <div id="Wrapper">
+const SiteLayout = ({children}) => {
+    return (     
+       
         <Fragment>
-            <Header />
-            <Navigation />
-            <Footer />
-        </Fragment>
+        <div class="container">
+            <div className='col-sm-3'>
+                <Navigation />
+            </div>
+
+            <div className='row'>
+                <div >
+                    <Header />   
+                </div>
+
+            <div className='row' /> 
+                    <Footer />
+            </div>
         </div>
+        </Fragment>
+
+        
     );
 };
 
