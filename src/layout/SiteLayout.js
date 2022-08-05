@@ -4,11 +4,12 @@ import Navigation from "../layout/Navigation";
 import Footer from "../layout/Footer";
 import '../assets/css/Plendar.css'
 
-const SiteLayout = () => {
+const SiteLayout = ({children}) => {
     return (
         <div id="Wrapper">
         <Fragment>
             <Header />
+            {children}
             <Navigation />
             <Footer />
         </Fragment>
