@@ -4,7 +4,7 @@ import SiteLayout from '../../layout/SiteLayout';
 const fileSharing = () => {
     return (
         <SiteLayout>
-        <div>
+        <div class="col-xl-10">
             파일쉐ㅓ일ㅇ
         </div>
         </SiteLayout>

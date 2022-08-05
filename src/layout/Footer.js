@@ -6,14 +6,13 @@ import '../assets/scss/sb-admin-2.scss';
 
 export default function App() {
     return (
-        <div class="col-md-8">
-        <footer className="sticky-footer bg-white">
-        <div className="container my-auto">
-            <div className="copyright text-center my-auto">
+        
+        <footer className="sticky-footer bg-white col-xl-10">
+        <div className="container">
+            <div className="copyright text-center col-xl-7">
                 <span>Copyright &copy; Plendar 2022</span>
             </div>
         </div>
         </footer>
-        </div>
     );
 }      

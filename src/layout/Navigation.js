@@ -5,15 +5,15 @@ import '../assets/css/plendar.css';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = ({active}) => {
     return (
-        <div class="col-md-3">
-        <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion col-xl-2" id="accordionSidebar">
             <NavLink className="sidebar-brand d-flex align-items-center justify-content-center " 
                      to={'/'}> plendar </NavLink>
 
             <hr className="sidebar-divider my-0" />
 
+           
             <li className="nav-item active">
                 <NavLink className="nav-link" 
                          to={'/user/mypage'}> 
@@ -53,9 +53,19 @@ const Navigation = () => {
                          fileSharing 
                 </NavLink>
             </li>
-            </ul>
-            </div>
 
+            {
+                active == 'user/mypage'?
+                <li className="nav-item active">
+                <NavLink className="nav-link" 
+                         to={'/user/mypage'}> 
+                         <i className="fas fa-fw fa-tachometer-alt"></i>
+                         myyyypage 
+                </NavLink>
+                </li>:null
+            }
+            </ul>
+          
      );
 };
 

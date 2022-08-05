@@ -3,8 +3,7 @@ import '../assets/scss/sb-admin-2.scss';
 
 const Header = () => {
     return (
-        <div className='col-md-9'>
-        <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-md-8.5">
+                <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-10">
                     {/* <!-- Topbar --> */}
                         {/* <!-- Topbar Navbar --> */}
                         <ul className="navbar-nav ml-auto">
@@ -39,7 +38,6 @@ const Header = () => {
                             </li>
                         </ul>
                     {/* <!-- End of Topbar --> */}
-                    </div>
                     </div>
     );
 };
