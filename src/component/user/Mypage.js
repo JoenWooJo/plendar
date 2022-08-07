@@ -5,7 +5,7 @@ const mypage = () => {
     return (
         
         <SiteLayout>
-            <div class="col-md-9">
+            <div class="col-xl-10">
             마이페이지입니다.
             </div>
         </SiteLayout>

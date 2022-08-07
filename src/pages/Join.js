@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/scss/sb-admin-2.scss';
 
 const Join = () => {
     return (
@@ -8,9 +9,11 @@ const Join = () => {
             <div class="card-body p-0">
                 {/* <!-- Nested Row within Card Body --> */}
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-6 d-none d-lg-block "><img src="img/logo.png"></img></div>
+                    <div class="col-lg-6">
+                        
                         <div class="p-5">
+                            
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
@@ -33,16 +36,16 @@ const Join = () => {
                                             id="exampleRepeatPassword" placeholder="Repeat Password"/>
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <a href="/login" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </a>
                             </form>
                             <hr/>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="/forgotpw">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
@@ -52,3 +55,4 @@ const Join = () => {
     </div>
     );
 };
+export default Join;

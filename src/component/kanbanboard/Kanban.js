@@ -5,7 +5,7 @@ const kanban = () => {
     return (
         
         <SiteLayout>
-            <div class="col-md-8">
+            <div className="col-xl-10">
             <h1>칸반보드</h1>
            </div>
         </SiteLayout>

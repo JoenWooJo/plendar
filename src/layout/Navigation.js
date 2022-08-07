@@ -6,14 +6,15 @@ import '../assets/css/plendar.css';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = ({active}) => {
     return (
-        <ul className="navbar-nav bg-gradient-primary1 sidebar sidebar-dark accordion  col-sm-9" id="accordionSidebar">
+        <ul className="navbar-nav bg-gradient-primary1 sidebar sidebar-dark accordion col-xl-2" id="accordionSidebar">
             <NavLink className="sidebar-brand d-flex align-items-center justify-content-center " 
-                     to={'/'}> plendar </NavLink>
+                     to={'/component'}> <h3>plendar</h3> </NavLink>
 
             <hr className="sidebar-divider my-0" />
 
+           
             <li className="nav-item active">
                 <NavLink className="nav-link" 
                          to={'/user/mypage'}> 
@@ -54,9 +55,22 @@ const Navigation = () => {
                 </NavLink>
             </li>
 
+
+
+            <ul>
+
+            {
+                active == 'user/mypage'?
+                <li className="nav-item active">
+                <NavLink className="nav-link" 
+                         to={'/user/mypage'}> 
+                         <i className="fas fa-fw fa-tachometer-alt"></i>
+                         myyyypage 
+                </NavLink>
+                </li>:null
+            }
             </ul>
-
-
+        </ul>  
      );
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
-import logo from '../assets/img/loginlogo.png';
 
-const Main = () => {
+const Login = () => {
     return (
             <div class="container">
                 <div class="row justify-content-center">
@@ -12,11 +11,11 @@ const Main = () => {
                             
                                 <div class="row">
                                     
-                                    <div class="col-lg-6 d-none d-lg-block"></div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-7 d-none d-lg-block"><img src="img/logo.png"></img></div>
+                                    <div class="col-lg-5">
                                         <div class="p-5">
                                             <div class="text-center">
-                                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                                <h1 class="h1 text-gray-900 mb-4">Login</h1>
                                             </div>
                                             <form class="user">
                                                 <div class="form-group">
@@ -34,14 +33,14 @@ const Main = () => {
                                                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                                                     </div>
                                                 </div>
-                                                <a href="index.html" class="btn btn-primary btn-user btn-block">Login</a>
+                                                <a href="/component" class="btn btn-primary btn-user btn-block">Login</a>
                                             </form>
                                             <hr />
                                             <div class="text-center">
-                                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                                <a class="small" href="/forgotpw">Forgot Password?</a>
                                             </div>
                                             <div class="text-center">
-                                                <a class="small" href="register.html">Create an Account!</a>
+                                                <a class="small" href="/join">Create an Account!</a>
                                             </div>
                                         </div>
                                     </div>
@@ -54,4 +53,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Login;

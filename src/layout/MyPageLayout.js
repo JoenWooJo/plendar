@@ -1,23 +1,24 @@
 import React, {Fragment} from "react";
-import Header from "../layout/Header";
-import Navigation from "../layout/Navigation";
-import Footer from "../layout/Footer";
+import Header from "./Header";
+import Navigation from "./Navigation";
+import Footer from "./Footer";
 // import '../assets/css/Plendar.css'
 import '../assets/scss/sb-admin-2.scss';
 
 
-const SiteLayout = ({children}) => {
+const MyPageLayout = ({children}) => {
     return (     
        <>
         <Fragment>
-
+        <div className="container">
             <div className='row'>
-            <Navigation active={'default'}/>
+            <Navigation active={'mypage'}/>
             <div className="col-xl-10">
             <div className='row'>
             <Header />
             {children}
             <Footer />
+            </div>
             </div>
             </div>
             </div>

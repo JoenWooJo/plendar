@@ -5,14 +5,13 @@ const Myproject = () => {
     return (
         
         <SiteLayout>
-        <div class="col-md-8">
-         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+         <div class="d-sm-flex align-items-center justify-content-between mb-4 col-xl-10">
+                        <h1 class="h3 mb-0 text-gray-800 ">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> create project</a>
                     </div>
 
-                    <div class="row">
+                    <div class="row col-xl-10">
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -81,8 +80,7 @@ const Myproject = () => {
                                 </div>
                             </div>
                         </div>  
-                        </div>
-                        </div>
+                    </div>
         </SiteLayout>
         
     );
