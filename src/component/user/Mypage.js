@@ -4,7 +4,7 @@ import SiteLayout from '../../layout/SiteLayout';
 const mypage = () => {
     return (
         <SiteLayout>
-            <div className="col-xl-10">
+            <div class="col-xl-10">
                 mypage
             </div>
         </SiteLayout>
