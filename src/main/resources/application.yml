@@ -25,18 +25,22 @@ spring:
       mode: HTML5
       suffix: .html
       cache: false
+   
       
-   #datasource:
-      #driver-class-name: org.mariadb.jdbc.Driver
-      #url: jdbc:mysql://ip:3306/DB이름?characterEncoding=utf8
-      #username: 
-      #password:
-      #hikari:
-           #minimum-idle: 10
-           #maximum-pool-size: 20
-
-#mybatis:
-    #config-location: classpath:mybatis/configuration.xml
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://192.168.10.39:3306/webdb
+      username: webdb
+      password: ENC(VJoDO7UAQnwTWVxdJ0B0K5A75a9gglBVGaYrQ3P+nNWd/EIifYTJ85tcxDSQYnm2)
+      hikari:
+           minimum-idle: 10
+           maximum-pool-size: 20
+jasypt:
+   encryptor:
+      bean: jasyptStringEncryptor
+      
+mybatis:
+    config-location: classpath:mybatis/configuration.xml
 
 server:
    port: 8080

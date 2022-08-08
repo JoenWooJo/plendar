@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!-- 
+    <!--   
    <typeAliases>
       <typeAlias type="com.example.demo.vo.ChatRoomVo" alias="chatroomvo" />
       <typeAlias type="com.example.demo.vo.ChatMessageVo" alias="chatmessagevo" />
    </typeAliases>
-   
+   -->
    <mappers>
-      <mapper resource="mybatis/mappers/room.xml" />
-      <mapper resource="mybatis/mappers/message.xml" />
+      <mapper resource="mybatis/mappers/test.xml" />
    </mappers>
-    -->
+    
 </configuration>
