@@ -5,10 +5,8 @@ import Footer from "../layout/Footer";
 // import '../assets/css/Plendar.css'
 import '../assets/scss/sb-admin-2.scss';
 
-
 const SiteLayout = ({children}) => {
     return (     
-       <>
         <Fragment>
             <div className='row'>
             <Navigation active={'default'}/>
@@ -21,8 +19,6 @@ const SiteLayout = ({children}) => {
             </div>
             </div>
         </Fragment>
-        </>
-        
     );
 };
 
