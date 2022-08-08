@@ -1,0 +1,52 @@
+# spring configuration
+spring:
+   application:
+      name: plendar
+
+   # devtools - live reload
+   devtools:
+      livereload:
+         enabled: true
+          
+   mvc:
+      # Path pattern used for static resources
+      static-path-pattern: /asstes/**
+      throw-exception-if-no-handler-found: true
+      
+
+   web:
+      resources:
+         # Locations of static resources
+         static-locations: classpath:/static/
+
+   thymeleaf:
+      prefix: classpath:templates/
+      check-template-location: true
+      mode: HTML5
+      suffix: .html
+      cache: false
+      
+   #datasource:
+      #driver-class-name: org.mariadb.jdbc.Driver
+      #url: jdbc:mysql://ip:3306/DB이름?characterEncoding=utf8
+      #username: 
+      #password:
+      #hikari:
+           #minimum-idle: 10
+           #maximum-pool-size: 20
+
+#mybatis:
+    #config-location: classpath:mybatis/configuration.xml
+
+server:
+   port: 8080
+   servlet:
+      context-path: /
+      encoding:
+         charset: UTF-8
+         enabled: true
+         
+# logging configuration
+logging:
+   level:
+      root: INFO
