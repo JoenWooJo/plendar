@@ -80,6 +80,13 @@
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.61</version>
 		</dependency>
+		
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 
 		<!-- 예제를 위한 폼 추가 -->
