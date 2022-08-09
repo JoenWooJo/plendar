@@ -1,47 +1,76 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
-
+import {useRef, useState, useEffect} from 'react';
 const Login = () => {
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const [email, setEmail]= useState('');
+    const [password, setPassword]= useState('');
+    const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, [])
     return (
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10 col-lg-12 col-md-9">
-                        <div class="card o-hidden border-0 shadow-lg my-5">
-                            <div class="card-body p-0">
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xl-10 col-lg-12 col-md-9">
+                        <div className="card o-hidden border-0 shadow-lg my-5">
+                            <div className="card-body p-0">
                             
-                                <div class="row">
+                                <div className="row">
                                     
-                                    <div class="col-lg-7 d-none d-lg-block"><img src="img/logo.png"></img></div>
-                                    <div class="col-lg-5">
-                                        <div class="p-5">
-                                            <div class="text-center">
-                                                <h1 class="h1 text-gray-900 mb-4">Login</h1>
+                                    <div className="col-lg-7 d-none d-lg-block"><img src="img/logo.png"></img></div>
+                                    <div className="col-lg-5">
+                                        <div className="p-5">
+                                            <div className="text-center">
+                                                <h1 className="h1 text-gray-900 mb-4">Login</h1>
                                             </div>
-                                            <form class="user">
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control form-control-user"
-                                                        id="exampleInputEmail" aria-describedby="emailHelp"
-                                                        placeholder="Enter Email Address..." />
+                                            <form onSubmit = {event => {
+                                                setEmail = event.target.email.value;
+                                                
+                                            }}>
+                                                {/* 이메일 입력 창 */}
+                                                <div className="form-group">
+                                                    <form>
+                                                        <input 
+                                                            type = "text"
+                                                            className="form-control email"
+                                                            id = "email"
+                                                            ref = {emailRef}
+                                                            autoComplete = "on"
+                                                            onChange={(e) => setEmail(e.target.value)}
+                                                            value={email}
+                                                            placeholder="Enter Email Address..."
+                                                            required />
+                                                    </form>
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control form-control-user"
-                                                        id="exampleInputPassword" placeholder="Password" />
+                                                 {/* 비밀번호 입력 창 */}
+                                                <div className="form-group">
+                                                    <form>
+                                                        <input 
+                                                            type = "Password"
+                                                            className="form-control email"
+                                                            ref = {passwordRef}
+                                                            autoComplete = "off"
+                                                            onChange={(e) => setPassword(e.target.value)}
+                                                            value={password}
+                                                            placeholder="Password..."
+                                                            required />
+                                                    </form>
                                                 </div>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox small">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck" />
-                                                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                                    </div>
-                                                </div>
-                                                <a href="/component" class="btn btn-primary btn-user btn-block">Login</a>
+                                                <a href="/component" className="btn btn-primary btn-user btn-block">Login</a>
                                             </form>
                                             <hr />
-                                            <div class="text-center">
-                                                <a class="small" href="/forgotpw">Forgot Password?</a>
+                                            
+
+                                            <div className="text-center">
+                                                <a className="small" href="/forgotpw">Forgot Password?</a>
                                             </div>
-                                            <div class="text-center">
-                                                <a class="small" href="/join">Create an Account!</a>
+                                            <div className="text-center">
+                                                <a className="small" href="/join">Create an Account!</a>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

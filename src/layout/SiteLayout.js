@@ -6,7 +6,7 @@ import Footer from "../layout/Footer";
 import '../assets/scss/sb-admin-2.scss';
 
 
-const SiteLayout = ({children}) => {
+const SiteLayout = ({prop}) => {
     return (     
        <>
         <Fragment>
@@ -16,7 +16,7 @@ const SiteLayout = ({children}) => {
             <div className="col-xl-10">
             <div className='row'>
             <Header />
-            {children}
+            {prop}
             <Footer />
             </div>
             </div>

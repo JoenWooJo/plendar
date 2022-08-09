@@ -36,8 +36,8 @@ const Header = () => {
                                 </a>
                             </li>
                         </ul>
-                    {/* <!-- End of Topbar --> */}
-                    </div>
+                {/* <!-- End of Topbar --> */}
+                </div>
     );
 };
 
