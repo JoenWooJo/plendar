@@ -31,8 +31,8 @@ const Header = () => {
 
                             {/* <!-- Nav Item - User Logout Botton--> */}
                             <li className="nav-item logout botton">
-                                <a className="nav-link " href="/pages/Login" id="usrlogout" role="button"
-                                    data-toggle="botton" aria-haspopup="true" aria-expanded="false">
+                                <a className="nav-link " href="/login" id="usrlogout" role="button"
+                                    data-toggle="botton" aria-haspopup="true" aria-expanded="false" >
                                     <span className="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
                                 </a>
                             </li>
@@ -40,7 +40,6 @@ const Header = () => {
                     {/* <!-- End of Topbar --> */}
                     </div>
     );
-
 };
 
 export default Header;

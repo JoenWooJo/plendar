@@ -10,7 +10,7 @@ const Navigation = ({active}) => {
     return (
         <ul className="navbar-nav bg-gradient-primary1 sidebar sidebar-dark accordion col-xl-2" id="accordionSidebar">
             <NavLink className="sidebar-brand d-flex align-items-center justify-content-center " 
-                     to={'/'}> plendar </NavLink>
+                     to={"/component"}> <h3>plendar</h3> </NavLink>
 
             <hr className="sidebar-divider my-0" />
 
@@ -54,6 +54,7 @@ const Navigation = ({active}) => {
                          fileSharing 
                 </NavLink>
             </li>
+
             {
                 active == 'user/mypage'?
                 <li className="nav-item active">
@@ -65,7 +66,6 @@ const Navigation = ({active}) => {
                 </li>:null
             }
             </ul>
-          
      );
 };
 

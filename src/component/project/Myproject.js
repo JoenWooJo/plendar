@@ -1,14 +1,20 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import SiteLayout from '../../layout/SiteLayout';
+import CreateProject from './CreateProject';
+
 
 const Myproject = () => {
+
     return (
         <SiteLayout>
         <div className="col-xl-11">
          <div className="d-sm-flex align-items-center justify-content-between mb-4 ">
-                        <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                className="fas fa-download fa-sm text-white-50"></i> create project</a>
+                        <h1 className="h3 mb-0 text-gray-800">MyProject</h1>
+                        <NavLink className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" 
+                                 to={'/project/createProject'}>
+                            <i className="fas fa-download fa-sm text-white-50"></i> 
+                            create project </NavLink>
                     </div>
 
                     <div className="row">
