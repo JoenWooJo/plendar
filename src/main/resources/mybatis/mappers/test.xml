@@ -4,10 +4,7 @@
 <mapper namespace="test">
 	<select id="findName" resultType="string">
 		<![CDATA[
-			select name 
-				from user 
-			  where email = 'dooly@gmail.com' 
-					and password = '1234';
+			select title from project where no=1
 		]]>
 	</select>
 </mapper>

@@ -29,15 +29,16 @@ spring:
       
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://192.168.10.39:3306/webdb
-      username: webdb
-      password: ENC(VJoDO7UAQnwTWVxdJ0B0K5A75a9gglBVGaYrQ3P+nNWd/EIifYTJ85tcxDSQYnm2)
+      url: jdbc:mysql://192.168.10.50:3306/plendar_test?characterEncoding=utf8
+      username: ENC(vZina5Duc7FXOVWnRJuA8M6g8yjlLZf2qBANa4YkFXnGUsNjuzbzEbRfclk3I1Uj)
+      password: ENC(FQhFy9iiZAGPxbUQrgyWbO4cdYRkpo/9DiESuE5tG0+URnpJoMJcHRH8wOGnGisY)
       hikari:
            minimum-idle: 10
            maximum-pool-size: 20
 jasypt:
    encryptor:
       bean: jasyptStringEncryptor
+      
       
 mybatis:
     config-location: classpath:mybatis/configuration.xml

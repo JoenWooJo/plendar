@@ -17,7 +17,7 @@ public class JasyptConfig {
 		// 실행 VM 옵션에 패스워드 넣어줘야함
 		// -Djasypt.encryptor.password="패스워드" 
 		config.setPassword(System.getProperty("jasypt.encryptor.password"));
-		config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256"); // 암호화 알고리즘
+		config.setAlgorithm(System.getProperty("jasypt.encryptor.algorithm")); // 암호화 알고리즘
 		config.setKeyObtentionIterations(1000); // 반복할 해싱 횟수
 		config.setPoolSize("1"); // 인스턴스 pool
 		config.setProviderName("SunJCE");
@@ -26,8 +26,6 @@ public class JasyptConfig {
 		config.setStringOutputType("base64"); // 인코딩 방식
 		encryptor.setConfig(config);
 
-		System.out.println(encryptor.encrypt("webdb"));
-//		System.out.println(encryptor.decrypt("p36Mmnh12H+8o+c64/Y4LJH8mdAGKWe0IrQWMQ/73TKatEFJQj8UZpmOmVq2gtRk"));
 		return encryptor;
 	}
 
