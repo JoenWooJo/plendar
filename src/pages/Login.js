@@ -59,7 +59,10 @@ const Login = () => {
                                                             required />
                                                     </form>
                                                 </div>
-                                                <a href="/component" className="btn btn-primary btn-user btn-block">Login</a>
+                                                <a onClick={()=>{ 
+                                                    console.log(email);
+                                                    console.log(password);
+                                                    }} className="btn btn-primary btn-user btn-block">Login</a>
                                             </form>
                                             <hr />
                                             

@@ -5,25 +5,21 @@ import Footer from "../layout/Footer";
 // import '../assets/css/Plendar.css'
 import '../assets/scss/sb-admin-2.scss';
 
+const SiteLayout = ({children}) => {
 
-const SiteLayout = ({prop}) => {
     return (     
-       <>
         <Fragment>
-
             <div className='row'>
             <Navigation active={'default'}/>
             <div className="col-xl-10">
             <div className='row'>
             <Header />
-            {prop}
+            {children}
             <Footer />
             </div>
             </div>
             </div>
         </Fragment>
-        </>
-        
     );
 };
 

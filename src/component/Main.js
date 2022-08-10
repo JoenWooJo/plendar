@@ -6,7 +6,7 @@ const Main = () => {
     return (
         <SiteLayout>
             <div class="col-xl-10">
-                <p>메인메인</p>
+            <p>메인메인</p>
             </div>
         </SiteLayout>
     );

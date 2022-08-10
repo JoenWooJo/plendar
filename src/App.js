@@ -9,6 +9,7 @@ import Myproject from './component/project/Myproject';
 import Login from './pages/Login';
 import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
+import CreateProject from './component/project/CreateProject';
 
 const App= () => (
   
@@ -19,11 +20,12 @@ const App= () => (
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
     {path: '/component', element: <Main />},
-    {path: 'user/mypage', element: <Mypage />},
-    {path: 'calendar/calendar', element: <Calendar />},
-    {path: 'fileSharing/fileSharing', element: <FileSharing />},
-    {path: 'kanbanboard/kanban', element: <Kanban />},
-    {path: 'project/myproject', element: <Myproject />},
+    {path: '/user/mypage', element: <Mypage />},
+    {path: '/calendar/calendar', element: <Calendar />},
+    {path: '/fileSharing/fileSharing', element: <FileSharing />},
+    {path: '/kanbanboard/kanban', element: <Kanban />},
+    {path: '/project/myproject', element: <Myproject />},
+    {path: '/project/createProject', element: <CreateProject />},    
   ])
 
 );
