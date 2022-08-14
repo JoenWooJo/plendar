@@ -1,8 +1,5 @@
 import React from 'react';
-//import '../assets/css/Plendar.css';
 import '../assets/css/plendar.css';
-//import '../assets/scss/navs/_sidebar.scss';
-//import '../assets/vendor/bootstrap/scss/_navbar.scss';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
 
@@ -14,6 +11,12 @@ const Navigation = ({active}) => {
 
             <hr className="sidebar-divider my-0" />
 
+            
+            <div className="text-center mt-5">
+                <img src="/img/exprofile.png" style={{width:'150px'}}></img>
+            <br/><br/>
+            <div className="text-light">전우조 님</div>
+            </div>
            
             <li className="nav-item active">
                 <NavLink className="nav-link" 

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SiteLayout from '../layout/SiteLayout';
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
 
 const Main = () => {
+
+    const[headerTitle,setHeaderTitle]= useState('dddd');
+
     return (
         <SiteLayout>
             <div className="col-xl-11 ml-4">
