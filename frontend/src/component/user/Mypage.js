@@ -58,10 +58,10 @@ const mypage = () => {
                             <div className='col-xl-3 mt-5'>
                                 <img src="/img/exprofile.png" style={{ width: '200px' }}></img>
                                 <div className='row'>
-                                    <Link to="#" style={{ textDecoration: "none" }}>
+                                    <Link to="/user/mypage" style={{ textDecoration: "none" }}>
                                         <button type="button" className=" mt-3 ml-5 btn btn-secondary">사진변경</button>
                                     </Link>
-                                    <Link to="#" style={{ textDecoration: "none" }}>
+                                    <Link to="/user/mypage" style={{ textDecoration: "none" }}>
                                         <button type="button" className=" mt-3 ml-1 btn btn-secondary">삭제</button>
                                     </Link>
                                 </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 
 const Header = () => {
     return (
@@ -12,14 +14,14 @@ const Header = () => {
                                 
                                 <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i className="fas fa-bell fa-fw"></i>
+                                   <MessageRoundedIcon/>
                                     <span className="badge badge-danger badge-counter">3+</span>
                                 </a>
                             </li> 
                             <li className="nav-item dropdown no-arrow mx-1">
                                 <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i className="fas fa-envelope fa-fw"></i>
+                                    <AccessAlarmIcon/>
                                      <span className="badge badge-danger badge-counter">7</span>
                                 </a>
                             </li>
