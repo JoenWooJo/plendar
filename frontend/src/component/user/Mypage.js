@@ -16,6 +16,7 @@ const mypage = () => {
     const [name, setName] = React.useState('전우조');
     const [email, setEmail] = React.useState('jyj6010@gmail.com');
 
+    //비밀번호 객체 따로 다 만들기
     const [values, setValues] = React.useState({
         password: '',
         showPassword: false,
@@ -71,9 +72,7 @@ const mypage = () => {
                             <div className='col-xl-8'>
                                 <Box
                                     component="form"
-                                    sx={{
-                                        '& .MuiTextField-root': { m: 1, width: '25ch' },
-                                    }}
+                                    sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 3 }}
                                     noValidate
                                     autoComplete="off"
                                 >
@@ -85,6 +84,7 @@ const mypage = () => {
                                             maxRows={4}
                                             value={name}
                                             onChange={changeName}
+                                            sx={{ml: 1}}
                                         />
                                     </div>
 
@@ -92,10 +92,11 @@ const mypage = () => {
                                         <TextField
                                             id="outlined-multiline-flexible"
                                             label="email"
-                                            multiline
+                                            multiline                                        
                                             maxRows={5}
                                             value={email}
                                             onChange={changeEmail}
+                                            sx={{ml: 3}}
                                         />
                                     </div>
                                 </Box>

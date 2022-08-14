@@ -18,6 +18,7 @@ const Navigation = ({active}) => {
             <div className="text-light">전우조 님</div>
             </div>
            
+           <div className='ml-3'>
             <li className="nav-item active">
                 <NavLink className="nav-link" 
                          to={'/user/mypage'}> 
@@ -57,6 +58,8 @@ const Navigation = ({active}) => {
                          fileSharing 
                 </NavLink>
             </li>
+
+            </div>
 
             {
                 active == 'user/mypage'?

@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
+import ChatTest from './component/chat/ChatTest';
+import Complete from './component/project/Complete';
 
 const App= () => (
   
@@ -25,7 +27,9 @@ const App= () => (
     {path: '/fileSharing/fileSharing', element: <FileSharing />},
     {path: '/kanbanboard/kanban', element: <Kanban />},
     {path: '/project/myproject', element: <Myproject />},
-    {path: '/project/createProject', element: <CreateProject />},    
+    {path: '/project/createProject', element: <CreateProject />},
+    {path: '/project/complete', element: <Complete />},   
+    {path: '/chat/chatTest', element: <ChatTest />}    
   ])
 
 );
