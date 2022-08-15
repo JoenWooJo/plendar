@@ -8,11 +8,17 @@ const Login = () => {
     const [password, setPassword]= useState('');
     const [success, setSuccess] = useState(false);
 
+    const onEmailHandler = (event) => {
+        setEmail(event.eurrentTarget.value);
+    }
+
     useEffect(() => {
         emailRef.current.focus();
     }, [])
     return (
+        
             <div className="container">
+                
                 <div className="row justify-content-center">
                     <div className="col-xl-10 col-lg-12 col-md-9">
                         <div className="card o-hidden border-0 shadow-lg my-5">
@@ -45,6 +51,7 @@ const Login = () => {
                                                             required />
                                                     </form>
                                                 </div>
+                                                
                                                  {/* 비밀번호 입력 창 */}
                                                 <div className="form-group">
                                                     <form>
@@ -82,6 +89,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            
     );
 };
 

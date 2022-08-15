@@ -8,11 +8,37 @@ const Join = () => {
     const passwordRef = useRef();
     const repeatpasswordRef = useRef();
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+
     const [repeatpassword, setRepeatpassword] = useState('');
 
+    const [email, setEmail] = useState("");
+    const onEmailHandler = (event) => {
+        setEmail(event.currentTarget.value);
+    }
+
+    const [password, setPassword] = useState("");
+    const onPasswordHandler = (event) => {
+        setPassword(event.currentTarget.value);
+    }
+    const [confirmpassword, setConfirmpassword] = useState("");
+    const onConfirmpasswordHandler = (event) => {
+        setConfirmpassword(event.currentTarget.value);
+    }
+    const onSubmit = (event) => {
+        event.preventDefault();
+        console.log(email);
+        console.log(password);
+
+        axios.post('/api/user/login', body);
+        if(password !== confirmpassword){
+            return alert('비밀번호와 비밀번호 확인이 같아야 합니다.')
+        }
+        let body = {
+            email: email,
+            password: password,
+        }
+
+      }
     return (
         <div className="container">
 
