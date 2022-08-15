@@ -135,7 +135,7 @@ const Join = () => {
                                 <a href="/login" className="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </a>
-                            </form>
+                            </div>
                             <hr/>
                             <div className="text-center">
                                 <a className="small" href="/forgotpw">Forgot Password?</a>
