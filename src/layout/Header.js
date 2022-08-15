@@ -6,6 +6,7 @@ const Header = () => {
                 <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
                     {/* <!-- Topbar --> */}
                         {/* <!-- Topbar Navbar --> */}
+                        <h3>plendar</h3>
                         <ul className="navbar-nav ml-auto">
                             {/* <!-- Nav Item - Alerts --> */}
                             <li className="nav-item dropdown no-arrow mx-1">

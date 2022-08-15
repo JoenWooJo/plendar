@@ -119,7 +119,6 @@ const Join = () => {
                                                     required />
                                             </form>
                                         </div>
-
                                     </div>
                                     <a href="/login" className="btn btn-primary btn-user btn-block">
                                         Register Account
@@ -132,6 +131,17 @@ const Join = () => {
                                 <div className="text-center">
                                     <a className="small" href="/login">Already have an account? Login!</a>
                                 </div>
+
+                                <a href="/login" className="btn btn-primary btn-user btn-block">
+                                    Register Account
+                                </a>
+                            </form>
+                            <hr/>
+                            <div className="text-center">
+                                <a className="small" href="/forgotpw">Forgot Password?</a>
+                            </div>
+                            <div className="text-center">
+                                <a className="small" href="/login">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
@@ -141,3 +151,4 @@ const Join = () => {
     );
 };
 export default Join;
+

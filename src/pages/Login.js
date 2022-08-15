@@ -16,9 +16,7 @@ const Login = () => {
         emailRef.current.focus();
     }, [])
     return (
-        
             <div className="container">
-                
                 <div className="row justify-content-center">
                     <div className="col-xl-10 col-lg-12 col-md-9">
                         <div className="card o-hidden border-0 shadow-lg my-5">
@@ -72,7 +70,6 @@ const Login = () => {
                                                     }} className="btn btn-primary btn-user btn-block">Login</a>
                                             </form>
                                             <hr />
-                                            
 
                                             <div className="text-center">
                                                 <a className="small" href="/forgotpw">Forgot Password?</a>

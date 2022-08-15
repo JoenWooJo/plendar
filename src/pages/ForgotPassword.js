@@ -40,6 +40,7 @@ const ForgetPassword = () => {
                                                 required />
                                         </form>
                                     </div>
+
                                         <a href="/login" className="btn btn-primary btn-user btn-block">
                                             Reset Password
                                         </a>

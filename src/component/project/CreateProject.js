@@ -29,18 +29,17 @@ const CreateProject = () => {
         <div>
             <SiteLayout>
             <h1 className="h3 ml-3 text-gray-800">create new project</h1><br/>
-
             <div className="col-xl-12">
            
             <div className="row">
-            <div className="card shadow ml-5 mt-3 col-xl-6">
+            <div className="card shadow ml-5 mt-1 col-xl-6">
                 <div className="card-header1 py-3">
                     <h6 className="m-0 font-weight-bold text-light">project</h6>
                 </div>
                 <div className="card-body">
                     <div className="chart-area">
                     <div className='row'>
-                    <div className='col-xl-6'>
+                    <div className='col-xl-5'>
                     <Typography component="legend"> 프로젝트 제목</Typography>
                     <TextField id="standard-basic" variant="standard" />
                     </div>
@@ -96,8 +95,8 @@ const CreateProject = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="card shadow ml-3 mt-3 col-xl-4">
+            
+            <div className="card shadow ml-3 mt-1 col-xl-4">
                 <div className="card-header1 py-3">
                     <h6 className="m-0 font-weight-bold text-light">Member</h6>
                 </div>
