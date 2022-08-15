@@ -4,11 +4,11 @@ module.exports = function(env) {
     return {
         mode: 'development',
         entry: path.resolve(`src/index.js`),
-        output: {
-            path: path.resolve('public'),
-            filename: 'main.js',
-            assetModuleFilename:'../src/assets/img/[hash][ext]'
-        },
+        // output: {
+        //     path: path.resolve('public'),
+        //     filename: 'main.js',
+        //     assetModuleFilename:'../src/assets/img/[hash][ext]'
+        // },
         module:{
             rules:[{
                 test: /\.js$/i,
@@ -38,6 +38,9 @@ module.exports = function(env) {
             host: '0.0.0.0',
             port: 9090,
             liveReload: true,
+            proxy: {
+                '/api': 'http://localhost:8081'
+            },
             hot: true,
             compress: true,
             historyApiFallback: true

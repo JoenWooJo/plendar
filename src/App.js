@@ -10,11 +10,14 @@ import Login from './pages/Login';
 import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
-
+import LoginPage from './pages/Loginpage';
+import RegisterPage from './pages/Registerpage';
 const App= () => (
   
   useRoutes([
     {path: '/', element: <Main />},
+    {path: '/loginpage', element: <LoginPage />},
+    {path: '/registerpage', element: <RegisterPage />},
 
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},

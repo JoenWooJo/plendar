@@ -1,7 +1,20 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
-
+import {useRef, useState, useEffect} from 'react';
 const Login = () => {
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const [email, setEmail]= useState('');
+    const [password, setPassword]= useState('');
+    const [success, setSuccess] = useState(false);
+
+    const onEmailHandler = (event) => {
+        setEmail(event.eurrentTarget.value);
+    }
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, [])
     return (
             <div className="container">
                 <div className="row justify-content-center">
@@ -17,31 +30,54 @@ const Login = () => {
                                             <div className="text-center">
                                                 <h1 className="h1 text-gray-900 mb-4">Login</h1>
                                             </div>
-                                            <form className="user">
+                                            <form onSubmit = {event => {
+                                                setEmail = event.target.email.value;
+                                                
+                                            }}>
+                                                {/* 이메일 입력 창 */}
                                                 <div className="form-group">
-                                                    <input type="email" className="form-control form-control-user"
-                                                        id="exampleInputEmail" aria-describedby="emailHelp"
-                                                        placeholder="Enter Email Address..." />
+                                                    <form>
+                                                        <input 
+                                                            type = "text"
+                                                            className="form-control email"
+                                                            id = "email"
+                                                            ref = {emailRef}
+                                                            autoComplete = "on"
+                                                            onChange={(e) => setEmail(e.target.value)}
+                                                            value={email}
+                                                            placeholder="Enter Email Address..."
+                                                            required />
+                                                    </form>
                                                 </div>
+                                                
+                                                 {/* 비밀번호 입력 창 */}
                                                 <div className="form-group">
-                                                    <input type="password" className="form-control form-control-user"
-                                                        id="exampleInputPassword" placeholder="Password" />
+                                                    <form>
+                                                        <input 
+                                                            type = "Password"
+                                                            className="form-control email"
+                                                            ref = {passwordRef}
+                                                            autoComplete = "off"
+                                                            onChange={(e) => setPassword(e.target.value)}
+                                                            value={password}
+                                                            placeholder="Password..."
+                                                            required />
+                                                    </form>
                                                 </div>
-                                                <div className="form-group">
-                                                    <div className="custom-control custom-checkbox small">
-                                                        <input type="checkbox" className="custom-control-input" id="customCheck" />
-                                                        <label className="custom-control-label" for="customCheck">Remember Me</label>
-                                                    </div>
-                                                </div>
-                                                <a href="/component" className="btn btn-primary btn-user btn-block">Login</a>
+                                                <a onClick={()=>{ 
+                                                    console.log(email);
+                                                    console.log(password);
+                                                    }} className="btn btn-primary btn-user btn-block">Login</a>
                                             </form>
                                             <hr />
+
                                             <div className="text-center">
                                                 <a className="small" href="/forgotpw">Forgot Password?</a>
                                             </div>
                                             <div className="text-center">
                                                 <a className="small" href="/join">Create an Account!</a>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -50,6 +86,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            
     );
 };
 

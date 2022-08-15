@@ -1,6 +1,10 @@
 import React from 'react';
+import '../assets/scss/sb-admin-2.scss';
+import {useRef, useState, useEffect} from 'react';
 
 const ForgetPassword = () => {
+    const emailRef = useRef();
+    const [email, setEmail]= useState('');
     return (
         <div className="container">
         <div className="row justify-content-center">
@@ -21,11 +25,22 @@ const ForgetPassword = () => {
                                             and we'll send you a link to reset your password!</p>
                                     </div>
                                     <form className="user">
-                                        <div className="form-group">
-                                            <input type="email" className="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..."/>
-                                        </div>
+                                        {/* 이메일 입력 창 */}
+                                    <div className="form-group">
+                                        <form>
+                                            <input
+                                                type="text"
+                                                className="form-control email"
+                                                id="email"
+                                                ref={emailRef}
+                                                autoComplete="on"
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                value={email}
+                                                placeholder="Enter Email Address..."
+                                                required />
+                                        </form>
+                                    </div>
+
                                         <a href="/login" className="btn btn-primary btn-user btn-block">
                                             Reset Password
                                         </a>

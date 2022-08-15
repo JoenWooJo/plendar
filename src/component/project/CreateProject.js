@@ -28,6 +28,7 @@ const CreateProject = () => {
         
         <div>
             <SiteLayout>
+            <h1 className="h3 ml-3 text-gray-800">create new project</h1><br/>
             <div className="col-xl-12">
            
             <div className="row">
@@ -94,7 +95,7 @@ const CreateProject = () => {
                     </div>
                 </div>
             </div>
-
+            
             <div className="card shadow ml-3 mt-1 col-xl-4">
                 <div className="card-header1 py-3">
                     <h6 className="m-0 font-weight-bold text-light">Member</h6>
@@ -110,7 +111,6 @@ const CreateProject = () => {
                         getOptionLabel={(member) =>member.email +" "+ member.name}
                         renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" />}
                         />
-                        
                         </div>
                         <div className='mt-2 col-xl-1'>
                         <button type="button" className="btn btn-secondary">add</button>

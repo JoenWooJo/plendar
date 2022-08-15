@@ -6,6 +6,7 @@ import Footer from "../layout/Footer";
 import '../assets/scss/sb-admin-2.scss';
 
 const SiteLayout = ({children}) => {
+
     return (     
         <Fragment>
             <div className='row'>
