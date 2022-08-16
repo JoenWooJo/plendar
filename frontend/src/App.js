@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
-import ChatTest from './component/chat/ChatTest';
+import Chat from './component/chat/Chat';
 import Complete from './component/project/Complete';
 import Loginpage from './pages/Loginpage';
 
@@ -31,7 +31,7 @@ const App= () => (
     {path: '/project/myproject', element: <Myproject />},
     {path: '/project/createProject', element: <CreateProject />},
     {path: '/project/complete', element: <Complete />},   
-    {path: '/chat/chatTest', element: <ChatTest />}    
+    {path: '/chat', element: <Chat />}    
   ])
 
 );

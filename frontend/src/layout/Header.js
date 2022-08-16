@@ -18,7 +18,7 @@ const Header = () => {
             <ul className="navbar-nav ml-auto">
 
                 <li className="nav-item dropdown no-arrow mx-1">
-                    <Link to="/chat/chatTest" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                    <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <MessageRoundedIcon />
                         <span className="badge badge-danger badge-counter">3+</span>
