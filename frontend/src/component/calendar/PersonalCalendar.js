@@ -12,7 +12,7 @@ import "@fullcalendar/timegrid/main.css";
 
 import '../../assets/css/calendar.css'
 
-export default function TeamCalendar() {
+export default function PersonalCalendar() {
   
     function getRandomColor() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
@@ -21,7 +21,7 @@ export default function TeamCalendar() {
   //DB에서 이벤트(카드) 불러오기
   // const callback = async() => {
   //   const client = axios.create({baseURL: '/api'})
-  //   let response =  await client.get('/calendar/axios/team')
+  //   let response =  await client.get('/calendar/axios/personal')
   //   let li = response.data.data;
   //   console.log(response.data.data);
 
@@ -44,7 +44,6 @@ export default function TeamCalendar() {
          }}
          // 타이틀 설정
          titleFormat={{year: 'numeric', month: 'long'}}
-         height="850px"
          // 달력 일칸 사이즈 비율 고정
          aspectRatio={"1.2"}
          plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
