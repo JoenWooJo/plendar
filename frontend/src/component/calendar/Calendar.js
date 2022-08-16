@@ -6,7 +6,7 @@ import PersonalCalendar from './PersonalCalendar';
 const calendar = () => {
     return (
         <SiteLayout>
-        <div className="col-xl-10">
+        <div className="col-xl-11 ml-4">
             <p>팀</p>
             <TeamCalendar />
             <p>개인</p>
