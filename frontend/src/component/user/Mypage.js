@@ -10,6 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 
 const mypage = () => {
 
@@ -59,12 +60,13 @@ const mypage = () => {
                             <div className='col-xl-3 mt-5'>
                                 <img src="/img/exprofile.png" style={{ width: '200px' }}></img>
                                 <div className='row'>
-                                    <Link to="/user/mypage" style={{ textDecoration: "none" }}>
-                                        <button type="button" className=" mt-3 ml-5 btn btn-secondary">사진변경</button>
-                                    </Link>
-                                    <Link to="/user/mypage" style={{ textDecoration: "none" }}>
-                                        <button type="button" className=" mt-3 ml-1 btn btn-secondary">삭제</button>
-                                    </Link>
+                                    <Button className='mt-2 ml-5 mr-1' variant="outlined" component="label">
+                                        Upload
+                                        <input hidden accept="image/*" multiple type="file" />
+                                    </Button>
+                                    <Button className='mt-2 mr-2' variant="outlined">
+                                        삭제
+                                    </Button>
                                 </div>
                             </div>
 
@@ -84,7 +86,7 @@ const mypage = () => {
                                             maxRows={4}
                                             value={name}
                                             onChange={changeName}
-                                            sx={{ml: 1}}
+                                            sx={{ ml: 1 }}
                                         />
                                     </div>
 
@@ -92,83 +94,83 @@ const mypage = () => {
                                         <TextField
                                             id="outlined-multiline-flexible"
                                             label="email"
-                                            multiline                                        
+                                            multiline
                                             maxRows={5}
                                             value={email}
                                             onChange={changeEmail}
-                                            sx={{ml: 3}}
+                                            sx={{ ml: 3 }}
                                         />
                                     </div>
                                 </Box>
-                                <hr/>
+                                <hr />
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                    <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        type={values.showPassword ? 'text' : 'password'}
-                                        value={values.password}
-                                        onChange={handleChange('password')}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="현재 비밀번호"
-                                    />
-                                    </FormControl>
-                            
                                     <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                    <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        type={values.showPassword ? 'text' : 'password'}
-                                        value={values.password}
-                                        onChange={handleChange('password')}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="비밀번호변경"
-                                    />
+                                        <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            value={values.password}
+                                            onChange={handleChange('password')}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="현재 비밀번호"
+                                        />
                                     </FormControl>
 
                                     <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                    <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password"
-                                        type={values.showPassword ? 'text' : 'password'}
-                                        value={values.password}
-                                        onChange={handleChange('password')}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        label="비밀번호 확인"
-                                    />
+                                        <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            value={values.password}
+                                            onChange={handleChange('password')}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="비밀번호변경"
+                                        />
+                                    </FormControl>
+
+                                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                                        <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password"
+                                            type={values.showPassword ? 'text' : 'password'}
+                                            value={values.password}
+                                            onChange={handleChange('password')}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="비밀번호 확인"
+                                        />
                                     </FormControl>
                                 </Box>
                             </div>
