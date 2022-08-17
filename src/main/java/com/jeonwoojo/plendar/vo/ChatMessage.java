@@ -1,45 +1,19 @@
 package com.jeonwoojo.plendar.vo;
 
-public class ChatMessage {
-    public enum MessageType {
-        ENTER, TALK
-    }
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-    private MessageType type;
-    //채팅방 ID
-    private String roomId;
-    //보내는 사람
+@Getter
+@Setter
+@ToString
+public class ChatMessage {
+    
+	private Long roomId;
     private String sender;
-    //내용
+    private Long userNo;
     private String message;
-	public MessageType getType() {
-		return type;
-	}
-	public void setType(MessageType type) {
-		this.type = type;
-	}
-	public String getRoomId() {
-		return roomId;
-	}
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
-	}
-	public String getSender() {
-		return sender;
-	}
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	@Override
-	public String toString() {
-		return "ChatMessage [type=" + type + ", roomId=" + roomId + ", sender=" + sender + ", message=" + message + "]";
-	}
+    private String dateTime;
     
     
 }

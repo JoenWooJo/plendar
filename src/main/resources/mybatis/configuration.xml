@@ -3,11 +3,13 @@
 <configuration>
    <typeAliases>
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatRoomVo" alias="chatroomvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.UserVo" alias="uservo" />
    </typeAliases>
    
    <mappers>
       <mapper resource="mybatis/mappers/test.xml" />
       <mapper resource="mybatis/mappers/chat.xml" />
+      <mapper resource="mybatis/mappers/project.xml" />
    </mappers>
     
 </configuration>

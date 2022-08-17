@@ -9,15 +9,16 @@ import com.jeonwoojo.plendar.vo.ChatMessage;
 
 
 @RestController
-public class MessageController {
+public class ChatMessageController {
 	@Autowired
 	private SimpMessageSendingOperations sendingOperations;
 
     @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
-        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
-            message.setMessage(message.getSender()+"님이 입장하였습니다.");
-        }
+//        if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
+//            message.setMessage(message.getSender()+"님이 입장하였습니다.");
+//        }
+    	System.out.println("message: "+message);
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
     }
 }

@@ -12,7 +12,7 @@ import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.ChatService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8000")
+@CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/chat")
 public class ChatRoomController {
 	
