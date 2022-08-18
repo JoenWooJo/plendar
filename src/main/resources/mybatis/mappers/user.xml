@@ -9,8 +9,20 @@
 		values (null, #{email }, #{name }, #{password }, "img")
 		]]>
 	</insert>
-
-
 	
-
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+		select no, name
+		  from user
+		 where email=#{email }
+		   and password=#{password }
+		]]>
+	</select>
+	
+	<select id="findUser" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select no, email, name from user where email=#{email } and password=#{password}
+		]]>
+	</select>
+	
 </mapper>

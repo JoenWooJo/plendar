@@ -12,6 +12,7 @@ spring:
       # Path pattern used for static resources
       static-path-pattern: /asstes/**
       throw-exception-if-no-handler-found: true
+      suffix: .mustache
       
 
    web:
@@ -50,6 +51,7 @@ server:
       encoding:
          charset: UTF-8
          enabled: true
+         
          
 # logging configuration
 logging:

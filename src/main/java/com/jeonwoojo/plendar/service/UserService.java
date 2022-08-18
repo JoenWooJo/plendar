@@ -11,9 +11,29 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+
+
+	public boolean insert(UserVo vo) {
+		System.out.println("Service" + vo);
+		return userRepository.insert(vo);
+	}
 	
-	public void join(UserVo vo) {
-		userRepository.insert(vo);
+	public UserVo getUser(UserVo vo) {
+//		UserVo vo = new UserVo();
+		System.out.println("Service" + vo);
+		vo.setEmail(vo.getEmail());
+		vo.setPassword(vo.getPassword());
+		return userRepository.findByEmailAndPassword(vo);
 	}
 
+	public UserVo getUser(String email, String password) {
+		UserVo vo = new UserVo();
+		vo.setEmail(vo.getEmail());
+		vo.setPassword(vo.getPassword());
+		return userRepository.findByEmailAndPassword(vo);
+	}
+
+	public UserVo findUser(UserVo vo) {
+		return userRepository.findUser(vo);
+	}
 }
