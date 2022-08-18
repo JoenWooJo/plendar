@@ -39,7 +39,7 @@ const Join = () => {
             confirmpassword: confirmpassword,
 
         }
-        axios.post('http://localhost:8081/api/user/join', body );
+        axios.post('http://localhost:8080/api/user/join', body );
         }
     }
 
