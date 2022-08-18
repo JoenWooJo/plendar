@@ -12,7 +12,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 
-import SiteLayout from '../../layout/SiteLayout';
+import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 const mypage = () => {
 
@@ -50,7 +50,7 @@ const mypage = () => {
     };
 
     return (
-        <SiteLayout>
+        <SiteLayoutNS>
             <div className="col-xl-11 ml-4">
                 <div className="card shadow">
                     <div className="card-header1 py-3">
@@ -190,7 +190,7 @@ const mypage = () => {
                     </div>
                 </div>
             </div>
-        </SiteLayout>
+        </SiteLayoutNS>
     );
 };
 
