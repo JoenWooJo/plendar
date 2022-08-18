@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import Board, { moveCard } from "@asseinfo/react-kanban";
 import "@asseinfo/react-kanban/dist/styles.css";
 import SiteLayout from '../../layout/SiteLayout';
-//import './style.css';
+import CreateDeck from "./CreateDeck";
+import { id } from "date-fns/locale";
+
 
 const board = {
   columns: [
@@ -77,7 +79,9 @@ const board = {
 
 
 function UncontrolledBoard() {
+ 
   return (
+    
     <Board
       allowRemoveLane
       allowRenameColumn
@@ -98,16 +102,22 @@ function UncontrolledBoard() {
 
 
 const kanban = () => {
-    return (
-        
-        <SiteLayout>
-            <div className="ml-4">
-            <h4>도훈이의 미니프로젝트</h4>
-                <UncontrolledBoard />
-           </div>
-        </SiteLayout>
-        
-    );
+  return (
+
+    <SiteLayout>
+      <div className="col-xl-11 ml-4">
+        <div className="card shadow mb-4">
+          <div className="card-header1 py-3">
+            <h6 className="m-0 font-weight-bold text-light"> plendar project kanban</h6>
+          </div>
+          <div className="card-body">
+            <CreateDeck />
+          </div>
+        </div>
+      </div>
+    </SiteLayout>
+
+  );
 };
 
 export default kanban;

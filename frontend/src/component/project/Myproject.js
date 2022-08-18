@@ -2,8 +2,6 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import SiteLayout from '../../layout/SiteLayout';
 
-
-
 const Myproject = () => {
 
     return (
@@ -29,9 +27,7 @@ const Myproject = () => {
                         <i className="fas fa-download fa-sm text-white-50"></i>
                         create project </NavLink>
                 </div>
-
                 <div className="row">
-
                 <div className="col-xl-3  mb-4">
                             <div className="card border-left-secondary shadow h-100 py-2">
                                 <div className="card-body">
