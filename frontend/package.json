@@ -45,6 +45,7 @@
     "date-fns": "^2.29.1",
     "devextreme": "^22.1.4",
     "devextreme-react": "^22.1.4",
+    "dayjs": "^1.11.5",
     "mdb-ui-kit": "^4.4.0",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
