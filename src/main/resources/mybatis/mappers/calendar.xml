@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="calendar">
+	<select id="findAll" resultType="calendarvo">
+		<![CDATA[
+			select a.name as 'userName', b.no as 'id', b.title, b.start_date as 'start', b.end_date as 'end'
+				from user a, card b, card_member c
+				    where a.no = c.user_no
+				    and b.no = c.card_no
+				    group by b.no;
+		]]>
+	</select>
+	<select id="findByNo" resultType="calendarvo">
+		<![CDATA[
+			select a.name as 'userName', b.no as 'id', b.title, b.start_date as 'start', b.end_date as 'end'
+				from user a, card b, card_member c
+				    where a.no = c.user_no
+				    and b.no = c.card_no
+				    and a.no = "1"
+				    group by b.no;
+		]]>
+	</select>
+</mapper>
