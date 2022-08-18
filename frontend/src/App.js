@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRoutes } from 'react-router';
+
 import Main from './component/Main';
 import Mypage from './component/user/Mypage';
 import Calendar from './component/calendar/Calendar';
@@ -12,15 +13,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
 import Chat from './component/chat/Chat';
 import Complete from './component/project/Complete';
-import Loginpage from './pages/Loginpage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
 
 const App= () => (
   
   useRoutes([
     {path: '/', element: <Main />},
-
-    {path: '/loginpage', element: <Loginpage />},
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
