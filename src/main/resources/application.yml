@@ -1,7 +1,7 @@
 # spring configuration
 spring:
    application:
-      name: plendar
+      name: fullcalendar
 
    # devtools - live reload
    devtools:
@@ -18,7 +18,7 @@ spring:
    web:
       resources:
          # Locations of static resources
-         static-locations: classpath:/static/
+         static-locations: classpath:/assets/
 
    thymeleaf:
       prefix: classpath:templates/

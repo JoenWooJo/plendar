@@ -2,6 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
    <typeAliases>
+      <typeAlias type="com.jeonwoojo.plendar.vo.CalendarVo" alias="calendarvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatRoomVo" alias="chatroomvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.UserVo" alias="uservo" />
    </typeAliases>
@@ -10,6 +11,7 @@
       <mapper resource="mybatis/mappers/test.xml" />
       <mapper resource="mybatis/mappers/chat.xml" />
       <mapper resource="mybatis/mappers/user.xml" />
+      <mapper resource="mybatis/mappers/calendar.xml" />
       <mapper resource="mybatis/mappers/project.xml" />
    </mappers>
     
