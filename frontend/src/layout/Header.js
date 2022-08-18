@@ -9,9 +9,9 @@ const Header = () => {
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
 
-            <div class="input-group rounded col-xl-3">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <span class="input-group-text border-0" id="search-addon">
+            <div className="input-group rounded col-xl-3">
+                <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <span className="input-group-text border-0" id="search-addon">
                     <SearchIcon/>
                 </span>
             </div>

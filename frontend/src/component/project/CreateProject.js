@@ -42,10 +42,10 @@ const CreateProject = () => {
     const addUser = Member.map((m, key)=>{
         return(
         <tr>
-        <td key={key.no}>{m.name}</td>
-        <td key={key.no}>{m.email}</td>
-        <td key={key.no}><Checkbox checked={permission.no} onClick={onChangeCheckbox} /></td>
-        <td key={key.no}>
+        <td key={key}>{m.name}</td>
+        <td key={key}>{m.email}</td>
+        <td key={key}><Checkbox checked={permission.no} onClick={onChangeCheckbox} /></td>
+        <td key={key}>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16">
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg> 
@@ -59,7 +59,7 @@ const CreateProject = () => {
         <div>
             <SiteLayout>
             <div className="col-xl-12">
-           
+        
             <div className="row">
             <div className="card shadow ml-5 mt-1 col-xl-6">
                 <div className="card-header1 py-3">
@@ -73,7 +73,7 @@ const CreateProject = () => {
                     <TextField id="standard-basic" variant="standard" />
                     </div>
 
-                    <div className='col-xl-5'>
+                    <div className='col-xl-6'>
                     <Typography component="legend"> 프로젝트 중요도</Typography>
                     <Rating
                     name="simple-controlled"
@@ -162,7 +162,7 @@ const CreateProject = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {addUser}
+                               
                             </tbody>
                             </table>
                         </div>
