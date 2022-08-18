@@ -30,9 +30,9 @@ spring:
       
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mysql://192.168.10.50:3306/plendar_test?characterEncoding=utf8
-      username: ENC(vZina5Duc7FXOVWnRJuA8M6g8yjlLZf2qBANa4YkFXnGUsNjuzbzEbRfclk3I1Uj)
-      password: ENC(FQhFy9iiZAGPxbUQrgyWbO4cdYRkpo/9DiESuE5tG0+URnpJoMJcHRH8wOGnGisY)
+      url: jdbc:mysql://34.64.81.221:3306/plendar?characterEncoding=utf8
+      username: ENC(bm+3OxWFqFign+Nd+Dp3Op30vcOlTPTlXiKAuGKT1cAMhup5fuFKRLxfySTjfoH3)
+      password: ENC(9UKbp63zb6Dia33ahXsonli6aEffomUYpgM26cVHbG+5/D/Xzq2zwhoJABERUEjmIlAxy/Aw6C+SvH3aIIq61w==)
       hikari:
            minimum-idle: 10
            maximum-pool-size: 20
