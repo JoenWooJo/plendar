@@ -39,7 +39,7 @@ const Join = () => {
             confirmpassword: confirmpassword,
 
         }
-        axios.post('http://localhost:8081/api/user/join', body );
+        axios.post('http://localhost:8080/api/user/join', body );
         }
     }
 
@@ -65,8 +65,9 @@ const Join = () => {
                                     </div>
 
                                     {/* 이메일 입력 창 */}
-                                    <div className="form-group">
-                                            <input type="email" className="form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required/>
+                                    <div className="form-group row">
+                                            <input type="email" className=" col-sm-8 mb-3 ml-2 mb-sm-0 form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required/>
+                                            <button type="submit" className=" col-sm-3 ml-2 btn btn-primary btn-user btn-block" value="submit" >중복검사</button>
                                     </div>
 
                                     <div className="form-group row">

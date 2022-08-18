@@ -21,7 +21,7 @@ const Login = () => {
             email: email,
             password: password,
         }
-        axios.post('http://localhost:8081/api/user/login', body )
+        axios.post('http://localhost:8080/api/user/login', body )
             .then((resp)=>{
                 console.log(resp);
             })
