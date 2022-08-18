@@ -46,16 +46,12 @@ const Login = () => {
                                             <form className= "user" onSubmit = {onSubmit} >
                                                 {/* 이메일 입력 창 */}
                                                 <div className="form-group">
-                                                    <form>
-                                                        <input type="email" className="form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required />
-                                                    </form>
+                                                    <input type="email" className="form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required />
                                                 </div>
                                                 
                                                  {/* 비밀번호 입력 창 */}
                                                 <div className="form-group">
-                                                    <form>
-                                                        <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password..." required/>
-                                                    </form>
+                                                    <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password..." required/>
                                                 </div>
                                                 <button type="submit" className="btn btn-primary btn-user btn-block" value="submit" >Login</button>
 

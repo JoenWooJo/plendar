@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import '../assets/css/dropdown-content.css';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
@@ -24,12 +24,20 @@ const Header = () => {
                         <span className="badge badge-danger badge-counter">3+</span>
                     </Link>
                 </li>
+                
                 <li className="nav-item dropdown no-arrow mx-1">
-                    <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                    <div className="nav-link dropdown-toggle"  id="messagesDropdown" 
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <AccessAlarmIcon />
-                        <span className="badge badge-danger badge-counter">7</span>
-                    </a>
+                        <div className = "dropdown">
+                            <img width="18"eight="12" src="/img/arlam.png"></img>
+                            <form className="dropdown-content">
+                                <a href="#">보고싶을때</a>
+                                <a href="#">그리울때</a>
+                                <a href="#">함께있을때</a>
+                            </form>
+                        </div>
+                        <span className="badge badge-danger badge-counter">현석이가</span>
+                    </div>
                 </li>
                 <div className="topbar-divider d-none d-sm-block"></div>
 

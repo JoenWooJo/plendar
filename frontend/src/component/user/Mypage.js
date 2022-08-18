@@ -39,7 +39,47 @@ const mypage = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+//
+const [newvalues, setNewValues] = React.useState({
+    password: '',
+    showPassword: false,
+});
 
+const newhandleChange = (prop) => (event) => {
+    setNewValues({ ...newvalues, [prop]: event.target.value });
+};
+
+const newhandleClickShowPassword = () => {
+    setNewValues({
+        ...newvalues,
+        showPassword: !newvalues.showPassword,
+    });
+};
+
+const newhandleMouseDownPassword = (event) => {
+    event.preventDefault();
+};
+//
+const [confirmvalues, setConfirmValues] = React.useState({
+    password: '',
+    showPassword: false,
+});
+
+const confirmhandleChange = (prop) => (event) => {
+    setConfirmValues({ ...confirmvalues, [prop]: event.target.value });
+};
+
+const confirmhandleClickShowPassword = () => {
+    setConfirmValues({
+        ...confirmvalues,
+        showPassword: !confirmvalues.showPassword,
+    });
+};
+
+const confirmhandleMouseDownPassword = (event) => {
+    event.preventDefault();
+};
+//
 
     const changeName = (event) => {
         setName(event.target.value);
@@ -133,18 +173,18 @@ const mypage = () => {
                                         <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
                                         <OutlinedInput
                                             id="outlined-adornment-password"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            value={values.password}
-                                            onChange={handleChange('password')}
+                                            type={newvalues.showPassword ? 'text' : 'password'}
+                                            value={newvalues.password}
+                                            onChange={newhandleChange('password')}
                                             endAdornment={
                                                 <InputAdornment position="end">
                                                     <IconButton
                                                         aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
+                                                        onClick={newhandleClickShowPassword}
+                                                        onMouseDown={newhandleMouseDownPassword}
                                                         edge="end"
                                                     >
-                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                        {newvalues.showPassword ? <VisibilityOff /> : <Visibility />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             }
@@ -156,18 +196,18 @@ const mypage = () => {
                                         <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
                                         <OutlinedInput
                                             id="outlined-adornment-password"
-                                            type={values.showPassword ? 'text' : 'password'}
-                                            value={values.password}
-                                            onChange={handleChange('password')}
+                                            type={confirmvalues.showPassword ? 'text' : 'password'}
+                                            value={confirmvalues.password}
+                                            onChange={confirmhandleChange('password')}
                                             endAdornment={
                                                 <InputAdornment position="end">
                                                     <IconButton
                                                         aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
+                                                        onClick={confirmhandleClickShowPassword}
+                                                        onMouseDown={confirmhandleMouseDownPassword}
                                                         edge="end"
                                                     >
-                                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                        {confirmvalues.showPassword ? <VisibilityOff /> : <Visibility />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             }

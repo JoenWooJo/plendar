@@ -12,7 +12,6 @@ import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
 import Chat from './component/chat/Chat';
 import Complete from './component/project/Complete';
-import Loginpage from './pages/Loginpage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
 
 const App= () => (
@@ -20,7 +19,6 @@ const App= () => (
   useRoutes([
     {path: '/', element: <Main />},
 
-    {path: '/loginpage', element: <Loginpage />},
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
