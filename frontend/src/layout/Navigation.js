@@ -45,7 +45,7 @@ const Navigation = ({active}) => {
 
             <li className="nav-item active">
                 <NavLink className="nav-link" 
-                         to={'/calendar/calendar'}> 
+                         to={'/calendar/team'}> 
                          <i className="fas fa-fw fa-tachometer-alt"></i>
                          calendar 
                 </NavLink>

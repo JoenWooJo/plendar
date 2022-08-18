@@ -13,6 +13,7 @@ import CreateProject from './component/project/CreateProject';
 import Chat from './component/chat/Chat';
 import Complete from './component/project/Complete';
 import Loginpage from './pages/Loginpage';
+import PersonalCalendar from './component/calendar/PersonalCalendar';
 
 const App= () => (
   
@@ -25,7 +26,8 @@ const App= () => (
     {path: '/forgotpw', element: <ForgotPassword/>},
     {path: '/component', element: <Main />},
     {path: '/user/mypage', element: <Mypage />},
-    {path: '/calendar/calendar', element: <Calendar />},
+    {path: '/calendar/team', element: <Calendar />},
+    {path: '/calendar/Personal', element: <PersonalCalendar />},
     {path: '/fileSharing/fileSharing', element: <FileSharing />},
     {path: '/kanbanboard/kanban', element: <Kanban />},
     {path: '/project/myproject', element: <Myproject />},

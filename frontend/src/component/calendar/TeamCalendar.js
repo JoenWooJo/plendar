@@ -1,10 +1,12 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import SiteLayout from '../../layout/SiteLayout';
+import { Link } from 'react-router-dom';
 
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
@@ -17,21 +19,31 @@ export default function TeamCalendar() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
     }
 
-  //DB에서 이벤트(카드) 불러오기
-  // const callback = async() => {
-  //   const client = axios.create({baseURL: '/api'})
-  //   let response =  await client.get('/calendar/axios/team')
-  //   let li = response.data.data;
-  //   console.log(response.data.data);
+  // DB에서 이벤트(카드) 불러오기
+  const callback = async() => {
+    const client = axios.create({baseURL: '/api'})
+    let response =  await client.get('/calendar/axios/team')
+    let li = response.data.data;
+    console.log(response.data.data);
 
-  //   for(let i=0; i < li.length; i++){
-  //       li[i]['color'] = getRandomColor();
-  //   }
+    for(let i=0; i < li.length; i++){
+        li[i]['color'] = getRandomColor();
+    }
 
-  //   return response.data.data;
-  // }
+    return response.data.data;
+  }
 
     return (
+      <SiteLayout>
+      <div className="col-xl-11 ml-4">
+          <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <label className="btn btn-secondary active">
+                  <Link to ="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
+              </label>
+              <label className="btn btn-secondary">
+                  <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none" }}> 개인 </Link>
+              </label>
+      </div>
       <div className="App">
         <FullCalendar
          defaultView="dayGridMonth"
@@ -39,11 +51,11 @@ export default function TeamCalendar() {
          headerToolbar={{
            left: "prevYear,prev,next,nextYear",
            center: "title",
-           right: "today"
+           right: "today",
          }}
          // 타이틀 설정
          titleFormat={{year: 'numeric', month: 'long'}}
-         height="850px"
+         height="800px"
          // 달력 일칸 사이즈 비율 고정
          aspectRatio={"1.2"}
          plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
@@ -59,9 +71,11 @@ export default function TeamCalendar() {
             
           }
           
-          // events={callback}
+          events={callback}
       />
       </div>
+      </div>
+      </SiteLayout>
     );
 }
 

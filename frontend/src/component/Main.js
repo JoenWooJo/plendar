@@ -10,7 +10,7 @@ const Main = () => {
     return (
         <SiteLayout>
             <div className="col-xl-11 ml-4">
-            <div className="card shadow">
+                <div className="card shadow">
                     <div className="card-header1 py-3">
                         <h6 className="m-0 font-weight-bold text-light">Let's start plendar</h6>
                     </div>
