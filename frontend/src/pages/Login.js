@@ -1,7 +1,33 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
+import {useRef, useState, useEffect} from 'react';
+import axios from "axios";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const onEmailHandler = (event) => {
+        setEmail(event.currentTarget.value);
+    }
+
+    const [password, setPassword] = useState("");
+    const onPasswordHandler = (event) => {
+        setPassword(event.currentTarget.value);
+    }
+    const onSubmit = (event) => {
+        event.preventDefault(); // 성공시 페이지 이동해야함 
+        console.log(email);
+        console.log(password);
+        let body = {
+            email: email,
+            password: password,
+        }
+        axios.post('http://localhost:8081/api/user/login', body )
+            .then((resp)=>{
+                console.log(resp);
+            })
+    }
+
+
     return (
             <div className="container">
                 <div className="row justify-content-center">
@@ -17,31 +43,32 @@ const Login = () => {
                                             <div className="text-center">
                                                 <h1 className="h1 text-gray-900 mb-4">Login</h1>
                                             </div>
-                                            <form className="user">
+                                            <form className= "user" onSubmit = {onSubmit} >
+                                                {/* 이메일 입력 창 */}
                                                 <div className="form-group">
-                                                    <input type="email" className="form-control form-control-user"
-                                                        id="exampleInputEmail" aria-describedby="emailHelp"
-                                                        placeholder="Enter Email Address..." />
+                                                    <form>
+                                                        <input type="email" className="form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required />
+                                                    </form>
                                                 </div>
+                                                
+                                                 {/* 비밀번호 입력 창 */}
                                                 <div className="form-group">
-                                                    <input type="password" className="form-control form-control-user"
-                                                        id="exampleInputPassword" placeholder="Password" />
+                                                    <form>
+                                                        <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password..." required/>
+                                                    </form>
                                                 </div>
-                                                <div className="form-group">
-                                                    <div className="custom-control custom-checkbox small">
-                                                        <input type="checkbox" className="custom-control-input" id="customCheck" />
-                                                        <label className="custom-control-label" for="customCheck">Remember Me</label>
-                                                    </div>
-                                                </div>
-                                                <a href="/component" className="btn btn-primary btn-user btn-block">Login</a>
+                                                <button type="submit" className="btn btn-primary btn-user btn-block" value="submit" >Login</button>
+
                                             </form>
                                             <hr />
+
                                             <div className="text-center">
                                                 <a className="small" href="/forgotpw">Forgot Password?</a>
                                             </div>
                                             <div className="text-center">
                                                 <a className="small" href="/join">Create an Account!</a>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -50,6 +77,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+    
     );
 };
 
