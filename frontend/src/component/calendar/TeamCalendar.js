@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -19,19 +19,19 @@ export default function TeamCalendar() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
     }
 
-  //DB에서 이벤트(카드) 불러오기
-  // const callback = async() => {
-  //   const client = axios.create({baseURL: '/api'})
-  //   let response =  await client.get('/calendar/axios/team')
-  //   let li = response.data.data;
-  //   console.log(response.data.data);
+  // DB에서 이벤트(카드) 불러오기
+  const callback = async() => {
+    const client = axios.create({baseURL: '/api'})
+    let response =  await client.get('/calendar/axios/team')
+    let li = response.data.data;
+    console.log(response.data.data);
 
-  //   for(let i=0; i < li.length; i++){
-  //       li[i]['color'] = getRandomColor();
-  //   }
+    for(let i=0; i < li.length; i++){
+        li[i]['color'] = getRandomColor();
+    }
 
-  //   return response.data.data;
-  // }
+    return response.data.data;
+  }
 
     return (
       <SiteLayout>
@@ -71,7 +71,7 @@ export default function TeamCalendar() {
             
           }
           
-          // events={callback}
+          events={callback}
       />
       </div>
       </div>
