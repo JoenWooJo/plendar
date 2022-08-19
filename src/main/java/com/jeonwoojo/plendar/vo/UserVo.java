@@ -9,4 +9,5 @@ public class UserVo {
 	private String name;
 	private String password;
 	private String profile;
+	private String permission;
 }

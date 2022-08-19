@@ -4,6 +4,7 @@
    <typeAliases>
       <typeAlias type="com.jeonwoojo.plendar.vo.CalendarVo" alias="calendarvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatRoomVo" alias="chatroomvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ProjectVo" alias="projectvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.UserVo" alias="uservo" />
    </typeAliases>
    

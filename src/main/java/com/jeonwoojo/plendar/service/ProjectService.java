@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.ProjectRepository;
+import com.jeonwoojo.plendar.vo.ProjectVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 @Service
@@ -16,6 +17,10 @@ public class ProjectService {
 	
 	public List<UserVo> findUser() {
 		return projectRepository.findUser();
+	}
+
+	public ProjectVo createProject(ProjectVo projectVo) {
+		return projectRepository.createProject(projectVo);
 	}
 
 }
