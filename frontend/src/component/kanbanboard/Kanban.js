@@ -17,7 +17,12 @@ const board = {
         {
           id: 1,
           title: "Card title 1",
-          description: "Card content"
+          description: [
+              {
+                id: 1,
+                title: "task1"
+              }
+                       ]
         },
         {
           id: 2,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import dayjs from "dayjs";
 
-import SiteLayout from '../../layout/SiteLayout';
+import SiteLayoutNS from '../../layout/SiteLayoutNS';
 import { TextField, Typography, Rating, Autocomplete, Checkbox } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -95,7 +95,7 @@ const CreateProject = () => {
     return (
 
         <div>
-            <SiteLayout>
+            <SiteLayoutNS>
                 <div className="col-xl-12">
 
                     <div className="row">
@@ -234,7 +234,7 @@ const CreateProject = () => {
                         </Link>
                     </center>
                 </div>
-            </SiteLayout>
+            </SiteLayoutNS>
         </div>
     );
 };

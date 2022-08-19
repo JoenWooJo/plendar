@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
+import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 const Myproject = () => {
 
     return (
-        <SiteLayout>
+        <SiteLayoutNS>
             <div className="col-xl-11 ml-4">
             <div className="card shadow mb-4">
                     <div className="card-header1 py-3">
@@ -69,7 +69,7 @@ const Myproject = () => {
                 </div>
                 </div>
             </div>
-        </SiteLayout>
+        </SiteLayoutNS>
     );
 };
 
