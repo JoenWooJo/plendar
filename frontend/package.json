@@ -24,7 +24,6 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "@asseinfo/react-kanban": "2.2.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

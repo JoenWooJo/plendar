@@ -1,25 +1,25 @@
-import React,{ useState } from 'react';
+import React ,{useState} from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+const AddTask = () => {
 
-const CreateDeck = () => {
-    
-const handleShow = () => setShow(true);
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
 
     return (
-        <div>
-      <Button variant="primary" onClick={handleShow}>덱 추가하기</Button>
-      <Modal show={show} onHide={handleClose}>
+        <div className='col-xl-2'>
+        <MoreVertIcon onClick={handleShow}/>
+        <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>덱 추가하기</Modal.Title>
+          <Modal.Title>테스크 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>덱 이름</Form.Label>
+              <Form.Label>테스크 이름</Form.Label>
               <Form.Control
                 type="title"
                 autoFocus
@@ -40,4 +40,4 @@ const handleClose = () => setShow(false);
     );
 };
 
-export default CreateDeck;
+export default AddTask;
