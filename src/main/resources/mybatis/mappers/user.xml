@@ -8,20 +8,22 @@
 		  into user
 		values (null, #{email }, #{name }, #{password }, "img")
 		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
 	</insert>
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-		select no, name
-		  from user
-		 where email=#{email }
-		   and password=#{password }
+			select no, email, name from user where email=#{email } and password=#{password}
 		]]>
 	</select>
 	
-	<select id="findUser" parameterType="uservo" resultType="uservo">
+	<select id="checkEmail" parameterType="string" resultType="uservo">
 		<![CDATA[
-			select no, email, name from user where email=#{email } and password=#{password}
+			select email from user where email=#{email }
 		]]>
 	</select>
 	

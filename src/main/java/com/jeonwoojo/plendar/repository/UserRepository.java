@@ -20,8 +20,8 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findByEmailAndPassword", vo);
 	}
 
-	public UserVo findUser(UserVo vo) {
-		return sqlSession.selectOne("user.findUser", vo);
+	public UserVo checkEmail(String email) {
+		return sqlSession.selectOne("user.checkEmail", email);
 	}
 
 	public boolean updateUser(UserVo vo) {
