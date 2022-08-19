@@ -73,10 +73,7 @@ public class UserController {
 			HttpServletResponse response) {
 		System.out.println("join: "+vo);
 		userService.insert(vo);
-//	    session.getAttribute("user_id");
-//	    session.getAttribute("user_name");
-//		session.setAttribute("user_email", vo.getEmail());
-//	    session.setAttribute("user_name", vo.getName());
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(vo));
@@ -84,18 +81,35 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<JsonResult> login(@RequestBody UserVo vo, HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("login:"+vo);
-		
+			HttpServletResponse response) {	
 		UserVo loginUser = userService.findUser(vo);
-		
-		System.out.println("loginUser: "+loginUser);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(loginUser));
 	}
-
+	
+	@PostMapping("/axios/update")
+	public ResponseEntity<JsonResult> updateUser(@RequestBody UserVo vo) {
+		System.out.println("modify: "+vo);
+		userService.updateUser(vo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(vo));
+	}
+	
+	@PostMapping("/updateProfile")
+	public ResponseEntity<JsonResult> update(@RequestBody UserVo vo) {
+		System.out.println("modify: "+vo);
+//		userService.updateProfile(vo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(vo));
+	}
+	
+	
 	
 	@RequestMapping(value="/auth")
 	public void auth() {
