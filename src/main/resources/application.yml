@@ -45,7 +45,7 @@ mybatis:
     config-location: classpath:mybatis/configuration.xml
 
 server:
-   port: 8081
+   port: 8080
    servlet:
       context-path: /
       encoding:

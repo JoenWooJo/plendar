@@ -13,16 +13,24 @@ public class UserRepository {
 	private SqlSession sqlSession;
 	
 	public boolean insert(UserVo vo) {
-		System.out.println("repositry" + vo);
 		return sqlSession.insert("user.insert", vo) == 1;
 	}
 
 	public UserVo findByEmailAndPassword(UserVo vo) {
-		System.out.println("repositry" + vo);
 		return sqlSession.selectOne("user.findByEmailAndPassword", vo);
 	}
 
-	public UserVo findUser(UserVo vo) {
-		return sqlSession.selectOne("user.findUser", vo);
+	public UserVo checkEmail(String email) {
+		return sqlSession.selectOne("user.checkEmail", email);
+	}
+
+	public boolean updateUser(UserVo vo) {
+		System.out.println("repositry" + vo);
+		return sqlSession.insert("user.updateUser", vo) == 1;
+	}
+
+	public boolean updateProfile(UserVo vo) {
+		System.out.println("repositry" + vo);
+		return sqlSession.insert("user.updateProfile", vo) == 1;
 	}
 }
