@@ -1,7 +1,5 @@
 package com.jeonwoojo.plendar.service;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,10 +33,6 @@ public class UserService {
 		vo.setEmail(email);
 		vo.setPassword(password);
 		return userRepository.findByEmailAndPassword(vo);
-	}
-
-	public UserVo findUser(UserVo vo) {
-		return userRepository.findUser(vo);
 	}
 
 	public boolean updateUser (UserVo vo) {
