@@ -27,4 +27,20 @@
 		]]>
 	</select>
 	
+	<update id="updateUser" parameterType="uservo">
+		<![CDATA[
+		update user_U 
+		 set name = #{name }, password as = #{password } 
+		where no = 1
+		]]>
+	</update>
+	
+	<update id="updateProfile" parameterType="uservo">
+		<![CDATA[
+		update user 
+		 set profile = #{profile } 
+		where no = #{no }
+		]]>
+	</update>
+	
 </mapper>

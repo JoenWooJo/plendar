@@ -8,7 +8,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jeonwoojo</groupId>
-	<artifactId>plendar</artifactId>
+	<artifactId>plendar_spring_boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>plendar</name>
 	<description>plendar project for Spring Boot</description>

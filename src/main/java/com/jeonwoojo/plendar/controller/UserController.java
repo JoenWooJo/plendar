@@ -50,12 +50,25 @@ public class UserController {
 				.body(JsonResult.fail("insert 실패"));
 	}
 	
-	@PostMapping("/login")
-	public void login() {
+	
+	@PostMapping("/axios/update")
+	public ResponseEntity<JsonResult> updateUser(@RequestBody UserVo vo) {
+		System.out.println("modify: "+vo);
+		userService.updateUser(vo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(vo));
 	}
 	
-	@GetMapping("/logout")
-	public void logout() {
+	@PostMapping("/updateProfile")
+	public ResponseEntity<JsonResult> update(@RequestBody UserVo vo) {
+		System.out.println("modify: "+vo);
+//		userService.updateProfile(vo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(vo));
 	}
 
 }

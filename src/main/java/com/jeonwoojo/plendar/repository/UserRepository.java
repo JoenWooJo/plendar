@@ -23,4 +23,14 @@ public class UserRepository {
 	public UserVo checkEmail(String email) {
 		return sqlSession.selectOne("user.checkEmail", email);
 	}
+
+	public boolean updateUser(UserVo vo) {
+		System.out.println("repositry" + vo);
+		return sqlSession.insert("user.updateUser", vo) == 1;
+	}
+
+	public boolean updateProfile(UserVo vo) {
+		System.out.println("repositry" + vo);
+		return sqlSession.insert("user.updateProfile", vo) == 1;
+	}
 }
