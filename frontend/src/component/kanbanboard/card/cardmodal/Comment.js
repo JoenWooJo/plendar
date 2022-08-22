@@ -57,10 +57,10 @@ const Comment = () => {
                     />
                 </Form.Group>
 
-                <Button style={{ height: "50px" }} className={"col-xl-1 mt-3",
-                        comment.length > 0
-                            ?'submitCommentActive'
-                            :'submitCommentInactive'}
+                <Button style={{ height: "50px" }} className={"col-xl-1 mt-3"+
+                        comment.length > 0 ?
+                            'submitCommentActive' :
+                            'submitCommentInactive'}
                              variant="primary"
                              onClick={post}
                              disabled={isValid?false:true}
