@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRoutes } from 'react-router';
+
 import Main from './component/Main';
 import Mypage from './component/user/Mypage';
 import Calendar from './component/calendar/Calendar';
@@ -18,11 +19,10 @@ const App= () => (
   
   useRoutes([
     {path: '/', element: <Main />},
-
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
-    {path: '/component', element: <Main />},
+    {path: '/component', element: <Main />},                                                                                                                                                                                                                                 
     {path: '/user/mypage', element: <Mypage />},
     {path: '/calendar/team', element: <Calendar />},
     {path: '/calendar/Personal', element: <PersonalCalendar />},
