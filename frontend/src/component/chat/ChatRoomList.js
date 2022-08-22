@@ -23,7 +23,7 @@ const ChatRoomList = ({callback, chatRoomId, roomList}) => {
                             <ChatRoom
                                 key={e.no}
                                 selected={e.no === chatRoomId}
-                                chatRoomName={e.name}
+                                chatRoomName={e.title}
                                 roomNo={e.no}
                                 callback={callback}/>
                         ))                            
