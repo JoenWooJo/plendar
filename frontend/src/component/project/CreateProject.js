@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import dayjs from "dayjs";
 
@@ -31,7 +31,7 @@ const CreateProject = () => {
                 const userList = resp.data.data;
                 const list = [];
                 userList.map((e) => {
-                    list.push({ no: e.no, name: e.name, email: e.email, permission: false });
+                    list.push({ no: e.no, name: e.name, email: e.email});
                 })
                 setUser(list);
             })
@@ -78,6 +78,10 @@ const CreateProject = () => {
 
         member[index] = data;
     }
+
+    const onRemove = (no) => {
+        localStorage.getItem('loginUserNo') != no && setMember(member.filter(user=>user.no!==no));
+      }
 
     return (
 
@@ -172,7 +176,7 @@ const CreateProject = () => {
                                                     newValue != null && setSelectUser(newValue)
                                                 }}
                                                 getOptionLabel={(user) => user.email + " " + user.name}
-                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' />}
+                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' type='select'/>}
                                             />
                                         </div>
                                         <div className='mt-2 col-xl-1'>
@@ -204,13 +208,8 @@ const CreateProject = () => {
                                                                 <td>{m.email}</td>
                                                                 <td><Checkbox  id={'permission_checkbox_'+i} onClick={()=>{is_checked(i)}}
                                                                 /></td>
-                                                                <td>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16"
-                                                                        onClick={()=>{console.log("삭제 해야해,,~~!!! ",i)
-                                                                        member.splice(i, 1);
-                                                                        console.log(member);
-                                                                    }}
-                                                                    >
+                                                                <td onClick={()=>onRemove(m.no)}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16">
                                                                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                                                                     </svg>
                                                                 </td>
