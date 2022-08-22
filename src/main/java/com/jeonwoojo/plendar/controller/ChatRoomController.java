@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.ChatService;
@@ -24,6 +25,13 @@ public class ChatRoomController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(chatService.findAllRoom()));
+	}
+	
+	@GetMapping("/room/member")
+	public ResponseEntity<JsonResult> roomMemberList(@RequestParam(value="no") long no) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(chatService.findRoomMember(no))); 
 	}
 	
 }

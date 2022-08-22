@@ -22,7 +22,6 @@ public class ProjectRepository {
 
 	public ProjectVo createProject(ProjectVo projectVo) {
 		sqlSession.insert("project.createProject", projectVo);
-		System.out.println("repo: "+projectVo.getMember());
 		
 		List<UserVo> list = projectVo.getMember();
 		
@@ -30,16 +29,17 @@ public class ProjectRepository {
 		map.put("projectNo", projectVo.getNo());
 		
 		for (int i=0;i<list.size();i++) {
-			System.out.println(list.get(i));
 			if(list.get(i).getPermission() == null) {
-				list.get(i).setPermission("'N'");
+				list.get(i).setPermission("0");
 			} else {
-				list.get(i).setPermission("'Y'");
+				list.get(i).setPermission("1");
 			}
 			map.put("userVo", list.get(i));
 			sqlSession.insert("project.insertMember", map);
 			map.remove("userVo");
 		}
+		
+		sqlSession.insert("chat.chatRoomCreate", projectVo);
 		
 		return projectVo;
 	}

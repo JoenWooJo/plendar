@@ -1,12 +1,8 @@
 package com.jeonwoojo.plendar.vo;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class ProjectMemberVo {
 	private long userNo;
 	private long projectNo;

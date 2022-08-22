@@ -4,7 +4,25 @@
 <mapper namespace="chat">
 	<select id="findAllRoom" resultType="chatroomvo">
 		<![CDATA[
-			select no, name from chat_room
+			select no, title from chat_room
 		]]>
 	</select>
+	
+	<insert id="chatRoomCreate" parameterType="projectvo">
+		<![CDATA[
+			insert
+				into chat_room
+			 values (#{no }, #{title })
+		]]>
+	</insert>
+	
+	<select id="findRoomMember" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select a.no, a.name, a.email, a.profile, b.no as projectNo 
+				from user a, chat_room b, proj_member c 
+			 where b.no = c.project_no and c.user_no = a.no and b.no = #{no} 
+		]]>
+	</select>
+	
+	
 </mapper>
