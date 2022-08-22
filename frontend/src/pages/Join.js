@@ -69,7 +69,6 @@ const Join = () => {
             return;
         }
         
-
         else if (!regCheck(isKorEng, name)) {
             event.preventDefault();
             alert('이름은 한글 또는 영문으로 입력 해주세요');
