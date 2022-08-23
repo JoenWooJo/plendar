@@ -31,7 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Bean
 	public HandlerInterceptor authInterceptor() {
 		return new AuthInterceptor();
-	}	
+	}
 
 	// Argument Resolver
 	@Bean
@@ -46,8 +46,13 @@ public class WebConfig implements WebMvcConfigurer {
 
 		registry.addInterceptor(logoutInterceptor()).addPathPatterns("/api/user/logout");
 
-//		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/assets/**")
-//				.excludePathPatterns("/user/auth").excludePathPatterns("/user/logout");
+		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/assets/**")
+				.excludePathPatterns("/api/user/login").excludePathPatterns("/api/user/logout");
+	}
+	
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(handlerMethodArgumentResolver());
 	}
 	
 	@Override

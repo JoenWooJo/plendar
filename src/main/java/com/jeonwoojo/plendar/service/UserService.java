@@ -35,7 +35,6 @@ public class UserService {
 		return userRepository.findByEmailAndPassword(vo);
 	}
 
-
 	public boolean updateUser (UserVo vo) {
 		System.out.println("Service" + vo);
 		return userRepository.updateUser(vo);

@@ -1,12 +1,10 @@
 package com.jeonwoojo.plendar.vo;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.List;
 
-@Getter
-@Setter
-@ToString
+import lombok.Data;
+
+@Data
 public class ProjectVo {
 	private long no;
 	private String title;
@@ -15,4 +13,5 @@ public class ProjectVo {
 	private String endDate;
 	private int priority;
 	private String finished;
+	private List<UserVo> member; 
 }

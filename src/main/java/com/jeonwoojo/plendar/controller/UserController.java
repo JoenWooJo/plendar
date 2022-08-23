@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.security.AuthUser;
@@ -50,11 +51,11 @@ public class UserController {
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JsonResult.fail("insert 실패"));
 	}
-
-	@PostMapping("/login")
+	
+	@RequestMapping("/login")
 	public void login() {
 	}
-
+	
 	@GetMapping("/logout")
 	public void logout() {
 	}
