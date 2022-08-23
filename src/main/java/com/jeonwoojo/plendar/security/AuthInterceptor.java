@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.vo.UserVo;
 
-
 public class AuthInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -24,6 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 			// DefaultServletHandler가 처리하는 정적 자원
 			return true;
 		}
+    
 		// 2. casting
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
 		

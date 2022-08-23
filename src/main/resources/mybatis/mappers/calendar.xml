@@ -11,13 +11,13 @@
 				    group by b.no;
 		]]>
 	</select>
-	<select id="findByNo" resultType="calendarvo">
+	<select id="findByNo" resultType="calendarvo" >
 		<![CDATA[
 			select a.name as 'userName', b.no as 'id', b.title, b.start_date as 'start', b.end_date as 'end'
 				from user a, card b, card_member c
 				    where a.no = c.user_no
 				    and b.no = c.card_no
-				    and a.no = "1"
+				    and a.no = #{no }
 				    group by b.no;
 		]]>
 	</select>

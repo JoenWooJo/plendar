@@ -29,7 +29,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		response.setContentType("application/json");
 		UserVo authUser = userService.getUser(email, password);
 		
-		
 		if (authUser == null) {
 			// 3. json 응답
 			response.setStatus(HttpServletResponse.SC_OK);

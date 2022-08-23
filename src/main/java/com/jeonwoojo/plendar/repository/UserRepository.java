@@ -31,6 +31,6 @@ public class UserRepository {
 
 	public boolean updateProfile(UserVo vo) {
 		System.out.println("repositry" + vo);
-		return sqlSession.insert("user.updateProfile", vo) == 1;
+		return sqlSession.update("user.updateProfile", vo) == 1;
 	}
 }
