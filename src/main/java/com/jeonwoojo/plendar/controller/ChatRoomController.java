@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.ChatService;
+import com.jeonwoojo.plendar.vo.ChatMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
@@ -37,6 +40,14 @@ public class ChatRoomController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(chatService.findRoomMember(no))); 
+	}
+	
+	@GetMapping("/room/messages")
+	public ResponseEntity<JsonResult> roomMessages(@RequestParam(value="roomId") long roomId) {
+		List<ChatMessage> messages = chatService.findMessages(roomId);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(messages)); 
 	}
 	
 }

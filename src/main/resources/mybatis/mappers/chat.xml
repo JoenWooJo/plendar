@@ -30,9 +30,15 @@
 		<![CDATA[
 			insert
 				into chat_message
-			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime })
+			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime }, #{senderName })
 		]]>
 	</insert>
 	
+	
+	<select id="findMessages" parameterType="long" resultType="message">
+		<![CDATA[
+			select no, room_id as roomId, sender, message, send_time as sendTime, sender_name as senderName from chat_message where room_id = #{roomId }
+		]]>
+	</select>
 	
 </mapper>

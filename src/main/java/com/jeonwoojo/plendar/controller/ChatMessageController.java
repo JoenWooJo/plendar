@@ -25,6 +25,6 @@ public class ChatMessageController {
     	System.out.println("message: "+message);
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
         
-//        chatService.chatMessageInsert(message);
+        chatService.chatMessageInsert(message);
     }
 }

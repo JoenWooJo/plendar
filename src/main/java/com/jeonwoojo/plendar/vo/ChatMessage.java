@@ -9,4 +9,5 @@ public class ChatMessage {
     private long sender;
     private String message;
     private String sendTime;
+    private String senderName;
 }
