@@ -3,6 +3,7 @@ import axios from "axios";
 
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 const Join = () => {
     const [name, setName] = useState("");
@@ -27,20 +28,20 @@ const Join = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     let isKorEng = /^[가-힣a-zA-Z]+$/; // 이름: 한글이나 영문
-	let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
+   let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
     let isEngNum = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 비밀번호: 영문,숫자
 
     const regCheck = (regex, val) => {
-		if (regex.test(val)) {
-			return true;
-		}
-	}
+      if (regex.test(val)) {
+         return true;
+      }
+   }
 
     const doubleCheck = () => {
         if (email == '') {
             return alert('Email 입력해 주세요');
         }
-        axios.post('http://localhost:8080/api/user/check/email', {
+        axios.post('/api/user/check/email', {
             email: email
         }).then((resp)=>{
             if (resp.data.data) {
@@ -86,8 +87,37 @@ const Join = () => {
             alert('비밀번호는 영문,숫자를 사용하여 6자 이상 입력 해주세요');
             return;
         }
-        axios.post('http://localhost:8080/api/user/join', body );
 
+        else if (!checkEmail) {
+            event.preventDefault();
+            alert('Email 중복체크 해주세요');
+            return;
+        }
+
+        else if (password !== confirmpassword) {
+            event.preventDefault();
+            alert('비밀번호와 비밀번호 확인이 같아야 합니다!');
+            setPassword("");
+            setConfirmpassword("");
+            return;
+        }
+    
+        else {
+            const data = {
+                name: name,
+                email: email,
+                password: password,
+                confirmpassword: confirmpassword,
+
+            }
+            axios.post('/api/user/join', data)
+                .then((resp) => {
+                    console.log(resp.data.result);
+                }).catch((err) => {
+                    console.error(err);
+                });
+        }
+    }
 
     return (
         <div className="container">
@@ -121,7 +151,7 @@ const Join = () => {
                                         <div className="col-sm-6 mb-3 mb-sm-0">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password of 6 or more... " required />
                                         </div>
-                                        {/* 컨펌 비밀번호 입력 창 */}
+                                        {/* 콘필름 비밀번호 입력 창 */}
                                         <div className="col-sm-6">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={confirmpassword} onChange={onConfirmpasswordHandler} placeholder="Confirm Password..." required />
                                         </div>
