@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="chat">
-	<select id="findAllRoom" resultType="chatroomvo">
+	<select id="findAllRoom" parameterType="long" resultType="chatroomvo">
 		<![CDATA[
-			select no, title from chat_room
+			select cr.no, cr.title 
+				from chat_room cr, proj_member pm 
+			 where cr.no = pm.project_no and pm.user_no=#{userNo };
 		]]>
 	</select>
 	
@@ -23,6 +25,14 @@
 			 where b.no = c.project_no and c.user_no = a.no and b.no = #{no} 
 		]]>
 	</select>
+	
+	<insert id="chatMessageInsert" parameterType="message">
+		<![CDATA[
+			insert
+				into chat_message
+			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime })
+		]]>
+	</insert>
 	
 	
 </mapper>
