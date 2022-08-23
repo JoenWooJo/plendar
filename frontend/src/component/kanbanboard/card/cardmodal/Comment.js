@@ -9,17 +9,20 @@ const Comment = () => {
     const [comment, setComment] = useState('');
     const [feedComments, setFeedComments] = useState([]);
     const [isValid, setIsValid] = useState(false);
-    const nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    const [date, setDate]= useState([]);
+    let nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
+   
 
     let post = e =>{
         setFeedComments([...feedComments, comment]);
+        setDate([...date, nowTime]);
         setComment('');
     };
 
-    const CommentList = ({name, comment}) => {
+    const CommentList = ({name, comment, date}) => {
         return(
             <div>{name} : {comment } 
-            <div className='float-right'> {nowTime}</div>
+            <div className='float-right'>{date}</div>
             </div>  
         )
     }
@@ -27,11 +30,11 @@ const Comment = () => {
     return (
         <div>
             comment
-            <Card style={{ height: "200px" }} >
+            <Card style={{ height: "200px", overflow:"auto"}} >
             {feedComments.map((commentArr, i)=>{
                 return(
                 <Card body key={i}>
-                       <CommentList name={userName} comment={commentArr}/>
+                       <CommentList name={userName} comment={commentArr} date={nowTime}/>
                 </Card>
                 );
             })}
@@ -57,10 +60,7 @@ const Comment = () => {
                     />
                 </Form.Group>
 
-                <Button style={{ height: "50px" }} className={"col-xl-1 mt-3",
-                        comment.length > 0
-                            ?'submitCommentActive'
-                            :'submitCommentInactive'}
+                <Button style={{ height: "50px" }} className="col-xl-1 mt-3"
                              variant="primary"
                              onClick={post}
                              disabled={isValid?false:true}

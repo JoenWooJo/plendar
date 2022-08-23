@@ -57,8 +57,6 @@ const Deck = () => {
                 <Card />
             </div>
         </div>
-
-
     );
 };
 
