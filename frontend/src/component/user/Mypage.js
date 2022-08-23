@@ -127,7 +127,7 @@ const mypage = () => {
                 profile: profile,
             }
 
-            axios.post('http://localhost:8080/api/user/updateUser', body)
+            axios.post('/api/user/updateUser', body)
                 .then((resp) => {
                     console.log(resp);
                 })
