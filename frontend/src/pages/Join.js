@@ -3,6 +3,7 @@ import axios from "axios";
 
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 const Join = () => {
     const [name, setName] = useState("");
@@ -40,7 +41,7 @@ const Join = () => {
         if (email == '') {
             return alert('Email 입력해 주세요');
         }
-        axios.post('http://localhost:8080/api/user/check/email', {
+        axios.post('/api/user/check/email', {
             email: email
         }).then((resp)=>{
             if (resp.data.data) {
@@ -109,7 +110,7 @@ const Join = () => {
                 confirmpassword: confirmpassword,
 
             }
-            axios.post('http://localhost:8080/api/user/join', data)
+            axios.post('/api/user/join', data)
                 .then((resp) => {
                     console.log(resp.data.result);
                 }).catch((err) => {

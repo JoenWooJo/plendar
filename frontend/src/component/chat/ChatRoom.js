@@ -17,7 +17,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
 
     const memberListClick = () => {
         console.log(roomNo);
-        axios.get('http://localhost:8080/api/chat/room/member', {
+        axios.get('/api/chat/room/member', {
             params: {
               no: roomNo
             }

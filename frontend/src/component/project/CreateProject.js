@@ -27,7 +27,7 @@ const CreateProject = () => {
     const [user, setUser] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/project/find/user')
+        axios.get('/api/project/find/user')
             .then((resp) => {
                 const userList = resp.data.data;
                 const list = [];
@@ -48,7 +48,7 @@ const CreateProject = () => {
         // }
         // console.log(projectData);
 
-        axios.post('http://localhost:8080/api/project/create', { 
+        axios.post('/api/project/create', { 
             title: title,
             description: description,
             priority: priority,

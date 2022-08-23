@@ -12,6 +12,7 @@ import * as SockJS from "sockjs-client";
 import SiteLayout from '../../layout/SiteLayout';
 import ChatRoomList from './ChatRoomList';
 import ChatMessageList from './ChatMessageList';
+import { func } from 'prop-types';
 
 
 const Chat = () => {
@@ -35,18 +36,23 @@ const Chat = () => {
         setRoomIdSelected(id); 
     };
 
-    useEffect(()=>{
-        console.log("!!!!!");
-        axios.get('http://localhost:8080/api/chat/rooms')
-            .then((resp)=>{
-            setRoomList(resp.data.data);
-        })
-        
-        connect();
 
-        return () => {
-            disconnect();
-          };
+    useEffect(() => {
+        async function fetchAndSetRooms() { 
+            console.log("!!!!!");
+            connect();
+            const resp = await axios.get('/api/chat/rooms');
+            console.log(resp.data);
+            if (resp.data.result == "fail") {
+                alert(resp.data.message);
+                window.location.replace("/login");
+            }
+            setRoomList(resp.data.data);
+        } 
+        fetchAndSetRooms();
+        // return () => {
+        //     disconnect();
+        // };
     },[]);
 
     
@@ -108,7 +114,7 @@ const Chat = () => {
     //     client.current.unsubscribe();
     // }
 
-    const publish = async (sender, line) => {
+    const publish = async (line) => {
         if (!client.current.connected) {
             return;
         }
@@ -129,8 +135,8 @@ const Chat = () => {
             body: JSON.stringify({
                 roomId: roomIdSelected,
                 message: line,
-                sender: sender,
-                dateTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`
+                sender: localStorage.getItem("loginUserNo"),
+                sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`
             }),
         });
 
@@ -142,19 +148,19 @@ const Chat = () => {
     return (
         <SiteLayout>
             <div className='col-xl-11 ml-4'>
-                    <div className="card mt-5">
-                        <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
-                            { /**컴포넌트,,? */}
-                            <ChatRoomList 
-                                callback={changeRoomIdSelected}
-                                chatRoomId={roomIdSelected} 
-                                roomList={roomList} />
-                            <ChatMessageList
-                                messages={messages}
-                                chatRoomId={roomIdSelected}
-                                publish={publish} />
-                        </div>
+                <div className="card mt-5">
+                    <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
+                        { /**컴포넌트,,? */}
+                        <ChatRoomList
+                            callback={changeRoomIdSelected}
+                            chatRoomId={roomIdSelected}
+                            roomList={roomList} />
+                        <ChatMessageList
+                            messages={messages}
+                            chatRoomId={roomIdSelected}
+                            publish={publish} />
                     </div>
+                </div>
             </div>
         </SiteLayout>
     );

@@ -33,9 +33,9 @@ const ChatMessageList = ({chatRoomId, messages, publish}) => {
                         {chatRoomId}
                         {
                             messages.map((msg, i) => {
-                                const date = msg["dateTime"].split(" ")[0];
-                                const time = msg["dateTime"].split(" ")[1];
-                                return msg.sender == '나나' ? 
+                                const date = msg["sendTime"].split(" ")[0];
+                                const time = msg["sendTime"].split(" ")[1];
+                                return msg.sender == localStorage.getItem("loginUserNo") ? 
                                 <ChatMessageSend key={i} content={msg.message} date={date.split("-")[1]+'월'+date.split("-")[2]+'일'} time={time.split(":")[0]+":"+time.split(":")[1]}/>:
                                 <ChatMessageReceive key={i} name={msg.sender} content={msg.message} date={date.split("-")[1]+'월'+date.split("-")[2]+'일'} time={time.split(":")[0]+":"+time.split(":")[1]}/>
                             })
@@ -78,7 +78,7 @@ const ChatMessageList = ({chatRoomId, messages, publish}) => {
                                 setMessage(e.target.value);
                             }}
                         />
-                        <button onClick={() => publish(name, message)}>send</button>
+                        <button onClick={() => publish(message)}>send</button>
                     </div>
                 </div>
             ) : (
