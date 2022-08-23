@@ -9,6 +9,9 @@ module.exports = function(env) {
             filename: 'assets/js/main.js',
             assetModuleFilename:'../src/assets/img/[hash][ext]'
         },
+        resolve: {
+            mainFields: [ 'browser', 'dev:module', 'module', 'main' ]
+          },
         module:{
             rules:[{
                 test: /\.js$/i,

@@ -14,7 +14,11 @@ import "@fullcalendar/timegrid/main.css";
 import '../../assets/css/calendar.css'
 
 export default function PersonalCalendar() {
+
+  const no = localStorage.getItem("loginUserNo")
+  console.log("loginUserNo: ", no)
   
+    // 랜덤 컬러
     function getRandomColor() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
     }

@@ -15,6 +15,7 @@ import '../../assets/css/calendar.css'
 
 export default function TeamCalendar() {
   
+    // 랜덤 컬러
     function getRandomColor() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
     }
@@ -33,13 +34,13 @@ export default function TeamCalendar() {
     return response.data.data;
   }
 
-  const handleEventClick = (e) => {
-    console.log(e);
-    e.jsEvent.preventDefault();
+  // const handleEventClick = (e) => {
+  //   console.log(e);
+  //   e.jsEvent.preventDefault();
 
     // const scheduleId = e.event._def.extendedProps.scheduleId;
     // modalOpen(scheduleId);
-  };
+  // };
 
     return (
       <SiteLayout>
@@ -78,7 +79,7 @@ export default function TeamCalendar() {
             }
             
           }
-          eventClick={handleEventClick()}
+          // eventClick={handleEventClick()}
           events={callback}
       />
       </div>
