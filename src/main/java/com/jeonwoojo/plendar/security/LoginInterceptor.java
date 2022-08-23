@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,14 +23,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("test");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		response.setContentType("application/json");
 		UserVo authUser = userService.getUser(email, password);
 		
-		System.out.println("authUser"+authUser);
+		
 		if (authUser == null) {
 			// 3. json 응답
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -52,9 +49,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 //		System.out.println(authUser);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
-
+		
+		System.out.println("여기여기"+session.getAttribute("authUser"));
+		
 		// 3. json 응답
-		System.out.println("응답");
 		response.setStatus(HttpServletResponse.SC_OK);
 
 		JsonResult jsonResult = JsonResult.success(authUser);

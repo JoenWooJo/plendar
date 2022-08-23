@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.ProjectService;
+import com.jeonwoojo.plendar.vo.ProjectVo;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -22,11 +23,12 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<JsonResult> create(@RequestBody Object data) {
-		System.out.println("data: "+data);
+	public ResponseEntity<JsonResult> create(@RequestBody ProjectVo projectVo) {
+		System.out.println("data: "+projectVo);
+		ProjectVo newVo = projectService.createProject(projectVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(null));
+				.body(JsonResult.success(newVo));
 	}
 	
 	@GetMapping("/find/user")

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.UserService;
@@ -50,14 +51,13 @@ public class UserController {
 				.body(JsonResult.fail("insert 실패"));
 	}
 	
-	@PostMapping("/login")
+	@RequestMapping("/login")
 	public void login() {
 	}
 	
 	@GetMapping("/logout")
 	public void logout() {
 	}
-	
 	
 	@PostMapping("/axios/update")
 	public ResponseEntity<JsonResult> updateUser(@RequestBody UserVo vo) {

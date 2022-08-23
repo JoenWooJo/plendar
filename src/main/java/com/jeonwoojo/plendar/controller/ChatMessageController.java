@@ -5,6 +5,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
 
 
@@ -12,6 +13,9 @@ import com.jeonwoojo.plendar.vo.ChatMessage;
 public class ChatMessageController {
 	@Autowired
 	private SimpMessageSendingOperations sendingOperations;
+	
+	@Autowired
+	private ChatService chatService;
 
     @MessageMapping("/chat/message")
     public void enter(ChatMessage message) {
@@ -20,5 +24,7 @@ public class ChatMessageController {
 //        }
     	System.out.println("message: "+message);
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(),message);
+        
+//        chatService.chatMessageInsert(message);
     }
 }
