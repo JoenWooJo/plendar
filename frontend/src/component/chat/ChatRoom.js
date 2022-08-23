@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 
 // import '../../assets/css/mdb.dark.min.css';
@@ -14,6 +15,20 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
         callback(roomNo);
     };
 
+    const memberListClick = () => {
+        console.log(roomNo);
+        axios.get('/api/chat/room/member', {
+            params: {
+              no: roomNo
+            }
+          })
+            .then((resp)=>{
+                console.log(resp.data.data);
+            }).catch((err)=>{
+                console.error(err);
+            })
+    }
+
     return (
         <li className="p-2 border-bottom">
             <div className="d-flex justify-content-between" style={{backgroundColor: selected ? "#EFEFFA" : "#fff", borderRadius: "10px"}} >
@@ -29,6 +44,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
                     </div>
                 </div>
                 <div className="pt-1">
+                    <button onClick={memberListClick}>:</button>
                     <p className="small text-muted mb-1">Just now</p>
                     <span className="badge bg-danger rounded-pill float-end">3</span>
                 </div>

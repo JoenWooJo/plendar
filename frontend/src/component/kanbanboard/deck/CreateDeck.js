@@ -1,5 +1,6 @@
 import React,{ useState } from 'react';
-import {Form, Modal, Button} from 'react-bootstrap';
+import {Form, Modal} from 'react-bootstrap';
+import Button from '@mui/material/Button';
 
 
 const CreateDeck = () => {
@@ -24,14 +25,6 @@ const handleClose = () => setShow(false);
                 autoFocus
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>설명</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-
           </Form>
         </Modal.Body>
         <Modal.Footer>

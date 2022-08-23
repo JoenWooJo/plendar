@@ -15,7 +15,7 @@ const ChatRoomList = ({callback, chatRoomId, roomList}) => {
     return (
         <div className="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 p-3">
             {/**검색바 */}
-            <SearchBar />
+            <SearchBar roomList={roomList}/>
             <div className="bar" data-mdb-perfect-scrollbar="true" style={{ position: 'relative', height: '400px' }}>
                 <ul className="list-unstyled mb-0">
                     {/**채팅방 */
@@ -23,7 +23,7 @@ const ChatRoomList = ({callback, chatRoomId, roomList}) => {
                             <ChatRoom
                                 key={e.no}
                                 selected={e.no === chatRoomId}
-                                chatRoomName={e.name}
+                                chatRoomName={e.title}
                                 roomNo={e.no}
                                 callback={callback}/>
                         ))                            

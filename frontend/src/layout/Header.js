@@ -9,7 +9,7 @@ import axios from 'axios';
 const Header = () => {
 
     const logoutClick = async () => {
-        await axios.get('http://localhost:8080/api/user/logout')
+        await axios.get('/api/user/logout')
 
         localStorage.removeItem("loginUserNo");
         localStorage.removeItem("loginUserEmail");

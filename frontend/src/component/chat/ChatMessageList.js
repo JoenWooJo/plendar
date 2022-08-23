@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // import '../../assets/css/mdb.dark.min.css';
 // import '../../assets/css/mdb.dark.rtl.min.css';
@@ -12,25 +12,33 @@ import ChatMessageSend from "./ChatMessageSend";
 
 
 const ChatMessageList = ({chatRoomId, messages, publish}) => {
-    
+    useEffect(()=>{
+        if(messages.length !== 0){
+            document.getElementById('chatList').scrollTop = document.getElementById('chatList').scrollHeight;
+        }
+    },[messages])
+
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
-
+    
     return (
-        <div className="col-md-6 col-lg-7 col-xl-8">
+        <div className="col-md-6 col-lg-7 col-xl-8" >
            {chatRoomId != -1 ? (
                 <div>
                     <div
+                        id="chatList"
                         className="bar pt-3 pe-3"
                         data-mdb-perfect-scrollbar="true"
                         style={{ position: "relative", height: "400px" }}>
                         {chatRoomId}
                         {
-                            messages.map((msg, i) => (
-                                msg.sender == '나나' ? 
-                                <ChatMessageSend key={i} content={msg.message} date={msg.date} time={msg.time}/>:
-                                <ChatMessageReceive key={i} name={msg.sender} content={msg.message} date={msg.date} time={msg.time}/>
-                            ))
+                            messages.map((msg, i) => {
+                                const date = msg["sendTime"].split(" ")[0];
+                                const time = msg["sendTime"].split(" ")[1];
+                                return msg.sender == localStorage.getItem("loginUserNo") ? 
+                                <ChatMessageSend key={i} content={msg.message} date={date.split("-")[1]+'월'+date.split("-")[2]+'일'} time={time.split(":")[0]+":"+time.split(":")[1]}/>:
+                                <ChatMessageReceive key={i} name={msg.sender} content={msg.message} date={date.split("-")[1]+'월'+date.split("-")[2]+'일'} time={time.split(":")[0]+":"+time.split(":")[1]}/>
+                            })
                         }
                     </div>
 
@@ -70,16 +78,28 @@ const ChatMessageList = ({chatRoomId, messages, publish}) => {
                                 setMessage(e.target.value);
                             }}
                         />
-                        <button onClick={() => publish(name, message)}>send</button>
+                        <button onClick={() => publish(message)}>send</button>
                     </div>
                 </div>
             ) : (
                 <div>
-                    <h3>방 클릭해주셈욤</h3>
+                    <img src="/images/chatImage.svg" alt="" style={chatImage} />
                 </div>
             )}
         </div>
     );
 };
+
+const chatImage = {
+    padding : '50px',
+    position : "absolute", 
+    top :'0', 
+    left:'0',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign : 'center',
+}
 
 export default ChatMessageList;
