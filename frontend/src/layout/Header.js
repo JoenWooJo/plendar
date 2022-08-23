@@ -1,11 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import '../assets/scss/sb-admin-2.scss';
-import '../assets/css/dropdown-content.css';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+
+import HeaderDropdown from './HeaderDropdown';
+
 
 const Header = () => {
+
+    const[alramList , setAlramList] = useState (false);
+
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
 
@@ -25,19 +31,14 @@ const Header = () => {
                     </Link>
                 </li>
                 
-                <li className="nav-item dropdown no-arrow mx-1">
-                    <div className="nav-link dropdown-toggle"  id="messagesDropdown" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div className = "dropdown">
-                            <img width="18"eight="12" src="/img/arlam.png"></img>
-                            <form className="dropdown-content">
-                                <a href="#">보고싶을때</a>
-                                <a href="#">그리울때</a>
-                                <a href="#">함께있을때</a>
-                            </form>
-                        </div>
-                        <span className="badge badge-danger badge-counter">현석이가</span>
+                <li className="nav-item dropdown no-arrow mx-1 ">
+                    <div className="nav-link dropdown-toggle"  href="#" role="button" id="alertsDropdown" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" >
+                            <AccessAlarmIcon onClick={e => {setAlramList(alramList =>!alramList)}}/>
+                        <span className="badge badge-danger badge-counter">.</span>
+                        {alramList ? <HeaderDropdown />:null  }
                     </div>
+                    
                 </li>
                 <div className="topbar-divider d-none d-sm-block"></div>
 

@@ -74,7 +74,7 @@ const Join = () => {
                                         <div className="col-sm-6 mb-3 mb-sm-0">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password..." required/>
                                         </div>
-                                        {/* 콘필름 비밀번호 입력 창 */}
+                                        {/* 컨펌 비밀번호 입력 창 */}
                                         <div className="col-sm-6">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={confirmpassword} onChange={onConfirmpasswordHandler} placeholder="ConfirmPassword..." required/>
                                         </div>
