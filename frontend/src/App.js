@@ -5,7 +5,6 @@ import Main from './component/Main';
 import Mypage from './component/user/Mypage';
 import Calendar from './component/calendar/Calendar';
 import FileSharing from './component/fileSharing/FileSharing';
-import Kanban from './component/kanbanboard/Kanban';
 import Myproject from './component/project/Myproject';
 import Login from './pages/Login';
 import Join from './pages/Join';
@@ -27,7 +26,6 @@ const App= () => (
     {path: '/calendar/team', element: <Calendar />},
     {path: '/calendar/Personal', element: <PersonalCalendar />},
     {path: '/fileSharing/fileSharing', element: <FileSharing />},
-    {path: '/kanbanboard/kanban', element: <Kanban />},
     {path: '/project/myproject', element: <Myproject />},
     {path: '/project/createProject', element: <CreateProject />},
     {path: '/project/complete', element: <Complete />},   

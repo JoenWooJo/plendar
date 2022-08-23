@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -27,19 +27,24 @@ const updateUser = async (data) => {
     return response.data.data;
 }
 
-const updateProfile = async () => {
-    let resp = await client.post('/user/axios/updateProfile')
-    let li = resp.data.data;
-    console.log("!!!!", resp.data.data);
+const updateProfile = async (data) => {
+    let resp = await client.post('/api/user/axios/updateProfile', {}, {
+        resp: {
+            data
+        }
+    })
+        .then(resp => resp.status)
+        .catch(err => console.warn(err));
+    console.log("!!!!", resp);
 
-    return resp.data.data;
+    return resp.profile;
 }
 
 const mypage = () => {
 
-    useEffect(()=>{
-        console.log("login no : ",localStorage.getItem("loginUserNo"));
-    },[]);
+    useEffect(() => {
+        console.log("login no : ", localStorage.getItem("loginUserNo"));
+    }, []);
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
     const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
@@ -134,12 +139,86 @@ const mypage = () => {
     const onSubmitP = (event) => {
         event.preventDefault();
         console.log(profile);
-            let body = {
-                no: localStorage.getItem("loginUserNo"),
-                profile: profile
-            }
+        let body = {
+            no: localStorage.getItem("loginUserNo"),
+            profile: profile
+        }
 
-            updateProfile(body);
+        updateProfile(body);
+    }
+
+    const uploadFile = (file, order, file_group) => {
+        // event.preventDefault();
+        setProfile(file);
+        console.log("file: ",file);
+        
+        const formData = new FormData();
+        
+        formData.append('order', order);
+        formData.append('file_group', file_group);
+        formData.append('file', file);
+        
+        
+
+        // axios({
+        //     method: 'POST',
+        //     url: `/orders/file`,
+        //     data: formData,
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data',
+        //     },
+        // })
+        // .then((response) => {
+        //     console.log('then');
+        //     console.log(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log('error');
+        //     console.error(error);
+        // });
+
+    };
+
+    const refForm = useRef(null);
+    
+    const handleSubmit = async function(e) {
+        e.preventDefault();
+
+        console.log(e.target['file'].files[0]);
+
+    
+        if (e.target['file'].files.length === 0) {
+            console.error(`validation ${e.target['file'].placeholder} is empty`);
+            return;
+        }
+
+        const file = e.target['file'].files[0];
+
+        // Create FormData
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Post
+        const response = await client.post(`/user/axios/updateProfile`, formData ,{
+            headers: { 
+                'Accept': 'application/json'
+            }
+        });
+
+        console.log(response.data)
+
+        // // fetch success?
+        // if (!response.ok) {
+        //     throw `${response.status} ${response.statusText}`;
+        // }
+
+        // // API success?
+        // const json = await response.json();
+        // if (json.result !== 'success') {
+        //     throw json.message;
+        // }
+
+        // console.log(json.data);
     }
 
     return (
@@ -150,21 +229,31 @@ const mypage = () => {
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
                     <div className="card-body" >
-
                         <div className='row ml-5'>
-                            <div className='col-xl-3 mt-5'>
-                                <img src="/img/exprofile.png" style={{ width: '200px' }}></img>
-                                <div className='row'>
-                                    <Button className='mt-2 ml-5 mr-1' variant="outlined" component="label" onClick={onSubmitP} >
-                                        Upload
-                                        <input hidden accept="image/*" multiple type="file" />
-                                    </Button>
-                                    <Button className='mt-2 mr-2' variant="outlined" >
-                                        삭제
-                                    </Button>
-                                </div>
-                            </div>
+                            <form
+                                onSubmit={handleSubmit} 
+                                ref={refForm}>
+                                <div className='col-xl-3 mt-5'>
+                                    <img src= {localStorage.getItem("loginUserProfile")} style={{ width: '200px' }}></img>
+                                    <div className='row' >
+                                    <input
+                                        type={'file'}
+                                        name={'file'}
+                                        placeholder={'이미지(사진)'}/>
+                            <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
+                                refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
+                            }}>
+                                올리기
+                            </Button>
+                            <Button className='mt-2 mr-2' variant="outlined" >
+                                삭제
+                            </Button>
 
+
+                                    </div>
+                                        
+                                </div>
+                            </form>
 
                             <div className='col-xl-8' >
                                 <Box
@@ -293,3 +382,7 @@ const mypage = () => {
 };
 
 export default mypage;
+
+
+
+//# sourceURL=mypage.js
