@@ -23,6 +23,7 @@ const Login = () => {
             email: email,
             password: password,
         }
+        
         axios.post('/api/user/login', new URLSearchParams(data))
             .then((resp)=>{
                 const result = resp.data.data;

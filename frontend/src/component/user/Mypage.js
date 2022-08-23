@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from "axios";
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -12,10 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
-
-
 
 const client = axios.create({ baseURL: '/api' })
 
@@ -41,7 +38,6 @@ const updateProfile = async (data) => {
 }
 
 const mypage = () => {
-
     useEffect(() => {
         console.log("login no : ", localStorage.getItem("loginUserNo"));
     }, []);
@@ -116,6 +112,7 @@ const mypage = () => {
     //=====================================================================
     const onSubmitU = (event) => {
         event.preventDefault();
+        console.log(profile);  
         console.log(name);
         console.log(email);
         console.log(values);
@@ -132,7 +129,10 @@ const mypage = () => {
                 password: newValues.password
             }
 
-            updateUser(body);
+            axios.post('/api/user/updateUser', body)
+                .then((resp) => {
+                    console.log(resp);
+                })
         }
     }
 
@@ -224,7 +224,7 @@ const mypage = () => {
     return (
         <SiteLayoutNS>
             <div className="col-xl-11 ml-4">
-                <div className="card shadow">
+                <div className="card shadow mb-4">
                     <div className="card-header1 py-3">
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
@@ -248,8 +248,6 @@ const mypage = () => {
                             <Button className='mt-2 mr-2' variant="outlined" >
                                 삭제
                             </Button>
-
-
                                     </div>
                                         
                                 </div>
@@ -288,12 +286,16 @@ const mypage = () => {
                                     </div>
                                 </Box >
                                 <hr />
+
                                 <form >
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
+
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
+
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
                                             <OutlinedInput
-                                                id="outlined-adornment-password current"
+                                                id="outlined-adornment-password"
+
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 value={values.password}
                                                 onChange={handleChange('password')}
@@ -306,6 +308,7 @@ const mypage = () => {
                                                             edge="end"
                                                         >
                                                             {values.showPassword ? <VisibilityOff /> : <Visibility />}
+
                                                         </IconButton>
                                                     </InputAdornment>
                                                 }
@@ -313,6 +316,9 @@ const mypage = () => {
                                             />
                                         </FormControl>
 
+                                        <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
                                             <OutlinedInput
@@ -339,7 +345,6 @@ const mypage = () => {
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
                                             <OutlinedInput
-
                                                 id="outlined-adornment-password confirm"
                                                 type={confirmValues.showPassword ? 'text' : 'password'}
                                                 value={confirmValues.password}

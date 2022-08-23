@@ -28,14 +28,14 @@ const Join = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     let isKorEng = /^[가-힣a-zA-Z]+$/; // 이름: 한글이나 영문
-	let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
+   let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
     let isEngNum = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 비밀번호: 영문,숫자
 
     const regCheck = (regex, val) => {
-		if (regex.test(val)) {
-			return true;
-		}
-	}
+      if (regex.test(val)) {
+         return true;
+      }
+   }
 
     const doubleCheck = () => {
         if (email == '') {

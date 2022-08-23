@@ -4,10 +4,12 @@ import Button from '@mui/material/Button';
 
 
 const CreateDeck = () => {
-    
+
+const [title, setTitle]=useState();
 const handleShow = () => setShow(true);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
+
 
     return (
         <div>
@@ -23,6 +25,7 @@ const handleClose = () => setShow(false);
               <Form.Control
                 type="title"
                 autoFocus
+                onChange={(e)=>{setTitle(e.target.value)}}
               />
             </Form.Group>
           </Form>
@@ -32,7 +35,7 @@ const handleClose = () => setShow(false);
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Add
           </Button>
         </Modal.Footer>
       </Modal>
