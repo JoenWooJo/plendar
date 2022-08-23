@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -14,7 +14,11 @@ import "@fullcalendar/timegrid/main.css";
 import '../../assets/css/calendar.css'
 
 export default function PersonalCalendar() {
+
+  const no = localStorage.getItem("loginUserNo")
+  console.log("loginUserNo: ", no)
   
+    // 랜덤 컬러
     function getRandomColor() {
       return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
     }
@@ -46,22 +50,23 @@ export default function PersonalCalendar() {
       </div>
       <div className="App">
         <FullCalendar
-         defaultView="dayGridMonth"
+        defaultView="dayGridMonth"
          // 헤더 버튼 설정
-         headerToolbar={{
-           left: "prevYear,prev,next,nextYear",
-           center: "title",
-           right: "today"
-         }}
+        headerToolbar={{
+          left: "prevYear,prev,next,nextYear",
+          center: "title",
+          right: "today"
+        }}
          // 타이틀 설정
-         titleFormat={{year: 'numeric', month: 'long'}}
-         height="800px"
+        titleFormat={{year: 'numeric', month: 'long'}}
+        height="800px"
          // 달력 일칸 사이즈 비율 고정
-         aspectRatio={"1.2"}
-         plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
+        aspectRatio={"1.2"}
+        plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
          // 구글캘린더 API연동 - 공휴일
-         googleCalendarApiKey = 'AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
-         eventSources = {
+        googleCalendarApiKey = 'AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
+        eventSources = {
+          
             {
             googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
             className: '대한민국 공휴일', // an option!
@@ -70,7 +75,6 @@ export default function PersonalCalendar() {
             }
             
           }
-          
           events={callback}
       />
       </div>

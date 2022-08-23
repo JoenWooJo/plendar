@@ -16,6 +16,7 @@ const CreateProject = () => {
     const [priority, setPriority] = useState(0);
     const [startDate, setSartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [reset, setReset] = useState(false);
 
     const [member, setMember] = useState([{
         no: localStorage.getItem("loginUserNo"), 
@@ -26,7 +27,7 @@ const CreateProject = () => {
     const [user, setUser] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/project/find/user')
+        axios.get('/api/project/find/user')
             .then((resp) => {
                 const userList = resp.data.data;
                 const list = [];
@@ -47,7 +48,7 @@ const CreateProject = () => {
         // }
         // console.log(projectData);
 
-        axios.post('http://localhost:8080/api/project/create', { 
+        axios.post('/api/project/create', { 
             title: title,
             description: description,
             priority: priority,
@@ -169,6 +170,7 @@ const CreateProject = () => {
                                     <div className='row'>
                                         <div className='col-xl-10'>
                                             <Autocomplete
+                                                key={reset}
                                                 id="free-solo-demo"
                                                 freeSolo
                                                 options={user}
@@ -176,16 +178,19 @@ const CreateProject = () => {
                                                     newValue != null && setSelectUser(newValue)
                                                 }}
                                                 getOptionLabel={(user) => user.email + " " + user.name}
-                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' type='select'/>}
+                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' type='select'/>
+                                            }
                                             />
                                         </div>
                                         <div className='mt-2 col-xl-1'>
                                             <button type="submit" className="btn btn-secondary" onClick={() => {
                                                 selectUser != null &&  !member.includes(selectUser) && setMember([...member, selectUser]);
+                                                setReset(reset => !reset);
                                             }}>add</button>
                                         </div>
 
-                                        <table className=" mt-3 table table-striped">
+                                        <div  style={{ height: "280px", overflow:"auto"}} >
+                                        <table className=" mt-3 table table-striped" >
                                             <thead>
                                                 <tr className="text-center" >
                                                     <th scope="col">name</th>
@@ -219,6 +224,7 @@ const CreateProject = () => {
                                                 }
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
 
                                 </div>

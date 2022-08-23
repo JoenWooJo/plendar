@@ -23,7 +23,7 @@ const Login = () => {
             email: email,
             password: password,
         }
-
+        
         axios.post('/api/user/login', new URLSearchParams(data))
             .then((resp)=>{
                 const result = resp.data.data;
@@ -36,6 +36,7 @@ const Login = () => {
                 localStorage.setItem('loginUserNo', result["no"]);
                 localStorage.setItem('loginUserEmail', result["email"]);
                 localStorage.setItem('loginUserName', result["name"]);
+                localStorage.setItem('loginUserProfile', result["profile"]);
 
                 console.log("loginUserNo: ",localStorage.getItem("loginUserNo"));
                 window.location.replace("/");

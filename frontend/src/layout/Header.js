@@ -8,7 +8,17 @@ import HeaderDropdown from './HeaderDropdown';
 
 const Header = () => {
 
-    const[alramList , setAlramList] = useState (false);
+    const logoutClick = async () => {
+        await axios.get('/api/user/logout')
+
+        localStorage.removeItem("loginUserNo");
+        localStorage.removeItem("loginUserEmail");
+        localStorage.removeItem("loginUserName");
+
+        console.log("지워짐");
+        window.location.replace("/login");
+        
+    };
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
