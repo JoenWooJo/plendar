@@ -1,12 +1,15 @@
 import React,{ useState } from 'react';
-import {Form, Modal, Button} from 'react-bootstrap';
+import {Form, Modal} from 'react-bootstrap';
+import Button from '@mui/material/Button';
 
 
 const CreateDeck = () => {
-    
+
+const [title, setTitle]=useState();
 const handleShow = () => setShow(true);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
+
 
     return (
         <div>
@@ -22,16 +25,9 @@ const handleClose = () => setShow(false);
               <Form.Control
                 type="title"
                 autoFocus
+                onChange={(e)=>{setTitle(e.target.value)}}
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>설명</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -39,7 +35,7 @@ const handleClose = () => setShow(false);
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Add
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import Modal from '@mui/material/Modal';
 import ModalChat from './ModalChat';
@@ -14,6 +15,20 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
     const roomClick = () => {
         callback(roomNo);
     };
+
+    const memberListClick = () => {
+        console.log(roomNo);
+        axios.get('http://localhost:8080/api/chat/room/member', {
+            params: {
+              no: roomNo
+            }
+          })
+            .then((resp)=>{
+                console.log(resp.data.data);
+            }).catch((err)=>{
+                console.error(err);
+            })
+    }
 
     return (
         <li className="p-2 border-bottom">
@@ -33,6 +48,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
                 </div>
                 <div className="pt-1">
                    <ModalChat />
+                    <button onClick={memberListClick}>:</button>
                     <p className="small text-muted mb-1">Just now</p>
                     <span className="badge bg-danger rounded-pill float-end">3</span>
                 </div>

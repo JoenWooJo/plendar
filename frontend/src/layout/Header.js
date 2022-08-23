@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+
 import '../assets/scss/sb-admin-2.scss';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import { Link } from 'react-router-dom';
@@ -11,6 +12,7 @@ import HeaderDropdown from './HeaderDropdown';
 const Header = () => {
 
     const[alramList , setAlramList] = useState (false);
+
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
@@ -43,10 +45,10 @@ const Header = () => {
                 <div className="topbar-divider d-none d-sm-block"></div>
 
                 <li className="nav-item logout botton">
-                    <a className="nav-link " href="/login" id="usrlogout" role="button"
+                    <div className="nav-link " to="/login" id="usrlogout" role="button"
                         data-toggle="botton" aria-haspopup="true" aria-expanded="false" >
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
-                    </a>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small" onClick={logoutClick}>logout</span>
+                    </div>
                 </li>
             </ul>
         </div>

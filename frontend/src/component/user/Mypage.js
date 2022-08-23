@@ -15,9 +15,28 @@ import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayout from '../../layout/SiteLayout';
 
+const client = axios.create({ baseURL: '/api' })
+
+const updateUser = async (data) => {
+    let response = await client.post('/user/axios/update', data)
+    let li = response.data.data;
+    console.log("!!!!", response.data.data);
+
+    return response.data.data;
+}
+
+const updateprofile = async () => {
+    let response = await client.post('/user/axios/updateProfile')
+    let li = response.data.data;
+    console.log("!!!!", response.data.data);
+
+    return response.data.data;
+}
+
 const mypage = () => {
     const [name, setName] = React.useState('전우조');
     const [email, setEmail] = React.useState('jyj6010@gmail.com');
+    
     const [profile, setProfile] = useState({ changeProfile });
     const changeName = (event) => {
         setName(event.target.value);
@@ -86,16 +105,16 @@ const mypage = () => {
     const confirmHandleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    // var x = localStorage.getItem(""); 로컬가져와서 하려했는데 로컬엔 비번없음
     //=====================================================================
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log(profile);
+        console.log(profile);  
         console.log(name);
         console.log(email);
         console.log(values);
         console.log(newvalues);
         console.log(confirmvalues);
+
 
         if (newvalues.password !== confirmvalues.password) {
             return alert("비밀번호와 비밀번호 확인이 같아야 합니다.")
@@ -149,11 +168,12 @@ const mypage = () => {
                                 >
                                     <div >
                                         <TextField
-                                            id="outlined-multiline-flexible"
+                                            id="outlined-multiline-flexible name"
                                             label="name"
                                             multiline
                                             maxRows={4}
                                             sx={{ ml: 1 }}
+
                                             value={name}
                                             onChange={changeName}
                                         />
@@ -161,7 +181,7 @@ const mypage = () => {
 
                                     <div>
                                         <TextField
-                                            id="outlined-multiline-flexible"
+                                            id="outlined-multiline-flexible email"
                                             label="email"
                                             multiline
                                             maxRows={5}
@@ -181,6 +201,7 @@ const mypage = () => {
                                             <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
                                             <OutlinedInput
                                                 id="outlined-adornment-password"
+
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 value={values.password}
                                                 onChange={handleChange('password')}
@@ -200,6 +221,7 @@ const mypage = () => {
                                                 label="현재 비밀번호"
                                             />
                                         </FormControl>
+
                                         <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
                                     </Box>
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
@@ -207,6 +229,7 @@ const mypage = () => {
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
                                             <OutlinedInput
                                                 id="outlined-adornment-password"
+
                                                 type={newvalues.showPassword ? 'text' : 'password'}
                                                 value={newvalues.password}
                                                 onChange={newHandleChange('password')}
@@ -229,8 +252,8 @@ const mypage = () => {
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
                                             <OutlinedInput
-
                                                 id="outlined-adornment-password"
+
                                                 type={confirmvalues.showPassword ? 'text' : 'password'}
                                                 value={confirmvalues.password}
                                                 onChange={confirmHandleChange('password')}
