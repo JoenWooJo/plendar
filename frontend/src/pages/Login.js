@@ -23,7 +23,8 @@ const Login = () => {
             email: email,
             password: password,
         }
-        axios.post('http://localhost:8080/api/user/login', new URLSearchParams(data))
+        axios.post('http://localhost:8080/api/user/login', body )
+
             .then((resp)=>{
                 const result = resp.data.data;
                 if (result == null) {

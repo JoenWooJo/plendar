@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from "axios";
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayout from '../../layout/SiteLayout';
 
 const client = axios.create({ baseURL: '/api' })
@@ -34,16 +34,17 @@ const updateprofile = async () => {
 }
 
 const mypage = () => {
-
     const [name, setName] = React.useState('전우조');
     const [email, setEmail] = React.useState('jyj6010@gmail.com');
+    
+    const [profile, setProfile] = useState({ changeProfile });
     const changeName = (event) => {
         setName(event.target.value);
     };
-
-    const changeEmail = (event) => {
-        setEmail(event.target.value);
+    const changeProfile = (event) => {
+        setProfile(event.target.value);
     };
+
     //비밀번호 =============================================================
     const [values, setValues] = React.useState({
         password: '',
@@ -107,29 +108,36 @@ const mypage = () => {
     //=====================================================================
     const onSubmit = (event) => {
         event.preventDefault();
+        console.log(profile);  
         console.log(name);
         console.log(email);
         console.log(values);
         console.log(newvalues);
         console.log(confirmvalues);
+
+
         if (newvalues.password !== confirmvalues.password) {
-            return alert('비밀번호와 비밀번호 확인이 같아야 합니다.')
+            return alert("비밀번호와 비밀번호 확인이 같아야 합니다.")
         }
         else {
             let body = {
-                name: name,
                 email: email,
-                password: newvalues.password
+                name: name,
+                password: newvalues,
+                profile: profile,
             }
 
-            updateUser(body);
+            axios.post('http://localhost:8080/api/user/updateUser', body)
+                .then((resp) => {
+                    console.log(resp);
+                })
         }
     }
 
     return (
         <SiteLayout>
             <div className="col-xl-11 ml-4">
-                <div className="card shadow">
+                <div className="card shadow mb-4">
                     <div className="card-header1 py-3">
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
@@ -139,9 +147,10 @@ const mypage = () => {
                             <div className='col-xl-3 mt-5'>
                                 <img src="/img/exprofile.png" style={{ width: '200px' }}></img>
                                 <div className='row'>
-                                    <Button className='mt-2 ml-5 mr-1' variant="outlined" component="label">
-                                        Upload
-                                        <input hidden accept="image/*" multiple type="file" />
+
+                                    <Button className='mt-2 ml-5 mr-1' variant="outlined" component="label" onChange={changeProfile}>
+                                        Upload<input hidden accept="image/*" multiple type="file" />
+
                                     </Button>
                                     <Button className='mt-2 mr-2' variant="outlined">
                                         삭제
@@ -183,12 +192,16 @@ const mypage = () => {
                                     </div>
                                 </Box >
                                 <hr />
+
                                 <form >
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
+
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
+
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
                                             <OutlinedInput
-                                                id="outlined-adornment-password current"
+                                                id="outlined-adornment-password"
+
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 value={values.password}
                                                 onChange={handleChange('password')}
@@ -201,6 +214,7 @@ const mypage = () => {
                                                             edge="end"
                                                         >
                                                             {values.showPassword ? <VisibilityOff /> : <Visibility />}
+
                                                         </IconButton>
                                                     </InputAdornment>
                                                 }
@@ -208,10 +222,14 @@ const mypage = () => {
                                             />
                                         </FormControl>
 
+                                        <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
                                             <OutlinedInput
-                                                id="outlined-adornment-password new"
+                                                id="outlined-adornment-password"
+
                                                 type={newvalues.showPassword ? 'text' : 'password'}
                                                 value={newvalues.password}
                                                 onChange={newHandleChange('password')}
@@ -234,8 +252,8 @@ const mypage = () => {
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
                                             <OutlinedInput
+                                                id="outlined-adornment-password"
 
-                                                id="outlined-adornment-password confirm"
                                                 type={confirmvalues.showPassword ? 'text' : 'password'}
                                                 value={confirmvalues.password}
                                                 onChange={confirmHandleChange('password')}

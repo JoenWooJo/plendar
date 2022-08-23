@@ -86,37 +86,8 @@ const Join = () => {
             alert('비밀번호는 영문,숫자를 사용하여 6자 이상 입력 해주세요');
             return;
         }
+        axios.post('http://localhost:8080/api/user/join', body );
 
-        else if (!checkEmail) {
-            event.preventDefault();
-            alert('Email 중복체크 해주세요');
-            return;
-        }
-
-        else if (password !== confirmpassword) {
-            event.preventDefault();
-            alert('비밀번호와 비밀번호 확인이 같아야 합니다!');
-            setPassword("");
-            setConfirmpassword("");
-            return;
-        }
-    
-        else {
-            const data = {
-                name: name,
-                email: email,
-                password: password,
-                confirmpassword: confirmpassword,
-
-            }
-            axios.post('http://localhost:8080/api/user/join', data)
-                .then((resp) => {
-                    console.log(resp.data.result);
-                }).catch((err) => {
-                    console.error(err);
-                });
-        }
-    }
 
     return (
         <div className="container">
@@ -150,7 +121,7 @@ const Join = () => {
                                         <div className="col-sm-6 mb-3 mb-sm-0">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password of 6 or more... " required />
                                         </div>
-                                        {/* 콘필름 비밀번호 입력 창 */}
+                                        {/* 컨펌 비밀번호 입력 창 */}
                                         <div className="col-sm-6">
                                             <input type="password" pattern=".{6,}" className="form-control form-control-user" value={confirmpassword} onChange={onConfirmpasswordHandler} placeholder="Confirm Password..." required />
                                         </div>
