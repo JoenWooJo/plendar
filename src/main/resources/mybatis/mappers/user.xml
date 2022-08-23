@@ -17,7 +17,7 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select no, email, name from user where email=#{email } and password=#{password}
+			select no, email, name, profile from user where email=#{email } and password=#{password}
 		]]>
 	</select>
 	
@@ -29,9 +29,9 @@
 	
 	<update id="updateUser" parameterType="uservo">
 		<![CDATA[
-		update user_U 
-		 set name = #{name }, password as = #{password } 
-		where no = 1
+		update user
+		 set name = #{name }, password = #{password } 
+		where no = #{no }
 		]]>
 	</update>
 	
