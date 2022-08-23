@@ -3,6 +3,7 @@ import axios from "axios";
 
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 const Join = () => {
     const [name, setName] = useState("");
@@ -27,20 +28,20 @@ const Join = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     let isKorEng = /^[가-힣a-zA-Z]+$/; // 이름: 한글이나 영문
-	let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
+   let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
     let isEngNum = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 비밀번호: 영문,숫자
 
     const regCheck = (regex, val) => {
-		if (regex.test(val)) {
-			return true;
-		}
-	}
+      if (regex.test(val)) {
+         return true;
+      }
+   }
 
     const doubleCheck = () => {
         if (email == '') {
             return alert('Email 입력해 주세요');
         }
-        axios.post('http://localhost:8080/api/user/check/email', {
+        axios.post('/api/user/check/email', {
             email: email
         }).then((resp)=>{
             if (resp.data.data) {
@@ -109,7 +110,7 @@ const Join = () => {
                 confirmpassword: confirmpassword,
 
             }
-            axios.post('http://localhost:8080/api/user/join', data)
+            axios.post('/api/user/join', data)
                 .then((resp) => {
                     console.log(resp.data.result);
                 }).catch((err) => {
