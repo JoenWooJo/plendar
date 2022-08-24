@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
@@ -7,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
 const Header = () => {
+    const[alramList,setAlramList]=useState(false);
 
     const logoutClick = async () => {
         await axios.get('/api/user/logout')
@@ -14,8 +16,8 @@ const Header = () => {
         localStorage.removeItem("loginUserNo");
         localStorage.removeItem("loginUserEmail");
         localStorage.removeItem("loginUserName");
+        localStorage.removeItem("loginUserProfile");
 
-        console.log("지워짐");
         window.location.replace("/login");
         
     };
@@ -51,10 +53,10 @@ const Header = () => {
                 <div className="topbar-divider d-none d-sm-block"></div>
 
                 <li className="nav-item logout botton">
-                    <a className="nav-link " href="/login" id="usrlogout" role="button"
-                        data-toggle="botton" aria-haspopup="true" aria-expanded="false" >
+                    <Link className="nav-link " to="/login" id="usrlogout" role="button"
+                        data-toggle="botton" aria-haspopup="true" aria-expanded="false" onClick={logoutClick} >
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>

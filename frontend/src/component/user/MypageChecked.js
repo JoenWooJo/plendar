@@ -46,7 +46,7 @@ const mypage = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    // var x = localStorage.getItem(""); 로컬가져와서 하려했는데 로컬엔 비번없음
+    var x = localStorage.getItem("loginUserEmail"); 
     //=====================================================================
     const onSubmit = (event) => {
         console.log(name);
@@ -80,16 +80,17 @@ const mypage = () => {
                                 
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                    <div className="m: 1, width: 25ch" align="center" sx={{  }}   > 
-                                            <h3 style={{ color: "#6667ab" }}>회원비밀번호 확인</h3><hr/>
+                                            <h3 style={{ color: "#6667ab" }}>회원 비밀번호 확인</h3><hr/>
                                             <b style={{ color: "#6667ab" }}>비밀번호를 한번 더 입력해주세요.</b>
+                                            <p/>
                                             <div className="ml-0">
-                                                <p style={{ color: "#6667af" }}>회원님의 정보를 안전하게 보호하기 위해<br/> 비밀번호를 한번 더 확인합니다.             </p>
+                                                <p className="text-xs font-weight-bold text-gray text-uppercase" style={{ color: "#6667af" }}>회원님의 정보를 안전한 보호를 위해<br/> 비밀번호를 한번 더 확인합니다.             </p>
                                             </div>
                                     </div>
                                     <p/>
                                     <div align="center">
                                         <p/>
-                                        <h6 style={{ color: "#6667af" }}>회원 아이디 : {email}</h6>
+                                        <h6 style={{ color: "#6667af" }}>회원 아이디 : {x}</h6>
                                     </div>
                                     <div align="center">
 

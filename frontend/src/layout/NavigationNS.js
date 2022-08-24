@@ -21,7 +21,7 @@ const Navigation = ({active}) => {
            <div className='ml-3'>
             <li className="nav-item active">
                 <NavLink className="nav-link" 
-                         to={'/user/mypage'}> 
+                         to={'/user/mypagechecked'}> 
                          <i className="fas fa-fw fa-tachometer-alt"></i>
                          My page 
                 </NavLink>
