@@ -46,4 +46,8 @@ public class UserService {
 		
 	}
 
+	public UserVo getProfile() {
+		return userRepository.getProfile();
+	}
+
 }
