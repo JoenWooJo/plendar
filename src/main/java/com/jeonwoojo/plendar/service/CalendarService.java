@@ -14,12 +14,12 @@ public class CalendarService {
 	@Autowired
 	private CalendarRepository calendarRepository;
 
-	public List<CalendarVo> findAll() {
-		return calendarRepository.findAll();
+	public List<CalendarVo> findAll(Long userNo) {
+		return calendarRepository.findAll(userNo);
 	}
 
-	public List<CalendarVo> findByNo() {
-		return calendarRepository.findByNo();
+	public List<CalendarVo> findByNo(Long userNo) {
+		return calendarRepository.findByNo(userNo);
 	}
 
 
