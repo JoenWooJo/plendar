@@ -3,21 +3,15 @@ import axios from 'axios';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
-// import '../../assets/css/mdb.dark.min.css';
-// import '../../assets/css/mdb.dark.rtl.min.css';
-// import '../../assets/css/mdb.min.css';
-// import '../../assets/css/mdb.rtl.min.css';
-// import '../../assets/css/bar.css';
-
 import SiteLayout from '../../layout/SiteLayout';
 import ChatRoomList from './ChatRoomList';
 import ChatMessageList from './ChatMessageList';
-import { func } from 'prop-types';
 
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
     const [roomList, setRoomList] = useState([]);
+    const [newRoomList, setNewRoomList] = useState([]);
     
     const client = useRef({});
 
@@ -38,8 +32,7 @@ const Chat = () => {
 
 
     useEffect(() => {
-        async function fetchAndSetRooms() { 
-            console.log("!!!!!");
+        async function fetchAndSetRooms() {
             connect();
             const resp = await axios.get('/api/chat/rooms');
             console.log(resp.data);
@@ -47,6 +40,7 @@ const Chat = () => {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
+            setNewRoomList(resp.data.data);
             setRoomList(resp.data.data);
         } 
         fetchAndSetRooms();
@@ -57,20 +51,25 @@ const Chat = () => {
 
     
     useEffect(() => {
+        async function fetchAndMessageList(roomId) {
+            const resp = await axios.get('/api/chat/room/messages', {
+                params: {
+                  roomId: roomId
+                }
+            })
+            setMessages(resp.data.data);
+        }
         if (roomIdSelected == -1) {
-            console.log("아직 방 안생김");
             return;
         }
-        console.log("여기");
         if (roomIdSelected != -1) {
-            setMessages([]);
+            fetchAndMessageList(roomIdSelected);
         }
         setSubStatus([...subStatus, roomIdSelected]);
     }, [roomIdSelected]);
 
     useEffect(()=>{
         !subStatus.includes(roomIdSelected) && subscribe()
-        
     }, [roomIdSelected, subStatus]);
 
     const connect = () => {
@@ -104,7 +103,6 @@ const Chat = () => {
     const subscribe = () => {
         console.log("여기");
         client.current.subscribe(`/topic/chat/room/${roomIdSelected}`, (data) => {
-            console.log("데이터가 온다", JSON.parse(data.body));
             const chatting = JSON.parse(data.body);
             setMessages([...messagesRef.current, chatting]);
         });
@@ -128,20 +126,18 @@ const Chat = () => {
             minutes: ("0" + today.getMinutes()).slice(-2), //현재 분 ('0'+minutes).slice(-2)
             seconds: ("0" + today.getSeconds()).slice(-2)
         };
-        //let timestring = `${time.year}/${time.month}/${time.date} ${time.hours}:${time.minutes}`;
         
         client.current.publish({
             destination: `/app/chat/message`,
             body: JSON.stringify({
+                no: null,
                 roomId: roomIdSelected,
                 message: line,
                 sender: localStorage.getItem("loginUserNo"),
-                sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`
+                sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
+                senderName: localStorage.getItem("loginUserName")
             }),
         });
-
-        
-        
     };
 
 
@@ -150,11 +146,13 @@ const Chat = () => {
             <div className='col-xl-11 ml-4'>
                 <div className="card mt-5">
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
-                        { /**컴포넌트,,? */}
                         <ChatRoomList
                             callback={changeRoomIdSelected}
                             chatRoomId={roomIdSelected}
-                            roomList={roomList} />
+                            roomList={roomList}
+                            newRoomList={newRoomList}
+                            setNewRoomList={setNewRoomList}
+                            />
                         <ChatMessageList
                             messages={messages}
                             chatRoomId={roomIdSelected}
