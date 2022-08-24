@@ -79,7 +79,7 @@ const mypage = () => {
 
                                 
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                                   <div className="m: 1, width: 25ch" align="center" sx={{  }}   > 
+                                    <div className="m: 1, width: 25ch" align="center" sx={{  }}   > 
                                             <h3 style={{ color: "#6667ab" }}>회원비밀번호 확인</h3><hr/>
                                             <b style={{ color: "#6667ab" }}>비밀번호를 한번 더 입력해주세요.</b>
                                             <div className="ml-0">
