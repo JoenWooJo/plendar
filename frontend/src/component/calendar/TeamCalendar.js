@@ -14,6 +14,9 @@ import "@fullcalendar/timegrid/main.css";
 import '../../assets/css/calendar.css'
 
 export default function TeamCalendar() {
+
+  const no = localStorage.getItem("loginUserNo")
+  console.log("User No: ", no)
   
     // 랜덤 컬러
     function getRandomColor() {
@@ -25,7 +28,8 @@ export default function TeamCalendar() {
     const client = axios.create({baseURL: '/api'})
     let response =  await client.get('/calendar/axios/team')
     let li = response.data.data;
-    console.log(response.data.data);
+    console.log("!!!!", response.data.data);
+    console.log(response.data)
 
     for(let i=0; i < li.length; i++){
         li[i]['color'] = getRandomColor();
@@ -33,14 +37,6 @@ export default function TeamCalendar() {
 
     return response.data.data;
   }
-
-  // const handleEventClick = (e) => {
-  //   console.log(e);
-  //   e.jsEvent.preventDefault();
-
-    // const scheduleId = e.event._def.extendedProps.scheduleId;
-    // modalOpen(scheduleId);
-  // };
 
     return (
       <SiteLayout>
@@ -55,7 +51,6 @@ export default function TeamCalendar() {
       </div>
       <div className="App">
         <FullCalendar
-          defaultView="dayGridMonth"
          // 헤더 버튼 설정
           headerToolbar={{
             left: "prevYear,prev,next,nextYear",
@@ -79,7 +74,6 @@ export default function TeamCalendar() {
             }
             
           }
-          // eventClick={handleEventClick()}
           events={callback}
       />
       </div>

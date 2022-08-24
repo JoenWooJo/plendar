@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -16,7 +16,7 @@ import '../../assets/css/calendar.css'
 export default function PersonalCalendar() {
 
   const no = localStorage.getItem("loginUserNo")
-  console.log("loginUserNo: ", no)
+  console.log("User No: ", no)
   
     // 랜덤 컬러
     function getRandomColor() {
@@ -50,7 +50,6 @@ export default function PersonalCalendar() {
       </div>
       <div className="App">
         <FullCalendar
-        defaultView="dayGridMonth"
          // 헤더 버튼 설정
         headerToolbar={{
           left: "prevYear,prev,next,nextYear",
@@ -66,7 +65,6 @@ export default function PersonalCalendar() {
          // 구글캘린더 API연동 - 공휴일
         googleCalendarApiKey = 'AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
         eventSources = {
-          
             {
             googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
             className: '대한민국 공휴일', // an option!
@@ -76,6 +74,7 @@ export default function PersonalCalendar() {
             
           }
           events={callback}
+            
       />
       </div>
       </div>
