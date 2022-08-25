@@ -34,7 +34,7 @@ const Navigation = ({ active }) => {
                         My Project
                     </NavLink>
                 </li>
-
+                
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/kanbanboard/kanban'}>

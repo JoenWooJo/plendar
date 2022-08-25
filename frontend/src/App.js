@@ -12,7 +12,7 @@ import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
 import UpdateProject from './component/project/UpdateProject';
-
+import Kanban from './component/kanbanboard/Kanban';
 import Chat from './component/chat/Chat';
 import CompletePage from './component/project/CompletePage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
@@ -34,7 +34,9 @@ const App= () => (
     {path: '/project/createProject', element: <CreateProject />},
     {path: '/project/updateProject', element: <UpdateProject />},
     {path: '/project/completepage', element: <CompletePage />},   
-    {path: '/chat', element: <Chat />}    
+    {path: '/chat', element: <Chat />}, 
+    {path: '/kanbanboard/:no', element: <Kanban />}    
+    
   ])
 
 );
