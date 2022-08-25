@@ -23,4 +23,12 @@ public class ProjectService {
 		return projectRepository.createProject(projectVo);
 	}
 
+	public List<ProjectVo> findProject(Long userNo) {
+		return projectRepository.findProject(userNo);
+	}
+
+	public List<ProjectVo> findCompleteProject(Long userNo) {
+		return projectRepository.findCompleteProject(userNo);
+	}
+
 }
