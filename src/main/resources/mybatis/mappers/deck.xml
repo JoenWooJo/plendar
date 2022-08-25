@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="deck">
+
+<select id="findDeck" resultType="deckvo">
+		<![CDATA[
+			select no, project_no as projectNo, title, sequence
+			  from deck 
+			  where project_no= #{project_no};
+		]]>
+	</select>
+
+</mapper>

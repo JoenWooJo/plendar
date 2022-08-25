@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
+import com.jeonwoojo.plendar.security.Auth;
+import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.ProjectService;
 import com.jeonwoojo.plendar.vo.ProjectVo;
+import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -37,4 +40,23 @@ public class ProjectController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findUser()));
 	}
+	
+	@Auth
+	@GetMapping("/find/project")
+	public ResponseEntity<JsonResult> findProject(@AuthUser UserVo authUser) {
+		System.out.println(authUser);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findProject(authUser.getNo())));
+	}
+	
+	@Auth
+	@GetMapping("/find/completeProject")
+	public ResponseEntity<JsonResult> findCompleteProject(@AuthUser UserVo authUser) {
+		System.out.println(authUser);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
+	}
+	
 }
