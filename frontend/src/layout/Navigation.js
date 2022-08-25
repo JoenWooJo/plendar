@@ -37,7 +37,7 @@ const Navigation = ({active}) => {
 
             <li className="nav-item active">
                 <NavLink className="nav-link" 
-                         to={'/kanbanboard/kanban'}> 
+                         to={'/kanbanboard'}> 
                          <i className="fas fa-fw fa-tachometer-alt"></i>
                          kanbanboard 
                 </NavLink>

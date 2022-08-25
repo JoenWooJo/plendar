@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
-
+import axios from 'axios';
 import Ongoing from './Ongoing';
 
 const Myproject = () => {
+    const [projectList, setProjectList] = useState([]);
+
+
+    
+    useEffect(() => {
+        axios.get('/api/project/find/project')
+            .then((resp) => {
+                const list = resp.data.data;
+                setProjectList(list);
+                console.log(list);
+            })
+    }, []);
 
     return (
         <SiteLayoutNS>
@@ -31,7 +43,21 @@ const Myproject = () => {
                         </div>
 
                         <div className="row mb-4">
-                            <Ongoing />
+                            {
+                                projectList.map((m,i)=>{
+                                    return(
+                                 <Ongoing 
+                                    key={i}
+                                    no={m.no}
+                                    title={m.title}
+                                    description={m.description}
+                                    endDate={m.endDate}
+                                    startDate={m.startDate}
+                                    finished={m.finished}
+                                    priority={m.priority}
+                                    />
+                                 );
+                            })}
                         </div>
 
                     </div>
