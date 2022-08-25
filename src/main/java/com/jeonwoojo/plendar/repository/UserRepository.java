@@ -33,4 +33,9 @@ public class UserRepository {
 		System.out.println("repositry" + vo);
 		return sqlSession.update("user.updateProfile", vo) == 1;
 	}
+
+	public UserVo getProfile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

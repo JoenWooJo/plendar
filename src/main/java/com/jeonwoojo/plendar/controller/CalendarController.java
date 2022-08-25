@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
+import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.CalendarService;
+import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @RequestMapping("api/calendar")
@@ -20,15 +22,20 @@ public class CalendarController {
 	private CalendarService calendarService;
 	
 	@GetMapping("/axios/team")
-	public ResponseEntity<JsonResult> read() {
+	public ResponseEntity<JsonResult> readTC(@AuthUser UserVo authUser) {
+		System.out.println("AuthUser345: " + authUser);
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(calendarService.findAll()));
+				.body(JsonResult.success(calendarService.findAll(authUser.getNo())));
 	}
+	
 	@GetMapping("/axios/personal")
-	public ResponseEntity<JsonResult> read2() {
+	public ResponseEntity<JsonResult> readPC(@AuthUser UserVo authUser) {
+		System.out.println("AuthUser123: " + authUser);
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(calendarService.findByNo()));
+				.body(JsonResult.success(calendarService.findByNo(authUser.getNo())));
 	}
 }
