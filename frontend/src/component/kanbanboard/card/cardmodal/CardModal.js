@@ -6,7 +6,6 @@ import FileUpload from './FileUpload';
 import Comment from './Comment';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import { height } from '@mui/system';
 
 
 const CardModal = () => {
