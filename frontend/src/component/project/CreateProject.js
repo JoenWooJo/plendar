@@ -18,11 +18,7 @@ const CreateProject = () => {
     const [endDate, setEndDate] = useState(null);
     const [reset, setReset] = useState(false);
 
-    const [member, setMember] = useState([{
-        no: localStorage.getItem("loginUserNo"), 
-        name: localStorage.getItem("loginUserName"),
-        email: localStorage.getItem("loginUserEmail")
-    }]);
+    const [member, setMember] = useState([]);
     const [selectUser, setSelectUser] = useState();
     const [user, setUser] = useState([]);
 
@@ -32,11 +28,17 @@ const CreateProject = () => {
                 const userList = resp.data.data;
                 const list = [];
                 userList.map((e) => {
-                    list.push({ no: e.no, name: e.name, email: e.email});
+                    if( e.no != localStorage.getItem('loginUserNo')) {
+                        list.push({ no: e.no, name: e.name, email: e.email});
+                    }
                 })
                 setUser(list);
             })
     }, []);
+
+    useEffect(()=>{
+        console.log("member: ", member);
+    }, [member, is_checked]);
 
     const createProject = () => {
         // const projectData = {
