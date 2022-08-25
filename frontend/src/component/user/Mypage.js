@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -12,37 +11,12 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const client = axios.create({ baseURL: '/api' })
- 
-
-const updateUser = async (data) => {
-    let response = await client.post('/user/axios/update', data)
-    let li = response.data.data;
-    console.log("!!!!", response.data.data);
-
-    return response.data.data;
-}
-
-const updateProfile = async (data) => {
-    let resp = await client.post('/api/user/axios/updateProfile', {}, {
-        resp: {
-            data
-        }
-    })
-        .then(resp => resp.status)
-        .catch(err => console.warn(err));
-    console.log("!!!!", resp);
-
-    return resp.profile;
-}
-
 const mypage = () => {
-    useEffect(() => {
-        console.log("login no : ", localStorage.getItem("loginUserNo"));
-    }, []);
+    const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
     const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
@@ -114,12 +88,6 @@ const mypage = () => {
     //=====================================================================
     const onSubmitU = (event) => {
         event.preventDefault();
-        console.log(profile);  
-        console.log(name);
-        console.log(email);
-        console.log(values);
-        console.log(newValues);
-        console.log(confirmValues);
         if (newValues.password !== confirmValues.password) {
             return alert('비밀번호와 비밀번호 확인이 같아야 합니다.')
         }
@@ -137,49 +105,6 @@ const mypage = () => {
                 })
         }
     }
-
-    const onSubmitP = (event) => {
-        event.preventDefault();
-        console.log(profile);
-        let body = {
-            no: localStorage.getItem("loginUserNo"),
-            profile: profile
-        }
-
-        updateProfile(body);
-    }
-
-    const uploadFile = (file, order, file_group) => {
-        // event.preventDefault();
-        setProfile(file);
-        console.log("file: ",file);
-        
-        const formData = new FormData();
-        
-        formData.append('order', order);
-        formData.append('file_group', file_group);
-        formData.append('file', file);
-        
-        
-
-        // axios({
-        //     method: 'POST',
-        //     url: `/orders/file`,
-        //     data: formData,
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        // .then((response) => {
-        //     console.log('then');
-        //     console.log(response.data);
-        // })
-        // .catch((error) => {
-        //     console.log('error');
-        //     console.error(error);
-        // });
-
-    };
 
     const refForm = useRef(null);
     
@@ -207,20 +132,11 @@ const mypage = () => {
             }
         });
 
-        console.log(response.data)
+        // 바뀐 url
+        console.log(response.data.data);
+        setProfile(response.data.data);
+        localStorage.setItem("loginUserProfile", response.data.data)
 
-        // // fetch success?
-        // if (!response.ok) {
-        //     throw `${response.status} ${response.statusText}`;
-        // }
-
-        // // API success?
-        // const json = await response.json();
-        // if (json.result !== 'success') {
-        //     throw json.message;
-        // }
-
-        // console.log(json.data);
     }
 
     return (
@@ -236,7 +152,7 @@ const mypage = () => {
                                 onSubmit={handleSubmit} 
                                 ref={refForm}>
                                 <div className='col-xl-3 mt-5'>
-                                    <img src= {localStorage.getItem("loginUserProfile")} style={{ width: '200px' }}></img>
+                                    <img id="profile" src= {profile} style={{ width: '200px' }}></img>
                                     <div className='row' >
                                     <input
                                         type={'file'}
@@ -247,7 +163,7 @@ const mypage = () => {
                             }}>
                                 올리기
                             </Button>
-                            <Button className='mt-2 mr-2' variant="outlined" >
+                            <Button className='mt-2 mr-2' variant="outlined">
                                 삭제
                             </Button>
                                     </div>
