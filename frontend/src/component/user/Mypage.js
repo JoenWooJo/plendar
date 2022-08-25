@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -163,7 +162,7 @@ const mypage = () => {
                             }}>
                                 올리기
                             </Button>
-                            <Button className='mt-2 mr-2' variant="outlined" >
+                            <Button className='mt-2 mr-2' variant="outlined">
                                 삭제
                             </Button>
                                     </div>
