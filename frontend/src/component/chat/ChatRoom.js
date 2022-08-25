@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ModalChat from './ModalChat';
 import Badge from '@mui/material/Badge';
@@ -7,17 +7,38 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
+const ChatRoom = ({selected, chatRoomName, roomNo, callback, receiveRoom, roomIdSelected}) => {
     
-    const [invisible, setInvisible] = useState(false);
+    const [invisible, setInvisible] = useState(true);
 
     const roomClick = () => {
         callback(roomNo);
     };
 
-    const handleBadgeVisibility = () => {
-        setInvisible(!invisible);
-      };
+    const handleBadgeVisibility = (bool) => {
+        setInvisible(bool);
+    };
+
+    
+
+    // useEffect(()=>{
+    //     // console.log("채팅 알림?: ", "receviceRoom: ",receiveRoom, roomIdSelected);
+    //     // if (receiveRoom != undefined && receiveRoom != roomIdSelected) {
+    //     //     // setInvisible(false);
+    //     //     handleBadgeVisibility(false);
+    //     //     return;
+    //     // }
+    //     // // setInvisible(true);
+    //     // handleBadgeVisibility(true);
+
+    //     if(roomIdSelected === receiveRoom){
+    //         // setInvisible(true);
+    //         console.log("????");
+    //     }
+
+        
+
+    // }, [receiveRoom])
 
     
     return (
@@ -25,7 +46,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback}) => {
             <div className="d-flex justify-content-between" style={{backgroundColor: selected ? "#EFEFFA" : "#fff", borderRadius: "10px"}} >
                 <div className="d-flex flex-row" onClick={roomClick}>
                     <div style={{paddingTop: "5px"}}>
-                        <Badge color="error" variant="dot" invisible={invisible}>
+                        <Badge id={roomNo} color="error" variant="dot" invisible={invisible}>
                             <img src="/images/user.png" alt="" style={{ width: "50px" }} />
                         </Badge>
                     </div>

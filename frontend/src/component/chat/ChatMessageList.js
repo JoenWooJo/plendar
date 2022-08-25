@@ -7,19 +7,18 @@ import ChatMessageSend from "./ChatMessageSend";
 
 
 
-const ChatMessageList = ({ chatRoomId, messages, publish }) => {
+const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
     useEffect(() => {
         if (messages.length !== 0) {
             document.getElementById('chatList').scrollTop = document.getElementById('chatList').scrollHeight;
         }
     }, [messages])
 
-    const [name, setName] = useState("");
     const [message, setMessage] = useState("");
 
     return (
         <div className="col-md-6 col-lg-7 col-xl-8" >
-            {chatRoomId != -1 ? (
+            {roomIdSelected != -1 ? (
                 <div>
                     <div
                         id="chatList"

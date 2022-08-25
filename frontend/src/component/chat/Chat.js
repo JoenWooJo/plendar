@@ -10,6 +10,9 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
+    const [receiveRoom, setReceiveRoom] = useState('');
+    
+
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
     
@@ -23,6 +26,8 @@ const Chat = () => {
         _setMessages(messages);
     }
 
+    const [chatting, setChatting] = useState({});
+
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
     const changeRoomIdSelected = (id) => {
@@ -30,20 +35,33 @@ const Chat = () => {
         setRoomIdSelected(id); 
     };
 
+    useEffect(()=>{
+        console.log("receiveRoom",receiveRoom);
+    }, [receiveRoom]);
+
 
     useEffect(() => {
         async function fetchAndSetRooms() {
             connect();
             const resp = await axios.get('/api/chat/rooms');
+            const rooms = resp.data.data;
             if (resp.data.result == "fail") {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
-            console.log("방번호",resp.data.data);
+            console.log("방",rooms);
+            rooms.map((e)=>{
+                console.log("방 번호: ",e.no);
+                setSubStatus([...subStatus, e.no]);
+                subscribe(e.no);
+            });
+
             setNewRoomList(resp.data.data);
             setRoomList(resp.data.data);
         } 
         fetchAndSetRooms();
+
+
         // return () => {
         //     disconnect();
         // };
@@ -65,12 +83,16 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-        setSubStatus([...subStatus, roomIdSelected]);
-    }, [roomIdSelected]);
+        // if (roomIdSelected != receiveRoom) {
+        //     console.log("다름다름: ", roomIdSelected, receiveRoom);
+        //     setInvisible(!invisible);
+        // }
+        // setSubStatus([...subStatus, roomIdSelected]);
+    }, [chatting, roomIdSelected]);
 
-    useEffect(()=>{
-        !subStatus.includes(roomIdSelected) && subscribe()
-    }, [roomIdSelected, subStatus]);
+    // useEffect(()=>{
+    //     !subStatus.includes(roomIdSelected) && subscribe()
+    // }, [roomIdSelected, subStatus]);
 
     const connect = () => {
         client.current = new StompJs.Client({
@@ -80,6 +102,10 @@ const Chat = () => {
             },
             debug: function (str) {
                 console.log("!!!!!!", str);
+                const data = str.split(" ");
+                if(data[0] == "<<<") {
+                    setReceiveRoom(((data[1].split("\n"))[5].split("/"))[4]);
+                }
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -100,10 +126,11 @@ const Chat = () => {
         client.current.deactivate();
     };
 
-    const subscribe = () => {
-        client.current.subscribe(`/topic/chat/room/${roomIdSelected}`, (data) => {
-            const chatting = JSON.parse(data.body);
-            setMessages([...messagesRef.current, chatting]);
+    const subscribe = (roomId) => {
+        client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
+            let line = JSON.parse(data.body);
+            //setMessages([...messagesRef.current, line]);
+            setChatting(line);
         });
     };
 
@@ -146,14 +173,15 @@ const Chat = () => {
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
                         <ChatRoomList
                             callback={changeRoomIdSelected}
-                            chatRoomId={roomIdSelected}
+                            roomIdSelected={roomIdSelected}
                             roomList={roomList}
                             newRoomList={newRoomList}
                             setNewRoomList={setNewRoomList}
+                            receiveRoom={receiveRoom}
                             />
                         <ChatMessageList
                             messages={messages}
-                            chatRoomId={roomIdSelected}
+                            roomIdSelected={roomIdSelected}
                             publish={publish} />
                     </div>
                 </div>
