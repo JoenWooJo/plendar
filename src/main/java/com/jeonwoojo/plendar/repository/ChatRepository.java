@@ -28,4 +28,8 @@ public class ChatRepository {
 		return sqlSession.insert("chat.chatMessageInsert", message) == 1;
 	}
 
+	public List<ChatMessage> findMessages(long roomId) {
+		return sqlSession.selectList("chat.findMessages", roomId);
+	}
+
 }

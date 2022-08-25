@@ -17,6 +17,7 @@ import com.jeonwoojo.plendar.service.ProjectService;
 import com.jeonwoojo.plendar.vo.ProjectVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
+@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/project")
@@ -26,9 +27,9 @@ public class ProjectController {
 	private ProjectService projectService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<JsonResult> create(@RequestBody ProjectVo projectVo) {
+	public ResponseEntity<JsonResult> create(@AuthUser UserVo authUser, @RequestBody ProjectVo projectVo) {
 		System.out.println("data: "+projectVo);
-		ProjectVo newVo = projectService.createProject(projectVo);
+		ProjectVo newVo = projectService.createProject(projectVo, authUser);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(newVo));

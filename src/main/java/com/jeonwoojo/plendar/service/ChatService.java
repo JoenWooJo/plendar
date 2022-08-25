@@ -26,6 +26,10 @@ public class ChatService {
 	public boolean chatMessageInsert(ChatMessage message) {
 		return chatRepository.chatMessageInsert(message);
 	}
+
+	public List<ChatMessage> findMessages(long roomId) {
+		return chatRepository.findMessages(roomId);
+	}
 	
 	
 }
