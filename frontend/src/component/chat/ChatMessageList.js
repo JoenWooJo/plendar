@@ -31,8 +31,20 @@ const ChatMessageList = ({ chatRoomId, messages, publish }) => {
                                 const date = msg["sendTime"].split(" ")[0];
                                 const time = msg["sendTime"].split(" ")[1];
                                 return msg.sender == localStorage.getItem("loginUserNo") ?
-                                    <ChatMessageSend key={i} content={msg.message} date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} time={time.split(":")[0] + ":" + time.split(":")[1]} /> :
-                                    <ChatMessageReceive key={i} name={msg.senderName} content={msg.message} date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} time={time.split(":")[0] + ":" + time.split(":")[1]} />
+                                    <ChatMessageSend 
+                                        key={i} 
+                                        content={msg.message} 
+                                        date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} 
+                                        time={time.split(":")[0] + ":" + time.split(":")[1]} 
+                                    /> :
+                                    <ChatMessageReceive 
+                                        key={i} 
+                                        name={msg.senderName} 
+                                        content={msg.message} 
+                                        date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} 
+                                        time={time.split(":")[0] + ":" + time.split(":")[1]} 
+                                        profile={msg.senderProfile}
+                                    />
                             })
                         }
                     </div>

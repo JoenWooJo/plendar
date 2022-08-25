@@ -9,8 +9,8 @@ const ChatMessageSend = ({content, date, time}) => {
                     {content}</p>
                 <p className="small me-3 mb-3 rounded-3 text-muted">{time} | {date}</p>
             </div>
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="avatar 1" style={{ width: '45px', height: '100%' }} />
+            <img src={localStorage.getItem("loginUserProfile")}
+                alt="avatar 1" style={{ width: '45px', height: '100%', borderRadius:'70%' }} />
         </div>
     );
 };

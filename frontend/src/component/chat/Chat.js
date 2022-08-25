@@ -35,11 +35,11 @@ const Chat = () => {
         async function fetchAndSetRooms() {
             connect();
             const resp = await axios.get('/api/chat/rooms');
-            console.log(resp.data);
             if (resp.data.result == "fail") {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
+            console.log("방번호",resp.data.data);
             setNewRoomList(resp.data.data);
             setRoomList(resp.data.data);
         } 
@@ -101,7 +101,6 @@ const Chat = () => {
     };
 
     const subscribe = () => {
-        console.log("여기");
         client.current.subscribe(`/topic/chat/room/${roomIdSelected}`, (data) => {
             const chatting = JSON.parse(data.body);
             setMessages([...messagesRef.current, chatting]);
@@ -135,7 +134,6 @@ const Chat = () => {
                 message: line,
                 sender: localStorage.getItem("loginUserNo"),
                 sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
-                senderName: localStorage.getItem("loginUserName")
             }),
         });
     };
