@@ -25,7 +25,15 @@
 		<![CDATA[
 			insert
 				into proj_member
-			 values (${userVo.no }, ${projectNo }, ${userVo.permission })
+			 values (${userVo.no }, ${projectNo }, 0, ${userVo.permission })
+		]]>
+	</insert>
+	
+	<insert id="insertReader" parameterType="map">
+		<![CDATA[
+			insert
+				into proj_member
+			 values (${authUser.no }, ${projectNo }, 1, 1)
 		]]>
 	</insert>
 	
