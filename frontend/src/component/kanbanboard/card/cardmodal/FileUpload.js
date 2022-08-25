@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { Component } from "react";
+import "../../../../assets/css/cardFileUpload/cardFileUpload.css";
+import Upload from "./FileUploads/Upload";
 
-const FileUpload = () => {
-    return (
-        <div>
-            파일 업로드
-        </div>
-    );
-};
+class FileUpload extends Component {
+    render() {
+        return (
+            <div>
+                <div className="Card">
+                    <Upload />
+                </div>
+            </div>
+        );
+    }
+}
 
 export default FileUpload;
