@@ -41,4 +41,23 @@ public class ProjectController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findUser()));
 	}
+	
+	@Auth
+	@GetMapping("/find/project")
+	public ResponseEntity<JsonResult> findProject(@AuthUser UserVo authUser) {
+		System.out.println(authUser);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findProject(authUser.getNo())));
+	}
+	
+	@Auth
+	@GetMapping("/find/completeProject")
+	public ResponseEntity<JsonResult> findCompleteProject(@AuthUser UserVo authUser) {
+		System.out.println(authUser);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
+	}
+	
 }

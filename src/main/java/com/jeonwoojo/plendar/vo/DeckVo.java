@@ -11,3 +11,4 @@ public class DeckVo {
 	private String title;
 	private long sequence;
 }
+

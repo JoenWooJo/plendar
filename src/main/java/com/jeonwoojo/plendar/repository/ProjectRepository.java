@@ -75,4 +75,12 @@ public class ProjectRepository {
 		return projectVo;
 	}
 
+	public List<ProjectVo> findProject(Long userNo) {
+		return sqlSession.selectList("project.findProject", userNo);
+	}
+
+	public List<ProjectVo> findCompleteProject(Long userNo) {
+		return sqlSession.selectList("project.findCompleteProject", userNo);
+	}
+
 }

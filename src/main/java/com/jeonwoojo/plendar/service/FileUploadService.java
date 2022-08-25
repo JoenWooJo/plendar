@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileUploadService {
-   private static String SAVE_PATH = "/plendar-uploads";
+   private static String SAVE_PATH = "/plendar-uploads/profile";
    private static String URL_BASE = "/assets/profile";
 
    public String restoreImage(MultipartFile file) throws FileUploadException {

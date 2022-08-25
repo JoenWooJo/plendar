@@ -37,5 +37,25 @@
 		]]>
 	</insert>
 	
+	<select id="findProject" parameterType="long" resultType="projectvo">
+		<![CDATA[
+			select no, title, description, start_date as startDate, end_date as endDate, priority, finished
+			 from project pj, proj_member pjm 
+				where pj.no =  pjm.project_no 
+					and pjm.user_no = #{userNo } 
+					and pj.finished="N"
+					order by priority desc, title asc;
+		]]>
+	</select>
+	
+	<select id="findCompleteProject" parameterType="long" resultType="projectvo">
+		<![CDATA[
+			select no, title, description, start_date as startDate, end_date as endDate, priority, finished
+			 from project pj, proj_member pjm 
+				where pj.no =  pjm.project_no 
+					and pjm.user_no = #{userNo } 
+					and pj.finished="Y";
+		]]>
+	</select>
 	
 </mapper>

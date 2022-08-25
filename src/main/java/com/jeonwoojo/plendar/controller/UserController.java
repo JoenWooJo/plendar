@@ -1,6 +1,5 @@
 package com.jeonwoojo.plendar.controller;
 
-
 import javax.validation.Valid;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
@@ -84,9 +82,11 @@ public class UserController {
 		UserVo vo = new UserVo();
 		vo.setProfile(profile);
 		vo.setNo(authUser.getNo());
-		System.out.println("afdsafsdafdsfsafdsafsafsdafsdaf"+vo);
+		
 		userService.updateProfile(vo);
+		
 		System.out.println("profile Update: " + vo);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(profile));
 	}
 
