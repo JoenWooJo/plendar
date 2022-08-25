@@ -29,13 +29,17 @@ export default function TeamCalendar() {
     let response =  await client.get('/calendar/axios/team')
     let li = response.data.data;
     console.log("!!!!", response.data.data);
-    console.log(response.data)
 
     for(let i=0; i < li.length; i++){
         li[i]['color'] = getRandomColor();
     }
 
     return response.data.data;
+  }
+
+  // 이벤트 클릭했을 때 실행
+  const eventClick = () => {
+    return console.log("Event Clicked")
   }
 
     return (
@@ -75,6 +79,7 @@ export default function TeamCalendar() {
             
           }
           events={callback}
+          eventClick={eventClick}
       />
       </div>
       </div>

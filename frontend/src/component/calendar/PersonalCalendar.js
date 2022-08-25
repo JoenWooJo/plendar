@@ -37,6 +37,11 @@ export default function PersonalCalendar() {
     return response.data.data;
   }
 
+  // 이벤트 클릭했을 때 실행
+  const eventClick = () => {
+    return console.log("Event Clicked")
+  }
+
     return (
       <SiteLayout>
       <div className="col-xl-11 ml-4">
@@ -74,7 +79,7 @@ export default function PersonalCalendar() {
             
           }
           events={callback}
-            
+          eventClick={eventClick}
       />
       </div>
       </div>

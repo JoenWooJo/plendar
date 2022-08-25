@@ -13,7 +13,7 @@ const Navigation = ({ active }) => {
 
 
             <div className="text-center mt-5">
-                <img src={localStorage.getItem("loginUserProfile")} style={{ width: '150px' }}></img>
+                <img src={localStorage.getItem("loginUserProfile")} style={{ width: '150px', borderRadius:'20%' }}></img>
                 <br /><br />
                 <div className="text-light">{localStorage.getItem("loginUserName")} 님</div>
             </div>
