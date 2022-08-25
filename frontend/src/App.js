@@ -12,7 +12,7 @@ import Join from './pages/Join';
 import ForgotPassword from './pages/ForgotPassword';
 import CreateProject from './component/project/CreateProject';
 import UpdateProject from './component/project/UpdateProject';
-
+import Kanban from './component/kanbanboard/Kanban';
 import Chat from './component/chat/Chat';
 import CompletePage from './component/project/CompletePage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
@@ -20,7 +20,7 @@ import PersonalCalendar from './component/calendar/PersonalCalendar';
 const App= () => (
   
   useRoutes([
-    {path: '/', element: <Main />},
+    {path: '/', element: <Login />},
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
@@ -34,7 +34,9 @@ const App= () => (
     {path: '/project/createProject', element: <CreateProject />},
     {path: '/project/updateProject', element: <UpdateProject />},
     {path: '/project/completepage', element: <CompletePage />},   
-    {path: '/chat', element: <Chat />}    
+    {path: '/chat', element: <Chat />}, 
+    {path: '/kanbanboard/:no', element: <Kanban />}    
+    
   ])
 
 );
