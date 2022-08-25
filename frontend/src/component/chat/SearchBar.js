@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-// import '../../assets/css/mdb.dark.min.css';
-// import '../../assets/css/mdb.dark.rtl.min.css';
-// import '../../assets/css/mdb.min.css';
-// import '../../assets/css/mdb.rtl.min.css';
 import SearchIcon from '@mui/icons-material/Search';
 import '../../assets/css/bar.css';
 
 
-const SearchBar = ({ roomList }) => {
+const SearchBar = ({ roomList, setNewRoomList }) => {
+
     const searchRoom = (e) => {
-        console.log("search: ",e.target.value);
-        // let searchText = e.target.value;
-        // roomList.filter((room)=> {
-        //     if (searchText == "") {
-        //         return room
-        //     } else if (room.title.toLowerCase().includes(searchText.toLowerCase())) {
-        //         return ""
-        //     }
-        // })
+        setNewRoomList(roomList.filter((room)=> {
+            if (e.target.value == "") {
+                return room
+            } else if (room.title.toLowerCase().includes(e.target.value.toLowerCase())) {
+                return room
+            }
+        }))
     };
 
     return (

@@ -13,7 +13,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const mypage = () => {
     const client = axios.create({ baseURL: '/api' })
