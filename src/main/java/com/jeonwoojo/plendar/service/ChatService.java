@@ -30,6 +30,10 @@ public class ChatService {
 	public List<ChatMessage> findMessages(long roomId) {
 		return chatRepository.findMessages(roomId);
 	}
+
+	public UserVo findsendUser(long senderNo) {
+		return chatRepository.findsendUser(senderNo);
+	}
 	
 	
 }

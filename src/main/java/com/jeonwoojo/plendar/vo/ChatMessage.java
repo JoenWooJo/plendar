@@ -10,4 +10,5 @@ public class ChatMessage {
     private String message;
     private String sendTime;
     private String senderName;
+    private String senderProfile;
 }

@@ -30,14 +30,23 @@
 		<![CDATA[
 			insert
 				into chat_message
-			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime }, #{senderName })
+			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime })
 		]]>
 	</insert>
 	
 	
 	<select id="findMessages" parameterType="long" resultType="message">
 		<![CDATA[
-			select no, room_id as roomId, sender, message, send_time as sendTime, sender_name as senderName from chat_message where room_id = #{roomId }
+			select msg.no as no, msg.room_id as room_id, msg.sender as sender, msg.message as message, msg.send_time as sendTime, u.name as senderName, u.profile as senderProfile
+				from chat_message msg, user u
+			 where msg.sender = u.no
+				and msg.room_id = #{roomId }
+		]]>
+	</select>
+	
+	<select id="findsendUser" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select name, profile from user where no = #{senderNo }
 		]]>
 	</select>
 	

@@ -32,4 +32,8 @@ public class ChatRepository {
 		return sqlSession.selectList("chat.findMessages", roomId);
 	}
 
+	public UserVo findsendUser(long senderNo) {
+		return sqlSession.selectOne("chat.findsendUser", senderNo);
+	}
+
 }
