@@ -17,24 +17,22 @@ const Navigation = ({ active }) => {
                 <br /><br />
                 <div className="text-light">{localStorage.getItem("loginUserName")} 님</div>
             </div>
+           <div className='ml-3'>
+            <li className="nav-item active">
+                <NavLink className="nav-link" 
+                         to={'/user/mypagechecked'}> 
+                         <i className="fas fa-fw fa-tachometer-alt"></i>
+                         My page 
+                </NavLink>
+            </li>
 
-            <div className='ml-3'>
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/user/mypage'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        My page
-                    </NavLink>
-                </li>
-
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/project/myproject'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        My Project
-                    </NavLink>
-                </li>
-
+            <li className="nav-item active">
+                <NavLink className="nav-link" 
+                         to={'/project/myproject'}> 
+                         <i className="fas fa-fw fa-tachometer-alt"></i>
+                         My Project 
+                </NavLink>
+            </li>
             </div>
 
             {

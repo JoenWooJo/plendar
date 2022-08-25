@@ -20,7 +20,7 @@ import PersonalCalendar from './component/calendar/PersonalCalendar';
 const App= () => (
   
   useRoutes([
-    {path: '/', element: <Main />},
+    {path: '/', element: <Login />},
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},

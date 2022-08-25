@@ -24,14 +24,13 @@ export default function TeamCalendar() {
     }
 
   // DB에서 이벤트(카드) 불러오기
-  const callback = async() => {
-    const client = axios.create({baseURL: '/api'})
-    let response =  await client.get('/calendar/axios/team')
+  const callback = async () => {
+    const client = axios.create({ baseURL: '/api' })
+    let response = await client.get('/calendar/axios/team')
     let li = response.data.data;
-    console.log("!!!!", response.data.data);
 
-    for(let i=0; i < li.length; i++){
-        li[i]['color'] = getRandomColor();
+    for (let i = 0; i < li.length; i++) {
+      li[i]['color'] = getRandomColor();
     }
 
     return response.data.data;
@@ -42,16 +41,54 @@ export default function TeamCalendar() {
     return console.log("Event Clicked")
   }
 
-    return (
-      <SiteLayout>
-      <div className="col-xl-11 ml-4">
-          <div className="btn-group btn-group-toggle" data-toggle="buttons">
+  return (
+    <SiteLayout>
+      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
+        <div className="card shadow mb-4">
+          <div className="card-header1 py-3">
+            <h6 className="m-0 font-weight-bold text-light">달력</h6>
+          </div>
+          <div className="card-body" >
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-secondary active">
-                  <Link to ="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
+                <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
               </label>
               <label className="btn btn-secondary">
-                  <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none" }}> 개인 </Link>
+                <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none" }}> 개인 </Link>
               </label>
+            </div>
+            <div className="App">
+              <FullCalendar
+                defaultView="dayGridMonth"
+                // 헤더 버튼 설정
+                headerToolbar={{
+                  left: "prevYear,prev,next,nextYear",
+                  center: "title",
+                  right: "today",
+                }}
+                // 타이틀 설정
+                titleFormat={{ year: 'numeric', month: 'long' }}
+                //height="800px"
+                // 달력 일칸 사이즈 비율 고정
+                aspectRatio={"1.1"}
+                plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
+                // 구글캘린더 API연동 - 공휴일
+                googleCalendarApiKey='AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
+                eventSources={
+                  {
+                    googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+                    className: '대한민국 공휴일', // an option!
+                    color: 'red',
+                    textColor: 'white'
+                  }
+
+                }
+                // eventClick={handleEventClick()}
+                events={callback}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="App">
         <FullCalendar

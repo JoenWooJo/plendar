@@ -38,8 +38,16 @@ const Login = () => {
                 localStorage.setItem('loginUserName', result["name"]);
                 localStorage.setItem('loginUserProfile', result["profile"]);
 
-                console.log("loginUserNo: ",localStorage.getItem("loginUserNo"));
-                window.location.replace("/");
+                console.log("로그인한 사람의 프로젝트 수: ", result["projectCount"]);
+
+                if(result["projectCount"] >= 1)
+                {
+                    window.location.replace("/project/myproject");
+                }
+                else 
+                {
+                    window.location.replace("/component");
+                }
             });
         
     }
