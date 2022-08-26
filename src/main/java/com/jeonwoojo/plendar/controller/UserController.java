@@ -57,7 +57,8 @@ public class UserController {
 	@GetMapping("/logout")
 	public void logout() {
 	}
-
+	
+	@Auth
 	@PostMapping("/axios/update")
 	public ResponseEntity<JsonResult> updateUser(@RequestBody UserVo vo) {
 		System.out.println("modify: " + vo);
@@ -88,6 +89,14 @@ public class UserController {
 		System.out.println("profile Update: " + vo);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(profile));
+	}
+	
+	@Auth
+	@PostMapping("/confirmPassword")
+	public ResponseEntity<JsonResult> confirmPassword(@RequestBody UserVo vo) {
+		boolean result = userService.confirmPassword(vo.getPassword());
+
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(result));
 	}
 
 }

@@ -47,4 +47,10 @@
 		]]>
 	</update>
 	
+	<select id="checkPassword" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select password from user where password=#{password }
+		]]>
+	</select>
+	
 </mapper>

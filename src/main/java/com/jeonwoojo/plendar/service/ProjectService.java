@@ -31,4 +31,8 @@ public class ProjectService {
 		return projectRepository.findCompleteProject(userNo);
 	}
 
+	public Object updateProject(ProjectVo projectVo, UserVo authUser) {
+		return projectRepository.updateProject(projectVo, authUser);
+	}
+
 }
