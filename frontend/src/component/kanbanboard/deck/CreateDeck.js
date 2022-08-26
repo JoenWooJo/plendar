@@ -1,15 +1,40 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import { set } from 'date-fns';
 
 
-const CreateDeck = () => {
+const CreateDeck = ({ setCreateResult }) => {
 
-const [title, setTitle]=useState();
+const params = useParams(); 
+const projectNo = params.no;
+const [title, setTitle]=useState('');
 const handleShow = () => setShow(true);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 
+// 덱 생성하기
+const createDeck = () => {
+  axios.post('/api/kanban/deck/create',{
+      title: title,
+      projectNo :projectNo
+  }).then((resp)=>{
+      console.log(resp);
+      setCreateResult(createResult => !createResult);
+      handleClose();
+  }).catch((err)=>{
+      console.error(err)});
+};
+
+const keyEnter = (e) => {
+  if(e.key == "Enter"){
+    return(
+    title==''?handleClose:createDeck
+    );
+  }
+}
 
     return (
         <div>
@@ -34,9 +59,13 @@ const handleClose = () => setShow(false);
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          
+          <Button variant="primary" 
+                  onClick={title==''?handleClose:createDeck}
+                  onKeyPress={keyEnter}>
             Add
           </Button>
+          
         </Modal.Footer>
       </Modal>
         </div>

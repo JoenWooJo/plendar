@@ -88,10 +88,6 @@ export default function PersonalCalendar() {
               />
             </div>
           </div>
-          </div>
-
-          </div>
-
       </SiteLayout>
     );
 }
