@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.DeckRepository;
 import com.jeonwoojo.plendar.vo.DeckVo;
+import com.jeonwoojo.plendar.vo.ProjectVo;
 
 @Service
 public class DeckService {
@@ -16,6 +17,14 @@ public class DeckService {
 
 	public List<DeckVo> findDeck(Long projectNo) {
 		return deckRepository.findDeck(projectNo);
+	}
+
+	public boolean createDeck(DeckVo deckVo) {
+		return deckRepository.createDeck(deckVo);
+	}
+
+	public boolean updateDeck(DeckVo deckVo) {
+		return deckRepository.updateDeck(deckVo);
 	}
 
 }
