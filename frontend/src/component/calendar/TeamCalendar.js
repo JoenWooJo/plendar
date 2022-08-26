@@ -85,6 +85,7 @@ export default function TeamCalendar() {
                 }
                 // eventClick={handleEventClick()}
                 events={callback}
+                eventClick={eventClick}
               />
             </div>
           </div>
@@ -93,4 +94,3 @@ export default function TeamCalendar() {
       </SiteLayout>
     );
 }
-
