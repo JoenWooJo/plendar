@@ -10,7 +10,14 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
-    const [receiveRoom, setReceiveRoom] = useState('');
+    
+    const [receiveRoomList, _setReceiveRoomList] = useState([]);
+    const receiveRef = useRef(receiveRoomList);
+
+    const setReceiveRoomList = (receiveRoomList) => {
+        receiveRef.current = receiveRoomList;
+        _setReceiveRoomList(receiveRoomList);
+    }
     
 
     const [roomList, setRoomList] = useState([]);
@@ -27,6 +34,7 @@ const Chat = () => {
     }
 
     const [chatting, setChatting] = useState({});
+    const [receiveChatCount, setReceiveChatCount] = useState(0);
 
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
@@ -34,11 +42,6 @@ const Chat = () => {
         console.log("chatRoomId: "+id);
         setRoomIdSelected(id); 
     };
-
-    useEffect(()=>{
-        console.log("receiveRoom",receiveRoom);
-    }, [receiveRoom]);
-
 
     useEffect(() => {
         async function fetchAndSetRooms() {
@@ -83,16 +86,11 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-        // if (roomIdSelected != receiveRoom) {
-        //     console.log("다름다름: ", roomIdSelected, receiveRoom);
-        //     setInvisible(!invisible);
-        // }
-        // setSubStatus([...subStatus, roomIdSelected]);
     }, [chatting, roomIdSelected]);
 
-    // useEffect(()=>{
-    //     !subStatus.includes(roomIdSelected) && subscribe()
-    // }, [roomIdSelected, subStatus]);
+    useEffect(()=>{
+        setReceiveChatCount(receiveRoomList.length);
+    }, [receiveRoomList.length])
 
     const connect = () => {
         client.current = new StompJs.Client({
@@ -103,8 +101,9 @@ const Chat = () => {
             debug: function (str) {
                 console.log("!!!!!!", str);
                 const data = str.split(" ");
-                if(data[0] == "<<<") {
-                    setReceiveRoom(((data[1].split("\n"))[5].split("/"))[4]);
+                if(data[1].slice(0,7) === "MESSAGE") {
+                    let receive = parseInt(((data[1].split("\n"))[5].split("/"))[4]);
+                    !receiveRef.current.includes(receive) && setReceiveRoomList([...receiveRef.current, receive]);
                 }
             },
             reconnectDelay: 5000,
@@ -167,7 +166,7 @@ const Chat = () => {
 
 
     return (
-        <SiteLayout>
+        <SiteLayout receiveChatCount={receiveChatCount}>
             <div className='col-xl-11 ml-4'>
                 <div className="card mt-5">
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
@@ -177,7 +176,7 @@ const Chat = () => {
                             roomList={roomList}
                             newRoomList={newRoomList}
                             setNewRoomList={setNewRoomList}
-                            receiveRoom={receiveRoom}
+                            receiveRoomList={receiveRoomList}
                             />
                         <ChatMessageList
                             messages={messages}

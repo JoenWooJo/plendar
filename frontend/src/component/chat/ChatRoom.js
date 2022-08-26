@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import ModalChat from './ModalChat';
 import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-const ChatRoom = ({selected, chatRoomName, roomNo, callback, receiveRoom, roomIdSelected}) => {
+const ChatRoom = ({selected, chatRoomName, roomNo, callback, receiveRoomList, roomIdSelected}) => {
     
     const [invisible, setInvisible] = useState(true);
 
@@ -19,26 +16,18 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, receiveRoom, roomId
         setInvisible(bool);
     };
 
-    
 
-    // useEffect(()=>{
-    //     // console.log("채팅 알림?: ", "receviceRoom: ",receiveRoom, roomIdSelected);
-    //     // if (receiveRoom != undefined && receiveRoom != roomIdSelected) {
-    //     //     // setInvisible(false);
-    //     //     handleBadgeVisibility(false);
-    //     //     return;
-    //     // }
-    //     // // setInvisible(true);
-    //     // handleBadgeVisibility(true);
-
-    //     if(roomIdSelected === receiveRoom){
-    //         // setInvisible(true);
-    //         console.log("????");
-    //     }
-
-        
-
-    // }, [receiveRoom])
+    useEffect(()=>{
+        receiveRoomList.map((e,i) => {
+            if((roomNo === e) && (roomIdSelected !== roomNo)) {
+                console.log(roomNo, "번 방에 알림 있음");
+                handleBadgeVisibility(false);
+            } else if ((roomNo === e) && (roomIdSelected === roomNo)) {
+                handleBadgeVisibility(true);
+                receiveRoomList.splice(i,1);
+            }
+        }) 
+    }, [receiveRoomList, roomIdSelected])
 
     
     return (
@@ -59,10 +48,6 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, receiveRoom, roomId
                 <div className="pt-1" >
                     <ModalChat roomNo={roomNo}/>
                     <p className="small text-muted mb-2">Just now</p>
-                    <FormControlLabel
-                    sx={{ color: 'text.primary' }}
-                    control={<Switch checked={!invisible} onChange={handleBadgeVisibility} />}
-                    />
                 </div>
             </div>
         </li>

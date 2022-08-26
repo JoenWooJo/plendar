@@ -7,14 +7,14 @@ import Navigation from "./Navigation";
 import '../assets/scss/sb-admin-2.scss';
 
 
-const SiteLayout = ({children}) => {
+const SiteLayout = ({children, receiveChatCount}) => {
     return (     
         <Fragment>
             <div className='row'>
                 <Navigation active={'default'}/>
                 <div className="col-xl-10">
                     <div className='row'>
-                        <Header />
+                        <Header receiveChatCount={receiveChatCount}/>
                         {children}
                         <Footer />
                     </div>

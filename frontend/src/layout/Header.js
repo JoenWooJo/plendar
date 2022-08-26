@@ -4,10 +4,11 @@ import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import { Link } from 'react-router-dom';
+import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
-const Header = () => {
+const Header = ({receiveChatCount}) => {
     const[alramList,setAlramList]=useState(false);
 
     const logoutClick = async () => {
@@ -36,8 +37,9 @@ const Header = () => {
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <Badge color="error" badgeContent={receiveChatCount}>
                         <MessageRoundedIcon />
-                        <span className="badge badge-danger badge-counter">3+</span>
+                        </Badge>
                     </Link>
                 </li>
                 
