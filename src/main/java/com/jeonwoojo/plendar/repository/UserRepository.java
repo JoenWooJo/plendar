@@ -25,8 +25,7 @@ public class UserRepository {
 	}
 
 	public boolean updateUser(UserVo vo) {
-		System.out.println("repositry" + vo);
-		return sqlSession.insert("user.updateUser", vo) == 1;
+		return sqlSession.update("user.updateUser", vo) == 1;
 	}
 
 	public boolean updateProfile(UserVo vo) {
@@ -34,8 +33,7 @@ public class UserRepository {
 		return sqlSession.update("user.updateProfile", vo) == 1;
 	}
 
-	public UserVo getProfile() {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVo checkPassword(String password) {
+		return sqlSession.selectOne("user.checkPassword", password);
 	}
 }

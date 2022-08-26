@@ -60,4 +60,13 @@ public class ProjectController {
 				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
 	}
 	
+	@Auth
+	@GetMapping("/update/project")
+	public ResponseEntity<JsonResult> updateProject(@AuthUser UserVo authUser,@RequestBody ProjectVo projectVo) {
+		System.out.println("modify: " + projectVo);
+		projectService.updateProject(projectVo, authUser);
+
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectVo));
+	}
+	
 }

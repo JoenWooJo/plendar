@@ -83,4 +83,8 @@ public class ProjectRepository {
 		return sqlSession.selectList("project.findCompleteProject", userNo);
 	}
 
+	public Object updateProject(ProjectVo projectVo, UserVo authUser) {
+		return sqlSession.update("project.updateProject", projectVo);
+	}
+
 }
