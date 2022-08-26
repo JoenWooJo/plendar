@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CreateCard from '../card/CreateCard';
 import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertDropdown from './MoreVertDropdown';
 
 
 const Deck = ({title}) => {
@@ -34,12 +36,12 @@ const Deck = ({title}) => {
     useEffect(()=>{
 
     }, [title])
+    const [morevertList, setMorevertList] = useState(false);
 
     return (
         <div className="card shadow col-xl-3 mb-4 mt-3 ml-3">
             <div className=" row card-header py-3">
                 <div className="col-xl-10 mt-2" onClick={onClickDeckTitle}>
-
                     {changeTitle
                         ?
                         <TextField
@@ -56,7 +58,10 @@ const Deck = ({title}) => {
                         <h5 className=" mb-2 font-weight-bold text-gray-dark">{title}</h5>
                     }
                 </div>
-                <CreateCard />
+                <div className="col-xl-2 mt-2">
+                    <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
+                    {morevertList ? <MoreVertDropdown /> : null}
+                </div>
             </div>
             <div className="card-body">
                 <Card />

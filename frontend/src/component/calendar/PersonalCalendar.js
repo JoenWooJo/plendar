@@ -7,12 +7,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import SiteLayout from '../../layout/SiteLayout';
 import { Link } from 'react-router-dom';
-
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
-
 import '../../assets/css/calendar.css'
-
 export default function PersonalCalendar() {
 
   const no = localStorage.getItem("loginUserNo")
@@ -45,7 +42,13 @@ export default function PersonalCalendar() {
 
     return (
       <SiteLayout>
-      <div className="col-xl-11 ml-4">
+
+      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
+      <div className="card shadow mb-4">
+          <div className="card-header1 py-3">
+            <h6 className="m-0 font-weight-bold text-light">달력</h6>
+          </div>
+          <div className="card-body" >
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-secondary">
                 <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
@@ -85,38 +88,10 @@ export default function PersonalCalendar() {
               />
             </div>
           </div>
-        </div>
-      </div>
-      <div className="App">
-        <FullCalendar
-         // 헤더 버튼 설정
-        headerToolbar={{
-          left: "prevYear,prev,next,nextYear",
-          center: "title",
-          right: "today"
-        }}
-         // 타이틀 설정
-        titleFormat={{year: 'numeric', month: 'long'}}
-        height="800px"
-         // 달력 일칸 사이즈 비율 고정
-        aspectRatio={"1.2"}
-        plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
-         // 구글캘린더 API연동 - 공휴일
-        googleCalendarApiKey = 'AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
-        eventSources = {
-            {
-            googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
-            className: '대한민국 공휴일', // an option!
-            color: 'red',
-            textColor: 'white'
-            }
-            
-          }
-          events={callback}
-          eventClick={eventClick}
-      />
-      </div>
-      </div>
+          </div>
+
+          </div>
+
       </SiteLayout>
     );
 }

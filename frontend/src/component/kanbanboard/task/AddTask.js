@@ -2,6 +2,7 @@ import React ,{useState} from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddIcon from '@mui/icons-material/Add';
 
 const AddTask = () => {
 
@@ -11,7 +12,7 @@ const AddTask = () => {
 
     return (
         <div className='col-xl-2'>
-        <MoreVertIcon onClick={handleShow}/>
+        <form type="button"><AddIcon onClick={handleShow} /></form>
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>테스크 추가하기</Modal.Title>
