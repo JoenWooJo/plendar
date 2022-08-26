@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import CreateCard from '../card/CreateCard';
 import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertDropdown from './MoreVertDropdown';
 import {post, postJson} from '../../../api/Axios';
+
 
 const Deck = ({title, no}) => {
     const [deckTitle, setDeckTitle] = useState(title);
@@ -36,8 +39,8 @@ const Deck = ({title, no}) => {
     useEffect(()=>{
         postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no: no}));
     },[deckTitle, no]);
-
-
+   
+   const [morevertList, setMorevertList] = useState(false);
 
     return (
         <div className="card shadow col-xl-3 mb-4 mt-3 ml-3">
@@ -59,7 +62,10 @@ const Deck = ({title, no}) => {
                         <h5 className=" mb-2 font-weight-bold text-gray-dark">{deckTitle}</h5>
                     }
                 </div>
-                <CreateCard />
+                <div className="col-xl-2 mt-2">
+                    <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
+                    {morevertList ? <MoreVertDropdown /> : null}
+                </div>
             </div>
             <div className="card-body">
                 <Card />

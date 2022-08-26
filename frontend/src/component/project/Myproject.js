@@ -20,9 +20,9 @@ const Myproject = () => {
 
     return (
         <SiteLayoutNS>
-            <div className="col-xl-11 ml-4">
-                <div className="card shadow mb-4">
-                    <div className="card-header1 py-3">
+            <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
+                <div className="card shadow mb-4" >
+                    <div className="card-header1 py-3" >
                         <h6 className="m-0 font-weight-bold text-light"> My project</h6>
                     </div>
                     <div className="card-body">
@@ -42,7 +42,7 @@ const Myproject = () => {
                             </NavLink>
                         </div>
 
-                        <div className="row mb-4">
+                        <div className="row mb-4"  style={{  overflow:"auto"}}>
                             {
                                 projectList.map((m,i)=>{
                                     return(

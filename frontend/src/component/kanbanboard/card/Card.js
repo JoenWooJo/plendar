@@ -28,7 +28,7 @@ const Card = () => {
                     </div>
                     <div className='row'>
                         <div className="col-xl-9 mt-3 text-black-50 small">이건 이 카드의 설명</div>
-                        <div className='col-xl-2 mt-2' onClick={onChangeCard}>
+                        <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
                             {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
 
                         </div>
@@ -54,11 +54,11 @@ const Card = () => {
                     <div className="col-xl-10 mt-2">
                         <CardModal/>
                     </div>
-                    <AddTask/>
+                        <AddTask/>
                     </div>
                     <div className='row'>
                         <div className="col-xl-9 mt-3 text-black-50 small">이건 이 카드의 설명</div>
-                        <div className='col-xl-2 mt-2' onClick={onChangeCard}>
+                        <div className='col-xl-2 mt-2'type="button" onClick={onChangeCard}>
                             {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
 
                         </div>

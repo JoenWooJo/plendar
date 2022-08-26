@@ -14,7 +14,9 @@ import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
+
 const mypage = () => {
+    
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -106,13 +108,13 @@ const mypage = () => {
     }
 
     const refForm = useRef(null);
-    
-    const handleSubmit = async function(e) {
+
+    const handleSubmit = async function (e) {
         e.preventDefault();
 
         console.log(e.target['file'].files[0]);
 
-    
+
         if (e.target['file'].files.length === 0) {
             console.error(`validation ${e.target['file'].placeholder} is empty`);
             return;
@@ -125,8 +127,8 @@ const mypage = () => {
         formData.append('file', file);
 
         // Post
-        const response = await client.post(`/user/axios/updateProfile`, formData ,{
-            headers: { 
+        const response = await client.post(`/user/axios/updateProfile`, formData, {
+            headers: {
                 'Accept': 'application/json'
             }
         });
@@ -146,31 +148,34 @@ const mypage = () => {
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
                     <div className="card-body" >
-                        <div className='row ml-5'>
+                        <div className='row'>
+                            <div style={{ width: '165px' }}></div>
                             <form
-                                onSubmit={handleSubmit} 
+                                onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <div className='col-xl-3 mt-5'>
-                                    <img id="profile" src= {profile} style={{ width: '200px' }}></img>
-                                    <div className='row' >
-                                    <input
-                                        type={'file'}
-                                        name={'file'}
-                                        placeholder={'이미지(사진)'}/>
-                            <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
-                                refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
-                            }}>
-                                올리기
-                            </Button>
-                            <Button className='mt-2 mr-2' variant="outlined">
-                                삭제
-                            </Button>
+                                <div className='row-xl-6 mt-5'>
+                                    <div style={{height:"270px", width:"460px"}} className="row-xl-6">
+                                        <img id="profile" src={profile} style={{ width: '200px' }}></img>
                                     </div>
+                                    <div className='row' >
+                                          <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
                                         
+                                            이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
+                                         </Button>
+                                        <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
+                                            refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                                        }}>
+                                            올리기
+                                        </Button>
+                                        <Button className='mt-2 mr-2' variant="outlined">
+                                            삭제
+                                        </Button>
+                                    </div>
+
                                 </div>
                             </form>
 
-                            <div className='col-xl-8' >
+                            <div className='col-xl-6' >
                                 <Box
                                     component="form"
                                     sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 3 }}

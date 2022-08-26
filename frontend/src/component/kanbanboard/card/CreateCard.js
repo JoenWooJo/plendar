@@ -7,15 +7,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 const options = ['jjj@gmail.com', 'Ouuuu@naver.com'];
 
-const CreateCard = () => {
-    const handleShow = () => setShow(true);
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+const CreateCard = ({show, setShow}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [value, setValue] = useState(options[0]);
@@ -24,9 +20,8 @@ const CreateCard = () => {
 
     return (
         <div className='col-xl-1'>
-            <MoreVertIcon  onClick={handleShow} />
-            <Modal size='lg' show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
+            <Modal size='lg' show={show} onHide={()=> setShow(!show)}>
+                <Modal.Header >
                     <Modal.Title>카드 추가하기</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -130,10 +125,10 @@ const CreateCard = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={()=> setShow(!show)}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={()=> setShow(!show)}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

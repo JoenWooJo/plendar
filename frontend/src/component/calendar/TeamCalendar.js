@@ -90,35 +90,6 @@ export default function TeamCalendar() {
           </div>
         </div>
       </div>
-      <div className="App">
-        <FullCalendar
-         // 헤더 버튼 설정
-          headerToolbar={{
-            left: "prevYear,prev,next,nextYear",
-            center: "title",
-            right: "today",
-          }}
-         // 타이틀 설정
-          titleFormat={{year: 'numeric', month: 'long'}}
-          height="800px"
-         // 달력 일칸 사이즈 비율 고정
-          aspectRatio={"1.2"}
-          plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
-         // 구글캘린더 API연동 - 공휴일
-          googleCalendarApiKey = 'AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
-          eventSources = {
-            {
-            googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
-            className: '대한민국 공휴일', // an option!
-            color: 'red',
-            textColor: 'white'
-            }
-            
-          }
-          events={callback}
-          eventClick={eventClick}
-      />
-      </div>
       </SiteLayout>
     );
 }
