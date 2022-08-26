@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Box from '@mui/material/Box';
@@ -14,7 +14,9 @@ import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
+
 const mypage = () => {
+    
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -167,18 +169,25 @@ const mypage = () => {
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
                     <div className="card-body" >
-                        <div className='row ml-5'>
+                        <div className='row'>
+                            <div style={{ width: '165px' }}></div>
                             <form
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <div className='col-xl-3 mt-5'>
+                                <div className='col-xl-6 mt-5'>
+                                 <div style={{height:"270px", width:"460px"}} className="row-xl-6">
                                     <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
+                                     </div>
                                     <div className='row' >
                                         <input
                                             type={'file'}
                                             name={'file'}
                                             placeholder={'이미지(사진)'}
                                             onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+                                          {*<Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                        
+                                            이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
+                                         </Button>*}
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
@@ -188,11 +197,10 @@ const mypage = () => {
                                             삭제
                                         </Button>
                                     </div>
-
                                 </div>
                             </form>
 
-                            <div className='col-xl-8' >
+                            <div className='col-xl-6' >
                                 <Box
                                     component="form"
                                     sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 3 }}

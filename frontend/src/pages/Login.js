@@ -26,8 +26,10 @@ const Login = () => {
         
         axios.post('/api/user/login', new URLSearchParams(data))
             .then((resp)=>{
+
                 const result = resp.data.data;
-                if (result == null) {
+                console.log("실패: ", result)
+                if (result["no"] == null) {
                     // 로그인 실패 했을 때
                     event.preventDefault(); 
                     alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.")
@@ -37,7 +39,6 @@ const Login = () => {
                 localStorage.setItem('loginUserEmail', result["email"]);
                 localStorage.setItem('loginUserName', result["name"]);
                 localStorage.setItem('loginUserProfile', result["profile"]);
-
                 console.log("로그인한 사람의 프로젝트 수: ", result["projectCount"]);
 
                 if(result["projectCount"] >= 1)

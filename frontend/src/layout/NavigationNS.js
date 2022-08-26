@@ -39,7 +39,7 @@ const Navigation = ({ active }) => {
                 active == 'user/mypage' ?
                     <li className="nav-item active">
                         <NavLink className="nav-link"
-                            to={'/user/mypage'}>
+                            to={'/user/mypagechecked'}>
                             <i className="fas fa-fw fa-tachometer-alt"></i>
                             myyyypage
                         </NavLink>
