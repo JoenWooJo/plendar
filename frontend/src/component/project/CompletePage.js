@@ -1,11 +1,11 @@
 import React from 'react';
 import Complete from './Complete';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
+import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 const CompletePage = () => {
     return (
-        <SiteLayout>
+        <SiteLayoutNS>
 
             <div className="col-xl-11 ml-4">
 
@@ -35,7 +35,7 @@ const CompletePage = () => {
                     </div>
                 </div>
             </div>
-        </SiteLayout>
+        </SiteLayoutNS>
     );
 };
 

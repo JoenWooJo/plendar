@@ -6,7 +6,7 @@ class FileUpload extends Component {
     render() {
         return (
             <div>
-                <div className="Card">
+                <div className="Card2">
                     <Upload />
                 </div>
             </div>

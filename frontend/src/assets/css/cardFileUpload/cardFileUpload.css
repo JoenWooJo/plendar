@@ -1,4 +1,4 @@
-.App {
+.App2 {
     text-align: center;
     background-color: rgb(206, 213, 223);
     min-height: 100vh;
@@ -9,7 +9,7 @@
     font-size: calc(10px + 2vmin);
 }
 
-.Card {
+.Card2 {
     background-color: white;
     padding: 7px;
     width: 100%;

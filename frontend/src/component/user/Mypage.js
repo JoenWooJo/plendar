@@ -20,6 +20,7 @@ const mypage = () => {
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
     const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
     const [profile, setProfile] = useState(localStorage.getItem("loginUserProfile"))
+    const [imageSrc, setImageSrc] = useState('');
 
     const changeName = (event) => {
         setName(event.target.value);
@@ -106,13 +107,13 @@ const mypage = () => {
     }
 
     const refForm = useRef(null);
-    
-    const handleSubmit = async function(e) {
+
+    const handleSubmit = async function (e) {
         e.preventDefault();
 
         console.log(e.target['file'].files[0]);
 
-    
+
         if (e.target['file'].files.length === 0) {
             console.error(`validation ${e.target['file'].placeholder} is empty`);
             return;
@@ -125,22 +126,33 @@ const mypage = () => {
         formData.append('file', file);
 
         // Post
-        const response = await client.post(`/user/axios/updateProfile`, formData ,{
-            headers: { 
+        const response = await client.post(`/user/axios/updateProfile`, formData, {
+            headers: {
                 'Accept': 'application/json'
             }
         });
-
         // 바뀐 url
-        console.log(response.data.data);
+        console.log("@@@@@@", response.data.data);
         setProfile(response.data.data);
         localStorage.setItem("loginUserProfile", response.data.data)
 
     }
+    
+    // 파일 미리보기 로직
+    const encodeFileToBase64 = (fileBlob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileBlob);
+        return new Promise((resolve) => {
+            reader.onload = () => {
+                setImageSrc(reader.result);
+                resolve();
+            };
+        });
+    };
 
     return (
         <SiteLayoutNS>
-            <div className="col-xl-11 ml-4">
+            <div className="col-xl-11 ml-4" style={{ height: '700px', overflow: 'auto' }}>
                 <div className="card shadow mb-4">
                     <div className="card-header1 py-3">
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
@@ -148,25 +160,26 @@ const mypage = () => {
                     <div className="card-body" >
                         <div className='row ml-5'>
                             <form
-                                onSubmit={handleSubmit} 
+                                onSubmit={handleSubmit}
                                 ref={refForm}>
                                 <div className='col-xl-3 mt-5'>
-                                    <img id="profile" src= {profile} style={{ width: '200px' }}></img>
+                                    <img id="profile" src={imageSrc} alt="preview-img" style={{ width: '200px' }}></img>
                                     <div className='row' >
-                                    <input
-                                        type={'file'}
-                                        name={'file'}
-                                        placeholder={'이미지(사진)'}/>
-                            <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
-                                refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
-                            }}>
-                                올리기
-                            </Button>
-                            <Button className='mt-2 mr-2' variant="outlined">
-                                삭제
-                            </Button>
+                                        <input
+                                            type={'file'}
+                                            name={'file'}
+                                            placeholder={'이미지(사진)'}
+                                            onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+                                        <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
+                                            refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                                        }}>
+                                            올리기
+                                        </Button>
+                                        <Button className='mt-2 mr-2' variant="outlined">
+                                            삭제
+                                        </Button>
                                     </div>
-                                        
+
                                 </div>
                             </form>
 
@@ -304,7 +317,3 @@ const mypage = () => {
 };
 
 export default mypage;
-
-
-
-//# sourceURL=mypage.js

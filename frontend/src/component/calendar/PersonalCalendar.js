@@ -52,8 +52,7 @@ export default function PersonalCalendar() {
               className="text-white"
               style={{ textDecoration: "none" }}
             >
-              {" "}
-              팀{" "}
+              팀
             </Link>
           </label>
           <label className="btn btn-secondary active">
@@ -63,8 +62,7 @@ export default function PersonalCalendar() {
               className="text-white"
               style={{ textDecoration: "none" }}
             >
-              {" "}
-              개인{" "}
+              개인
             </Link>
           </label>
         </div>
@@ -93,6 +91,7 @@ export default function PersonalCalendar() {
               textColor: "white",
             }}
             events={callback}
+            eventClick={eventClick}
           />
         </div>
       </div>
