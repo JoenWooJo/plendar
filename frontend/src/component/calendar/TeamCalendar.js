@@ -119,7 +119,6 @@ export default function TeamCalendar() {
           eventClick={eventClick}
       />
       </div>
-      </div>
       </SiteLayout>
     );
 }
