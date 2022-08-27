@@ -1,9 +1,8 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useState } from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import { set } from 'date-fns';
 
 
 const CreateDeck = ({ setCreateResult }) => {
@@ -30,9 +29,8 @@ const createDeck = () => {
 
 const keyEnter = (e) => {
   if(e.key == "Enter"){
-    return(
-    title==''?handleClose:createDeck
-    );
+    console.log("덱 엔터로 추가하기");
+     title===''?handleClose:createDeck
   }
 }
 
@@ -40,7 +38,7 @@ const keyEnter = (e) => {
         <div>
       <Button variant="primary" onClick={handleShow}>덱 추가하기</Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>덱 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -184,10 +184,10 @@ const mypage = () => {
                                             name={'file'}
                                             placeholder={'이미지(사진)'}
                                             onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
-                                          {*<Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                          {/* <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
                                         
                                             이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
-                                         </Button>*}
+                                         </Button> */}
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
