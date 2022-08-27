@@ -33,5 +33,6 @@ public class ChatMessageController {
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(), message);
         
         chatService.chatMessageInsert(message);
+        chatService.chatNoticeUpdate(message);
     }
 }

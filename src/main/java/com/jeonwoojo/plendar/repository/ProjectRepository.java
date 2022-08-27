@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.repository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jeonwoojo.plendar.vo.ChatMessage;
 import com.jeonwoojo.plendar.vo.DeckVo;
 import com.jeonwoojo.plendar.vo.ProjectVo;
 import com.jeonwoojo.plendar.vo.UserVo;
@@ -31,7 +34,9 @@ public class ProjectRepository {
 		map.put("projectNo", projectVo.getNo());
 		map.put("authUser", authUser);
 		
+		sqlSession.insert("chat.chatRoomCreate", projectVo);
 		sqlSession.insert("project.insertReader", map);
+		sqlSession.insert("chat.chatNoticeInsertReader", map);
 		
 		for (int i=0;i<list.size();i++) {
 			if(list.get(i).getPermission() == null) {
@@ -41,10 +46,21 @@ public class ProjectRepository {
 			}
 			map.put("userVo", list.get(i));
 			sqlSession.insert("project.insertMember", map);
+			sqlSession.insert("chat.chatNoticeInsert", map);
 			map.remove("userVo");
 		}
 		
-		sqlSession.insert("chat.chatRoomCreate", projectVo);
+		
+		ChatMessage firstMessage = new ChatMessage();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		firstMessage.setRoomId(projectVo.getNo());
+		firstMessage.setSender(19); // admin용 id 필요할지도,,,?
+		firstMessage.setMessage(projectVo.getTitle()+" 채팅방이 개설 되었습니다.");
+		firstMessage.setSendTime(dtf.format(LocalDateTime.now()));
+		firstMessage.setType("notice");
+		
+		sqlSession.insert("chat.chatMessageInsert", firstMessage);
 		
 		ArrayList<DeckVo> defaultDeck = new ArrayList<DeckVo>();
 		

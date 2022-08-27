@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.ChatRepository;
 import com.jeonwoojo.plendar.vo.ChatMessage;
+import com.jeonwoojo.plendar.vo.ChatNotice;
 import com.jeonwoojo.plendar.vo.ChatRoomVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
@@ -33,6 +34,32 @@ public class ChatService {
 
 	public UserVo findsendUser(long senderNo) {
 		return chatRepository.findsendUser(senderNo);
+	}
+
+	public boolean chatNoticeInsert(ChatMessage message) {
+		return chatRepository.chatNoticeInsert(message);
+	}
+
+	public boolean updateNotice(UserVo authUser, long roomId) {
+		return chatRepository.updateNotice(authUser.getNo(), roomId);
+	}
+
+	public ChatNotice findRoomNotice(UserVo authUser, long roomId, long roomIdSelected) {
+		if (roomId == roomIdSelected) {
+			chatRepository.updateNotice(authUser.getNo(), roomId);
+		}
+		return chatRepository.findRoomNotice(authUser.getNo(), roomId);
+	}
+
+	public void chatNoticeUpdate(ChatMessage message) {
+		List<UserVo> member = chatRepository.findRoomMember(message.getRoomId());
+		
+		for(int i=0;i<member.size();i++) {
+			if(member.get(i).getNo() != message.getSender()) {
+				chatRepository.chatNoticeUpdate(member.get(i).getNo(), message.getRoomId());
+			}
+			
+		}
 	}
 	
 	

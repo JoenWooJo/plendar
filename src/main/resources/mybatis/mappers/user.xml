@@ -6,7 +6,7 @@
 		<![CDATA[
 		insert
 		  into user
-		values (null, #{email }, #{name }, #{password }, "/assets/profile/2022725101959667.png")
+		values (null, #{email }, #{name }, #{password }, "/assets/profile/defaultProfile.png")
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[

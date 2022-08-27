@@ -36,18 +36,30 @@ public class ChatRoomController {
 	}
 	
 	@GetMapping("/room/member")
-	public ResponseEntity<JsonResult> roomMemberList(@RequestParam(value="no") long no) {
+	public ResponseEntity<JsonResult> roomMemberList(@RequestParam(value="roomNo") long no) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(chatService.findRoomMember(no))); 
 	}
 	
 	@GetMapping("/room/messages")
-	public ResponseEntity<JsonResult> roomMessages(@RequestParam(value="roomId") long roomId) {
+	public ResponseEntity<JsonResult> roomMessages(@AuthUser UserVo authUser, @RequestParam(value="roomId") long roomId) {
 		List<ChatMessage> messages = chatService.findMessages(roomId);
+		chatService.updateNotice(authUser, roomId);
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(messages)); 
+	}
+	
+	@GetMapping("/notice")
+	public ResponseEntity<JsonResult> roomNotice(@AuthUser UserVo authUser, 
+			@RequestParam(value="roomId") long roomId, 
+			@RequestParam(value="roomIdSelected") long roomIdSelected) {
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(chatService.findRoomNotice(authUser, roomId, roomIdSelected))); 
 	}
 	
 }
