@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import '../../assets/css/bar.css';
-
+import ChatMessageNotice from "./ChatMessageNotice";
 import ChatMessageReceive from "./ChatMessageReceive";
 import ChatMessageSend from "./ChatMessageSend";
 
@@ -35,7 +35,7 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                                         content={msg.message} 
                                         date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} 
                                         time={time.split(":")[0] + ":" + time.split(":")[1]} 
-                                    /> :
+                                    /> : msg.sender == 19 ? <ChatMessageNotice key={i} notice={msg.message}/> :
                                     <ChatMessageReceive 
                                         key={i} 
                                         name={msg.senderName} 

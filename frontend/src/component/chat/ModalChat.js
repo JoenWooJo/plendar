@@ -17,7 +17,7 @@ const ModalChat = ({ roomNo }) => {
     useEffect(()=>{
         axios.get('/api/chat/room/member', {
             params: {
-              no: roomNo
+              roomNo: roomNo
             }
           })
             .then((resp)=>{

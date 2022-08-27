@@ -35,6 +35,7 @@ const Chat = () => {
 
     const [chatting, setChatting] = useState({});
     const [receiveChatCount, setReceiveChatCount] = useState(0);
+    const [notice, setNotice] = useState();
 
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
@@ -54,9 +55,10 @@ const Chat = () => {
             }
             console.log("방",rooms);
             rooms.map((e)=>{
-                console.log("방 번호: ",e.no);
+                console.log("방 번호: ",e.no, "notice: ", e.notice);
                 setSubStatus([...subStatus, e.no]);
                 subscribe(e.no);
+                setNotice(e.notice);
             });
 
             setNewRoomList(resp.data.data);
@@ -160,6 +162,7 @@ const Chat = () => {
                 message: line,
                 sender: localStorage.getItem("loginUserNo"),
                 sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
+                type: "message"
             }),
         });
     };
@@ -176,6 +179,8 @@ const Chat = () => {
                             roomList={roomList}
                             newRoomList={newRoomList}
                             setNewRoomList={setNewRoomList}
+                            messages={messages}
+                            notice={notice}
                             receiveRoomList={receiveRoomList}
                             />
                         <ChatMessageList
