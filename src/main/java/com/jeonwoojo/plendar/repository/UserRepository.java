@@ -33,7 +33,7 @@ public class UserRepository {
 		return sqlSession.update("user.updateProfile", vo) == 1;
 	}
 
-	public UserVo checkPassword(String password) {
-		return sqlSession.selectOne("user.checkPassword", password);
+	public UserVo checkPassword(UserVo vo) {
+		return sqlSession.selectOne("user.checkPassword", vo);
 	}
 }

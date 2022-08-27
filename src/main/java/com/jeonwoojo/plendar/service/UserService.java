@@ -46,9 +46,9 @@ public class UserService {
 		
 	}
 
-	public boolean confirmPassword(String password) {
-		UserVo vo = userRepository.checkPassword(password);
-		if(vo != null) {
+	public boolean confirmPassword(UserVo vo) {
+		UserVo userVo = userRepository.checkPassword(vo);
+		if(userVo != null) {
 			return false;
 		}
 		return true;
