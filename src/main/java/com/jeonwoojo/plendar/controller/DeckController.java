@@ -50,9 +50,6 @@ public class DeckController {
 	
 	@PostMapping("/update")
 	public ResponseEntity<JsonResult> updatDeck(@RequestBody DeckVo deckVo) {
-		System.out.println("deck update"+ deckVo);
-	System.out.println(deckService.updateDeck(deckVo));
-		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(deckVo));
 	}
 

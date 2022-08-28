@@ -2,5 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="card">
+
+	<select id="findCard" resultType="cardvo" parameterType="long">
+		<![CDATA[
+			select no, deck_no as deckNo, title, description, start_date as startDate, end_date as endDate, sequence, finished
+				from card 
+				where deck_no = #{deck_no};
+		]]>
+	</select>
+	
+	<select id="findCardUser" resultType="uservo">
+		<![CDATA[
+			select pm.project_no, u.name, u.email 
+				from user u, proj_member pm 
+			    where u.no = pm.user_no 
+			    and pm.project_no=#{projectNo};
+		]]>
+	</select>
 	
 </mapper>
