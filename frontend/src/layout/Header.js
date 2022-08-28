@@ -4,11 +4,13 @@ import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
 import { Link } from 'react-router-dom';
+import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
-const Header = () => {
-    const[alramList,setAlramList]=useState(false);
+const Header = ({}) => {
+    const [alramList,setAlramList]=useState(false);
+    const [count, setCount] = useState(0);
 
     const logoutClick = async () => {
         await axios.get('/api/user/logout')
@@ -21,6 +23,13 @@ const Header = () => {
         window.location.replace("/login");
         
     };
+
+    axios.get('/api/chat/notice/count')
+        .then((resp)=>{
+            setCount(resp.data.data)
+        }).catch((err)=>{
+            console.error(err);
+        })
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
@@ -36,8 +45,9 @@ const Header = () => {
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <Badge color="error" badgeContent={count}>
                         <MessageRoundedIcon />
-                        <span className="badge badge-danger badge-counter">3+</span>
+                        </Badge>
                     </Link>
                 </li>
                 
