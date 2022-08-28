@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -11,12 +12,10 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 
 const Mypage = () => {
-
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -77,7 +76,23 @@ const Mypage = () => {
             return true;
         }
     }
-    //=====================================================================
+    
+    const deleteProfile = (e) => {
+        let body = {
+            no: localStorage.getItem("loginUserNo"),
+            profile: profile
+        }
+        axios.post("/api/user/axios/deleteProfile", body)
+        .then((resp) => {
+            if (resp.data.result == "fail") {
+                alert(resp.data.message);
+                window.location.replace("/login");
+            }
+            setProfile(resp.data.data);
+            localStorage.setItem("loginUserProfile", "/assets/profile/defaultProfile.png")
+        });
+    }
+
     const onSubmitU = (event) => {
         event.preventDefault();
         if (newValues.password === '' || confirmValues.password === '') {
@@ -103,7 +118,10 @@ const Mypage = () => {
 
             axios.post('/api/user/axios/update', body)
                 .then((resp) => {
-                    console.log(resp);
+                    if (resp.data.result == "fail") {
+                        alert(resp.data.message);
+                        window.location.replace("/login");
+                    }
                     resp.data.result === "success" && alert("수정이 완료되었습니다.")
                     setNewValues({
                         password: '',
@@ -121,9 +139,6 @@ const Mypage = () => {
 
     const handleSubmit = async function (e) {
         e.preventDefault();
-
-        console.log(e.target['file'].files[0]);
-
 
         if (e.target['file'].files.length === 0) {
             console.error(`validation ${e.target['file'].placeholder} is empty`);
@@ -143,7 +158,10 @@ const Mypage = () => {
             }
         });
         // 바뀐 url
-        console.log("@@@@@@", response.data.data);
+        if (response.data.result == "fail") {
+            alert(response.data.message);
+            window.location.replace("/login");
+        }
         setProfile(response.data.data);
         localStorage.setItem("loginUserProfile", response.data.data)
 
@@ -175,27 +193,24 @@ const Mypage = () => {
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
                                 <div className='col-xl-6 mt-5'>
-                                 <div style={{height:"270px", width:"460px"}} className="row-xl-6">
-                                    <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
-                                     </div>
+                                    <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
+                                        <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
+                                    </div>
                                     <div className='row' >
                                         <input
                                             type={'file'}
                                             name={'file'}
                                             placeholder={'이미지(사진)'}
                                             onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
-                                          {/* <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
-                                        
-                                            이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
-                                         </Button> */}
+
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
                                             올리기
                                         </Button>
-                                        <Button className='mt-2 mr-2' variant="outlined">
+                                        <Button className='mt-2 mr-2' variant="outlined" onClick={deleteProfile}>
                                             삭제
-                                        </Button>
+                                        </Button >
                                     </div>
                                 </div>
                             </form>
@@ -233,7 +248,7 @@ const Mypage = () => {
                                     </div>
                                 </Box >
                                 <hr />
-
+                                
                                 <form >
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
@@ -290,9 +305,6 @@ const Mypage = () => {
                         <center >
                             <Link to="#" style={{ textDecoration: "none" }} >
                                 <button type="submit" className=" mt-3 mr-2 btn btn-secondary" values="onsubmit" onClick={onSubmitU}>수정하기</button>
-                            </Link>
-                            <Link to="#" style={{ textDecoration: "none" }}>
-                                <button type="button" className=" mt-3 btn btn-secondary">취소</button>
                             </Link>
                         </center>
 

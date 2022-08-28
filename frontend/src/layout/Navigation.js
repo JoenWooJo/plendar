@@ -23,7 +23,15 @@ const Navigation = ({ active }) => {
                     <NavLink className="nav-link"
                         to={'/user/mypagechecked'}>
                         <i className="fas fa-fw fa-tachometer-alt"></i>
-                        My page
+                        My Page
+                    </NavLink>
+                </li>
+
+                <li className="nav-item active">
+                    <NavLink className="nav-link"
+                        to={'/calendar/team'}>
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        Calendar
                     </NavLink>
                 </li>
 
@@ -34,20 +42,12 @@ const Navigation = ({ active }) => {
                         My Project
                     </NavLink>
                 </li>
-                
+
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/kanbanboard/kanban'}>
                         <i className="fas fa-fw fa-tachometer-alt"></i>
-                        kanbanboard
-                    </NavLink>
-                </li>
-
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/calendar/team'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        calendar
+                        Kanban Board
                     </NavLink>
                 </li>
 
@@ -55,7 +55,7 @@ const Navigation = ({ active }) => {
                     <NavLink className="nav-link"
                         to={'/fileSharing/fileSharing'}>
                         <i className="fas fa-fw fa-tachometer-alt"></i>
-                        fileSharing
+                        File Sharing
                     </NavLink>
                 </li>
 

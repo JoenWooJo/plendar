@@ -3,8 +3,7 @@ import TeamCalendar from './TeamCalendar';
 
 const calendar = () => {
     return (
-
-            <TeamCalendar />
+        <TeamCalendar />
     );  
 };
 

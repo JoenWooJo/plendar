@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 
 
-const CreateDeck = ({ setCreateResult }) => {
+const CreateDeck = ({setCreateResult}) => {
 
 const params = useParams(); 
 const projectNo = params.no;
@@ -29,8 +29,9 @@ const createDeck = () => {
 
 const keyEnter = (e) => {
   if(e.key == "Enter"){
-    console.log("덱 엔터로 추가하기");
-     title===''?handleClose():createDeck()
+     return(
+    title==''? handleClose() : createDeck()
+     );
   }
 }
 
@@ -49,6 +50,7 @@ const keyEnter = (e) => {
                 type="title"
                 autoFocus
                 onChange={(e)=>{setTitle(e.target.value)}}
+                onKeyPress={keyEnter}
               />
             </Form.Group>
           </Form>
@@ -60,7 +62,7 @@ const keyEnter = (e) => {
           
           <Button variant="primary" 
                   onClick={title==''?handleClose:createDeck}
-                  onKeyPress={keyEnter}>
+          >
             Add
           </Button>
           

@@ -5,7 +5,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import SiteLayout from '../../layout/SiteLayout';
+import SiteLayoutNS from '../../layout/SiteLayoutNS';
 import { Link } from 'react-router-dom';
 
 import "@fullcalendar/daygrid/main.css";
@@ -16,7 +16,6 @@ import '../../assets/css/calendar.css'
 export default function TeamCalendar() {
 
   const no = localStorage.getItem("loginUserNo")
-  console.log("User No: ", no)
   
     // 랜덤 컬러
     function getRandomColor() {
@@ -27,6 +26,12 @@ export default function TeamCalendar() {
   const callback = async () => {
     const client = axios.create({ baseURL: '/api' })
     let response = await client.get('/calendar/axios/team')
+    
+    if (response.data.result == "fail") {
+      alert(response.data.message);
+      window.location.replace("/login");
+    }
+    
     let li = response.data.data;
 
     for (let i = 0; i < li.length; i++) {
@@ -42,7 +47,7 @@ export default function TeamCalendar() {
   }
 
   return (
-    <SiteLayout>
+    <SiteLayoutNS>
       <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
         <div className="card shadow mb-4">
           <div className="card-header1 py-3">
@@ -83,7 +88,6 @@ export default function TeamCalendar() {
                   }
 
                 }
-                // eventClick={handleEventClick()}
                 events={callback}
                 eventClick={eventClick}
               />
@@ -91,6 +95,6 @@ export default function TeamCalendar() {
           </div>
         </div>
       </div>
-      </SiteLayout>
+      </SiteLayoutNS>
     );
 }
