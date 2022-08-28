@@ -66,6 +66,15 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
 	}
+	
+	@Auth
+	@PostMapping("/axios/deleteProfile")
+	public ResponseEntity<JsonResult> deleteProfile(@RequestBody UserVo vo) {
+		System.out.println("delete: " + vo);
+		userService.deleteProfile(vo);
+
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
+	}
 
 	@Auth
 	@PostMapping("/axios/updateProfile")

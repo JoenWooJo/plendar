@@ -39,6 +39,14 @@
 		]]>
 	</update>
 	
+	<update id="deleteProfile" parameterType="uservo">
+		<![CDATA[
+		update user 
+		 set profile = "/assets/profile/defaultProfile.png"
+		where no = #{no }
+		]]>
+	</update>
+	
 	<update id="updateProfile" parameterType="uservo">
 		<![CDATA[
 		update user 

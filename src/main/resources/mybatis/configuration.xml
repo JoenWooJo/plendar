@@ -8,6 +8,7 @@
       <typeAlias type="com.jeonwoojo.plendar.vo.UserVo" alias="uservo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatMessage" alias="message" />
       <typeAlias type="com.jeonwoojo.plendar.vo.DeckVo" alias="deckvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ChatNotice" alias="chatnotice" />
       <typeAlias type="com.jeonwoojo.plendar.vo.CardVo" alias="cardvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.TaskVo" alias="taskvo" />
    </typeAliases>

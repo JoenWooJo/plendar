@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
+import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.CalendarService;
 import com.jeonwoojo.plendar.vo.UserVo;
 
+@Auth
 @Controller
 @RequestMapping("api/calendar")
 @CrossOrigin(origins = "http://localhost:9090")
