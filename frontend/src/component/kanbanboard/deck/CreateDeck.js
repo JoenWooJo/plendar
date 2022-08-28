@@ -3,7 +3,6 @@ import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import { set } from 'date-fns';
 
 
 const CreateDeck = ({setCreateResult}) => {
@@ -40,7 +39,7 @@ const keyEnter = (e) => {
         <div>
       <Button variant="primary" onClick={handleShow}>덱 추가하기</Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>덱 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
-const mypage = () => {
+const MypageChecked = () => {
 
     const [password, setPassword] = useState("");
     const onPasswordHandler = (event) => {
@@ -139,4 +139,4 @@ const mypage = () => {
     );
 };
 
-export default mypage;
+export default MypageChecked;

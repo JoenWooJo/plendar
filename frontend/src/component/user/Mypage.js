@@ -15,8 +15,7 @@ import Button from '@mui/material/Button';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 
-const mypage = () => {
-
+const Mypage = () => {
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -189,7 +188,7 @@ const mypage = () => {
                     </div>
                     <div className="card-body" >
                         <div className='row'>
-                            <div style={{ width: '165px' }}></div>
+                            <div style={{ width: '205px' }}></div>
                             <form
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
@@ -203,6 +202,7 @@ const mypage = () => {
                                             name={'file'}
                                             placeholder={'이미지(사진)'}
                                             onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
@@ -315,4 +315,4 @@ const mypage = () => {
     );
 };
 
-export default mypage;
+export default Mypage;

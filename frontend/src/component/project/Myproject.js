@@ -20,12 +20,12 @@ const Myproject = () => {
 
     return (
         <SiteLayoutNS>
-            <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
+            <div className="col-xl-11 ml-4">
                 <div className="card shadow mb-4" >
                     <div className="card-header1 py-3" >
                         <h6 className="m-0 font-weight-bold text-light"> My project</h6>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body" style={{ height: "750px", overflow:"auto"}} >
                         <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4 ">
                             <div className="btn-group btn-group-toggle" data-toggle="button">
                                 <label className="btn btn-secondary active">

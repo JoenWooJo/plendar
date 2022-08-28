@@ -10,6 +10,7 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
+
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
     
@@ -23,27 +24,37 @@ const Chat = () => {
         _setMessages(messages);
     }
 
+    const [chatting, setChatting] = useState({});
+    const [receiveChatCount, setReceiveChatCount] = useState(0);
+    const [notice, setNotice] = useState();
+
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
     const changeRoomIdSelected = (id) => {
-        console.log("chatRoomId: "+id);
         setRoomIdSelected(id); 
     };
-
 
     useEffect(() => {
         async function fetchAndSetRooms() {
             connect();
             const resp = await axios.get('/api/chat/rooms');
-            console.log(resp.data);
+            const rooms = resp.data.data;
             if (resp.data.result == "fail") {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
+            rooms.map((e)=>{
+                setSubStatus([...subStatus, e.no]);
+                subscribe(e.no);
+                setNotice(e.notice);
+            });
+
             setNewRoomList(resp.data.data);
             setRoomList(resp.data.data);
         } 
         fetchAndSetRooms();
+
+
         // return () => {
         //     disconnect();
         // };
@@ -65,12 +76,7 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-        setSubStatus([...subStatus, roomIdSelected]);
-    }, [roomIdSelected]);
-
-    useEffect(()=>{
-        !subStatus.includes(roomIdSelected) && subscribe()
-    }, [roomIdSelected, subStatus]);
+    }, [chatting, roomIdSelected]);
 
     const connect = () => {
         client.current = new StompJs.Client({
@@ -100,11 +106,11 @@ const Chat = () => {
         client.current.deactivate();
     };
 
-    const subscribe = () => {
-        console.log("여기");
-        client.current.subscribe(`/topic/chat/room/${roomIdSelected}`, (data) => {
-            const chatting = JSON.parse(data.body);
-            setMessages([...messagesRef.current, chatting]);
+    const subscribe = (roomId) => {
+        client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
+            let line = JSON.parse(data.body);
+            //setMessages([...messagesRef.current, line]);
+            setChatting(line);
         });
     };
 
@@ -135,7 +141,7 @@ const Chat = () => {
                 message: line,
                 sender: localStorage.getItem("loginUserNo"),
                 sendTime: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
-                senderName: localStorage.getItem("loginUserName")
+                type: "message"
             }),
         });
     };
@@ -148,14 +154,16 @@ const Chat = () => {
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
                         <ChatRoomList
                             callback={changeRoomIdSelected}
-                            chatRoomId={roomIdSelected}
+                            roomIdSelected={roomIdSelected}
                             roomList={roomList}
                             newRoomList={newRoomList}
                             setNewRoomList={setNewRoomList}
+                            messages={messages}
+                            notice={notice}
                             />
                         <ChatMessageList
                             messages={messages}
-                            chatRoomId={roomIdSelected}
+                            roomIdSelected={roomIdSelected}
                             publish={publish} />
                     </div>
                 </div>
