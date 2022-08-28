@@ -10,6 +10,7 @@
       <typeAlias type="com.jeonwoojo.plendar.vo.DeckVo" alias="deckvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatNotice" alias="chatnotice" />
       <typeAlias type="com.jeonwoojo.plendar.vo.CardVo" alias="cardvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.TaskVo" alias="taskvo" />
    </typeAliases>
    
    <mappers>
@@ -20,6 +21,7 @@
       <mapper resource="mybatis/mappers/project.xml" />
       <mapper resource="mybatis/mappers/deck.xml" />
       <mapper resource="mybatis/mappers/card.xml" />
+      <mapper resource="mybatis/mappers/task.xml" />
    </mappers>
     
 </configuration>
