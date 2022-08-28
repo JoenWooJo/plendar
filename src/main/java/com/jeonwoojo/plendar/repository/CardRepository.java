@@ -20,8 +20,15 @@ public class CardRepository {
 		return sqlSession.selectList("card.findCard", deckNo);
 	}
 
-	public List<UserVo> findCardUser() {
-		return sqlSession.selectList("card.findCardUser");
+	public List<UserVo> findCardUser(Long projectNo) {
+		return sqlSession.selectList("card.findCardUser", projectNo);
+	}
+
+	public CardVo createCard(CardVo cardVo) {
+		sqlSession.insert("card.createCard", cardVo);
+		//sqlSession.insert("card.insertMember", cardVo);
+		System.out.println("CR: " + cardVo);
+		return cardVo;
 	}
 
 	public boolean commentInsert(CommentVo commentVo) {
