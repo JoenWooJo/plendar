@@ -31,7 +31,7 @@ const Kanban = () => {
           <div className="card-header1 py-3">
             <h6 className="m-0 font-weight-bold text-light"> plendar project kanban</h6>
           </div>
-          <div className="card-body">
+          <div className="card-body" style={{ height: "750px", overflow:"auto"}}>
           
             <CreateDeck setCreateResult={setCreateResult}/>
 
@@ -43,6 +43,7 @@ const Kanban = () => {
                       no={m.no}
                       key={i}
                       title={m.title}
+                      projectNo={projectNo}
                     />
                   );
                 })}

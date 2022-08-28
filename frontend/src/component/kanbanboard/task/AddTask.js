@@ -1,20 +1,34 @@
-import React ,{useState} from 'react';
+import React ,{useState, useEffect} from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
 
-const AddTask = () => {
+const AddTask = ({cardNo}) => {
 
     const handleShow = () => setShow(true);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    const [content, setContent]= useState('');
+
+    //task 추가하기
+    const createTask = () => {
+      axios.post('/api/kanban/task/create',{
+          content: content,
+          cardNo : cardNo
+      }).then((resp)=>{
+          console.log(resp);
+          //setCreateResult(createResult => !createResult);
+          handleClose();
+      }).catch((err)=>{
+          console.error(err)});
+    };
 
     return (
         <div className='col-xl-2'>
         <form type="button"><AddIcon onClick={handleShow} /></form>
         <Modal show={show} onHide={handleClose}>
-        <Modal.Header >
+        <Modal.Header>
           <Modal.Title>테스크 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -22,8 +36,9 @@ const AddTask = () => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>테스크 이름</Form.Label>
               <Form.Control
-                type="title"
+                type='title'
                 autoFocus
+                onChange={(e)=>{setContent(e.target.value);}}
               />
             </Form.Group>
           </Form>
@@ -32,7 +47,7 @@ const AddTask = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={createTask}>
             Save Changes
           </Button>
         </Modal.Footer>

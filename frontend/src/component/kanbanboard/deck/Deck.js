@@ -4,13 +4,24 @@ import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
-import {post, postJson} from '../../../api/Axios';
+import {get, postJson} from '../../../api/Axios';
 
 
-const Deck = ({title, no}) => {
+const Deck = ({title, no, projectNo}) => {
     const [deckTitle, setDeckTitle] = useState(title);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
+    const [cardList, setCardList] = useState([]);
+
+      // 카드 리스트 가져오기
+    const t = async() => {    
+        const list = await get(`/kanban/card/find/${no}`);
+        setCardList((prevcCardlist)=>prevcCardlist.concat(list));
+    }
+
+    useEffect(() => {
+        t();
+    }, [])
 
     const onChangeTitle = (event) => {
         //setDeckTitle(title);
@@ -64,11 +75,13 @@ const Deck = ({title, no}) => {
                 </div>
                 <div className="col-xl-2 mt-2">
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
-                    {morevertList ? <MoreVertDropdown /> : null}
+                    {morevertList ? <MoreVertDropdown projectNo={projectNo}/> : null}
                 </div>
             </div>
             <div className="card-body">
-                <Card />
+                {
+                    cardList.map((m, i) => (<Card key={i} card={m}/>)
+                 )}
             </div>
         </div>
     );

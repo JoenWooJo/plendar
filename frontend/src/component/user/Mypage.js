@@ -174,14 +174,20 @@ const Mypage = () => {
                             <form
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <div className='row-xl-6 mt-5'>
-                                    <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
-                                        <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
-                                    </div>
-                                    <div className='row-xl-6' >
-                                        <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
-                                            이미지(사진)<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }}  />
-                                        </Button>
+                                <div className='col-xl-6 mt-5'>
+                                 <div style={{height:"270px", width:"460px"}} className="row-xl-6">
+                                    <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
+                                     </div>
+                                    <div className='row' >
+                                        <input
+                                            type={'file'}
+                                            name={'file'}
+                                            placeholder={'이미지(사진)'}
+                                            onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+                                          {/* <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                        
+                                            이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
+                                         </Button> */}
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
