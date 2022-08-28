@@ -1,23 +1,23 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import SiteLayout from '../../layout/SiteLayout';
-import { Link } from 'react-router-dom';
+import googleCalendarPlugin from "@fullcalendar/google-calendar";
+import SiteLayout from "../../layout/SiteLayout";
+import { Link } from "react-router-dom";
 
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 
-import '../../assets/css/calendar.css'
+import "../../assets/css/calendar.css";
+
 
 export default function PersonalCalendar() {
+  const no = localStorage.getItem("loginUserNo");
 
-  const no = localStorage.getItem("loginUserNo")
-
-  console.log("loginUserNo: ", no)
+  console.log("loginUserNo: ", no);
 
   // 랜덤 컬러
   function getRandomColor() {
@@ -26,26 +26,32 @@ export default function PersonalCalendar() {
 
   //DB에서 이벤트(카드) 불러오기
   const callback = async () => {
-    const client = axios.create({ baseURL: '/api' })
-    let response = await client.get('/calendar/axios/personal')
+    const client = axios.create({ baseURL: "/api" });
+    let response = await client.get("/calendar/axios/personal");
     let li = response.data.data;
     console.log("!!!!", response.data.data);
 
     for (let i = 0; i < li.length; i++) {
-      li[i]['color'] = getRandomColor();
+      li[i]["color"] = getRandomColor();
     }
 
     return response.data.data;
-  }
+  };
 
   // 이벤트 클릭했을 때 실행
   const eventClick = () => {
-    return console.log("Event Clicked")
-  }
+    return console.log("Event Clicked");
+  };
 
     return (
       <SiteLayout>
-      <div className="col-xl-11 ml-4">
+
+      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
+      <div className="card shadow mb-4">
+          <div className="card-header1 py-3">
+            <h6 className="m-0 font-weight-bold text-light">달력</h6>
+          </div>
+          <div className="card-body" >
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-secondary">
                 <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
@@ -82,10 +88,12 @@ export default function PersonalCalendar() {
 
                 }
                 events={callback}
+                eventClick={eventClick}
               />
             </div>
+          </div>
+          </div>
           </div>
       </SiteLayout>
     );
 }
-

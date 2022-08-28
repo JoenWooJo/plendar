@@ -28,14 +28,14 @@ const Join = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     let isKorEng = /^[가-힣a-zA-Z]+$/; // 이름: 한글이나 영문
-   let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
+    let isMail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 형식
     let isEngNum = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 비밀번호: 영문,숫자
 
     const regCheck = (regex, val) => {
-      if (regex.test(val)) {
-         return true;
-      }
-   }
+        if (regex.test(val)) {
+            return true;
+        }
+    }
 
     const doubleCheck = () => {
         if (email == '') {
@@ -43,23 +43,23 @@ const Join = () => {
         }
         axios.post('/api/user/check/email', {
             email: email
-        }).then((resp)=>{
+        }).then((resp) => {
             if (resp.data.data) {
                 setCheckEmail(true);
                 return alert("Email 사용 가능 합니다!");
             }
             setCheckEmail(false);
             return alert("중복된 Email 입니다. 다른 Email을 사용해주세요");
-            
-        }).catch((err)=>{
+
+        }).catch((err) => {
             console.error(err);
         });
     };
 
-    useEffect(()=>{console.log(checkEmail)}, [checkEmail])
+    useEffect(() => { console.log(checkEmail) }, [checkEmail])
 
     const joinClick = (event) => {
-        
+
         // console.log(name);
         // console.log(email);
         // console.log(password);
@@ -69,7 +69,7 @@ const Join = () => {
             alert("빈칸을 입력해 주세요!");
             return;
         }
-        
+
         else if (!regCheck(isKorEng, name)) {
             event.preventDefault();
             alert('이름은 한글 또는 영문으로 입력 해주세요');
@@ -101,7 +101,7 @@ const Join = () => {
             setConfirmpassword("");
             return;
         }
-    
+
         else {
             const data = {
                 name: name,
@@ -142,7 +142,7 @@ const Join = () => {
 
                                     {/* 이메일 입력 창 */}
                                     <div className="form-group row">
-                                        <input type="email" className=" col-sm-8 mb-3 ml-2 mb-sm-0 form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required/>
+                                        <input type="email" className=" col-sm-8 mb-3 ml-2 mb-sm-0 form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required />
                                         <button type="button" className=" col-sm-3 ml-2 btn btn-primary btn-user btn-block" value="submit" onClick={doubleCheck} >중복검사</button>
                                     </div>
 

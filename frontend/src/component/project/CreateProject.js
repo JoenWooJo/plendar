@@ -41,15 +41,6 @@ const CreateProject = () => {
     }, [member, is_checked]);
 
     const createProject = () => {
-        // const projectData = {
-        //     title: title,
-        //     description: description,
-        //     priority: priority,
-        //     startDate: startDate,
-        //     endDate: endDate,
-        // }
-        // console.log(projectData);
-
         axios.post('/api/project/create', { 
             title: title,
             description: description,

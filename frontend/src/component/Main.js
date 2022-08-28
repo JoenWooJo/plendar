@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import SiteLayout from '../layout/SiteLayout';
+import SiteLayoutNS from '../layout/SiteLayoutNS';
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ const Main = () => {
     const[headerTitle,setHeaderTitle]= useState('dddd');
 
     return (
-        <SiteLayout>
+        <SiteLayoutNS>
             <div className="col-xl-11 ml-4">
                 <div className="card shadow">
                     <div className="card-header1 py-3">
@@ -35,7 +35,7 @@ const Main = () => {
                     </div>
                 </div>         
             </div>
-        </SiteLayout>
+        </SiteLayoutNS>
     );
 };
 

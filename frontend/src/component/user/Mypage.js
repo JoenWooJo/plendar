@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Box from '@mui/material/Box';
@@ -14,37 +14,20 @@ import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
-const mypage = () => {
+
+const Mypage = () => {
+
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
     const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
     const [profile, setProfile] = useState(localStorage.getItem("loginUserProfile"))
+    const [imageSrc, setImageSrc] = useState('');
 
     const changeName = (event) => {
         setName(event.target.value);
     };
 
-    //비밀번호 =============================================================
-    const [values, setValues] = useState({
-        password: '',
-        showPassword: false,
-    });
-
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
     //new변경비밀번호
     const [newValues, setNewValues] = useState({
         password: '',
@@ -65,6 +48,7 @@ const mypage = () => {
     const newHandleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     // confirm확인비밀번호
     const [confirmValues, setConfirmValues] = useState({
         password: '',
@@ -84,13 +68,32 @@ const mypage = () => {
     const confirmHandleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    let isKorEng = /^[가-힣a-zA-Z]+$/; // 이름: 한글이나 영문
+    let isEngNum = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/; // 비밀번호: 영문,숫자
+
+    const regCheck = (regex, val) => {
+        if (regex.test(val)) {
+            return true;
+        }
+    }
     //=====================================================================
     const onSubmitU = (event) => {
         event.preventDefault();
-        if (newValues.password !== confirmValues.password) {
+        if (newValues.password === '' || confirmValues.password === '') {
+            return alert("변경할 비밀번호를 입력해 주세요.")
+        }
+        else if (newValues.password !== confirmValues.password) {
             return alert('비밀번호와 비밀번호 확인이 같아야 합니다.')
         }
         else {
+            if (!regCheck(isKorEng, name)) {
+                alert("이름은 한글 또는 영문으로 입력 해주세요")
+                return;
+            } else if (!regCheck(isEngNum, newValues.password)) {
+                alert("비밀번호는 영문,숫자를 사용하여 6자 이상 입력 해주세요")
+                return;
+            }
             let body = {
                 no: localStorage.getItem("loginUserNo"),
                 name: name,
@@ -98,21 +101,30 @@ const mypage = () => {
                 password: newValues.password
             }
 
-            axios.post('/api/user/updateUser', body)
+            axios.post('/api/user/axios/update', body)
                 .then((resp) => {
                     console.log(resp);
+                    resp.data.result === "success" && alert("수정이 완료되었습니다.")
+                    setNewValues({
+                        password: '',
+                        showPassword: false,
+                    })
+                    setConfirmValues({
+                        password: '',
+                        showPassword: false,
+                    })
                 })
         }
     }
 
     const refForm = useRef(null);
-    
-    const handleSubmit = async function(e) {
+
+    const handleSubmit = async function (e) {
         e.preventDefault();
 
         console.log(e.target['file'].files[0]);
 
-    
+
         if (e.target['file'].files.length === 0) {
             console.error(`validation ${e.target['file'].placeholder} is empty`);
             return;
@@ -125,52 +137,64 @@ const mypage = () => {
         formData.append('file', file);
 
         // Post
-        const response = await client.post(`/user/axios/updateProfile`, formData ,{
-            headers: { 
+        const response = await client.post(`/user/axios/updateProfile`, formData, {
+            headers: {
                 'Accept': 'application/json'
             }
         });
-
         // 바뀐 url
-        console.log(response.data.data);
+        console.log("@@@@@@", response.data.data);
         setProfile(response.data.data);
         localStorage.setItem("loginUserProfile", response.data.data)
 
     }
 
+    // 파일 미리보기 로직
+    const encodeFileToBase64 = (fileBlob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileBlob);
+        return new Promise((resolve) => {
+            reader.onload = () => {
+                setImageSrc(reader.result);
+                resolve();
+            };
+        });
+    };
+
     return (
         <SiteLayoutNS>
-            <div className="col-xl-11 ml-4">
+            <div className="col-xl-11 ml-4" style={{ height: '700px', overflow: 'auto' }}>
                 <div className="card shadow mb-4">
                     <div className="card-header1 py-3">
                         <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
                     </div>
                     <div className="card-body" >
-                        <div className='row ml-5'>
+                        <div className='row'>
+                            <div style={{ width: '205px' }}></div>
                             <form
-                                onSubmit={handleSubmit} 
+                                onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <div className='col-xl-3 mt-5'>
-                                    <img id="profile" src= {profile} style={{ width: '200px' }}></img>
-                                    <div className='row' >
-                                    <input
-                                        type={'file'}
-                                        name={'file'}
-                                        placeholder={'이미지(사진)'}/>
-                            <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
-                                refForm.current.dispatchEvent(new Event("submit", {cancelable: true, bubbles: true}));
-                            }}>
-                                올리기
-                            </Button>
-                            <Button className='mt-2 mr-2' variant="outlined">
-                                삭제
-                            </Button>
+                                <div className='row-xl-6 mt-5'>
+                                    <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
+                                        <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
                                     </div>
-                                        
+                                    <div className='row-xl-6' >
+                                        <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                            이미지(사진)<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }}  />
+                                        </Button>
+                                        <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
+                                            refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                                        }}>
+                                            올리기
+                                        </Button>
+                                        <Button className='mt-2 mr-2' variant="outlined">
+                                            삭제
+                                        </Button>
+                                    </div>
                                 </div>
                             </form>
 
-                            <div className='col-xl-8' >
+                            <div className='col-xl-6' >
                                 <Box
                                     component="form"
                                     sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 3 }}
@@ -205,36 +229,6 @@ const mypage = () => {
                                 <hr />
 
                                 <form >
-
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row' }}>
-
-                                        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                            <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
-                                            <OutlinedInput
-                                                id="outlined-adornment-password"
-
-                                                type={values.showPassword ? 'text' : 'password'}
-                                                value={values.password}
-                                                onChange={handleChange('password')}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                                label="현재 비밀번호"
-                                            />
-                                        </FormControl>
-
-                                        <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
-                                    </Box>
                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
                                         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                                             <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
@@ -303,8 +297,4 @@ const mypage = () => {
     );
 };
 
-export default mypage;
-
-
-
-//# sourceURL=mypage.js
+export default Mypage;

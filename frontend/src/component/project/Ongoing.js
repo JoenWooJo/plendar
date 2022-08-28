@@ -14,10 +14,10 @@ const Ongoing = ({
     const [morevertList, setMorevertList] = useState(false);
 
     return (
-        <div className="col-xl-3  mb-4"  key={no}>
-            <div className="card border-left-success shadow h-100 py-2">
-                <div className="card-body">
-                    <div className="row no-gutters align-items-center">
+        <div className="col-xl-3  mb-4"  key={no}  >
+            <div className="card border-left-success shadow h-100 py-2" >
+                <div className="card-body" >
+                    <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">
                             <div className='row'>
                                 <div className="col-xl-10 text-xs font-weight-bold text-success text-uppercase mb-1">진행중</div>
