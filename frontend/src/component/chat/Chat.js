@@ -10,15 +10,6 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
-    
-    const [receiveRoomList, _setReceiveRoomList] = useState([]);
-    const receiveRef = useRef(receiveRoomList);
-
-    const setReceiveRoomList = (receiveRoomList) => {
-        receiveRef.current = receiveRoomList;
-        _setReceiveRoomList(receiveRoomList);
-    }
-    
 
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
@@ -40,7 +31,6 @@ const Chat = () => {
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
     const changeRoomIdSelected = (id) => {
-        console.log("chatRoomId: "+id);
         setRoomIdSelected(id); 
     };
 
@@ -53,9 +43,7 @@ const Chat = () => {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
-            console.log("방",rooms);
             rooms.map((e)=>{
-                console.log("방 번호: ",e.no, "notice: ", e.notice);
                 setSubStatus([...subStatus, e.no]);
                 subscribe(e.no);
                 setNotice(e.notice);
@@ -90,10 +78,6 @@ const Chat = () => {
         }
     }, [chatting, roomIdSelected]);
 
-    useEffect(()=>{
-        setReceiveChatCount(receiveRoomList.length);
-    }, [receiveRoomList.length])
-
     const connect = () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
@@ -102,11 +86,6 @@ const Chat = () => {
             },
             debug: function (str) {
                 console.log("!!!!!!", str);
-                const data = str.split(" ");
-                if(data[1].slice(0,7) === "MESSAGE") {
-                    let receive = parseInt(((data[1].split("\n"))[5].split("/"))[4]);
-                    !receiveRef.current.includes(receive) && setReceiveRoomList([...receiveRef.current, receive]);
-                }
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
@@ -169,7 +148,7 @@ const Chat = () => {
 
 
     return (
-        <SiteLayout receiveChatCount={receiveChatCount}>
+        <SiteLayout>
             <div className='col-xl-11 ml-4'>
                 <div className="card mt-5">
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
@@ -181,7 +160,6 @@ const Chat = () => {
                             setNewRoomList={setNewRoomList}
                             messages={messages}
                             notice={notice}
-                            receiveRoomList={receiveRoomList}
                             />
                         <ChatMessageList
                             messages={messages}

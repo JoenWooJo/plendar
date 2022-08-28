@@ -8,8 +8,9 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
-const Header = ({receiveChatCount}) => {
-    const[alramList,setAlramList]=useState(false);
+const Header = ({}) => {
+    const [alramList,setAlramList]=useState(false);
+    const [count, setCount] = useState(0);
 
     const logoutClick = async () => {
         await axios.get('/api/user/logout')
@@ -22,6 +23,13 @@ const Header = ({receiveChatCount}) => {
         window.location.replace("/login");
         
     };
+
+    axios.get('/api/chat/notice/count')
+        .then((resp)=>{
+            setCount(resp.data.data)
+        }).catch((err)=>{
+            console.error(err);
+        })
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
@@ -37,7 +45,7 @@ const Header = ({receiveChatCount}) => {
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <Badge color="error" badgeContent={receiveChatCount}>
+                        <Badge color="error" badgeContent={count}>
                         <MessageRoundedIcon />
                         </Badge>
                     </Link>

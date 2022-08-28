@@ -4,30 +4,17 @@ import ModalChat from './ModalChat';
 import Badge from '@mui/material/Badge';
 import axios from 'axios';
 
-
-const ChatRoom = ({selected, chatRoomName, roomNo, callback, notice, receiveRoomList, roomIdSelected, messages}) => {
+const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, messages}) => {
     
     const [invisible, setInvisible] = useState(true);
+    const [lastMessage, setLastMessage] = useState({});
+    const [time, setTime] = useState('');
 
     const roomClick = () => {
         callback(roomNo);
     };
 
-    const handleBadgeVisibility = (bool) => {
-        setInvisible(bool);
-    };
-
-
     useEffect(()=>{
-        // receiveRoomList.map((e,i) => {
-        //     if((roomNo === e) && (roomIdSelected !== roomNo)) {
-        //         console.log(roomNo, "번 방에 알림 있음");
-        //         handleBadgeVisibility(false);
-        //     } else if ((roomNo === e) && (roomIdSelected === roomNo)) {
-        //         handleBadgeVisibility(true);
-        //         receiveRoomList.splice(i,1);
-        //     }
-        // }) 
         async function fetchAndNotice() {
             const resp = await axios.get('/api/chat/notice', {
                 params: {
@@ -36,13 +23,29 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, notice, receiveRoom
                 }
             })
                 
-            console.log("roomNo roomIdSelected notice", roomNo, roomIdSelected, resp.data.data);
+            // console.log("roomNo roomIdSelected notice", roomNo, roomIdSelected, resp.data.data);
             resp.data.data["notice"] === 1 ? setInvisible(false) : setInvisible(true)
         }
         fetchAndNotice();
-
     }, [messages])
 
+    useEffect(()=>{
+        async function getLastMessage() {
+            const resp = await axios.get('/api/chat/last/message', {
+                params: {
+                    roomId: roomNo
+                }
+            })
+            if(resp.data.data != null ){
+                setLastMessage(resp.data.data);
+                let data = resp.data.data["sendTime"].split(" ")[1]
+                let getTime = data.split(":")[0] + ":" + data.split(":")[1]
+                setTime(getTime);
+            }
+            
+        }
+        getLastMessage();
+    }, [lastMessage, messages, time]);
     
     return (
         <li className="p-2 border-bottom">
@@ -56,12 +59,14 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, notice, receiveRoom
                     
                     <div className="pt-1 ml-2">
                         <p className="fw-bold mb-0">{chatRoomName}</p>
-                        <p className="small text-muted">Hello, Are you there?</p>
+                        <p className="small text-muted" style={{fontSize: "5px", marginTop: "5px"}}>{lastMessage != null && lastMessage["message"]}</p>
                     </div>
                 </div>
                 <div className="pt-1" >
-                    <ModalChat roomNo={roomNo}/>
-                    <p className="small text-muted mb-2">Just now</p>
+                    <ModalChat roomNo={roomNo} />
+                    <div>
+                        <p className="small text-muted mb-2" style={{fontSize: "3px", marginTop: "30px"}}>{lastMessage != null && time}</p>
+                    </div>
                 </div>
             </div>
         </li>
