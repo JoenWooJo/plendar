@@ -64,4 +64,12 @@ public class ChatRepository {
 		sqlSession.update("chat.noticeUpdateTrue", map);
 	}
 
+	public ChatMessage findLastMessage(long roomId) {
+		return sqlSession.selectOne("chat.findLastMessage", roomId);
+	}
+
+	public int findNoticeCount(Long userNo) {
+		return sqlSession.selectOne("chat.findNoticeCount", userNo);
+	}
+
 }

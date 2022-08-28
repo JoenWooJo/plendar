@@ -18,6 +18,7 @@ import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
+@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/chat")
@@ -26,10 +27,8 @@ public class ChatRoomController {
 	@Autowired
 	private ChatService chatService;
 
-	@Auth
 	@GetMapping("/rooms")
 	public ResponseEntity<JsonResult> rooms(@AuthUser UserVo authUser) {
-		System.out.println("authUSer 나와랏: "+authUser);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(chatService.findAllRoom(authUser.getNo())));
@@ -60,6 +59,20 @@ public class ChatRoomController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(chatService.findRoomNotice(authUser, roomId, roomIdSelected))); 
+	}
+	
+	@GetMapping("/last/message")
+	public ResponseEntity<JsonResult> findLastMessage(@RequestParam(value="roomId") long roomId) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(chatService.findLastMessage(roomId))); 
+	}
+	
+	@GetMapping("/notice/count")
+	public ResponseEntity<JsonResult> findNoticeCount(@AuthUser UserVo authUser) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(chatService.findNoticeCount(authUser))); 
 	}
 	
 }

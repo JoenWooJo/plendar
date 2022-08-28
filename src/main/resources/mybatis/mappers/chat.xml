@@ -56,7 +56,7 @@
 			select msg.no as no, msg.room_id as room_id, msg.sender as sender, msg.message as message, msg.send_time as sendTime, u.name as senderName, u.profile as senderProfile, msg.type
 				from chat_message msg, user u
 			 where msg.sender = u.no
-				and msg.room_id = #{roomId }
+				and msg.room_id = #{roomId } order by msg.no asc
 		]]>
 	</select>
 	
@@ -83,5 +83,17 @@
 			update chat_notice set notice = 1 where user_no = ${userNo } and room_id = ${roomId }
 		]]>
 	</update>
+	
+	<select id="findLastMessage" parameterType="long" resultType="message">
+		<![CDATA[
+			select no, room_id, sender, message, send_time as sendTime, type  from chat_message where room_id = ${roomId } order by no DESC LIMIT 1
+		]]>
+	</select>
+	
+	<select id="findNoticeCount" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(*) from chat_notice where user_no = #{userNo } and notice = 1
+		]]>
+	</select>
 	
 </mapper>

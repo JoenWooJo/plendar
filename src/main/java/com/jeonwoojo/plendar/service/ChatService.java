@@ -61,6 +61,14 @@ public class ChatService {
 			
 		}
 	}
+
+	public ChatMessage findLastMessage(long roomId) {
+		return chatRepository.findLastMessage(roomId);
+	}
+
+	public int findNoticeCount(UserVo authUser) {
+		return chatRepository.findNoticeCount(authUser.getNo());
+	}
 	
 	
 }
