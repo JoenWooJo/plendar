@@ -21,7 +21,7 @@ const Mypage = () => {
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
     const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
     const [profile, setProfile] = useState(localStorage.getItem("loginUserProfile"))
-    const [imageSrc, setImageSrc] = useState('');
+    const [imageSrc, setImageSrc] = useState(profile);
 
     const changeName = (event) => {
         setName(event.target.value);
@@ -196,12 +196,10 @@ const Mypage = () => {
                                     <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
                                         <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
                                     </div>
-                                    <div className='row' >
-                                        <input
-                                            type={'file'}
-                                            name={'file'}
-                                            placeholder={'이미지(사진)'}
-                                            onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+                                    <div className='row-xl-6'>
+                                        <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                            이미지 선택<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }}  />
+                                        </Button>
 
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
@@ -209,7 +207,7 @@ const Mypage = () => {
                                             올리기
                                         </Button>
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={deleteProfile}>
-                                            삭제
+                                            기본 이미지로 변경
                                         </Button >
                                     </div>
                                 </div>

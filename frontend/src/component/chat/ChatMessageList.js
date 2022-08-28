@@ -6,7 +6,6 @@ import ChatMessageReceive from "./ChatMessageReceive";
 import ChatMessageSend from "./ChatMessageSend";
 
 
-
 const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
     useEffect(() => {
         if (messages.length !== 0) {
@@ -59,8 +58,8 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                             onKeyDown={(e) => { e.key == "Enter" && publish(e.target.value) && setMessage('') }}
                             style={{textSizeAdjust: "5px"}}
                         />
-                        <button className="ms-3" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
-                            <img src="/images/envelope.png" alt="" style={{ width: "60px", height: "100%", paddingLeft: "5px"}} />
+                        <button className="ms-3 mb-4" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
+                            <img src="/images/envelope.png" alt="" style={{ width: "60px", height: "60px"}} />
                         </button>
                     </div>
                 </div>
