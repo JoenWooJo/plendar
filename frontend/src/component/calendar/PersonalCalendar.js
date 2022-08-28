@@ -5,7 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
-import SiteLayout from "../../layout/SiteLayout";
+import SiteLayoutNS from "../../layout/SiteLayoutNS";
 import { Link } from "react-router-dom";
 
 import "@fullcalendar/daygrid/main.css";
@@ -17,8 +17,6 @@ import "../../assets/css/calendar.css";
 export default function PersonalCalendar() {
   const no = localStorage.getItem("loginUserNo");
 
-  console.log("loginUserNo: ", no);
-
   // 랜덤 컬러
   function getRandomColor() {
     return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
@@ -28,9 +26,13 @@ export default function PersonalCalendar() {
   const callback = async () => {
     const client = axios.create({ baseURL: "/api" });
     let response = await client.get("/calendar/axios/personal");
-    let li = response.data.data;
-    console.log("!!!!", response.data.data);
-
+    
+    if (response.data.result == "fail") {
+      alert(response.data.message);
+      window.location.replace("/login");
+    }
+    
+    let li = response.data.data; 
     for (let i = 0; i < li.length; i++) {
       li[i]["color"] = getRandomColor();
     }
@@ -43,16 +45,16 @@ export default function PersonalCalendar() {
     return console.log("Event Clicked");
   };
 
-    return (
-      <SiteLayout>
+  return (
+    <SiteLayoutNS>
 
-      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow:"auto"}} >
-      <div className="card shadow mb-4">
+      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
+        <div className="card shadow mb-4">
           <div className="card-header1 py-3">
             <h6 className="m-0 font-weight-bold text-light">달력</h6>
           </div>
           <div className="card-body" >
-          <div className="btn-group btn-group-toggle" data-toggle="buttons">
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-secondary">
                 <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
               </label>
@@ -92,6 +94,8 @@ export default function PersonalCalendar() {
               />
             </div>
           </div>
-      </SiteLayout>
-    );
+        </div>
+      </div>
+    </SiteLayoutNS>
+  );
 }

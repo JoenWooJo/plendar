@@ -40,21 +40,28 @@ const mypage = () => {
         event.preventDefault();
     };
 
-   
+
     const passwordCheck = (event) => {
         let body = {
+            no: localStorage.getItem("loginUserNo"),
             password: password,
         }
 
         axios.post('/api/user/confirmPassword', body)
             .then((resp) => {
                 const result = resp.data.data;
-                if (result == true) {
+                if (resp.data.result == "fail") {
+                    alert(resp.data.message);
+                    window.location.replace("/login");
+                }
+                else if (result == false) {
                     // 비밀번호가 틀렸을 때
                     alert("입력하신 비밀번호가 틀렸습니다.")
                     return;
+                } else {
+                    window.location.replace("/user/mypage");
                 }
-                window.location.replace("/user/mypage");
+                
             });
     }
 
@@ -116,19 +123,14 @@ const mypage = () => {
                             <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
                         </Box>
                         <center >
-                            <Link to="/user/mypage" style={{ textDecoration: "none" }} >
-                                <button 
-                                    type="submit" 
-                                    className=" mt-3 mr-2 btn btn-secondary" 
-                                    values="onsubmit" 
-                                    onClick={passwordCheck}
-                                    >
-                                    확인하기
-                                </button>
-                            </Link>
-                            <Link to="#" style={{ textDecoration: "none" }}>
-                                <button type="button" className=" mt-3 btn btn-secondary">취소</button>
-                            </Link>
+                            <button
+                                type="submit"
+                                className=" mt-3 mr-2 btn btn-secondary"
+                                values="onsubmit"
+                                onClick={passwordCheck}
+                            >
+                                확인하기
+                            </button>
                         </center>
                     </div>
                 </div>

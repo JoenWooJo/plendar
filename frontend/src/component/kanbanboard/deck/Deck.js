@@ -37,7 +37,7 @@ const Deck = ({title, no}) => {
 
     //덱 수정하기 
     useEffect(()=>{
-        postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no: no}));
+        postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no : no}));
     },[deckTitle, no]);
    
    const [morevertList, setMorevertList] = useState(false);

@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useState } from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import axios from 'axios';
@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { set } from 'date-fns';
 
 
-const CreateDeck = ({ setCreateResult }) => {
+const CreateDeck = ({setCreateResult}) => {
 
 const params = useParams(); 
 const projectNo = params.no;
@@ -30,9 +30,9 @@ const createDeck = () => {
 
 const keyEnter = (e) => {
   if(e.key == "Enter"){
-    return(
-    title==''?handleClose:createDeck
-    );
+     return(
+    title==''? handleClose() : createDeck()
+     );
   }
 }
 
@@ -51,6 +51,7 @@ const keyEnter = (e) => {
                 type="title"
                 autoFocus
                 onChange={(e)=>{setTitle(e.target.value)}}
+                onKeyPress={keyEnter}
               />
             </Form.Group>
           </Form>
@@ -62,7 +63,7 @@ const keyEnter = (e) => {
           
           <Button variant="primary" 
                   onClick={title==''?handleClose:createDeck}
-                  onKeyPress={keyEnter}>
+          >
             Add
           </Button>
           
