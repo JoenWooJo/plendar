@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.CardRepository;
 import com.jeonwoojo.plendar.vo.CardVo;
+import com.jeonwoojo.plendar.vo.DeckVo;
+import com.jeonwoojo.plendar.vo.UserVo;
 
 @Service
 public class CardService {
@@ -18,8 +20,13 @@ public class CardService {
 		return cardRepository.findCard(deckNo);
 	}
 
-	public Object findCardUser() {
-		return cardRepository.findCardUser();
+	public List<UserVo> findCardUser(Long projectNo) {
+		return cardRepository.findCardUser(projectNo);
+	}
+
+	public CardVo createCard(CardVo cardVo) {
+		System.out.println("CS: " + cardVo);
+		return cardRepository.createCard(cardVo);
 	}
 
 }

@@ -8,5 +8,7 @@ public class DeckMemberVo {
 	private long deckNo;
 	private long projectNo;
 	private long userNo;
-	private int permission;
+	private int leader;
+	private int manager;
+	
 }
