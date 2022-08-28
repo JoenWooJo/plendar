@@ -19,7 +19,12 @@
 			    and pm.project_no=#{projectNo};
 		]]>
 	</select>
-	
+
+	<insert id="commentInsert" parameterType="commentvo">
+		<![CDATA[
+			insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
+		]]>
+
 	<insert id="createCard" parameterType="cardvo">
 		<![CDATA[
 		insert into card 

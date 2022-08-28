@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jeonwoojo.plendar.vo.CardVo;
+import com.jeonwoojo.plendar.vo.CommentVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 @Repository
@@ -28,6 +29,10 @@ public class CardRepository {
 		//sqlSession.insert("card.insertMember", cardVo);
 		System.out.println("CR: " + cardVo);
 		return cardVo;
+	}
+
+	public boolean commentInsert(CommentVo commentVo) {
+		return sqlSession.insert("card.commentInsert", commentVo) ==1;
 	}
 
 
