@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
 import SiteLayout from '../../layout/SiteLayout';
-import axios from 'axios';
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck'; 
 import { useParams } from 'react-router';

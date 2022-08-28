@@ -12,6 +12,7 @@ const Deck = ({title, no, projectNo}) => {
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
+    const [cardNo, setCardNo] = useState(0);
 
       // 카드 리스트 가져오기
     const t = async() => {    
@@ -48,7 +49,7 @@ const Deck = ({title, no, projectNo}) => {
 
     //덱 수정하기 
     useEffect(()=>{
-        postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no : no}));
+        postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no : no, cardNo:cardNo}));
     },[deckTitle, no]);
    
    const [morevertList, setMorevertList] = useState(false);
@@ -75,7 +76,11 @@ const Deck = ({title, no, projectNo}) => {
                 </div>
                 <div className="col-xl-2 mt-2">
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
-                    {morevertList ? <MoreVertDropdown projectNo={projectNo}/> : null}
+                    {morevertList ? <MoreVertDropdown 
+                                projectNo={projectNo}
+                                no={no}
+                                cardNo={cardNo}
+                    /> : null}
                 </div>
             </div>
             <div className="card-body">
