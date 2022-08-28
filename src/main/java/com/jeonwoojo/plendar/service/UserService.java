@@ -36,22 +36,24 @@ public class UserService {
 	}
 
 	public boolean updateUser (UserVo vo) {
-		System.out.println("Service" + vo);
 		return userRepository.updateUser(vo);
 	}
 
 	public boolean updateProfile (UserVo vo) {
-		System.out.println("Service" + vo);
 		return userRepository.updateProfile(vo);
 		
 	}
+	
+	public boolean deleteProfile(UserVo vo) {
+		return userRepository.deleteProfile(vo);	
+	}
 
-	public boolean confirmPassword(String password) {
-		UserVo vo = userRepository.checkPassword(password);
-		if(vo != null) {
-			return false;
+	public boolean confirmPassword(UserVo vo) {
+		UserVo userVo = userRepository.checkPassword(vo);
+		if(userVo != null) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }
