@@ -7,34 +7,61 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
-import {get} from '../../../api/Axios';
+import { get, } from '../../../api/Axios';
+import axios from 'axios';
+import dayjs from "dayjs";
 
 
-const options = ['jjj@gmail.com', 'Ouuuu@naver.com'];
-
-const CreateCard = ({show, setShow, projectNo}) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo }) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
-    const [value, setValue] = useState(options[0]);
+    const [value, setValue] = useState([]);
     const [inputValue, setInputValue] = useState('');
-
-    const [cardUserList,setCardUserList]=useState([]);
+    const [selectUser, setSelectUser] = useState();
+    const [cardUserList, setCardUserList] = useState([]);
+    const [reset, setReset] = useState(false);
+    const [member, setMember] = useState([]);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
     //카드 유저 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/carduser/${projectNo}`);
-        setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
-        console.log("projectNo:",projectNo,":",cardUserList);
-    }
+        //setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
+        setCardUserList(list);
+        }
+
+    //카드 생성하기
+    const CreateCard = () => {
+
+        const arr = {
+            cardNo:cardNo,
+            deckNo:no, //덱 넘버
+            title: title,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            member: member
+        }
+
+        console.log(arr);
+        axios.post('/api/kanban/card/create', arr).then((resp) => {
+            setShow(!show)
+        }).catch((err) => {
+            console.error(err, no)
+        });
+
+        console.log(no);
+    };
+
 
     useEffect(() => {
         t();
     }, [])
 
-
     return (
         <div className='col-xl-1'>
-            <Modal size='lg' show={show} onHide={()=> setShow(!show)}>
+            <Modal size='lg' show={show} onHide={() => setShow(!show)}>
                 <Modal.Header >
                     <Modal.Title>카드 추가하기</Modal.Title>
                 </Modal.Header>
@@ -47,6 +74,7 @@ const CreateCard = ({show, setShow, projectNo}) => {
                                     <Form.Label>카드 이름</Form.Label>
                                     <Form.Control
                                         type="title"
+                                        onChange={(e) => { setTitle(e.target.value) }}
                                         autoFocus
                                     />
                                 </Form.Group>
@@ -57,7 +85,8 @@ const CreateCard = ({show, setShow, projectNo}) => {
                                     controlId="exampleForm.ControlTextarea1"
                                 >
                                     <Form.Label>설명</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
+                                    <Form.Control as="textarea" rows={3}
+                                        onChange={(e) => { setDescription(e.target.value) }} />
                                 </Form.Group>
 
                                 {/* 시작일 */}
@@ -67,8 +96,10 @@ const CreateCard = ({show, setShow, projectNo}) => {
                                             label="시작일"
                                             value={startDate}
                                             inputFormat={"yyyy-MM-dd"}
-                                            onChange={(newValue) => {
-                                                setStartDate(newValue);
+                                            mask={"____-__-__"}
+                                            onChange={(startDate) => {
+                                                const dateFormat = dayjs(startDate).format("YYYY-MM-DD");
+                                                setStartDate(dateFormat);
                                             }}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
@@ -82,8 +113,10 @@ const CreateCard = ({show, setShow, projectNo}) => {
                                             label="마감일"
                                             value={endDate}
                                             inputFormat={"yyyy-MM-dd"}
-                                            onChange={(newValue) => {
-                                                setEndDate(newValue);
+                                            mask={"____-__-__"}
+                                            onChange={(endDate) => {
+                                                const dateFormat = dayjs(endDate).format("YYYY-MM-DD");
+                                                setEndDate(dateFormat);
                                             }}
                                             renderInput={(params) => <TextField {...params} />}
                                         />
@@ -94,19 +127,23 @@ const CreateCard = ({show, setShow, projectNo}) => {
                             {/* 유저에게 카드권한 주기 */}
                             <div className='col-xl-6 mt-4'>
                                 <Autocomplete
-                                    value={value}
-                                    onChange={(event, newValue) => {
-                                        setValue(newValue);
-                                    }}
-                                    inputValue={inputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setInputValue(newInputValue);
-                                    }}
+                                    key={reset}
                                     id="controllable-states-demo"
-                                    options={options}
+                                    options={cardUserList}
+                                    onChange={(e, newValue) => {
+                                        newValue != null && setSelectUser(newValue)
+                                    }}
+                                    getOptionLabel={(cardUserList) => cardUserList.email + " " + cardUserList.name}
                                     sx={{ width: 300 }}
-                                    renderInput={(params) => <TextField {...params} label="카드 권한" />}
+                                    renderInput={(params) => <TextField {...params} label="카드 권한" id='text' type='select' />}
                                 />
+                                <div className='mt-2 col-xl-1'>
+                                    <button type="submit" className="btn btn-secondary" onClick={(e) => {
+                                        e.preventDefault();
+                                        selectUser != null && !member.includes(selectUser) && setMember([...member, selectUser]);
+                                        setReset(reset => !reset);
+                                    }}>add</button>
+                                </div>
                                 <table className=" mt-3 table table-striped">
                                     <thead>
                                         <tr>
@@ -121,17 +158,23 @@ const CreateCard = ({show, setShow, projectNo}) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                유댕이
-                                            </td>
-                                            <td>
-                                                {inputValue}
-                                            </td>
-                                            <td>
-                                                <CloseIcon />
-                                            </td>
-                                        </tr>
+                                        {
+                                            member.map((m, i) => {
+                                                return (
+                                                    <tr key={i}>
+                                                        <td>
+                                                            {m.name}
+                                                        </td>
+                                                        <td>
+                                                            {m.email}
+                                                        </td>
+                                                        <td>
+                                                            <CloseIcon />
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -139,10 +182,10 @@ const CreateCard = ({show, setShow, projectNo}) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={()=> setShow(!show)}>
+                    <Button variant="secondary" onClick={() => setShow(!show)}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={()=> setShow(!show)}>
+                    <Button variant="primary" onClick={CreateCard}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
