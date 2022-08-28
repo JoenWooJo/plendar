@@ -11,6 +11,7 @@
       <typeAlias type="com.jeonwoojo.plendar.vo.ChatNotice" alias="chatnotice" />
       <typeAlias type="com.jeonwoojo.plendar.vo.CardVo" alias="cardvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.TaskVo" alias="taskvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.CommentVo" alias="commentvo" />
    </typeAliases>
    
    <mappers>

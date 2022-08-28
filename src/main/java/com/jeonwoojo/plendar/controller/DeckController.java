@@ -1,7 +1,5 @@
 package com.jeonwoojo.plendar.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
+import com.jeonwoojo.plendar.service.CardService;
 import com.jeonwoojo.plendar.service.DeckService;
+import com.jeonwoojo.plendar.vo.CommentVo;
 import com.jeonwoojo.plendar.vo.DeckVo;
-import com.jeonwoojo.plendar.vo.ProjectVo;
-import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -28,7 +25,8 @@ public class DeckController {
 	
 	@Autowired
 	private DeckService deckService;
-	
+	@Autowired
+	private CardService cardService;
 	
 	@Auth
 	@GetMapping("/find/{projectNo}")
@@ -51,6 +49,15 @@ public class DeckController {
 	@PostMapping("/update")
 	public ResponseEntity<JsonResult> updatDeck(@RequestBody DeckVo deckVo) {
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(deckVo));
+	}
+	
+	@PostMapping("/comment/insert")
+	public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
+		System.out.println("comment: "+commentVo);
+		cardService.commentInsert(commentVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success("insert ok")); 
 	}
 
 }

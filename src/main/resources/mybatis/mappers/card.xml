@@ -20,4 +20,10 @@
 		]]>
 	</select>
 	
+	<insert id="commentInsert" parameterType="commentvo">
+		<![CDATA[
+			insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
+		]]>
+	</insert>
+	
 </mapper>

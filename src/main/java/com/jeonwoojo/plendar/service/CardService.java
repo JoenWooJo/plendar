@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.CardRepository;
 import com.jeonwoojo.plendar.vo.CardVo;
+import com.jeonwoojo.plendar.vo.CommentVo;
 
 @Service
 public class CardService {
@@ -20,6 +21,10 @@ public class CardService {
 
 	public Object findCardUser() {
 		return cardRepository.findCardUser();
+	}
+
+	public void commentInsert(CommentVo commentVo) {
+		cardRepository.commentInsert(commentVo);
 	}
 
 }
