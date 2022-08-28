@@ -14,7 +14,7 @@ const AddTask = () => {
         <div className='col-xl-2'>
         <form type="button"><AddIcon onClick={handleShow} /></form>
         <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header >
           <Modal.Title>테스크 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>

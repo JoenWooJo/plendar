@@ -15,8 +15,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 
-const mypage = () => {
-    
+const Mypage = () => {
+
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -48,7 +48,7 @@ const mypage = () => {
     const newHandleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
+
     // confirm확인비밀번호
     const [confirmValues, setConfirmValues] = useState({
         password: '',
@@ -80,7 +80,7 @@ const mypage = () => {
     //=====================================================================
     const onSubmitU = (event) => {
         event.preventDefault();
-        if (newValues.password === '' || confirmValues.password === '' ){
+        if (newValues.password === '' || confirmValues.password === '') {
             return alert("변경할 비밀번호를 입력해 주세요.")
         }
         else if (newValues.password !== confirmValues.password) {
@@ -148,7 +148,7 @@ const mypage = () => {
         localStorage.setItem("loginUserProfile", response.data.data)
 
     }
-    
+
     // 파일 미리보기 로직
     const encodeFileToBase64 = (fileBlob) => {
         const reader = new FileReader();
@@ -170,24 +170,18 @@ const mypage = () => {
                     </div>
                     <div className="card-body" >
                         <div className='row'>
-                            <div style={{ width: '165px' }}></div>
+                            <div style={{ width: '205px' }}></div>
                             <form
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
-                                <div className='col-xl-6 mt-5'>
-                                 <div style={{height:"270px", width:"460px"}} className="row-xl-6">
-                                    <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
-                                     </div>
-                                    <div className='row' >
-                                        <input
-                                            type={'file'}
-                                            name={'file'}
-                                            placeholder={'이미지(사진)'}
-                                            onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
-                                          {*<Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
-                                        
-                                            이미지(사진)<input hidden name='file' variant="outlined" accept="image/*" multiple type="file" placeholder='이미지(사진)' />
-                                         </Button>*}
+                                <div className='row-xl-6 mt-5'>
+                                    <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
+                                        <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
+                                    </div>
+                                    <div className='row-xl-6' >
+                                        <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
+                                            이미지(사진)<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }}  />
+                                        </Button>
                                         <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
                                             refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
                                         }}>
@@ -303,4 +297,4 @@ const mypage = () => {
     );
 };
 
-export default mypage;
+export default Mypage;
