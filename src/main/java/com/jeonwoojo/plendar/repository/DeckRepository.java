@@ -18,4 +18,12 @@ public class DeckRepository {
 		return sqlSession.selectList("deck.findDeck", projectNo);
 	}
 
+	public boolean createDeck(DeckVo deckVo) {
+		return sqlSession.insert("deck.insertDeck", deckVo) == 1;
+	}
+
+	public boolean updateDeck(DeckVo deckVo) {
+		return sqlSession.update("deck.updateDeck",deckVo) ==1;
+	} 
+
 }

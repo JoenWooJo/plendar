@@ -46,8 +46,12 @@ public class UserService {
 		
 	}
 
-	public UserVo getProfile() {
-		return userRepository.getProfile();
+	public boolean confirmPassword(String password) {
+		UserVo vo = userRepository.checkPassword(password);
+		if(vo != null) {
+			return false;
+		}
+		return true;
 	}
 
 }

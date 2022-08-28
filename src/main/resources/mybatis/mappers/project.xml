@@ -58,4 +58,12 @@
 		]]>
 	</select>
 	
+	<update id="updateProject" parameterType="projectvo">
+	<![CDATA[
+		update project
+			set
+		 title = #{title }, description = #{description }, start_date = #{startDate }, end_date = #{endDate }, priority = #{priority }
+		]]>
+	</update>
+	
 </mapper>

@@ -11,4 +11,6 @@ public class UserVo {
 	private String profile;
 	private String permission;
 	private String projectNo;
+	private int projectCount;
+
 }

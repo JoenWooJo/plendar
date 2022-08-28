@@ -17,7 +17,11 @@
 	
 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
 		<![CDATA[
-			select no, email, name, profile from user where email=#{email } and password=#{password}
+			select u.no as no , u.email as email, u.name as name, u.profile as profile, count(*) as projectCount
+				from project pj, proj_member pm, user u
+			 where pj.no = pm.project_no
+			 and u.no = pm.user_no		 
+			 and pm.user_no = (select no from user where email=#{email } and password=#{password })
 		]]>
 	</select>
 	
@@ -42,5 +46,11 @@
 		where no = #{no }
 		]]>
 	</update>
+	
+	<select id="checkPassword" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select password from user where password=#{password }
+		]]>
+	</select>
 	
 </mapper>
