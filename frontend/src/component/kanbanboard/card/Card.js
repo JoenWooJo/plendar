@@ -9,7 +9,7 @@ import {get} from '../../../api/Axios';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
-const Card = ({ card }) => {
+const Card = ({ card , projectNo, deckNo}) => {
 
     const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(false);
@@ -29,7 +29,6 @@ const Card = ({ card }) => {
     const onChangeCard = () => {
         setShowDetail(showDetail => !showDetail)
     }
-
     return (
         <div>
             <div className="card bg-light text-black shadow mb-2">
@@ -37,7 +36,7 @@ const Card = ({ card }) => {
                     <div className='row'>
                         <div className="col-xl-10 mt-2">
                             <CardModal
-                                title={title} />
+                                title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no}/>
                         </div>
                         <AddTask 
                             cardNo = {no}

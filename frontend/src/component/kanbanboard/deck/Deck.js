@@ -81,11 +81,10 @@ const Deck = ({title, no, projectNo}) => {
                                 no={no}
                                 cardNo={cardNo}
                     /> : null}
-                </div>
             </div>
             <div className="card-body">
                 {
-                    cardList.map((m, i) => (<Card key={i} card={m}/>)
+                    cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no}/>)
                  )}
             </div>
         </div>
