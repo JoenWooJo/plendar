@@ -15,8 +15,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 
-const mypage = () => {
-    
+const Mypage = () => {
+
     const client = axios.create({ baseURL: '/api' })
 
     const [name, setName] = useState(localStorage.getItem("loginUserName"));
@@ -48,7 +48,7 @@ const mypage = () => {
     const newHandleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
+
     // confirm확인비밀번호
     const [confirmValues, setConfirmValues] = useState({
         password: '',
@@ -80,7 +80,7 @@ const mypage = () => {
     //=====================================================================
     const onSubmitU = (event) => {
         event.preventDefault();
-        if (newValues.password === '' || confirmValues.password === '' ){
+        if (newValues.password === '' || confirmValues.password === '') {
             return alert("변경할 비밀번호를 입력해 주세요.")
         }
         else if (newValues.password !== confirmValues.password) {
@@ -148,7 +148,7 @@ const mypage = () => {
         localStorage.setItem("loginUserProfile", response.data.data)
 
     }
-    
+
     // 파일 미리보기 로직
     const encodeFileToBase64 = (fileBlob) => {
         const reader = new FileReader();
@@ -170,7 +170,7 @@ const mypage = () => {
                     </div>
                     <div className="card-body" >
                         <div className='row'>
-                            <div style={{ width: '165px' }}></div>
+                            <div style={{ width: '205px' }}></div>
                             <form
                                 onSubmit={handleSubmit}
                                 ref={refForm}>
@@ -303,4 +303,4 @@ const mypage = () => {
     );
 };
 
-export default mypage;
+export default Mypage;

@@ -24,7 +24,7 @@ const App= () => (
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
-    {path: '/component', element: <Main />},                                                                                                                                                                                                                                 
+    {path: '/component', element: <Myproject />},                                                                                                                                                                                                                                 
     {path: '/user/mypage', element: <Mypage />},
     {path: '/user/mypagechecked', element: <MypageChecked />},
     {path: '/calendar/team', element: <Calendar />},
