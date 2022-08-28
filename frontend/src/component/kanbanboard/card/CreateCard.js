@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,15 +7,29 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
+import {get} from '../../../api/Axios';
 
 
 const options = ['jjj@gmail.com', 'Ouuuu@naver.com'];
 
-const CreateCard = ({show, setShow}) => {
+const CreateCard = ({show, setShow, projectNo}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [value, setValue] = useState(options[0]);
     const [inputValue, setInputValue] = useState('');
+
+    const [cardUserList,setCardUserList]=useState([]);
+
+    //카드 유저 리스트 가져오기
+    const t = async () => {
+        const list = await get(`/kanban/card/find/carduser/${projectNo}`);
+        setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
+        console.log("projectNo:",projectNo,":",cardUserList);
+    }
+
+    useEffect(() => {
+        t();
+    }, [])
 
 
     return (

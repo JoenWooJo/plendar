@@ -30,7 +30,7 @@ const createDeck = () => {
 const keyEnter = (e) => {
   if(e.key == "Enter"){
     console.log("덱 엔터로 추가하기");
-     title===''?handleClose:createDeck
+     title===''?handleClose():createDeck()
   }
 }
 

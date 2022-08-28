@@ -8,7 +8,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
 
-const CardModal = () => {
+const CardModal = ({title}) => {
     const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
 
@@ -21,12 +21,12 @@ const CardModal = () => {
 
     return (
         <div>
-            <div onClick={handleShow} >카카카드드드</div>
+            <div onClick={handleShow} >{title}</div>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"450px"}}>
                     <Modal.Header closeButton>
-                        <Modal.Title className='col-xl-6'>ㅇㅇㅇ카드입니다</Modal.Title>
+                        <Modal.Title className='col-xl-6'>{title}</Modal.Title>
                         <Box className='col-xl-4'>
                             <ButtonGroup variant="text" aria-label="text button group">
                                 <Button onClick={() => { setPage("card") }}>Card</Button>
