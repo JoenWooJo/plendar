@@ -75,12 +75,13 @@ const Deck = ({title, no, projectNo}) => {
                 </div>
                 <div className="col-xl-2 mt-2">
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
+                    </div>
+
                     {morevertList ? <MoreVertDropdown projectNo={projectNo}/> : null}
-                </div>
             </div>
             <div className="card-body">
                 {
-                    cardList.map((m, i) => (<Card key={i} card={m}/>)
+                    cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no}/>)
                  )}
             </div>
         </div>

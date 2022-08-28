@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Form, Card } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import moment from 'moment';
 import 'moment/locale/ko';
 
-const Comment = () => {
-    let [userName] = useState('김채원');
+const Comment = ({projectNo, deckNo, cardNo}) => {
+    let userNo = localStorage.getItem("loginUserNo");
     const [comment, setComment] = useState('');
     const [feedComments, setFeedComments] = useState([]);
     const [isValid, setIsValid] = useState(false);
-    const [date, setDate]= useState([]);
     let nowTime = moment().format('YYYY-MM-DD HH:mm:ss');
    
 
-    let post = e =>{
-        setFeedComments([...feedComments, comment]);
-        setDate([...date, nowTime]);
+    // db에 보내기
+    const post = () =>{
+        let body = {
+            projectNo : projectNo,
+            cardNo: cardNo,
+            userNo : userNo,
+            content : comment,
+            date : nowTime
+        }
+        axios.post('/api/kanban/deck/comment/insert', body)
+            .then((resp)=>{
+                console.log("ddd",resp)
+            })
+
         setComment('');
     };
 
