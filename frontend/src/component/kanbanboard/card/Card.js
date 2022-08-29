@@ -14,7 +14,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
 
     const { description, title, no } = card;
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
 

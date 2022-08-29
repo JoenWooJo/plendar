@@ -10,8 +10,8 @@ const CompletePage = () => {
             <div className="col-xl-11 ml-4">
 
                 <div className="card shadow mb-4">
-                    <div className="card-header2 py-3">
-                        <h6 className="m-0 font-weight-bold text-light"> Complete project</h6>
+                    <div className="card-header py-3">
+                        <h4 className="m-0 font-weight-bold text-gray"> Complete project</h4>
                     </div>
                     <div className="card-body">
                         <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4">
