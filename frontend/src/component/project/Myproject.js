@@ -10,12 +10,15 @@ const Myproject = () => {
 
     
     useEffect(() => {
-        axios.get('/api/project/find/project')
+        const fetchAndProjectList = async () => {
+            await axios.get('/api/project/find/project')
             .then((resp) => {
                 const list = resp.data.data;
                 setProjectList(list);
                 console.log(list);
             })
+        }
+        fetchAndProjectList();
     }, []);
 
     return (
