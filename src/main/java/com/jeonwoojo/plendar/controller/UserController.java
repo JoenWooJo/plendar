@@ -104,7 +104,6 @@ public class UserController {
 	@PostMapping("/confirmPassword")
 	public ResponseEntity<JsonResult> confirmPassword(@RequestBody UserVo vo) {
 		boolean result = userService.confirmPassword(vo);
-
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(result));
 	}
 
