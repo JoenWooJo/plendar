@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
@@ -14,7 +14,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayoutNS from '../../layout/SiteLayoutNS';
 
 const MypageChecked = () => {
-
     const [password, setPassword] = useState("");
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
