@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const client = axios.create({baseURL: '/api'})
+const client = axios.create({ baseURL: '/api' })
 
 /**
  * axios GET(Read) 요청
@@ -9,11 +9,11 @@ const client = axios.create({baseURL: '/api'})
  */
 export const get = async (url) => {
     try {
-        let response =  await client.get(url);
+        let response = await client.get(url);
         return response.data.data;
     } catch (error) {
         console.error("Error >>", error);
-    }    
+    }
 }
 
 /**
@@ -32,24 +32,27 @@ export const post = async (url, data) => {
 }
 
 export const postJson = async (url, data) => {
-  try {
-      let response = await client.post(url, data, {headers: {'Content-Type': 'application/json'}
-    });
-      return response.data;
-  } catch (error) {
-      console.error("Error >>", error);
-  }
-}
-
-export const putJson = async (url, data) => {
+    console.log(url, data);
     try {
-        let response = await client.put(url, data, {headers: {'Content-Type': 'application/json'}
-      });
+        let response = await client.post(url, data, {
+            headers: { 'Content-Type': 'application/json' }
+        });
         return response.data;
     } catch (error) {
         console.error("Error >>", error);
     }
-  }
+}
+
+export const putJson = async (url, data) => {
+    try {
+        let response = await client.put(url, data, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
 
 export const put = async (url, data) => {
     try {
