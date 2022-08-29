@@ -34,7 +34,7 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                                         content={msg.message} 
                                         date={date.split("-")[1] + '월' + date.split("-")[2] + '일'} 
                                         time={time.split(":")[0] + ":" + time.split(":")[1]} 
-                                    /> : msg.sender == 19 ? <ChatMessageNotice key={i} notice={msg.message}/> :
+                                    /> : msg.sender == 1 ? <ChatMessageNotice key={i} notice={msg.message}/> :
                                     <ChatMessageReceive 
                                         key={i} 
                                         name={msg.senderName} 

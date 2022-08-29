@@ -41,8 +41,8 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
             member: member
         }
 
-        console.log(arr);
         axios.post('/api/kanban/card/create', arr).then((resp) => {
+            console.log(">>>card create ",resp);
             setShow(!show)
             setRefresh(refresh => ! refresh);
         }).catch((err) => {

@@ -14,36 +14,35 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
         callback(roomNo);
     };
 
-    useEffect(()=>{
-        async function fetchAndNotice() {
-            const resp = await axios.get('/api/chat/notice', {
-                params: {
-                roomId: roomNo,
-                roomIdSelected: roomIdSelected
-                }
-            })
-                
-            // console.log("roomNo roomIdSelected notice", roomNo, roomIdSelected, resp.data.data);
-            resp.data.data["notice"] === 1 ? setInvisible(false) : setInvisible(true)
+    const fetchAndNotice = async () => {
+        const resp = await axios.get('/api/chat/notice', {
+            params: {
+            roomId: roomNo,
+            roomIdSelected: roomIdSelected
+            }
+        })
+            
+        // console.log("roomNo roomIdSelected notice", roomNo, roomIdSelected, resp.data.data);
+        resp.data.data["notice"] === 1 ? setInvisible(false) : setInvisible(true)
+    }
+
+    const getLastMessage = async () => {
+        const resp = await axios.get('/api/chat/last/message', {
+            params: {
+                roomId: roomNo
+            }
+        })
+        if(resp.data.data != null ){
+            setLastMessage(resp.data.data);
+            let data = resp.data.data["sendTime"].split(" ")[1]
+            let getTime = data.split(":")[0] + ":" + data.split(":")[1]
+            setTime(getTime);
         }
-        fetchAndNotice();
-    }, [messages])
+        
+    }
 
     useEffect(()=>{
-        async function getLastMessage() {
-            const resp = await axios.get('/api/chat/last/message', {
-                params: {
-                    roomId: roomNo
-                }
-            })
-            if(resp.data.data != null ){
-                setLastMessage(resp.data.data);
-                let data = resp.data.data["sendTime"].split(" ")[1]
-                let getTime = data.split(":")[0] + ":" + data.split(":")[1]
-                setTime(getTime);
-            }
-            
-        }
+        fetchAndNotice();
         getLastMessage();
     }, [lastMessage, messages, time]);
     
