@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 
-const AddTask = ({cardNo}) => {
+const AddTask = ({cardNo, setRefresh}) => {
 
     const handleShow = () => setShow(true);
     const [show, setShow] = useState(false);
@@ -18,7 +18,7 @@ const AddTask = ({cardNo}) => {
           cardNo : cardNo
       }).then((resp)=>{
           console.log(resp);
-          //setCreateResult(createResult => !createResult);
+          setRefresh(refresh => ! refresh);
           handleClose();
       }).catch((err)=>{
           console.error(err)});

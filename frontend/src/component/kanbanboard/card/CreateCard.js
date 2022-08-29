@@ -12,23 +12,20 @@ import axios from 'axios';
 import dayjs from "dayjs";
 
 
-const CreateCard = ({ show, setShow, projectNo, no, cardNo }) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
-    const [value, setValue] = useState([]);
-    const [inputValue, setInputValue] = useState('');
     const [selectUser, setSelectUser] = useState();
     const [cardUserList, setCardUserList] = useState([]);
     const [reset, setReset] = useState(false);
     const [member, setMember] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-
+    
     //카드 유저 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/carduser/${projectNo}`);
-        //setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
-        setCardUserList(list);
+        setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
         }
 
     //카드 생성하기
@@ -47,8 +44,10 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo }) => {
         console.log(arr);
         axios.post('/api/kanban/card/create', arr).then((resp) => {
             setShow(!show)
+            setRefresh(refresh => ! refresh);
         }).catch((err) => {
             console.error(err, no)
+            alert("모두 입력해 주세요");
         });
 
         console.log(no);

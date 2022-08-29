@@ -4,25 +4,26 @@ import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
-import {get, postJson} from '../../../api/Axios';
+import { get, postJson } from '../../../api/Axios';
 
 
-const Deck = ({title, no, projectNo}) => {
+const Deck = ({ title, no, projectNo }) => {
     const [deckTitle, setDeckTitle] = useState(title);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
     const [cardNo, setCardNo] = useState(0);
+    const [refresh, setRefresh] = useState(false);
 
-      // 카드 리스트 가져오기
-    const t = async() => {    
+    // 카드 리스트 가져오기
+    const t = async () => {
         const list = await get(`/kanban/card/find/${no}`);
-        setCardList((prevcCardlist)=>prevcCardlist.concat(list));
+        setCardList(list);
     }
 
     useEffect(() => {
         t();
-    }, [])
+    }, [refresh])
 
     const onChangeTitle = (event) => {
         //setDeckTitle(title);
@@ -30,9 +31,9 @@ const Deck = ({title, no, projectNo}) => {
     };
 
     const onClickDeckTitle = () => {
-        setClickChk(clickChk+1);
+        setClickChk(clickChk + 1);
         setChangeTitle(true)
-        if(clickChk>2){
+        if (clickChk > 2) {
             onChangeTitle
             setChangeTitle(false);
             setClickChk(0);
@@ -40,19 +41,19 @@ const Deck = ({title, no, projectNo}) => {
     }
 
     const keyEnter = (e) => {
-       if(e.key == "Enter"){
-        onChangeTitle
-        setChangeTitle(false);
-        setClickChk(0);
-       }
+        if (e.key == "Enter") {
+            onChangeTitle
+            setChangeTitle(false);
+            setClickChk(0);
+        }
     }
 
     //덱 수정하기 
-    useEffect(()=>{
-        postJson(`/kanban/deck/update`, JSON.stringify({title: deckTitle, no : no, cardNo:cardNo}));
-    },[deckTitle, no]);
-   
-   const [morevertList, setMorevertList] = useState(false);
+    useEffect(() => {
+        postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
+    }, [deckTitle, no]);
+
+    const [morevertList, setMorevertList] = useState(false);
 
     return (
         <div className="card shadow col-xl-3 mb-4 mt-3 ml-3">
@@ -66,7 +67,7 @@ const Deck = ({title, no, projectNo}) => {
                             label='제목 수정'
                             maxRows={4}
                             value={deckTitle}
-                            onChange={(e)=>onChangeTitle(e)}
+                            onChange={(e) => onChangeTitle(e)}
                             onKeyPress={keyEnter}
                             sx={{ ml: 1 }}
                         />
@@ -76,16 +77,18 @@ const Deck = ({title, no, projectNo}) => {
                 </div>
                 <div className="col-xl-2 mt-2">
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
-                    {morevertList ? <MoreVertDropdown 
-                                projectNo={projectNo}
-                                no={no}
-                                cardNo={cardNo}
+                    {morevertList ? <MoreVertDropdown
+                        projectNo={projectNo}
+                        no={no}
+                        cardNo={cardNo}
+                        setRefresh={setRefresh}
                     /> : null}
-            </div>
-            <div className="card-body">
-                {
-                    cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no}/>)
-                 )}
+                </div>
+                <div className="card-body">
+                    {
+                        cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />)
+                        )}
+                </div>
             </div>
         </div>
     );

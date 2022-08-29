@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreateCard from '../card/CreateCard';
 
-const MoreVertDropdown = ({projectNo, no, cardNo}) => {
+const MoreVertDropdown = ({projectNo, no, cardNo, setRefresh}) => {
 
     const [show, setShow] = useState(false);
 
@@ -19,6 +19,7 @@ const MoreVertDropdown = ({projectNo, no, cardNo}) => {
                     projectNo={projectNo} 
                     no={no}
                     cardNo={cardNo}
+                    setRefresh={setRefresh}
                 />
                 <a className="dropdown-item d-flex align-items-right" href="#">
                     <div className="status-indicator"></div>
