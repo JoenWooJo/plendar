@@ -34,4 +34,8 @@ public class CardService {
 		cardRepository.commentInsert(commentVo);
 	}
 
+	public List<CommentVo> findComment(Long cardNo) {
+		return cardRepository.findComment(cardNo);
+	}
+
 }

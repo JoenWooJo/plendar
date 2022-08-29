@@ -27,12 +27,15 @@ public class CardRepository {
 	public CardVo createCard(CardVo cardVo) {
 		sqlSession.insert("card.createCard", cardVo);
 		//sqlSession.insert("card.insertMember", cardVo);
-		System.out.println("CR: " + cardVo);
 		return cardVo;
 	}
 
 	public boolean commentInsert(CommentVo commentVo) {
 		return sqlSession.insert("card.commentInsert", commentVo) ==1;
+	}
+
+	public List<CommentVo> findComment(Long cardNo) {
+		return sqlSession.selectList("card.findComment", cardNo);
 	}
 
 

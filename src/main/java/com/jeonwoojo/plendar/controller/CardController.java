@@ -48,4 +48,12 @@ public class CardController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(cardService.createCard(cardVo)));
 	}
+	
+	@GetMapping("/find/comment/{cardNo}")
+	public ResponseEntity<JsonResult> findComment(@PathVariable("cardNo") Long cardNo) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(cardService.findComment(cardNo)));
+	}
+	
 }

@@ -24,6 +24,7 @@
 		<![CDATA[
 			insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
 		]]>
+	</insert>
 
 	<insert id="createCard" parameterType="cardvo">
 		<![CDATA[
@@ -39,5 +40,14 @@
 		values(#{deckNo }, #{cardNo }, #{userNo })
 		]]>	
 	</insert>
+	
+	<select id="findComment" resultType="commentvo" parameterType="long">
+		<![CDATA[
+			select a.no, b.name, a.content, a.date, c.deck_no, a.card_no
+				from comment a, user b, card c 
+				where a.pm_user_no = b.no 
+				and a.card_no=#{cardNo } and a.card_no = c.no;
+		]]>
+	</select> 
 	
 </mapper>
