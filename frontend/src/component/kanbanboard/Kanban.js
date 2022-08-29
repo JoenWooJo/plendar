@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
 import SiteLayout from '../../layout/SiteLayout';
-import axios from 'axios';
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck'; 
 import { useParams } from 'react-router';
@@ -34,7 +32,6 @@ const Kanban = () => {
           <div className="card-body" style={{ height: "750px", overflow:"auto"}}>
           
             <CreateDeck setCreateResult={setCreateResult}/>
-
             <div className="row">
               {
                 deckList.map((m, i) => {
@@ -44,6 +41,7 @@ const Kanban = () => {
                       key={i}
                       title={m.title}
                       projectNo={projectNo}
+                      setCreateResult={setCreateResult}
                     />
                   );
                 })}

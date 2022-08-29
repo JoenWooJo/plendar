@@ -11,18 +11,12 @@ import axios from 'axios';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
-const Card = ({ card }) => {
+const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
 
     const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(true);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
-
-    //테스크 리스트 가져오기
-    const t = async () => {
-        const list = await get(`/kanban/task/find/${no}`);
-        setTaskList((prevcTasklist) => prevcTasklist.concat(list));
-    }
 
     useEffect(() => {
         taskList.length === 0 && t();
@@ -31,7 +25,13 @@ const Card = ({ card }) => {
             return m.finished === "Y" ? arr.push(true) : arr.push(false);
         })
         setCheck(arr);
-    }, [taskList.length, check.length])
+    }, [taskList.length, check.length, refresh])
+    
+    //테스크 리스트 가져오기
+    const t = async () => {
+        const list = await get(`/kanban/task/find/${no}`);
+        setTaskList(list);
+    }
 
     const onChangeCard = (finished) => {
         setShowDetail(showDetail => !showDetail)
@@ -66,7 +66,6 @@ const Card = ({ card }) => {
         
         
     }
-
     return (
         <div>
             <div className="card bg-light text-black shadow mb-2">
@@ -74,10 +73,12 @@ const Card = ({ card }) => {
                     <div className='row'>
                         <div className="col-xl-10 mt-2">
                             <CardModal
-                                title={title} />
+                                title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no}/>
                         </div>
-                        <AddTask
-                            cardNo={no}
+
+                        <AddTask 
+                            cardNo = {no} 
+                            setRefresh={setRefresh}
                         />
                     </div>
                     <div className='row'>

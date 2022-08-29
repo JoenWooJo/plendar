@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreateCard from '../card/CreateCard';
 
-const MoreVertDropdown = ({projectNo}) => {
+const MoreVertDropdown = ({projectNo, no, cardNo, setRefresh}) => {
 
     const [show, setShow] = useState(false);
 
@@ -13,7 +13,14 @@ const MoreVertDropdown = ({projectNo}) => {
                     <div className="status-indicator bg-success"></div>
                     카드 추가하기
                 </a>
-                <CreateCard show={show} setShow={setShow} projectNo={projectNo}/>
+                <CreateCard 
+                    show={show} 
+                    setShow={setShow} 
+                    projectNo={projectNo} 
+                    no={no}
+                    cardNo={cardNo}
+                    setRefresh={setRefresh}
+                />
                 <a className="dropdown-item d-flex align-items-right" href="#">
                     <div className="status-indicator"></div>
                     삭제
