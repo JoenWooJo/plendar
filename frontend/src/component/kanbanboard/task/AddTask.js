@@ -17,7 +17,6 @@ const AddTask = ({cardNo, setRefresh}) => {
           content: content,
           cardNo : cardNo
       }).then((resp)=>{
-          console.log(resp);
           setRefresh(refresh => ! refresh);
           handleClose();
       }).catch((err)=>{

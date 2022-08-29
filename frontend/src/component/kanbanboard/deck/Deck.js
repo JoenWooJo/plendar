@@ -26,7 +26,6 @@ const Deck = ({ title, no, projectNo }) => {
     }, [refresh])
 
     const onChangeTitle = (event) => {
-        //setDeckTitle(title);
         setDeckTitle(event.target.value);
     };
 

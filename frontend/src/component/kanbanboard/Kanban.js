@@ -20,7 +20,6 @@ const Kanban = () => {
  const t = async() => {    
   const list = await get(`/kanban/deck/find/${projectNo}`);
   setDeckLlist(list);
-  console.log(list)
  }
   return (
     <SiteLayout>

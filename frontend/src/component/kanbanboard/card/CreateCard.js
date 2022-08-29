@@ -47,10 +47,8 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
             setRefresh(refresh => ! refresh);
         }).catch((err) => {
             console.error(err, no)
-            alert("모두 입력해 주세요");
+            alert("카드 정보를 모두 입력해 주세요");
         });
-
-        console.log(no);
     };
 
 
