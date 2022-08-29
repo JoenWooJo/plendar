@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
+import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.TaskService;
 import com.jeonwoojo.plendar.vo.DeckVo;
 import com.jeonwoojo.plendar.vo.TaskVo;
@@ -24,14 +25,15 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 	
+	@Auth
 	@GetMapping("/find/{cardNo}")
 	public ResponseEntity<JsonResult> findTask(@PathVariable("cardNo") Long cardNo) {
-		System.out.println("ddddd"+ cardNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(taskService.findTask(cardNo)));
 	}
 	
+	@Auth
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> create( @RequestBody TaskVo taskVo) {
 		System.out.println("data: "+taskVo);
@@ -39,6 +41,15 @@ public class TaskController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(newVo));
+	}
+	
+	@Auth
+	@PostMapping("/clickTask")
+	public ResponseEntity<JsonResult> clickTask(@RequestBody TaskVo taskVo) {
+		System.out.println("Task Changed" + taskVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(taskService.clickTask(taskVo)));
 	}
 	
 }

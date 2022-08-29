@@ -16,4 +16,12 @@
 		]]>	
 	</insert>
 	
+	<update id="updateTaskStatus" parameterType="taskvo">
+				<![CDATA[
+				update task 
+				 set finished = #{finished }
+				where no = #{no }
+				]]>
+	</update>
+	
 </mapper>
