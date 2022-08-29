@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.CardService;
 import com.jeonwoojo.plendar.vo.CardVo;
-import com.jeonwoojo.plendar.vo.DeckVo;
+import com.jeonwoojo.plendar.vo.CommentVo;
 
 @Auth
 @Controller
@@ -47,11 +46,19 @@ public class CardController {
 				.body(JsonResult.success(cardService.createCard(cardVo)));
 	}
 	
-	@GetMapping("/find/comment/{cardNo}")
-	public ResponseEntity<JsonResult> findComment(@PathVariable("cardNo") Long cardNo) {
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(JsonResult.success(cardService.findComment(cardNo)));
-	}
+	@PostMapping("/comment/insert")
+	   public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
+	      cardService.commentInsert(commentVo);
+	      return ResponseEntity
+	            .status(HttpStatus.OK)
+	            .body(JsonResult.success("insert ok")); 
+	   }
+	   
+	   @GetMapping("/find/comment/{cardNo}")
+	   public ResponseEntity<JsonResult> findComment(@PathVariable("cardNo") Long cardNo) {
+	      return ResponseEntity
+	            .status(HttpStatus.OK)
+	            .body(JsonResult.success(cardService.findComment(cardNo)));
+	   }
 	
 }

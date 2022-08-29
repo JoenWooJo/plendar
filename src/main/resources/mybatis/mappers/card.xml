@@ -20,34 +20,42 @@
 		]]>
 	</select>
 
-	<insert id="commentInsert" parameterType="commentvo">
-		<![CDATA[
-			insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
-		]]>
-	</insert>
-
 	<insert id="createCard" parameterType="cardvo">
 		<![CDATA[
 		insert into card 
 		values(null, #{deckNo }, #{title }, #{description }, #{startDate }, #{endDate}, (SELECT IFNULL(MAX(d.sequence) + 1, 1) 
 		FROM card c, deck d where d.no = #{deckNo } and c.deck_no = d.no), 'N');	
-		]]>	
-	</insert>
-	
-	<insert id="insertMember" parameterType="cardvo">
-		<![CDATA[
-		insert into card_member
-		values(#{deckNo }, #{cardNo }, #{userNo })
-		]]>	
-	</insert>
-	
-	<select id="findComment" resultType="commentvo" parameterType="long">
-		<![CDATA[
-			select a.no, b.name, a.content, a.date, c.deck_no, a.card_no
-				from comment a, user b, card c 
-				where a.pm_user_no = b.no 
-				and a.card_no=#{cardNo } and a.card_no = c.no;
 		]]>
-	</select> 
+
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMember" parameterType="map">
+		<![CDATA[
+			insert into card_member
+			 values(#{deckNo }, #{cardNo }, #{userVo.no })
+		]]>	
+	</insert>
+	
+	<insert id="commentInsert" parameterType="commentvo">
+      <![CDATA[
+         insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
+      ]]>
+   </insert>
+   
+   <select id="findComment" parameterType="long" resultType="commentvo">
+      <![CDATA[
+         select b.name as userName, a.content, a.date 
+            from comment a, user b
+            where a.pm_user_no = b.no 
+            and a.card_no=#{cardNo } 
+      ]]>
+   </select>
+	
+	
 	
 </mapper>

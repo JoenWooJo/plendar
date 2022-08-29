@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,6 @@ public class CardVo {
 	private String endDate;
 	private long sequence;
 	private String finished;
-	private long userNo;
+	private List<UserVo> member;
 
 }

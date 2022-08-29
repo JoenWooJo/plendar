@@ -10,5 +10,6 @@ public class CommentVo {
 	private Long projectNo;
 	private String content;
 	private String date;
+	private String userName;
 	
 }

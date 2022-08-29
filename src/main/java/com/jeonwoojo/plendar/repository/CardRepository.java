@@ -1,5 +1,6 @@
 package com.jeonwoojo.plendar.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,7 +27,19 @@ public class CardRepository {
 
 	public CardVo createCard(CardVo cardVo) {
 		sqlSession.insert("card.createCard", cardVo);
-		//sqlSession.insert("card.insertMember", cardVo);
+		
+		List<UserVo> list = cardVo.getMember();
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cardNo", cardVo.getNo());
+		map.put("deckNo", cardVo.getDeckNo());
+
+		for (int i=0;i<list.size();i++) {
+			map.put("userVo", list.get(i));
+			sqlSession.insert("card.insertMember", map);
+			map.remove("userVo");
+		}
+
 		return cardVo;
 	}
 
