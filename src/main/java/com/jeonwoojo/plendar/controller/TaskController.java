@@ -26,7 +26,6 @@ public class TaskController {
 	
 	@GetMapping("/find/{cardNo}")
 	public ResponseEntity<JsonResult> findTask(@PathVariable("cardNo") Long cardNo) {
-		System.out.println("ddddd"+ cardNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(taskService.findTask(cardNo)));
@@ -34,7 +33,6 @@ public class TaskController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> create( @RequestBody TaskVo taskVo) {
-		System.out.println("data: "+taskVo);
 		boolean newVo = taskService.createTask(taskVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)

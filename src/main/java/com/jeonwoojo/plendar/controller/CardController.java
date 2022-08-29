@@ -7,11 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
+import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.CardService;
+import com.jeonwoojo.plendar.vo.CardVo;
+import com.jeonwoojo.plendar.vo.DeckVo;
 
+@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/kanban/card")
@@ -27,10 +34,26 @@ public class CardController {
 	}
 	
 	@GetMapping("/find/carduser/{projectNo}")
-	public ResponseEntity<JsonResult> findCardUser() {
+	public ResponseEntity<JsonResult> findCardUser(@PathVariable("projectNo") Long projectNo) {
+		//System.out.println(projectNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(cardService.findCardUser()));
+				.body(JsonResult.success(cardService.findCardUser(projectNo)));
+	}
+	
+	@PostMapping("/create")
+	public ResponseEntity<JsonResult> createCard(@RequestBody CardVo cardVo) {
+		//System.out.println("CC: " + cardVo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(cardService.createCard(cardVo)));
+	}
+	
+	@GetMapping("/find/comment/{cardNo}")
+	public ResponseEntity<JsonResult> findComment(@PathVariable("cardNo") Long cardNo) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(cardService.findComment(cardNo)));
 	}
 	
 }
