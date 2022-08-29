@@ -26,7 +26,6 @@ public class CardService {
 	}
 
 	public CardVo createCard(CardVo cardVo) {
-		System.out.println("CS: " + cardVo);
 		return cardRepository.createCard(cardVo);
 	}
 

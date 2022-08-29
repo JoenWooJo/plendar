@@ -31,7 +31,6 @@ public class DeckController {
 	@Auth
 	@GetMapping("/find/{projectNo}")
 	public ResponseEntity<JsonResult> findDeck(@PathVariable("projectNo") Long projectNo) {
-		//System.out.println("deckfind"+ projectNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(deckService.findDeck(projectNo)));
@@ -39,7 +38,6 @@ public class DeckController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> create( @RequestBody DeckVo deckVo) {
-		//System.out.println("data: "+deckVo);
 		boolean newVo = deckService.createDeck(deckVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -54,7 +52,6 @@ public class DeckController {
 	
 	@PostMapping("/comment/insert")
 	public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
-		System.out.println("comment: "+commentVo);
 		cardService.commentInsert(commentVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)

@@ -25,8 +25,6 @@ public class CalendarController {
 	
 	@GetMapping("/axios/team")
 	public ResponseEntity<JsonResult> readTC(@AuthUser UserVo authUser) {
-		System.out.println("AuthUser345: " + authUser);
-		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(calendarService.findAll(authUser.getNo())));
@@ -34,8 +32,6 @@ public class CalendarController {
 	
 	@GetMapping("/axios/personal")
 	public ResponseEntity<JsonResult> readPC(@AuthUser UserVo authUser) {
-		System.out.println("AuthUser123: " + authUser);
-		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(calendarService.findByNo(authUser.getNo())));

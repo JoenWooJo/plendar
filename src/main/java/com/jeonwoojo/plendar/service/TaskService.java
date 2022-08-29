@@ -23,7 +23,6 @@ public class TaskService {
 	}
 
 	public boolean clickTask(TaskVo taskVo) {
-		System.out.println("Task Changed2" + taskVo);
 		return taskRepository.updateTaskStatus(taskVo);
 	}
 

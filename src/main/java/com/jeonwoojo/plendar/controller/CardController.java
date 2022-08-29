@@ -35,7 +35,6 @@ public class CardController {
 	
 	@GetMapping("/find/carduser/{projectNo}")
 	public ResponseEntity<JsonResult> findCardUser(@PathVariable("projectNo") Long projectNo) {
-		//System.out.println(projectNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(cardService.findCardUser(projectNo)));
@@ -43,7 +42,6 @@ public class CardController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> createCard(@RequestBody CardVo cardVo) {
-		//System.out.println("CC: " + cardVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(cardService.createCard(cardVo)));
