@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
+import ChatIcon from '@mui/icons-material/Chat';
 import { Link } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
@@ -46,7 +46,7 @@ const Header = ({}) => {
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Badge color="error" badgeContent={count}>
-                        <MessageRoundedIcon />
+                        <ChatIcon color="primary" fontSize="large" />
                         </Badge>
                     </Link>
                 </li>
@@ -54,7 +54,7 @@ const Header = ({}) => {
                 <li className="nav-item dropdown no-arrow mx-1 ">
                     <div className="nav-link dropdown-toggle"  href="#" role="button" id="alertsDropdown" 
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" >
-                            <AccessAlarmIcon onClick={e => {setAlramList(alramList =>!alramList)}}/>
+                            <AccessAlarmIcon color="primary" fontSize="large" onClick={e => {setAlramList(alramList =>!alramList)}}/>
                         <span className="badge badge-danger badge-counter">.</span>
                         {alramList ? <HeaderDropdown />:null  }
                     </div>

@@ -25,7 +25,11 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
             return m.finished === "Y" ? arr.push(true) : arr.push(false);
         })
         setCheck(arr);
-    }, [taskList.length, check.length, refresh])
+    }, [taskList.length, check.length])
+
+    useEffect(() => {
+        t();
+    }, [refresh])
     
     //테스크 리스트 가져오기
     const t = async () => {
