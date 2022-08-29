@@ -8,7 +8,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
 
-const CardModal = ({title}) => {
+const CardModal = ({title, projectNo, deckNo, cardNo}) => {
     const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
 
@@ -38,7 +38,7 @@ const CardModal = ({title}) => {
                     <Modal.Body>
 
                         {page === "card" && <UpdateCard />}
-                        {page === "comment" && <Comment />}
+                        {page === "comment" && <Comment projectNo={projectNo} deckNo={deckNo} cardNo={cardNo}/>}
                         {page === "file" && <FileUpload />}
 
                        
