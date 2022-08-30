@@ -70,7 +70,7 @@
 	
 	<select id="findProjectMember" parameterType="long" resultType="uservo">
 		<![CDATA[
-			select u.no from user u, proj_member pm 
+			select u.no, u.email, u.name, pm.leader, pm.manager  from user u, proj_member pm 
 				where u.no = pm.user_no
     		 and project_no = #{projectNo }
 		]]>

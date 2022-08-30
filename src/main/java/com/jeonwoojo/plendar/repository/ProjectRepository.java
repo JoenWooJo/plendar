@@ -103,4 +103,8 @@ public class ProjectRepository {
 		return sqlSession.update("project.updateProject", projectVo);
 	}
 
+	public List<UserVo> findProjectMember(long projectNo) {
+		return sqlSession.selectList("project.findProjectMember", projectNo);
+	}
+
 }

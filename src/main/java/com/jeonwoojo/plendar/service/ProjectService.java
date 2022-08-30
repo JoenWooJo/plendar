@@ -35,4 +35,8 @@ public class ProjectService {
 		return projectRepository.updateProject(projectVo, authUser);
 	}
 
+	public List<UserVo> findProjectMember(long projectNo) {
+		return projectRepository.findProjectMember(projectNo);
+	}
+
 }

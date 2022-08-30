@@ -7,9 +7,11 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
@@ -73,5 +75,11 @@ public class ProjectController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectVo));
 	}
+	
+	@GetMapping("/find/member/{projectNo}") 
+	public ResponseEntity<JsonResult> findProjectMember(@PathVariable("projectNo") long projectNo) {
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findProjectMember(projectNo)));
+	}
+	
 	
 }
