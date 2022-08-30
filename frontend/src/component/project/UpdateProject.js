@@ -1,37 +1,53 @@
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import dayjs from "dayjs";
-
+import update from 'react-addons-update';
 import SiteLayout from '../../layout/SiteLayout';
 import { TextField, Typography, Rating, Autocomplete, Checkbox } from "@mui/material";
 import { Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom"
+import { useParams } from 'react-router';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 const UpdateProject = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [priority, setPriority] = useState(0);
-    const [startDate, setSartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const params = useParams();
+    const projectNo = params.no;
+    const location = useLocation();
+    const project = location.state;
+
+    const [title, setTitle] = useState(project["title"]);
+    const [description, setDescription] = useState(project["description"]);
+    const [priority, setPriority] = useState(project["priority"]);
+    const [startDate, setSartDate] = useState(project["startDate"]);
+    const [endDate, setEndDate] = useState(project["endDate"]);
+    const [reset, setReset] = useState(false);
 
     const [member, setMember] = useState([]);
     const [selectUser, setSelectUser] = useState();
     const [user, setUser] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/project/find/user')
-            .then((resp) => {
-                const userList = resp.data.data;
-                const list = [];
-                userList.map((e) => {
-                    list.push({ no: e.no, name: e.name, email: e.email, permission: false });
-                })
-                setUser(list);
-            })
-    }, []);
+    const [leaderCheck, setLeaderCheck] = useState(1);
+
+    const userList = async () => {
+        const resp = await axios.get('/api/project/find/user')
+        const list = [];
+        (resp.data.data).map((e) => {
+            if( e.no != localStorage.getItem('loginUserNo') && e.no != 1) {
+                list.push({ no: e.no, name: e.name, email: e.email });
+            }
+        })
+        setUser(list);
+    };
+
+    const projectMember = async () => {
+        const projMember = await axios.get(`/api/project/find/member/${projectNo}`);
+        setMember(projMember.data.data);
+        console.log(">><<< ", projMember.data.data);
+    }
 
     const updateProject = () => {
         const projectData = {
@@ -40,57 +56,58 @@ const UpdateProject = () => {
             priority: priority,
             startDate: startDate,
             endDate: endDate,
+            member: member
         }
-        console.log(projectData);
-
-        axios.post('http://localhost:8080/api/project/update', { 
-            projectData: projectData,
-            projectMember: member
-        }).then((resp)=>{
-            console.log(resp);
-        }).catch((err)=>{
-            console.error(err)});
+        console.log(">>>updateProject data ",projectData);
     };
 
-    const is_checked = (index) => {
+    const is_checked = (event, index) => {
+        console.log("is_checked >> ", event.target.id)
         // 1. checkbox element를 찾습니다.
-        const checkbox = document.getElementById('permission_checkbox_'+index);
+        const checkbox = document.getElementById(event.target.id);
         // 2. checked 속성을 체크합니다.
         const is_checked = checkbox.checked;
       
         // 3. 결과를 출력합니다.
-        //console.log(is_checked);
+        console.log(is_checked, event.target.id[0]);
+        
+        let leaderClick = null;
+        let managerClick = null;
+
+        if (event.target.id[0] == "l") {
+            leaderClick = is_checked;
+        } else {
+            managerClick = is_checked;
+        }
+
+        console.log("l m", leaderClick, managerClick)
 
         const data = {
             no: member[index]['no'],
             name: member[index]['name'],
             email: member[index]['email'],
-            permission: is_checked
+            leader: leaderClick == null ? member[index]["leader"] : leaderClick?1:0 ,
+            manager: managerClick == null ? member[index]["manager"] : managerClick?1:0
         }
 
         member[index] = data;
-    }
+    };
 
-    const addUser = member.map((m, i) => {
-        return (
-            <tr key={i}>
-                <td>{m.name}</td>
-                <td>{m.email}</td>
-                <td><Checkbox  id={'permission_checkbox_'+i} onClick={()=>{is_checked(i)}}
-                /></td>
-                <td>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16"
-                        onClick={()=>{console.log("삭제 해야해,,~~!!! ",i)
-                        member.splice(i, 1);
-                        console.log(member);
-                    }}
-                    >
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
-                </td>
-            </tr>
-        )
-    });
+    const onRemove = (no) => {
+        localStorage.getItem('loginUserNo') != no && setMember(member.filter(user=>user.no!==no));
+    };
+
+    const checkMember = (element) => {
+        if(element.no == selectUser["no"]) {
+            return true;
+        } return false;
+    };
+
+    useEffect(() => {
+        userList();
+        projectMember();
+    }, []);
+
 
     return (
 
@@ -126,7 +143,9 @@ const UpdateProject = () => {
                                             <div className='mt-3 ml-2 col-xl-5'>
                                                 <div className="form-group">
                                                     <label className="exampleFormControlTextarea3">내용</label>
-                                                    <textarea className="form-control" id="exampleFormControlTextarea3" rows="7" onChange={(e) => {setDescription(e.target.value)}}></textarea>
+                                                    <textarea className="form-control" id="exampleFormControlTextarea3" rows="7" value={description} onChange={(e) => {setDescription(e.target.value)}}>
+                                                    {description}
+                                                    </textarea>
                                                 </div>
                                             </div>
 
@@ -176,20 +195,24 @@ const UpdateProject = () => {
                                 <div className="chart-bar">
                                     <div className='row'>
                                         <div className='col-xl-10'>
-                                            <Autocomplete
+                                        <Autocomplete
+                                                key={reset}
                                                 id="free-solo-demo"
                                                 freeSolo
                                                 options={user}
                                                 onChange={(e, newValue) => {
+                                                    console.log(newValue)
                                                     newValue != null && setSelectUser(newValue)
                                                 }}
                                                 getOptionLabel={(user) => user.email + " " + user.name}
-                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' />}
+                                                renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' type='select'/>
+                                            }
                                             />
                                         </div>
                                         <div className='mt-2 col-xl-1'>
                                             <button type="submit" className="btn btn-secondary" onClick={() => {
-                                                selectUser != null &&  !member.includes(selectUser) && setMember([...member, selectUser]);
+                                                selectUser != null &&  !member.some(checkMember) && setMember([...member, selectUser]);
+                                                setReset(reset => !reset);
                                             }}>add</button>
                                         </div>
 
@@ -198,6 +221,7 @@ const UpdateProject = () => {
                                                 <tr className="text-center" >
                                                     <th scope="col">name</th>
                                                     <th scope="col">email</th>
+                                                    <th scope="col">leader</th>
                                                     <th scope="col">manager</th>
                                                     <th scope="col">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
@@ -208,7 +232,25 @@ const UpdateProject = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {addUser}
+                                            {
+                                                    member.map((m, i) => {
+                                                        return (
+                                                            <tr key={i}>
+                                                                <td>{m.name}</td>
+                                                                <td>{m.email}</td>
+                                                                <td><Checkbox  id={'leader_checkbox_'+i} checked={m.leader==1?true:false} onClick={(event)=>{setReset(reset => !reset), is_checked(event, i)}}
+                                                                /></td>
+                                                                <td><Checkbox  id={'manager_checkbox_'+i} checked={m.manager==1?true:false} onClick={(event)=>{setReset(reset => !reset), is_checked(event, i)}}
+                                                                /></td>
+                                                                <td onClick={()=>onRemove(m.no)}>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16">
+                                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                                    </svg>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -220,7 +262,7 @@ const UpdateProject = () => {
 
                     <center>
                         
-                        <Link to={ title=='' || description=='' || priority == 0 || startDate == null || endDate == null || member == [] ? "/project/updateProject" :
+                        <Link to={ title=='' || description=='' || priority == 0 || startDate == null || endDate == null || member == [] ? `/updateProject/${projectNo}` :
                             "/project/myProject"} style={{ textDecoration: "none" }}>
                             <button type="button" className=" mt-4 mr-2 btn btn-secondary" 
                                 onClick={(e)=>{
