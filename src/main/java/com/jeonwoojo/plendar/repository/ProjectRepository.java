@@ -55,7 +55,7 @@ public class ProjectRepository {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
 		firstMessage.setRoomId(projectVo.getNo());
-		firstMessage.setSender(19); // admin용 id 필요할지도,,,?
+		firstMessage.setSender(1); // admin용 id 필요할지도,,,?
 		firstMessage.setMessage(projectVo.getTitle()+" 채팅방이 개설 되었습니다.");
 		firstMessage.setSendTime(dtf.format(LocalDateTime.now()));
 		firstMessage.setType("notice");

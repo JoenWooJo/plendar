@@ -45,11 +45,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		/* session 처리 */
-//		System.out.println(authUser);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
-		
-		System.out.println("여기여기"+session.getAttribute("authUser"));
 		
 		// 3. json 응답
 		response.setStatus(HttpServletResponse.SC_OK);

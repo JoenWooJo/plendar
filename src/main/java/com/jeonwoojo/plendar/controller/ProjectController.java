@@ -28,7 +28,6 @@ public class ProjectController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> create(@AuthUser UserVo authUser, @RequestBody ProjectVo projectVo) {
-		System.out.println("data: "+projectVo);
 		ProjectVo newVo = projectService.createProject(projectVo, authUser);
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -45,7 +44,6 @@ public class ProjectController {
 	@Auth
 	@GetMapping("/find/project")
 	public ResponseEntity<JsonResult> findProject(@AuthUser UserVo authUser) {
-		System.out.println(authUser);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findProject(authUser.getNo())));
@@ -54,7 +52,6 @@ public class ProjectController {
 	@Auth
 	@GetMapping("/find/completeProject")
 	public ResponseEntity<JsonResult> findCompleteProject(@AuthUser UserVo authUser) {
-		System.out.println(authUser);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
@@ -63,7 +60,6 @@ public class ProjectController {
 	@Auth
 	@GetMapping("/update/project")
 	public ResponseEntity<JsonResult> updateProject(@AuthUser UserVo authUser,@RequestBody ProjectVo projectVo) {
-		System.out.println("modify: " + projectVo);
 		projectService.updateProject(projectVo, authUser);
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectVo));

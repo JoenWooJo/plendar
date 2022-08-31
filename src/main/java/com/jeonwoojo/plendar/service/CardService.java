@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.jeonwoojo.plendar.repository.CardRepository;
 import com.jeonwoojo.plendar.vo.CardVo;
 import com.jeonwoojo.plendar.vo.CommentVo;
-import com.jeonwoojo.plendar.vo.DeckVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 @Service
@@ -26,7 +25,6 @@ public class CardService {
 	}
 
 	public CardVo createCard(CardVo cardVo) {
-		System.out.println("CS: " + cardVo);
 		return cardRepository.createCard(cardVo);
 	}
 

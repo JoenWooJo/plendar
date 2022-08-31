@@ -61,7 +61,6 @@ public class UserController {
 	@Auth
 	@PostMapping("/axios/update")
 	public ResponseEntity<JsonResult> updateUser(@RequestBody UserVo vo) {
-		System.out.println("modify: " + vo);
 		userService.updateUser(vo);
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
@@ -70,7 +69,6 @@ public class UserController {
 	@Auth
 	@PostMapping("/axios/deleteProfile")
 	public ResponseEntity<JsonResult> deleteProfile(@RequestBody UserVo vo) {
-		System.out.println("delete: " + vo);
 		userService.deleteProfile(vo);
 
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
@@ -79,12 +77,10 @@ public class UserController {
 	@Auth
 	@PostMapping("/axios/updateProfile")
 	public ResponseEntity<JsonResult> updateProfile(@RequestParam(value = "file") MultipartFile multipartFile, @AuthUser UserVo authUser) {
-		System.out.println("AuthUser: " + authUser);
 		
 		String profile = "";
 		try {
 			profile = fileUploadService.restoreImage(multipartFile);
-			System.out.println(profile);
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
@@ -95,7 +91,6 @@ public class UserController {
 		
 		userService.updateProfile(vo);
 		
-		System.out.println("profile Update: " + vo);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(profile));
 	}
