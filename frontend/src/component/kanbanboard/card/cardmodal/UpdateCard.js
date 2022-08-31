@@ -9,7 +9,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
-import CloseIcon from '@mui/icons-material/Close';
 import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
@@ -23,11 +22,8 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
     const [startDate, setStartDate] = useState(null);
     const [selectUser, setSelectUser] = useState([]);
     const [cardUserList, setCardUserList] = useState([]);
-    const [value, setValue] = useState(options[0]);
     const [reset, setReset] = useState(false);
     const [member, setMember] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [userNo, setUserNo] = useState('');
 
     //카드 유저 리스트 가져오기
     const getCardUser = async () => {
@@ -44,6 +40,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
         setMember(member.filter(user=>user.no!==no));
     }
 
+    // 카드 업데이트
     const updateCard = (e) => {
         let body = {
             no: cardNo,
@@ -57,7 +54,6 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
 
         axios.post('/api/kanban/card/updateCard', body)
             .then((resp) => {
-                console.log("!!!!!", resp)
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
                     window.location.replace("/login");
@@ -85,7 +81,6 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
             await axios.get(`/api/kanban/card/findCardInfo/${cardNo}`)
             .then((resp) => {
                 const info = resp.data.data;
-                console.log(info);
                 setTitle(info.title);
                 setDescription(info.description);
                 setStartDate(info.startDate);
