@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
@@ -17,7 +17,6 @@ import LockIcon from '@mui/icons-material/Lock';
 
 
 const MypageChecked = () => {
-
     const [password, setPassword] = useState("");
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);

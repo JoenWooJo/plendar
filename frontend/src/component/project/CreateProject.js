@@ -28,8 +28,8 @@ const CreateProject = () => {
                 const userList = resp.data.data;
                 const list = [];
                 userList.map((e) => {
-                    if (e.no != localStorage.getItem('loginUserNo')) {
-                        list.push({ no: e.no, name: e.name, email: e.email });
+                    if( e.no != localStorage.getItem('loginUserNo') && e.no != 1) {
+                        list.push({ no: e.no, name: e.name, email: e.email});
                     }
                 })
                 setUser(list);
