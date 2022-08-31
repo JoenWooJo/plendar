@@ -55,6 +55,58 @@
             and a.card_no=#{cardNo } 
       ]]>
    </select>
+   
+   <update id="updateCard" parameterType="cardvo">
+		<![CDATA[
+		update card
+		 set title = #{title }, description= #{description }, start_date=#{startDate}, end_date = #{endDate } 
+		where no = #{no }
+		]]>
+	</update>
+	
+	<insert id="updateMember" parameterType="map">
+		<![CDATA[
+			insert into card_member
+			 values (${deckNo }, ${cardNo }, ${userVo.no })
+		]]>	
+	</insert>
+	
+	<delete id="updateCardMemberD" parameterType="map">
+		<![CDATA[
+			delete from card_member
+			 where = user_no ${userNo }
+		]]>	
+	</delete>
+	
+	<select id="findCurrentCardMember" resultType="uservo" parameterType="long">
+		<![CDATA[
+			select u.no, u.name, u.email
+				from user u, card_member cm 
+			    where u.no = cm.user_no
+			    and cm.card_no=#{cardNo };
+		]]>
+	</select>
+	
+	<select id="findCardInfo" resultType="cardvo" parameterType="long">
+		<![CDATA[
+			select no, title, description, start_date as startDate, end_date as endDate
+				from card 
+				where no = #{no};
+		]]>
+	</select>
+	
+	<delete id="deleteMember" parameterType="map">
+		<![CDATA[
+			delete from card_member where deck_no = ${deckNo } and card_no = ${cardNo } and user_no = ${userVo.no}
+		]]>
+	</delete>
+	
+	<insert id="memberUpdate" parameterType="map">
+		<![CDATA[
+			insert into card_member
+			 values (${deckNo }, ${cardNo }, ${userVo.no })
+		]]>
+	</insert>
 	
 	
 	

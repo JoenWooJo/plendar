@@ -56,4 +56,8 @@ public class UserService {
 		return false;
 	}
 
+	public UserVo findByNo(Long no) {
+		return userRepository.findByNo(no);
+	}
+
 }

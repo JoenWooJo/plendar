@@ -51,5 +51,26 @@ public class CardRepository {
 		return sqlSession.selectList("card.findComment", cardNo);
 	}
 
+	public List<UserVo> findCurrentCardMember(Long cardNo) {
+		return sqlSession.selectList("card.findCurrentCardMember", cardNo);
+	}
+
+	public CardVo findCardInfo(Long cardNo) {
+		return sqlSession.selectOne("card.findCardInfo", cardNo);
+	}
+
+	public CardVo updateCard(CardVo cardVo) {
+		sqlSession.update("card.updateCard", cardVo);
+		return cardVo;
+	}
+
+	public void deleteMember(HashMap<String, Object> map) {
+		sqlSession.delete("card.deleteMember", map);
+	}
+
+	public void memberUpdate(HashMap<String, Object> map) {
+		sqlSession.insert("card.memberUpdate", map);
+	}
+
 
 }

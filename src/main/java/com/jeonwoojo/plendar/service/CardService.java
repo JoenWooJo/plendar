@@ -1,5 +1,6 @@
 package com.jeonwoojo.plendar.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,40 @@ public class CardService {
 
 	public List<CommentVo> findComment(Long cardNo) {
 		return cardRepository.findComment(cardNo);
+	}
+
+	public List<UserVo> findCurrentCardMember(Long cardNo) {
+		return cardRepository.findCurrentCardMember(cardNo);
+	}
+
+	public CardVo findCardInfo(Long cardNo) {
+		return cardRepository.findCardInfo(cardNo);
+	}
+
+	public CardVo updateCard(CardVo cardVo) {
+		cardRepository.updateCard(cardVo);
+		
+		List<UserVo> origin = cardRepository.findCurrentCardMember(cardVo.getNo());
+		List<UserVo> newMember = cardVo.getMember();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cardNo", cardVo.getNo());
+		map.put("deckNo", cardVo.getDeckNo());
+		for(int i=0;i<origin.size();i++) {
+			map.put("userVo", origin.get(i));
+			cardRepository.deleteMember(map);
+			System.out.println("Member deleted");
+			map.remove("userVo");
+		}
+		
+		for(int i=0;i<newMember.size();i++) {
+			map.put("userVo", newMember.get(i));
+			cardRepository.memberUpdate(map);
+			System.out.println("Member inserted");
+			map.remove("userVo");
+		}
+		
+		return cardVo;
 	}
 
 }

@@ -17,6 +17,7 @@ import com.jeonwoojo.plendar.service.CardService;
 import com.jeonwoojo.plendar.vo.CardVo;
 import com.jeonwoojo.plendar.vo.CommentVo;
 
+
 @Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -47,7 +48,7 @@ public class CardController {
 	}
 	
 	@PostMapping("/comment/insert")
-	   public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
+	 public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
 	      cardService.commentInsert(commentVo);
 	      return ResponseEntity
 	            .status(HttpStatus.OK)
@@ -59,6 +60,29 @@ public class CardController {
 	      return ResponseEntity
 	            .status(HttpStatus.OK)
 	            .body(JsonResult.success(cardService.findComment(cardNo)));
-	   }
+	   }	   
+	   
+	   @GetMapping("/findCurrentCardmember/{cardNo}")
+	   public ResponseEntity<JsonResult> findCurrentCardMember(@PathVariable(value = "cardNo") Long cardNo) {
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(cardService.findCurrentCardMember(cardNo)));
+		}
+	   
+	   @GetMapping("/findCardInfo/{cardNo}")
+		public ResponseEntity<JsonResult> findCardInfo(@PathVariable("cardNo") Long cardNo) {
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(cardService.findCardInfo(cardNo)));
+		}
+	   
+	   @PostMapping("/updateCard")
+		public ResponseEntity<JsonResult> updateCard(@RequestBody CardVo cardVo) {
+			System.out.println(">>>"+cardVo);
+			
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(cardService.updateCard(cardVo)));
+		}
 	
 }
