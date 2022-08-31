@@ -103,4 +103,30 @@ public class ProjectRepository {
 		return sqlSession.update("project.updateProject", projectVo);
 	}
 
+	public List<UserVo> findProjectMember(long projectNo) {
+		return sqlSession.selectList("project.findProjectMember", projectNo);
+	}
+
+	public ProjectVo updateProject(ProjectVo projectVo) {
+		sqlSession.update("project.updateProject", projectVo);
+		return projectVo;
+	}
+
+	public void deleteMember(HashMap<String, Object> map) {
+		sqlSession.delete("project.deleteMember", map);
+	}
+
+	public void memberUpdate(HashMap<String, Object> map) {
+		sqlSession.insert("project.memberUpdate", map);
+	}
+
+	public void updateChatRoom(ProjectVo projectVo) {
+		sqlSession.update("chat.updateChatRoom", projectVo);
+	}
+
+	public void noticeMessageInsert(ChatMessage memberMessage) {
+		sqlSession.update("chat.chatMessageInsert", memberMessage);
+	}
+	
+
 }

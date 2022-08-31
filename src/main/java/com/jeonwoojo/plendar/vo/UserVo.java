@@ -12,5 +12,7 @@ public class UserVo {
 	private String permission;
 	private String projectNo;
 	private int projectCount;
+	private int leader;
+	private int manager;
 
 }

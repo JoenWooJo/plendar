@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
+import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 
@@ -14,7 +15,6 @@ import com.jeonwoojo.plendar.vo.UserVo;
 public class ChatMessageController {
 	@Autowired
 	private SimpMessageSendingOperations sendingOperations;
-	
 	@Autowired
 	private ChatService chatService;
 
@@ -34,5 +34,10 @@ public class ChatMessageController {
         
         chatService.chatMessageInsert(message);
         chatService.chatNoticeUpdate(message);
+    }
+    
+    @MessageMapping("/notice/message")
+    public void notice (NoticeMessage noticeMessage) {
+    	sendingOperations.convertAndSend("/topic/notice", noticeMessage);
     }
 }
