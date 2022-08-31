@@ -5,8 +5,10 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import update from 'react-addons-update';
 import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
-import { get } from '../../../api/Axios';
+import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
+import ClearIcon from '@mui/icons-material/Clear';
+import TextField from '@mui/material/TextField';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -17,6 +19,11 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
     const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
+    const [deleteTask, setDeleteTask] =useState();
+    const [taskNo, setTaskNo] = useState();
+    const [taskChange, setTaskChange] = useState(false);
+    const [clickChk, setClickChk] = useState(0);
+    const [content, setContent] = useState();
 
     useEffect(() => {
         taskList.length === 0 && t();
@@ -35,6 +42,11 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
     const t = async () => {
         const list = await get(`/kanban/task/find/${no}`);
         setTaskList(list);
+    }
+    //테스크 삭제하기
+    const removeTask = async(taskNo) => {
+       await remove(`/kanban/task/deleteTask/${taskNo}`);
+       t();
     }
 
     const onChangeCard = (finished) => {
@@ -67,9 +79,23 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
         
                 setTaskList(newTaskList)
             })
-        
-        
     }
+
+    const onChangeTask= (event) => {
+        setTaskChange(event.target.value);
+    }
+
+    const onClickTask = () => {
+        setClickChk(clickChk + 1);
+        setTaskChange(true)
+        if (clickChk > 2) {
+            onChangeTask
+            setTaskChange(false);
+            setClickChk(0);
+        }
+    }
+
+
     return (
         <div>
             <div className="card bg-light text-black shadow mb-2">
@@ -91,12 +117,15 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
                             {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                         </div>
                     </div>
+
+                    {/* 테스크 리스트 불러오기 */}
                     {showDetail
                         ?
                         taskList.map((m, i) =>
                         (
                         <div key={i}>
-                            <hr/>
+                        <hr/>
+                        {/* 체크박스 */}
                         <div className='row'>
                             <Checkbox
                                 className='col-xl-1'
@@ -106,11 +135,13 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
                                 }}
                                 checked={m.finished === "Y" ? true: false}  
                             />
-                            <div className='col-xl-9'>
+                        {/* task내용 */}
+                        <div className='col-xl-9' onClick={onClickTask}>
                             {m.content}
                             </div>
+                        {/* 삭제버튼 */}
                             <div className='col-xl-1'>
-                            X 
+                            <ClearIcon onClick={() => removeTask(m.no)}/> 
                             </div>
                         </div>
                         </div>

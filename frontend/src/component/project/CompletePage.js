@@ -2,6 +2,7 @@ import React from 'react';
 import Complete from './Complete';
 import { NavLink, Link } from 'react-router-dom';
 import SiteLayout from '../../layout/SiteLayout';
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 
 const CompletePage = () => {
     return (
@@ -11,7 +12,7 @@ const CompletePage = () => {
 
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-gray"> Complete project</h4>
+                        <h4 className="m-0 font-weight-bold text-gray"> <LibraryAddCheckIcon fontSize='large'/>&nbsp;Complete project</h4>
                     </div>
                     <div className="card-body">
                         <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4">

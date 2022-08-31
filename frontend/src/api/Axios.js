@@ -64,9 +64,9 @@ export const put = async (url, data) => {
     }
 }
 
-export const remove = async (url, data) => {
+export const remove = async (url) => {
     try {
-        let response = await client.delete(url, data);
+        let response = await client.delete(url);
         return response.data;
 
     } catch (error) {
