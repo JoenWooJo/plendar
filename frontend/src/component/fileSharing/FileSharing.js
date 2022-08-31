@@ -5,7 +5,7 @@ import Files from './Files'
 import FileManager, { Permissions } from 'devextreme-react/file-manager';
 import RemoteFileSystemProvider from 'devextreme/file_management/remote_provider';
 import { Popup } from 'devextreme-react/popup';
-
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 const remoteProvider = new RemoteFileSystemProvider({
     endpointUrl: 'https://js.devexpress.com/Demos/Mvc/api/file-manager-file-system-images'
@@ -51,12 +51,11 @@ class FileSharing extends React.Component {
     render() {
         return (
             <SiteLayout>
-                <div className='col-xl-11 ml-4'>
-                <div className="card shadow">
-                    <div className="card-header1 py-3">
-                        <h6 className="m-0 font-weight-bold text-light">File Sharing</h6>
-                    </div>
-                    <div className="card-body">
+                 <div className="col-xl-11 ml-4">
+                <div className="card-header py-3">
+                    <h4 className="m-0 font-weight-bold text-primary"><AttachFileIcon fontSize="large" /> &nbsp;File Sharing</h4>
+                </div>
+                <div className="card-body" style={{ height: "750px", overflow: "auto" }} >
         <FileManager
           currentPath={this.state.currentPath}
           // 파일 받아오기
@@ -84,7 +83,6 @@ class FileSharing extends React.Component {
 
           <img src={this.state.imageItemToDisplay.url} className="photo-popup-image" />
         </Popup>
-      </div>
       </div>
       </div>
             </SiteLayout>

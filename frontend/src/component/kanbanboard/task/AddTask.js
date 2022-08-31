@@ -23,6 +23,12 @@ const AddTask = ({cardNo, setRefresh}) => {
           console.error(err)});
     };
 
+    const handleOnKeyPress = e => {
+      if (e.key === 'Enter') {
+      createTask(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+    };
+
     return (
         <div className='col-xl-2'>
         <form type="button"><AddIcon onClick={handleShow} /></form>
@@ -37,7 +43,9 @@ const AddTask = ({cardNo, setRefresh}) => {
               <Form.Control
                 type='title'
                 autoFocus
-                onChange={(e)=>{setContent(e.target.value);}}
+                onChange={(e)=>setContent(e.target.value)}
+                onKeyPress={handleOnKeyPress}
+                
               />
             </Form.Group>
           </Form>

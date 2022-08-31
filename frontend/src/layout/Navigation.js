@@ -2,62 +2,64 @@ import React from 'react';
 import '../assets/css/plendar.css';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonIcon from '@mui/icons-material/Person';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import ComputerIcon from '@mui/icons-material/Computer';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+
 
 const Navigation = ({ active }) => {
     return (
-        <ul className="navbar-nav bg-gradient-primary1 sidebar sidebar-dark accordion col-xl-2" id="accordionSidebar">
-            <NavLink className="sidebar-brand d-flex align-items-center justify-content-center "
-                to={"/component"}> <h3>plendar</h3> </NavLink>
+        <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2">
+            <NavLink className="sidebar-brand align-items-center justify-content-center "
+                to={"/project/myproject"}> <h1>plendar</h1> </NavLink>
 
-            <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider" />
 
 
-            <div className="text-center mt-5">
-                <img src={localStorage.getItem("loginUserProfile")} style={{ width: '150px', borderRadius:'20%' }}></img>
+            <div className="text-center mt-5 2">
+                <img src={localStorage.getItem("loginUserProfile")} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
                 <br /><br />
-                <div className="text-light">{localStorage.getItem("loginUserName")} 님</div>
+                <div className="text-light "><h6>{localStorage.getItem("loginUserName")} &nbsp; 님</h6><br /></div>
             </div>
+            <hr className="sidebar-divider" />
+
 
             <div className='ml-3'>
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/user/mypagechecked'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        My Page
+                        <PersonIcon fontSize="large" /> &nbsp; My Page
                     </NavLink>
                 </li>
+                <hr className="sidebar-divider" />
 
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/calendar/team'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        Calendar
+                        <CalendarMonthIcon fontSize="large" />  &nbsp; Calendar
                     </NavLink>
                 </li>
+                <hr className="sidebar-divider" />
+
 
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/project/myproject'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        My Project
+                        <ComputerIcon fontSize="large" /> &nbsp; My Project
                     </NavLink>
                 </li>
+                <hr className="sidebar-divider" />
 
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/kanbanboard/kanban'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        Kanban Board
-                    </NavLink>
-                </li>
 
                 <li className="nav-item active">
                     <NavLink className="nav-link"
                         to={'/fileSharing/fileSharing'}>
-                        <i className="fas fa-fw fa-tachometer-alt"></i>
-                        File Sharing
+                        <AttachFileIcon fontSize="large" />  &nbsp; File Sharing
                     </NavLink>
                 </li>
+                <hr className="sidebar-divider" />
 
             </div>
         </ul>

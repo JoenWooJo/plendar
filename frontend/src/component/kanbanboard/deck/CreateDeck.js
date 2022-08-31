@@ -37,7 +37,7 @@ const keyEnter = (e) => {
 
     return (
         <div>
-      <Button variant="primary" onClick={handleShow}>덱 추가하기</Button>
+      <Button sx={{mb:2 }} variant="contained" size="medium" onClick={handleShow}>덱 추가하기</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>덱 추가하기</Modal.Title>

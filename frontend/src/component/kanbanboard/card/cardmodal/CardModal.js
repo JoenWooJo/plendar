@@ -24,7 +24,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
             <div onClick={handleShow} >{title}</div>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
-                    <div style={{height:"450px"}}>
+                    <div style={{height:"520px"}}>
                     <Modal.Header closeButton>
                         <Modal.Title className='col-xl-6'>{title}</Modal.Title>
                         <Box className='col-xl-4'>
@@ -35,23 +35,13 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>
-                    <Modal.Body>
+                        {page === "card" && <UpdateCard show={show} setShow={setShow}/>}
+                        {page === "comment" && <Comment show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo}/>}
+                        {page === "file" && <FileUpload show={show} setShow={setShow}/>}
 
-                        {page === "card" && <UpdateCard />}
-                        {page === "comment" && <Comment projectNo={projectNo} deckNo={deckNo} cardNo={cardNo}/>}
-                        {page === "file" && <FileUpload />}
-
-                       
-                    </Modal.Body>
+                      
                     </div>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>
+                    
                 </Modal>
 
             </div>
