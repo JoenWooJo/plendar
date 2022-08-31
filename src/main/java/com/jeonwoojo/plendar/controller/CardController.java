@@ -77,9 +77,7 @@ public class CardController {
 		}
 	   
 	   @PostMapping("/updateCard")
-		public ResponseEntity<JsonResult> updateCard(@RequestBody CardVo cardVo) {
-			System.out.println(">>>"+cardVo);
-			
+		public ResponseEntity<JsonResult> updateCard(@RequestBody CardVo cardVo) {		
 			return ResponseEntity
 					.status(HttpStatus.OK)
 					.body(JsonResult.success(cardService.updateCard(cardVo)));

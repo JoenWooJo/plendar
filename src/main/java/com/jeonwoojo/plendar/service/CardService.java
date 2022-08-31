@@ -57,14 +57,12 @@ public class CardService {
 		for(int i=0;i<origin.size();i++) {
 			map.put("userVo", origin.get(i));
 			cardRepository.deleteMember(map);
-			System.out.println("Member deleted");
 			map.remove("userVo");
 		}
 		
 		for(int i=0;i<newMember.size();i++) {
 			map.put("userVo", newMember.get(i));
 			cardRepository.memberUpdate(map);
-			System.out.println("Member inserted");
 			map.remove("userVo");
 		}
 		
