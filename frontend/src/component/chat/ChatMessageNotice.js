@@ -4,7 +4,7 @@ import Chip from '@mui/material/Chip';
 import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
 const ChatMessageNotice = ({ notice }) => {
     return (
-        <Divider>
+        <Divider style={{marginTop: "10px"}}>
             <Chip icon={<MarkUnreadChatAltIcon/>} label={notice} />
         </Divider>
     );
