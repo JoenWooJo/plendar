@@ -94,6 +94,12 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
         getCardUser();
     }, [])
 
+    const checkMember = (element) => {
+        if(element.no == selectUser["no"]) {
+            return true;
+        } return false;
+    };
+
 
     const handleClose = () => {
         setShow(false);
@@ -180,7 +186,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                             <div className='mt-2 col-xl-1'>
                                 <button type="submit" className="btn btn-secondary" onClick={(e) => {
                                     e.preventDefault();
-                                    selectUser != null && !member.includes(selectUser) && setMember([...member, selectUser]);
+                                    selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]);
                                     setReset(reset => !reset);
                                 }}>add</button>
                             </div>

@@ -35,11 +35,11 @@ const Header = ({ }) => {
         setAlramCount((resp.data.data).length);
     };
 
-    useEffect(()=>{
-        connect();  
+    useEffect(() => {
+        connect();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         getAlramList();
     }, [alramList, alramCount])
 
@@ -92,7 +92,7 @@ const Header = ({ }) => {
             minutes: ("0" + today.getMinutes()).slice(-2), //현재 분 ('0'+minutes).slice(-2)
             seconds: ("0" + today.getSeconds()).slice(-2)
         };
-        
+
         client.current.publish({
             destination: `/app/notice/message`,
             body: JSON.stringify({
@@ -102,7 +102,7 @@ const Header = ({ }) => {
                 projectNo: 1,
                 userNo: localStorage.getItem("loginUserNo"),
                 time: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
-                
+
             }),
         });
     };
@@ -111,18 +111,25 @@ const Header = ({ }) => {
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
 
 
-            <div className="input-group rounded col-xl-3">
-                <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <span className="input-group-text border-0" id="search-addon">
-                    <SearchIcon />
-                </span>
-            </div>
+            <form
+                className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div className="input-group">
+                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for…"
+                        aria-label="Search" aria-describedby="basic-addon2" />
+                    <div className="input-group-append">
+                        <button className="btn btn-primary" type="button">
+                            <SearchIcon />
+                        </button>
+                    </div>
+                </div>
+            </form>
+
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Badge color="error" badgeContent={chatCount}>
-                            <MessageRoundedIcon />
+                            <ChatIcon color="primary" fontSize="large" />
                         </Badge>
                     </Link>
                 </li>
@@ -131,7 +138,7 @@ const Header = ({ }) => {
                     <div className="nav-link dropdown-toggle" href="#" role="button" id="alertsDropdown"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" >
                         <Badge color="error" badgeContent={alramCount}>
-                            <AccessAlarmIcon onClick={e => { setClick(click => !click) }} />
+                            <AccessAlarmIcon color="primary" fontSize="large" onClick={e => { setClick(click => !click) }} />
                         </Badge>
                         {click ? <HeaderDropdown alramList={alramList} /> : null}
                     </div>
