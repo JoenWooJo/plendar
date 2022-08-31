@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
@@ -27,6 +26,7 @@ import com.jeonwoojo.plendar.vo.UserVo;
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/project")
 public class ProjectController {
+	
 	@Autowired
 	private SimpMessageSendingOperations sendingOperations;
 	@Autowired
@@ -68,18 +68,20 @@ public class ProjectController {
 				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
 	}
 	
-	@Auth
-	@GetMapping("/update/project")
-	public ResponseEntity<JsonResult> updateProject(@AuthUser UserVo authUser,@RequestBody ProjectVo projectVo) {
-		projectService.updateProject(projectVo, authUser);
-
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectVo));
-	}
-	
 	@GetMapping("/find/member/{projectNo}") 
 	public ResponseEntity<JsonResult> findProjectMember(@PathVariable("projectNo") long projectNo) {
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findProjectMember(projectNo)));
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findProjectMember(projectNo)));
 	}
 	
+	@PostMapping("/update")
+	public ResponseEntity<JsonResult> updateProject(@RequestBody ProjectVo projectVo) {
+		System.out.println(">>>"+projectVo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.updateProject(projectVo)));
+	}
 	
 }

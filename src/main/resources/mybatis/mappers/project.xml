@@ -65,6 +65,7 @@
 		update project
 			set
 		 title = #{title }, description = #{description }, start_date = #{startDate }, end_date = #{endDate }, priority = #{priority }
+		 where no = #{no }
 		]]>
 	</update>
 	
@@ -75,5 +76,22 @@
     		 and project_no = #{projectNo }
 		]]>
 	</select>
+	
+	<delete id="deleteMember" parameterType="map">
+		<![CDATA[
+			delete from proj_member where user_no = ${userVo.no} and project_no = ${projectNo }
+		]]>
+	</delete>
+	
+	
+	<insert id="memberUpdate" parameterType="map">
+		<![CDATA[
+			insert
+				into proj_member
+			 values (${userVo.no }, ${projectNo }, ${userVo.leader }, ${userVo.manager })
+		]]>
+	</insert>
+	
+
 	
 </mapper>

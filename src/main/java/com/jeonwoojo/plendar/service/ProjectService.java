@@ -1,5 +1,6 @@
 package com.jeonwoojo.plendar.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,31 @@ public class ProjectService {
 		return projectRepository.findCompleteProject(userNo);
 	}
 
-	public Object updateProject(ProjectVo projectVo, UserVo authUser) {
-		return projectRepository.updateProject(projectVo, authUser);
-	}
-
 	public List<UserVo> findProjectMember(long projectNo) {
 		return projectRepository.findProjectMember(projectNo);
+	}
+
+	public ProjectVo updateProject(ProjectVo projectVo) {
+		projectRepository.updateProject(projectVo);
+		
+		List<UserVo> origin = projectRepository.findProjectMember(projectVo.getNo());
+		List<UserVo> newMember = projectVo.getMember();
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("projectNo", projectVo.getNo());
+		for(int i=0;i<origin.size();i++) {
+			map.put("userVo", origin.get(i));
+			projectRepository.deleteMember(map);
+			map.remove("userVo");
+		}
+		
+		for(int i=0;i<newMember.size();i++) {
+			map.put("userVo", newMember.get(i));
+			projectRepository.memberUpdate(map);
+			map.remove("userVo");
+		}
+		
+		return projectVo;
 	}
 
 }

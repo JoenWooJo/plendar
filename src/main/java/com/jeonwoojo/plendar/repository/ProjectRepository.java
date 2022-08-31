@@ -107,4 +107,18 @@ public class ProjectRepository {
 		return sqlSession.selectList("project.findProjectMember", projectNo);
 	}
 
+	public ProjectVo updateProject(ProjectVo projectVo) {
+		sqlSession.update("project.updateProject", projectVo);
+		return projectVo;
+	}
+
+	public void deleteMember(HashMap<String, Object> map) {
+		sqlSession.delete("project.deleteMember", map);
+	}
+
+	public void memberUpdate(HashMap<String, Object> map) {
+		sqlSession.insert("project.memberUpdate", map);
+	}
+	
+
 }
