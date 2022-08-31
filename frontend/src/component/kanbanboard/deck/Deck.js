@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
+import Paper from '@mui/material/Paper';
 
 
 const Deck = ({ title, no, projectNo }) => {
@@ -55,9 +56,9 @@ const Deck = ({ title, no, projectNo }) => {
     const [morevertList, setMorevertList] = useState(false);
 
     return (
-        <div className="card shadow col-xl-3 mb-4 mt-3 ml-3">
-            <div className=" row card-header py-3">
-                <div className="col-xl-10 mt-2" onClick={onClickDeckTitle}>
+        <Paper>
+            <div className="row">
+                <div className="col-xl-9 mt-4 ml-3" onClick={onClickDeckTitle}>
                     {changeTitle
                         ?
                         <TextField
@@ -68,10 +69,11 @@ const Deck = ({ title, no, projectNo }) => {
                             value={deckTitle}
                             onChange={(e) => onChangeTitle(e)}
                             onKeyPress={keyEnter}
-                            sx={{ ml: 1 }}
+                            sx={{ml: 1 }}
+                            size="small"
                         />
                         :
-                        <h5 className=" mb-2 font-weight-bold text-gray-dark">{deckTitle}</h5>
+                        <h5 className="mb-3 font-weight-bold text-gray-dark">{deckTitle}</h5>
                     }
                 </div>
                 <div className="col-xl-2 mt-2">
@@ -89,7 +91,8 @@ const Deck = ({ title, no, projectNo }) => {
                         )}
                 </div>
             </div>
-        </div>
+
+        </Paper>
     );
 };
 

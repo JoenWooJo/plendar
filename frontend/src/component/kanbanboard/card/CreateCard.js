@@ -7,7 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
-import { get, } from '../../../api/Axios';
+import { get,post } from '../../../api/Axios';
 import axios from 'axios';
 import dayjs from "dayjs";
 
@@ -29,33 +29,44 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
         }
 
     //카드 생성하기
-    const CreateCard = () => {
-
-        const arr = {
-            cardNo:cardNo,
-            deckNo:no, //덱 넘버
-            title: title,
-            description: description,
-            startDate: startDate,
-            endDate: endDate,
-            member: member
+    // const CreateCard = () => {
+    //     const arr = {
+    //         cardNo:cardNo,
+    //         deckNo:no, //덱 넘버
+    //         title: title,
+    //         description: description,
+    //         startDate: startDate,
+    //         endDate: endDate,
+    //         member: member
+    //     }
+    //     axios.post('/api/kanban/card/create', arr).then((resp) => {
+    //         console.log(">>>card create ",resp);
+    //         setShow(!show)
+    //         setRefresh(refresh => ! refresh);
+    //     }).catch((err) => {
+    //         console.error(err, no)
+    //         alert("카드 정보를 모두 입력해 주세요");
+    //     });
+    // };
+        const CreateCard = () => {
+            const arr = {
+                cardNo:cardNo,
+                deckNo:no, //덱 넘버
+                title: title,
+                description: description,
+                startDate: startDate,
+                endDate: endDate,
+                member: member
+            }
+        post(`/kanban/card/create` ,arr);
+        setShow(!show)
+        setRefresh(refresh => ! refresh);
         }
-
-        axios.post('/api/kanban/card/create', arr).then((resp) => {
-            console.log(">>>card create ",resp);
-            setShow(!show)
-            setRefresh(refresh => ! refresh);
-        }).catch((err) => {
-            console.error(err, no)
-            alert("카드 정보를 모두 입력해 주세요");
-        });
-    };
-
 
     useEffect(() => {
         t();
     }, [])
-
+    
     return (
         <div className='col-xl-1'>
             <Modal size='lg' show={show} onHide={() => setShow(!show)}>

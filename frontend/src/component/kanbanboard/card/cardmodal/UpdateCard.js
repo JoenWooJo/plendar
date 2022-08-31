@@ -12,7 +12,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
-const options = ['jjj@gmail.com', 'Ouuuu@naver.com'];
 
 const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
 
@@ -94,6 +93,12 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
     useEffect(() => {
         getCardUser();
     }, [])
+
+
+    const handleClose = () => {
+        setShow(false);
+        setPage("card");
+    }
 
 
     return (
@@ -218,7 +223,6 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                     </div>
                 </Form>
             </Modal.Body>
-
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShow(!show)}>
                     Close

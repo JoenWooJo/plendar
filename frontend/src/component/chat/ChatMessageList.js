@@ -23,7 +23,7 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                         id="chatList"
                         className="bar pt-3 pe-3"
                         data-mdb-perfect-scrollbar="true"
-                        style={{ position: "relative", height: "400px" }}>
+                        style={{ position: "relative", height: "500px" }}>
                         {
                             messages.map((msg, i) => {
                                 const date = msg["sendTime"].split(" ")[0];
@@ -58,7 +58,7 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                             onKeyDown={(e) => { e.key == "Enter" && publish(e.target.value) && setMessage('') }}
                             style={{textSizeAdjust: "5px"}}
                         />
-                        <button className="ms-3 mb-4" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
+                        <button className=" mt-1" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
                             <img src="/images/envelope.png" alt="" style={{ width: "60px", height: "60px"}} />
                         </button>
                     </div>
