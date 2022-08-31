@@ -52,13 +52,13 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
                 <div className="d-flex flex-row" onClick={roomClick}>
                     <div style={{paddingTop: "5px"}}>
                         <Badge id={roomNo} color="error" variant="dot" invisible={invisible}>
-                            <img src="/images/user.png" alt="" style={{ width: "50px" }} />
+                            <img src="/images/defaultProfile.png" alt="" style={{ width: "50px", borderRadius:"70%"}} />
                         </Badge>
                     </div>
                     
                     <div className="pt-1 ml-2">
                         <p className="fw-bold mb-0">{chatRoomName}</p>
-                        <p className="small text-muted" style={{fontSize: "5px", marginTop: "5px"}}>{lastMessage != null && lastMessage["message"]}</p>
+                        <p className="small text-muted" style={{fontSize: "7px", marginTop: "5px"}}>{lastMessage != null && lastMessage["message"]}</p>
                     </div>
                 </div>
                 <div className="pt-1" >

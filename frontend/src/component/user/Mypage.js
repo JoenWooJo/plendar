@@ -12,8 +12,11 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import SiteLayoutNS from '../../layout/SiteLayoutNS';
-
+import SiteLayout from '../../layout/SiteLayout';
+import { border, borderRadius } from '@mui/system';
+import BadgeIcon from '@mui/icons-material/Badge';
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Mypage = () => {
     const client = axios.create({ baseURL: '/api' })
@@ -76,21 +79,21 @@ const Mypage = () => {
             return true;
         }
     }
-    
+
     const deleteProfile = (e) => {
         let body = {
             no: localStorage.getItem("loginUserNo"),
             profile: profile
         }
         axios.post("/api/user/axios/deleteProfile", body)
-        .then((resp) => {
-            if (resp.data.result == "fail") {
-                alert(resp.data.message);
-                window.location.replace("/login");
-            }
-            setProfile(resp.data.data);
-            localStorage.setItem("loginUserProfile", "/assets/profile/defaultProfile.png")
-        });
+            .then((resp) => {
+                if (resp.data.result == "fail") {
+                    alert(resp.data.message);
+                    window.location.replace("/login");
+                }
+                setProfile(resp.data.data);
+                localStorage.setItem("loginUserProfile", "/assets/profile/defaultProfile.png")
+            });
     }
 
     const onSubmitU = (event) => {
@@ -180,135 +183,129 @@ const Mypage = () => {
     };
 
     return (
-        <SiteLayoutNS>
-            <div className="col-xl-11 ml-4" style={{ height: '700px', overflow: 'auto' }}>
-                <div className="card shadow mb-4">
-                    <div className="card-header1 py-3">
-                        <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
-                    </div>
-                    <div className="card-body" >
-                        <div className='row'>
-                            <div style={{ width: '205px' }}></div>
-                            <form
-                                onSubmit={handleSubmit}
-                                ref={refForm}>
-                                <div className='col-xl-12 mt-5'>
-                                    <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
-                                        <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ width: '200px' }}></img>
-                                    </div>
-                                        <Button className='mt-2 mr-2' variant="outlined" component="label" type="file">
-                                            이미지 선택<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }}  />
-                                        </Button>
-
-                                        <Button className='mt-2 mr-2' variant="outlined" onClick={() => {
-                                            refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
-                                        }}>
-                                            올리기
-                                        </Button>
-                                        <Button className='mt-2 mr-2' variant="outlined" onClick={deleteProfile}>
-                                            기본 이미지로 변경
-                                        </Button >
-                                    
+        <SiteLayout>
+            <div className="col-xl-11 ml-4">
+                <div className="card-header py-3">
+                    <h4 className="m-0 font-weight-bold text-primary"><PersonIcon fontSize="large" /> &nbsp;회원정보 수정</h4>
+                </div>
+                <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
+                    <div className='row'>
+                        <div style={{ width: '205px' }}></div>
+                        <form
+                            onSubmit={handleSubmit}
+                            ref={refForm}>
+                            <div className='col-xl-12 mt-5'>
+                                <div style={{ height: "270px", width: "460px" }} className="row-xl-6">
+                                    <img id="profile" src={imageSrc} alt="이미지를 선택해주세요." style={{ height: '270px', width: '270px', borderRadius: '70%' }}></img>
                                 </div>
-                            </form>
+                                <div className='mt-5'>
+                                    <Button sx={{ ml: 1 }}  variant="outlined" component="label" type="file">
+                                        이미지 선택<input hidden name='file' variant="outlined" multiple type="file" accept="image/*" placeholder={'이미지(사진)'} onChange={(e) => { encodeFileToBase64(e.target.files[0]); }} />
+                                    </Button>
 
-                            <div className='col-xl-6' >
-                                <Box
-                                    component="form"
-                                    sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 3 }}
-                                    noValidate
-                                    autoComplete="off"
-                                >
-                                    <div >
-                                        <TextField
-                                            id="outlined-multiline-flexible name"
-                                            label="name"
-                                            multiline
-                                            maxRows={4}
-                                            sx={{ ml: 1 }}
-
-                                            value={name}
-                                            onChange={changeName}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <TextField
-                                            id="outlined-multiline-flexible email"
-                                            label="email"
-                                            multiline
-                                            maxRows={5}
-                                            sx={{ ml: 3 }}
-                                            value={email}
-                                            disabled
-                                        />
-                                    </div>
-                                </Box >
-                                <hr />
-                                
-                                <form >
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                                        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                            <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
-                                            <OutlinedInput
-                                                id="outlined-adornment-password new"
-                                                type={newValues.showPassword ? 'text' : 'password'}
-                                                value={newValues.password}
-                                                onChange={newHandleChange('password')}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={newHandleClickShowPassword}
-                                                            onMouseDown={newHandleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {newValues.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                                label="비밀번호변경"
-                                            />
-                                        </FormControl>
-
-                                        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                                            <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
-                                            <OutlinedInput
-                                                id="outlined-adornment-password confirm"
-                                                type={confirmValues.showPassword ? 'text' : 'password'}
-                                                value={confirmValues.password}
-                                                onChange={confirmHandleChange('password')}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={confirmHandleClickShowPassword}
-                                                            onMouseDown={confirmHandleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {confirmValues.showPassword ? <VisibilityOff /> : <Visibility />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                                label="비밀번호 확인"
-
-                                            />
-                                        </FormControl>
-                                    </Box>
-                                </form>
+                                    <Button  sx={{ ml: 1 }} variant="outlined" onClick={() => {
+                                        refForm.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                                    }}>
+                                        올리기
+                                    </Button>
+                                    <Button sx={{ ml: 1 }}  variant="outlined" onClick={deleteProfile}>
+                                        기본 이미지로 변경
+                                    </Button >
+                                </div>
                             </div>
+                        </form>
+
+                        <div className='col-xl-6' >
+                            <Box
+                                component="form"
+                                sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', mt: 10 }}
+                                noValidate
+                                autoComplete="off"
+                            >
+                                
+                                <BadgeIcon  sx={{ mt: 1 }} fontSize="large" />
+                                <TextField
+                                    id="outlined-multiline-flexible name"
+                                    label="name"
+                                    multiline
+                                    maxRows={3}
+                                    sx={{ ml: 1 }}
+                                    value={name}
+                                    onChange={changeName}
+                                />
+                                
+                                <MarkEmailReadIcon sx={{ ml:3, mt: 1 }} fontSize="large"/>
+                                <TextField
+                                    id="outlined-multiline-flexible email"
+                                    label="email"
+                                    multiline
+                                    maxRows={6}
+                                    sx={{ ml: 1 }}
+                                    value={email}
+                                    disabled
+                                />
+                            </Box >
+                            <hr />
+                            <form >
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
+                                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                                        <InputLabel htmlFor="outlined-adornment-password">비밀번호 변경</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password new"
+                                            type={newValues.showPassword ? 'text' : 'password'}
+                                            value={newValues.password}
+                                            onChange={newHandleChange('password')}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={newHandleClickShowPassword}
+                                                        onMouseDown={newHandleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {newValues.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="비밀번호변경"
+                                        />
+                                    </FormControl>
+
+                                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                                        <InputLabel htmlFor="outlined-adornment-password">비밀번호 확인</InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password confirm"
+                                            type={confirmValues.showPassword ? 'text' : 'password'}
+                                            value={confirmValues.password}
+                                            onChange={confirmHandleChange('password')}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={confirmHandleClickShowPassword}
+                                                        onMouseDown={confirmHandleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {confirmValues.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                            label="비밀번호 확인"
+
+                                        />
+                                    </FormControl>
+                                </Box>
+                            </form>
                         </div>
-
-                        <center >
-                            <Link to="#" style={{ textDecoration: "none" }} >
-                                <button type="submit" className=" mt-3 mr-2 btn btn-secondary" values="onsubmit" onClick={onSubmitU}>수정하기</button>
-                            </Link>
-                        </center>
-
                     </div>
+
+                    <center >
+                            <Button sx={{ mt: 5 }} variant="contained"  type="submit" size="large" onClick={onSubmitU}>수정하기</Button>
+                    </center>
+
                 </div>
             </div>
-        </SiteLayoutNS>
+        </SiteLayout>
     );
 };
 

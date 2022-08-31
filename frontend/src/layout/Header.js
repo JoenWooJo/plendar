@@ -4,7 +4,7 @@ import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
+import ChatIcon from '@mui/icons-material/Chat';
 import { Link } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
@@ -26,7 +26,6 @@ const Header = ({ }) => {
         localStorage.removeItem("loginUserProfile");
 
         window.location.replace("/login");
-
     };
 
     const getAlramList = async () => {
@@ -111,6 +110,7 @@ const Header = ({ }) => {
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
 
+
             <div className="input-group rounded col-xl-3">
                 <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 <span className="input-group-text border-0" id="search-addon">
@@ -118,7 +118,6 @@ const Header = ({ }) => {
                 </span>
             </div>
             <ul className="navbar-nav ml-auto">
-
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,7 +142,7 @@ const Header = ({ }) => {
                 <li className="nav-item logout botton">
                     <Link className="nav-link " to="/login" id="usrlogout" role="button"
                         data-toggle="botton" aria-haspopup="true" aria-expanded="false" onClick={logoutClick} >
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">logout</span>
+                        <b className="d-lg-inline text-gray-600 mr-3">logout</b>
                     </Link>
                 </li>
             </ul>

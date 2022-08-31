@@ -11,7 +11,8 @@ import { useParams } from 'react-router';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const UpdateProject = () => {
     const params = useParams();
@@ -59,20 +60,17 @@ const UpdateProject = () => {
             endDate: endDate,
             member: member
         }
-        console.log(">>>updateProject data ",projectData);
-
         const resp = await axios.post("/api/project/update", projectData);
-        console.log("<<<", resp)
-        
     };
 
     const is_checked = (event, index) => {
         console.log("is_checked >> ", event.target.id)
         // 1. checkbox element를 찾습니다.
         const checkbox = document.getElementById(event.target.id);
+        
         // 2. checked 속성을 체크합니다.
         const is_checked = checkbox.checked;
-      
+
         // 3. 결과를 출력합니다.
         console.log(is_checked, event.target.id[0]);
         
@@ -113,7 +111,6 @@ const UpdateProject = () => {
         projectMember();
     }, []);
 
-
     return (
 
         <div>
@@ -122,15 +119,15 @@ const UpdateProject = () => {
 
                     <div className="row">
                         <div className="card shadow ml-5 mt-1 col-xl-6">
-                            <div className="card-header1 py-3">
-                                <h6 className="m-0 font-weight-bold text-light">Update Project</h6>
+                            <div className="card-header py-3">
+                                <h4 className="m-0 font-weight-bold text-primary"><BorderColorIcon fontSize='large'/>&nbsp;Update Project</h4>
                             </div>
                             <div className="card-body">
                                 <div className="chart-area">
                                     <div className='row'>
                                         <div className='col-xl-5'>
                                             <Typography component="legend"> 프로젝트 제목</Typography>
-                                            <TextField id="standard-basic" variant="standard" value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
+                                            <TextField id="standard-basic" variant="standard" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                                         </div>
                                         <div className='col-xl-5'>
                                             <Typography component="legend"> 프로젝트 중요도</Typography>
@@ -193,8 +190,8 @@ const UpdateProject = () => {
                         </div>
 
                         <div className="card shadow ml-3 mt-1 col-xl-4">
-                            <div className="card-header1 py-3">
-                                <h6 className="m-0 font-weight-bold text-light">Member</h6>
+                        <div className="card-header py-3">
+                                <h4 className="m-0 font-weight-bold text-primary"><PersonAddIcon fontSize='large'/>&nbsp;Member</h4>
                             </div>
                             <div className="card-body">
                                 <div className="chart-bar">
@@ -221,8 +218,9 @@ const UpdateProject = () => {
                                             }}>add</button>
                                         </div>
 
-                                        <table className=" mt-3 table table-striped">
-                                            <thead>
+                                        <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
+                                             <table className="table table-bordered" id="dataTable" width="100%">
+                                                <thead>
                                                 <tr className="text-center" >
                                                     <th scope="col">name</th>
                                                     <th scope="col">email</th>
@@ -259,22 +257,21 @@ const UpdateProject = () => {
                                             </tbody>
                                         </table>
                                     </div>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <center>
-                        
                         <Link to={ title=='' || description=='' || priority == 0 || startDate == null || endDate == null || member == [] ? `/updateProject/${projectNo}` :
                             "/project/myProject"} style={{ textDecoration: "none" }}>
-                            <button type="button" className=" mt-4 mr-2 btn btn-secondary" 
-                                onClick={(e)=>{
-                                    title=='' || description=='' || priority == 0 || startDate == null || endDate == null || member == []? alert("모두 입력해주세요") : updateProject()
+                            <button type="button" className=" mt-4 mr-2 btn btn-secondary"
+                                onClick={(e) => {
+                                    title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : updateProject()
                                 }}>Update</button>
                         </Link>
-                        
+
                         <Link to="/project/myProject" style={{ textDecoration: "none" }}>
                             <button type="button" className=" mt-4 btn btn-secondary">취소</button>
                         </Link>
