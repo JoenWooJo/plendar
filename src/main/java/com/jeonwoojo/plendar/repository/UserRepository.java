@@ -12,6 +12,10 @@ public class UserRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public UserVo findByNo(Long no) {
+		return sqlSession.selectOne("user.findAll", no);
+	}
+	
 	public boolean insert(UserVo vo) {
 		return sqlSession.insert("user.insert", vo) == 1;
 	}

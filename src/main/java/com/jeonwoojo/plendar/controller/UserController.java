@@ -101,5 +101,12 @@ public class UserController {
 		boolean result = userService.confirmPassword(vo);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(result));
 	}
+	
+	@GetMapping("/findByUserNo")
+	public ResponseEntity<JsonResult> findByNo(@AuthUser UserVo authUser) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(userService.findByNo(authUser.getNo())));
+	}
 
 }
