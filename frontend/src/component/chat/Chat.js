@@ -25,7 +25,6 @@ const Chat = () => {
     }
 
     const [chatting, setChatting] = useState({});
-    const [receiveChatCount, setReceiveChatCount] = useState(0);
     const [notice, setNotice] = useState();
 
     const [subStatus, setSubStatus] = useState([roomIdSelected]);

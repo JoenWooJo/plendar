@@ -49,8 +49,9 @@ const UpdateProject = () => {
         console.log(">><<< ", projMember.data.data);
     }
 
-    const updateProject = () => {
+    const updateProject = async () => {
         const projectData = {
+            no: projectNo,
             title: title,
             description: description,
             priority: priority,
@@ -59,6 +60,10 @@ const UpdateProject = () => {
             member: member
         }
         console.log(">>>updateProject data ",projectData);
+
+        const resp = await axios.post("/api/project/update", projectData);
+        console.log("<<<", resp)
+        
     };
 
     const is_checked = (event, index) => {
