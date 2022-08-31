@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayoutNS from '../../layout/SiteLayoutNS';
+import SiteLayout from '../../layout/SiteLayout';
 import axios from 'axios';
 import Ongoing from './Ongoing';
+import ComputerIcon from '@mui/icons-material/Computer';
 
 const Myproject = () => {
     const [projectList, setProjectList] = useState([]);
@@ -22,12 +23,12 @@ const Myproject = () => {
     }, []);
 
     return (
-        <SiteLayoutNS>
+        <SiteLayout>
             <div className="col-xl-11 ml-4">
                 <div className="card-header py-3">
-                    <h4 className="m-0 font-weight-bold text-primary">My Projects</h4>
+                    <h4 className="m-0 font-weight-bold text-primary"><ComputerIcon fontSize="large" /> &nbsp;My Projects</h4>
                 </div>
-                <div className="card-body" style={{ height: "750px", overflow: "auto" }} >
+                <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
                     <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4 ">
                         <div className="btn-group btn-group-toggle" data-toggle="button">
                             <label className="btn btn-secondary active">
@@ -64,7 +65,7 @@ const Myproject = () => {
 
                 </div>
             </div>
-        </SiteLayoutNS>
+        </SiteLayout>
     );
 };
 

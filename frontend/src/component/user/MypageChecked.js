@@ -11,7 +11,10 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import SiteLayoutNS from '../../layout/SiteLayoutNS';
+import SiteLayout from '../../layout/SiteLayout';
+import Button from '@mui/material/Button';
+import LockIcon from '@mui/icons-material/Lock';
+
 
 const MypageChecked = () => {
 
@@ -61,7 +64,7 @@ const MypageChecked = () => {
                 } else {
                     window.location.replace("/user/mypage");
                 }
-                
+
             });
     }
 
@@ -74,29 +77,28 @@ const MypageChecked = () => {
 
 
     return (
-        <SiteLayoutNS>
-            <div className="col-xl-11 ml-4">
+        <SiteLayout>
+            <div className="col-xl-11 ml-5" style={{ height: "900px", overflow: "auto" }} >
                 <div className="card shadow mb-4">
-                    <div className="card-header1 py-3">
-                        <h6 className="m-0 font-weight-bold text-light">회원정보 수정</h6>
+                    <div className="card-header py-3">
+                        <h4 className="m-0 font-weight-bold text-primary"><LockIcon fontSize='large'/> &nbsp;비밀번호 확인</h4>
                     </div>
-                    <div className="card-body" >
+                    <div className="card-body" style={{ height: "680px"}} >
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'column' }}>
-                            <div className="m: 1, width: 25ch" align="center" sx={{}}   >
-                                <h3 style={{ color: "#6667ab" }}>회원 비밀번호 확인</h3><hr />
-                                <b style={{ color: "#6667ab" }}>비밀번호를 입력해주세요.</b>
+                            <div align="center" >
+                                <h1>회원 비밀번호 확인</h1><hr />
                                 <p />
-                                <div className="ml-0">
-                                    <p className="text-xs font-weight-bold text-gray text-uppercase" style={{ color: "#6667af" }}>회원님의 정보를 안전한 보호를 위해<br /> 비밀번호를 한번 더 확인합니다.             </p>
+                                <div className="mt-5">
+                                    <b>회원님의 정보를 안전한 보호를 위해<br /> 비밀번호를 한번 더 확인합니다.  </b>
                                 </div>
                             </div>
                             <p />
                             <div align="center">
                                 <p />
-                                <h6 style={{ color: "#6667af" }}>Email : {localStorage.getItem("loginUserEmail")}</h6>
+                                {/* <h3 style={{ color: "#6667af" }}>Email : {localStorage.getItem("loginUserEmail")}</h3> */}
                             </div>
                             <div align="center">
-                                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                                <FormControl variant="outlined">
                                     <InputLabel htmlFor="outlined-adornment-password">현재 비밀번호</InputLabel>
                                     <OutlinedInput
                                         id="outlined-adornment-password"
@@ -123,19 +125,12 @@ const MypageChecked = () => {
                             <div className="mt-4" style={{ opacity: "0" }} ><CheckCircleIcon /></div>
                         </Box>
                         <center >
-                            <button
-                                type="submit"
-                                className=" mt-3 mr-2 btn btn-secondary"
-                                values="onsubmit"
-                                onClick={passwordCheck}
-                            >
-                                확인하기
-                            </button>
+                <Button variant="contained"  type="submit" size="large" onClick={passwordCheck} >확인하기</Button>
                         </center>
                     </div>
                 </div>
             </div>
-        </SiteLayoutNS>
+        </SiteLayout>
     );
 };
 

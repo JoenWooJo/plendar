@@ -94,16 +94,25 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
                     {showDetail
                         ?
                         taskList.map((m, i) =>
-                        (<div key={i}>
-                            <hr />
+                        (
+                        <div key={i}>
+                            <hr/>
+                        <div className='row'>
                             <Checkbox
+                                className='col-xl-1'
                                 value={m.no}
                                 onChange={(e) => {
                                     changeTaskStatus(e);
                                 }}
                                 checked={m.finished === "Y" ? true: false}  
                             />
-                            {m.content} <br />
+                            <div className='col-xl-9'>
+                            {m.content}
+                            </div>
+                            <div className='col-xl-1'>
+                            X 
+                            </div>
+                        </div>
                         </div>
                         )
                         )

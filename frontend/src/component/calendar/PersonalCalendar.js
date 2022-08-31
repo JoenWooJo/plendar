@@ -5,8 +5,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
-import SiteLayoutNS from "../../layout/SiteLayoutNS";
+import SiteLayout from "../../layout/SiteLayout";
 import { Link } from "react-router-dom";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
@@ -46,14 +47,14 @@ export default function PersonalCalendar() {
   };
 
   return (
-    <SiteLayoutNS>
+    <SiteLayout>
 
-      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
+      <div className="col-xl-11 ml-5"  >
         <div className="card shadow mb-4">
-          <div className="card-header1 py-3">
-            <h6 className="m-0 font-weight-bold text-light">달력</h6>
+          <div className="card-header py-3">
+            <h4 className="m-0 font-weight-bold text-primary"><CalendarMonthIcon fontSize="large"/>&nbsp;Calendar</h4>
           </div>
-          <div className="card-body" >
+          <div className="card-body" style={{ height: "750px", overflow: "auto" }} >
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-secondary">
                 <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
@@ -73,9 +74,9 @@ export default function PersonalCalendar() {
                 }}
                 // 타이틀 설정
                 titleFormat={{ year: 'numeric', month: 'long' }}
-                // height="800px"
+                height="1000px"
                 // 달력 일칸 사이즈 비율 고정
-                aspectRatio={"1.1"}
+                aspectRatio={"0.4"}
                 plugins={[dayGridPlugin, timeGridPlugin, googleCalendarPlugin]}
                 // 구글캘린더 API연동 - 공휴일
                 googleCalendarApiKey='AIzaSyAuvMgG0oPVoDF-2iIbUZAhQIU8REcpzok'
@@ -96,6 +97,6 @@ export default function PersonalCalendar() {
           </div>
         </div>
       </div>
-    </SiteLayoutNS>
+    </SiteLayout>
   );
 }

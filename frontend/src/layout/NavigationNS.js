@@ -16,7 +16,7 @@ const Navigation = () => {
             <hr className="sidebar-divider my-0" />
 
             <div className="text-center mt-5 2">
-                <img src={localStorage.getItem("loginUserProfile")} style={{ height: '150px', width: '150px', borderRadius: '20%' }}></img>
+                <img src={localStorage.getItem("loginUserProfile")} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
                 <br /><br />
                 <div className="text-light "><h6>{localStorage.getItem("loginUserName")} &nbsp; 님</h6><br /></div>
             </div>
