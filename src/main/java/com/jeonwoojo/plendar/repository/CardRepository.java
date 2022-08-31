@@ -29,6 +29,7 @@ public class CardRepository {
 		//sqlSession.insert("card.insertMember", cardVo);
 		return cardVo;
 	}
+	
 
 	public boolean commentInsert(CommentVo commentVo) {
 		return sqlSession.insert("card.commentInsert", commentVo) ==1;

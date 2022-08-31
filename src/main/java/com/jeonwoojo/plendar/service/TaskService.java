@@ -14,7 +14,7 @@ public class TaskService {
 	@Autowired
 	private TaskRepository taskRepository;
 
-	public List<TaskVo> findTask(Long cardNo) {
+	public List<TaskVo> findTask(long cardNo) {
 		return taskRepository.findTask(cardNo);
 	}
 
@@ -25,6 +25,10 @@ public class TaskService {
 	public boolean clickTask(TaskVo taskVo) {
 		System.out.println("Task Changed2" + taskVo);
 		return taskRepository.updateTaskStatus(taskVo);
+	}
+
+	public boolean deleteTask(long taskNo) {
+		return taskRepository.deleteTask(taskNo);
 	}
 
 }

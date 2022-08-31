@@ -14,7 +14,7 @@ public class TaskRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<TaskVo> findTask(Long cardNo) {
+	public List<TaskVo> findTask(long cardNo) {
 		return sqlSession.selectList("task.findTask", cardNo);
 	}
 
@@ -25,6 +25,10 @@ public class TaskRepository {
 	public boolean updateTaskStatus(TaskVo taskVo) {
 		System.out.println("Task Changed3" + taskVo);
 		return sqlSession.update("task.updateTaskStatus", taskVo) == 1;
+	}
+
+	public boolean deleteTask(long taskNo) {
+		return sqlSession.update("task.deleteTask", taskNo) == 1;
 	}
 
 

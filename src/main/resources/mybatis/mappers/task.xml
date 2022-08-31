@@ -9,7 +9,7 @@
 		]]>
 	</select>
 	
-	 <insert id="insertTask" parameterType="taskvo">
+	<insert id="insertTask" parameterType="taskvo">
 		<![CDATA[
 			insert into task  
 				VALUES (null, #{cardNo}, #{content}, "N");
@@ -22,6 +22,12 @@
 				 set finished = #{finished }
 				where no = #{no }
 				]]>
+	</update>
+	
+	<update id="deleteTask" parameterType="long">
+		<![CDATA[
+		delete from task where no = #{no}; 
+		]]>
 	</update>
 	
 </mapper>
