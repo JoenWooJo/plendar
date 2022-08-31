@@ -119,6 +119,14 @@ public class ProjectRepository {
 	public void memberUpdate(HashMap<String, Object> map) {
 		sqlSession.insert("project.memberUpdate", map);
 	}
+
+	public void updateChatRoom(ProjectVo projectVo) {
+		sqlSession.update("chat.updateChatRoom", projectVo);
+	}
+
+	public void noticeMessageInsert(ChatMessage memberMessage) {
+		sqlSession.update("chat.chatMessageInsert", memberMessage);
+	}
 	
 
 }

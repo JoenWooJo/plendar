@@ -96,4 +96,14 @@
 		]]>
 	</select>
 	
+	
+	<update id="updateChatRoom" parameterType="projectvo">
+		<![CDATA[
+			update chat_room
+				set
+			 title = #{title }
+			 where no = #{no }
+		]]>
+	</update>
+	
 </mapper>

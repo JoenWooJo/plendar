@@ -91,7 +91,6 @@
 			 values (${userVo.no }, ${projectNo }, ${userVo.leader }, ${userVo.manager })
 		]]>
 	</insert>
-	
 
 	
 </mapper>
