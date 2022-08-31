@@ -72,5 +72,4 @@ public class CardRepository {
 		sqlSession.insert("card.memberUpdate", map);
 	}
 
-
 }
