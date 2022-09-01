@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
@@ -7,6 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import SiteLayout from '../../layout/SiteLayout';
 import { Link } from 'react-router-dom';
+import EventCardModal from './EventCardModal';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
@@ -14,41 +15,49 @@ import "@fullcalendar/timegrid/main.css";
 import '../../assets/css/calendar.css'
 
 export default function TeamCalendar() {
-
   const no = localStorage.getItem("loginUserNo")
-  
-    // 랜덤 컬러
-    function getRandomColor() {
-      return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
-    }
-
+  const CardModalRef = useRef();
+  const [title, setTitle] = useState();
+  // 랜덤 컬러
+  function getRandomColor() {
+    return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
+  }
   // DB에서 이벤트(카드) 불러오기
   const callback = async () => {
-    const client = axios.create({ baseURL: '/api' })
-    let response = await client.get('/calendar/axios/team')
-    
+    const client = axios.create({ baseURL: '/api' });
+    let response = await client.get('/calendar/axios/team');
+
     if (response.data.result == "fail") {
       alert(response.data.message);
       window.location.replace("/login");
     }
-    
-    let li = response.data.data;
 
+    let li = response.data.data;
+    // console.log(response.data.data[0]["id"]);
     for (let i = 0; i < li.length; i++) {
       li[i]['color'] = getRandomColor();
     }
-
     return response.data.data;
   }
+  // EventCardModal에 넘겨줄 값
+  const [oneClick, setOneClick] = useState(false);
+  const handleOneClick = () => setOneClick(true);
+  const handleOffClick = () => setOneClick(false);
+  // EventCardModal에 넘겨줄 No
+  const [cardNo, setCardNo] = useState('');
 
-  // 이벤트 클릭했을 때 실행
-  const eventClick = () => {
-    return console.log("Event Clicked")
+  const handleCardId = (info) => {
+    setCardNo(info.event.id);
   }
-
+  // 이벤트 클릭했을 때 실행
+  const eventClick = (info) => {
+    setOneClick(!oneClick); //강사님꺼
+    // oneClick ? handleOffClick() : handleOneClick();//내꺼
+    handleCardId(info);
+  }
   return (
-    <SiteLayout>
-      <div className="col-xl-11 ml-5" >
+    <SiteLayoutNS>
+      <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
         <div className="card shadow mb-4">
           <div className="card-header py-3">
             <h4 className="m-0 font-weight-bold text-primary"><CalendarMonthIcon fontSize="large"/>&nbsp;Team Calendar</h4>
@@ -63,6 +72,7 @@ export default function TeamCalendar() {
               </label>
             </div>
             <div className="App">
+
               <FullCalendar
                 defaultView="dayGridMonth"
                 // 헤더 버튼 설정
@@ -91,6 +101,7 @@ export default function TeamCalendar() {
                 events={callback}
                 eventClick={eventClick}
               />
+              <EventCardModal show={oneClick} title={title} cardNo={cardNo} callback={(show) => {setOneClick(show)}}/>
             </div>
           </div>
         </div>
