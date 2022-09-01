@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.TaskService;
-import com.jeonwoojo.plendar.vo.DeckVo;
 import com.jeonwoojo.plendar.vo.TaskVo;
-import com.jeonwoojo.plendar.vo.UserVo;
 
 @Auth
 @Controller

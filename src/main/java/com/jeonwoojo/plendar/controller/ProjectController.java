@@ -76,12 +76,16 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<JsonResult> updateProject(@RequestBody ProjectVo projectVo) {
+	public ResponseEntity<JsonResult> updateProject(@AuthUser UserVo authUser, @RequestBody ProjectVo projectVo) {
 		System.out.println(">>>"+projectVo);
+		String projectTitle = projectService.findProjectTitle(projectVo.getNo());
+		ProjectVo updateProjectVo = projectService.updateProject(projectVo);
+		NoticeMessage noticeMessage= noticeService.insertNoticeUpdateProject(updateProjectVo, authUser, projectTitle);
+		sendingOperations.convertAndSend("/topic/notice", noticeMessage);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(projectService.updateProject(projectVo)));
+				.body(JsonResult.success(updateProjectVo));
 	}
 	
 }
