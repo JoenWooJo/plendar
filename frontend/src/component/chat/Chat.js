@@ -25,7 +25,6 @@ const Chat = () => {
     }
 
     const [chatting, setChatting] = useState({});
-    const [receiveChatCount, setReceiveChatCount] = useState(0);
     const [notice, setNotice] = useState();
 
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
@@ -149,8 +148,11 @@ const Chat = () => {
 
     return (
         <SiteLayout>
-            <div className='col-xl-11 ml-4'>
-                <div className="card mt-5">
+            <div className="col-xl-11 ml-4">
+                <div className="card-header py-3">
+                    <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
+                </div>
+                <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
                     <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
                         <ChatRoomList
                             callback={changeRoomIdSelected}

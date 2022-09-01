@@ -32,10 +32,10 @@ const App= () => (
     {path: '/fileSharing/fileSharing', element: <FileSharing />},
     {path: '/project/myproject', element: <Myproject />},
     {path: '/project/createProject', element: <CreateProject />},
-    {path: '/project/updateProject', element: <UpdateProject />},
+    {path: '/updateProject/:no', element: <UpdateProject />},
     {path: '/project/completepage', element: <CompletePage />},   
     {path: '/chat', element: <Chat />}, 
-    {path: '/kanbanboard/:no', element: <Kanban />}    
+    {path: '/kanbanboard/:no', element: <Kanban />}  
     
   ])
 

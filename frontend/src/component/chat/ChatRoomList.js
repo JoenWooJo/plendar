@@ -10,7 +10,7 @@ const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewR
         <div className="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 p-3">
             {/**검색바 */}
             <SearchBar roomList={roomList} setNewRoomList={setNewRoomList}/>
-            <div className="bar" data-mdb-perfect-scrollbar="true" style={{ position: 'relative', height: '400px' }}>
+            <div className="bar" data-mdb-perfect-scrollbar="true" style={{ position: 'relative', height: '500px' }}>
                 <ul className="list-unstyled mb-0">
                     {/**채팅방 */
                         newRoomList.map((e) => (
