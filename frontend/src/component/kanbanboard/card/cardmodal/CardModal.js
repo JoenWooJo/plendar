@@ -21,7 +21,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
 
     return (
         <div>
-            <div onClick={handleShow} >{title}</div>
+            <div type="button" onClick={handleShow} >{title}</div>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"450px"}}>

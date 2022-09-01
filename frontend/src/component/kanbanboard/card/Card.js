@@ -7,12 +7,13 @@ import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
 import { get } from '../../../api/Axios';
 import axios from 'axios';
+import TeamCalendar from '../../calendar/TeamCalendar';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
-
+    
     const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(true);
     const [taskList, setTaskList] = useState([]);
@@ -72,8 +73,7 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
                 <div className="card-body">
                     <div className='row'>
                         <div className="col-xl-10 mt-2">
-                            <CardModal
-                                title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no}/>
+                            {title}<CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no}/>
                         </div>
 
                         <AddTask 
@@ -108,7 +108,7 @@ const Card = ({ card , projectNo, deckNo, setRefresh, refresh}) => {
                     }
                 </div>
             </div>
-        </div>
+        </div>        
     );
 };
 

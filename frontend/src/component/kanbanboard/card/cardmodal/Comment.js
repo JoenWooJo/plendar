@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import dayjs from "dayjs";
+
 import { Form, Card } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import moment from 'moment';
@@ -11,9 +13,9 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
     const [comment, setComment] = useState('');
     const [feedComments, setFeedComments] = useState([]);
     const [isValid, setIsValid] = useState(false);
-    let nowTime = moment().format('YYYY-MM-DD HH:mm');
+    let nowTime = moment().format('YY-MM-DD HH:mm');
    
-
+    const clearRef = useRef();
     // db에 보내기
     const post = () =>{
         let body = {
@@ -24,31 +26,27 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
             date : nowTime
         }
         axios.post('/api/kanban/card/comment/insert', body)
-            .then((resp)=>{
-                // console.log("ddd",resp)
-                // 보내고나서 보낸값 지워지기
+            .then(()=>{
+                //인서트 후 초기화
+                clearRef.current.value='';
                 setComment('');
             })
-
-        
     };
-    const b = async() => {
+    const b = async(e) => {
         const commentList = await get(`/kanban/card/find/comment/${cardNo}`);
-        // console.log("aaaaa", a);
-        // 날짜 형식 바꿔서 다시 리스트로 저장
-        setFeedComments(commentList);
 
+        // 날짜 형식 바꿔서 다시 리스트로 저장
+        // 미안하다 채원아 여기서 못했다;;
+        setFeedComments(commentList);
     }
-    useEffect(() => {
+     useEffect(() => {
         b();
     }, [comment]);
-
-
 
     const CommentList = ({name, comment, date}) => {
         return(
             <div>{name} : {comment } 
-            <div className='float-right'>{date}</div>
+            <div className='float-right'>{(date)=dayjs(date).format("YY-MM-DD HH:mm")}</div>
             </div>  
         )
     }
@@ -63,7 +61,8 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
                        <CommentList 
                             name={content.userName} 
                             comment={content.content} 
-                            date={content.date}/>
+                            date={content.date}
+                        />
                 </Card>
                 );
             })}
@@ -79,7 +78,9 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
                     <Form.Control as="textarea" rows={3} 
                         onChange={e =>{
                             setComment(e.target.value);
+                            
                         }}
+                        ref = {clearRef}
                         onKeyUp={e=>{
                             e.target.value.length > 0
                             ?setIsValid(true)
