@@ -50,6 +50,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
     // };
         const CreateCard = () => {
             const arr = {
+                projectNo: projectNo,
                 cardNo:cardNo,
                 deckNo:no, //덱 넘버
                 title: title,

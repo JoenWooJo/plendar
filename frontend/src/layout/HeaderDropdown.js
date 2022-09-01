@@ -1,5 +1,7 @@
 import React from 'react';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import Badge from '@mui/material/Badge';
 
 const HeaderDropdown = ({ alramList }) => {
@@ -17,12 +19,14 @@ const HeaderDropdown = ({ alramList }) => {
 
                 {
                     alramList.map((e, i) => {
-                        let img = <CreateNewFolderIcon fontSize='large'/>
-                        
                         return (
                             <a key={i} className="dropdown-item d-flex align-items-center" href="#">
                             <div className="dropdown-list-image mr-3">
-                                <Badge color="primary" variant="dot">{img}</Badge>
+                                <Badge color={e.type=="update"?"warning":"primary"} variant="dot">
+                                    {e.type=="create"?<CreateNewFolderIcon fontSize='large'/>:e.type=="card"?
+                                    <NoteAddIcon fontSize='large' />:
+                                    <PublishedWithChangesIcon fontSize='large' />}
+                                </Badge>
                             </div>
                             <div className="font-weight-bold">
                                 <div className="text-truncate">{e.message}</div>

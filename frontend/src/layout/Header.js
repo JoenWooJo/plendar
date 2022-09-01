@@ -43,7 +43,7 @@ const Header = ({ }) => {
         getAlramList();
     }, [alramList, alramCount])
 
-    const connect = () => {
+    const connect = async () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
             connectHeaders: {
@@ -66,7 +66,7 @@ const Header = ({ }) => {
             }
         });
 
-        client.current.activate();
+        await client.current.activate();
     };
 
     const subscribe = () => {

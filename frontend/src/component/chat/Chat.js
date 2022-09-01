@@ -77,7 +77,7 @@ const Chat = () => {
         }
     }, [chatting, roomIdSelected]);
 
-    const connect = () => {
+    const connect = async () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
             connectHeaders: {
@@ -98,7 +98,7 @@ const Chat = () => {
             }
         });
 
-        client.current.activate();
+        await client.current.activate();
     };
 
     const disconnect = () => {
