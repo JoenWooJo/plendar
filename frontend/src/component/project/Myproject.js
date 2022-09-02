@@ -23,7 +23,6 @@ const Myproject = () => {
     }, []);
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-4">
                 <div className="card-header py-3">
                     <h4 className="m-0 font-weight-bold text-primary"><ComputerIcon fontSize="large" /> &nbsp;My Projects</h4>
@@ -65,7 +64,6 @@ const Myproject = () => {
 
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

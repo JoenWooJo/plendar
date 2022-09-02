@@ -16,6 +16,7 @@ import Kanban from './component/kanbanboard/Kanban';
 import Chat from './component/chat/Chat';
 import CompletePage from './component/project/CompletePage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
+import About from './About';
 
 const App= () => (
   
@@ -24,18 +25,24 @@ const App= () => (
     {path: '/login', element: <Login />},
     {path: '/join', element: <Join />},
     {path: '/forgotpw', element: <ForgotPassword/>},
-    {path: '/component', element: <Main />},                                                                                                                                                                                                                                 
-    {path: '/user/mypage', element: <Mypage />},
-    {path: '/user/mypagechecked', element: <MypageChecked />},
-    {path: '/calendar/team', element: <Calendar />},
-    {path: '/calendar/Personal', element: <PersonalCalendar />},
-    {path: '/fileSharing/fileSharing', element: <FileSharing />},
-    {path: '/project/myproject', element: <Myproject />},
-    {path: '/project/createProject', element: <CreateProject />},
-    {path: '/updateProject/:no', element: <UpdateProject />},
-    {path: '/project/completepage', element: <CompletePage />},   
-    {path: '/chat', element: <Chat />}, 
-    {path: '/kanbanboard/:no', element: <Kanban />}  
+    {
+      element: <About />,
+      children: [
+        {path: '/component', element: <Main />},                                                                                                                                                                                                                                 
+        {path: '/user/mypage', element: <Mypage />},
+        {path: '/user/mypagechecked', element: <MypageChecked />},
+        {path: '/calendar/team', element: <Calendar />},
+        {path: '/calendar/Personal', element: <PersonalCalendar />},
+        {path: '/fileSharing/fileSharing', element: <FileSharing />},
+        {path: '/project/myproject', element: <Myproject />},
+        {path: '/project/createProject', element: <CreateProject />},
+        {path: '/updateProject/:no', element: <UpdateProject />},
+        {path: '/project/completepage', element: <CompletePage />},   
+        {path: '/chat', element: <Chat />}, 
+        {path: '/kanbanboard/:no', element: <Kanban />}
+      ]
+    }
+      
     
   ])
 

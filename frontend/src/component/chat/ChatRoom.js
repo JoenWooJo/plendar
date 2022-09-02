@@ -44,7 +44,8 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
     useEffect(()=>{
         fetchAndNotice();
         getLastMessage();
-    }, [lastMessage, messages, time]);
+        console.log("하이")
+    }, [messages]);
     
     return (
         <li className="p-2 border-bottom">

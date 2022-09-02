@@ -47,7 +47,6 @@ export default function TeamCalendar() {
   }
 
   return (
-    <SiteLayout>
       <div className="col-xl-11 ml-5" >
         <div className="card shadow mb-4">
           <div className="card-header py-3">
@@ -95,6 +94,5 @@ export default function TeamCalendar() {
           </div>
         </div>
       </div>
-      </SiteLayout>
     );
 }

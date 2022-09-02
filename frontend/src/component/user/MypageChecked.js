@@ -76,7 +76,6 @@ const MypageChecked = () => {
 
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-5" style={{ height: "900px", overflow: "auto" }} >
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
@@ -129,7 +128,6 @@ const MypageChecked = () => {
                     </div>
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

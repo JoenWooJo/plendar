@@ -8,7 +8,6 @@ const Main = () => {
     const[headerTitle,setHeaderTitle]= useState('dddd');
 
     return (
-        <SiteLayoutNS>
             <div className="col-xl-11 ml-4">
                 <div className="card shadow">
                     <div className="card-header1 py-3">
@@ -35,7 +34,6 @@ const Main = () => {
                     </div>
                 </div>         
             </div>
-        </SiteLayoutNS>
     );
 };
 

@@ -183,7 +183,6 @@ const Mypage = () => {
     };
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-4">
                 <div className="card-header py-3">
                     <h4 className="m-0 font-weight-bold text-primary"><PersonIcon fontSize="large" /> &nbsp;회원정보 수정</h4>
@@ -305,7 +304,6 @@ const Mypage = () => {
 
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

@@ -41,7 +41,8 @@ const Header = ({ }) => {
 
     useEffect(() => {
         getAlramList();
-    }, [alramList, alramCount])
+        console.log("Hi~");
+    }, [])
 
     const connect = async () => {
         client.current = new StompJs.Client({

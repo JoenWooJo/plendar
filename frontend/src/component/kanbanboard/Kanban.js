@@ -24,40 +24,38 @@ const Kanban = () => {
     setDeckLlist(list);
   }
   return (
-    <SiteLayout>
-      <div className="col-xl-11 ml-4" style={{width: "1000px", "overflow": "auto" }}>
-        <div className="card-header" style={{width: "3000px"}}> 
-          <h4 className="m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large"/>&nbsp;Plendar Porject Kanban</h4>
-        </div>
-        <div className="card-body" style={{ width: "3000px", height: "750px", "overflow": "auto" }} >
-          <CreateDeck setCreateResult={setCreateResult} />  
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              '& > :not(style)': {
-                ml: 2,
-                width: 300,
-                height: 80
-              },
-            }}
-          >
-            {
-              deckList.map((m, i) => {
-                return (
-                  <Deck
-                    no={m.no}
-                    key={i}
-                    title={m.title}
-                    projectNo={projectNo}
-                    setCreateResult={setCreateResult}
+    <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
+      <div className="card-header" style={{ width: "3000px" }}>
+        <h4 className="m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Porject Kanban</h4>
+      </div>
+      <div className="card-body" style={{ width: "3000px", height: "750px", "overflow": "auto" }} >
+        <CreateDeck setCreateResult={setCreateResult} />
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            '& > :not(style)': {
+              ml: 2,
+              width: 300,
+              height: 80
+            },
+          }}
+        >
+          {
+            deckList.map((m, i) => {
+              return (
+                <Deck
+                  no={m.no}
+                  key={i}
+                  title={m.title}
+                  projectNo={projectNo}
+                  setCreateResult={setCreateResult}
                 />
-                );
-              })}
-              </Box>
-              </div>
-            </div>
-    </SiteLayout >
+              );
+            })}
+        </Box>
+      </div>
+    </div>
   );
 };
 

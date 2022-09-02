@@ -13,7 +13,7 @@ const Chat = () => {
 
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
-    
+
     const client = useRef({});
 
     const [messages, _setMessages] = useState([]);
@@ -30,7 +30,7 @@ const Chat = () => {
     const [subStatus, setSubStatus] = useState([roomIdSelected]);
 
     const changeRoomIdSelected = (id) => {
-        setRoomIdSelected(id); 
+        setRoomIdSelected(id);
     };
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const Chat = () => {
                 alert(resp.data.message);
                 window.location.replace("/login");
             }
-            rooms.map((e)=>{
+            rooms.map((e) => {
                 setSubStatus([...subStatus, e.no]);
                 subscribe(e.no);
                 setNotice(e.notice);
@@ -50,21 +50,21 @@ const Chat = () => {
 
             setNewRoomList(resp.data.data);
             setRoomList(resp.data.data);
-        } 
+        }
         fetchAndSetRooms();
 
 
         // return () => {
         //     disconnect();
         // };
-    },[]);
+    }, []);
 
-    
+
     useEffect(() => {
         async function fetchAndMessageList(roomId) {
             const resp = await axios.get('/api/chat/room/messages', {
                 params: {
-                  roomId: roomId
+                    roomId: roomId
                 }
             })
             setMessages(resp.data.data);
@@ -91,7 +91,7 @@ const Chat = () => {
             heartbeatOutgoing: 4000,
             onConnect: () => {
                 console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
-                
+
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -131,7 +131,7 @@ const Chat = () => {
             minutes: ("0" + today.getMinutes()).slice(-2), //현재 분 ('0'+minutes).slice(-2)
             seconds: ("0" + today.getSeconds()).slice(-2)
         };
-        
+
         client.current.publish({
             destination: `/app/chat/message`,
             body: JSON.stringify({
@@ -147,30 +147,28 @@ const Chat = () => {
 
 
     return (
-        <SiteLayout>
-            <div className="col-xl-11 ml-4">
-                <div className="card-header py-3">
-                    <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
-                </div>
-                <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
-                    <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
-                        <ChatRoomList
-                            callback={changeRoomIdSelected}
-                            roomIdSelected={roomIdSelected}
-                            roomList={roomList}
-                            newRoomList={newRoomList}
-                            setNewRoomList={setNewRoomList}
-                            messages={messages}
-                            notice={notice}
-                            />
-                        <ChatMessageList
-                            messages={messages}
-                            roomIdSelected={roomIdSelected}
-                            publish={publish} />
-                    </div>
+        <div className="col-xl-11 ml-4">
+            <div className="card-header py-3">
+                <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
+            </div>
+            <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
+                <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
+                    <ChatRoomList
+                        callback={changeRoomIdSelected}
+                        roomIdSelected={roomIdSelected}
+                        roomList={roomList}
+                        newRoomList={newRoomList}
+                        setNewRoomList={setNewRoomList}
+                        messages={messages}
+                        notice={notice}
+                    />
+                    <ChatMessageList
+                        messages={messages}
+                        roomIdSelected={roomIdSelected}
+                        publish={publish} />
                 </div>
             </div>
-        </SiteLayout>
+        </div>
     );
 };
 
