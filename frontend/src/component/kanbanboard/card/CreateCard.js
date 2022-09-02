@@ -7,12 +7,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import CloseIcon from '@mui/icons-material/Close';
-import { get,post } from '../../../api/Axios';
+import { get, post } from '../../../api/Axios';
 import axios from 'axios';
 import dayjs from "dayjs";
 
 
-const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [selectUser, setSelectUser] = useState();
@@ -21,52 +21,36 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
     const [member, setMember] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    
+
     //카드 유저 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/carduser/${projectNo}`);
         setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
-        }
+    }
 
-    //카드 생성하기
-    // const CreateCard = () => {
-    //     const arr = {
-    //         cardNo:cardNo,
-    //         deckNo:no, //덱 넘버
-    //         title: title,
-    //         description: description,
-    //         startDate: startDate,
-    //         endDate: endDate,
-    //         member: member
-    //     }
-    //     axios.post('/api/kanban/card/create', arr).then((resp) => {
-    //         console.log(">>>card create ",resp);
-    //         setShow(!show)
-    //         setRefresh(refresh => ! refresh);
-    //     }).catch((err) => {
-    //         console.error(err, no)
-    //         alert("카드 정보를 모두 입력해 주세요");
-    //     });
-    // };
-        const CreateCard = () => {
-            const arr = {
-                cardNo:cardNo,
-                deckNo:no, //덱 넘버
-                title: title,
-                description: description,
-                startDate: startDate,
-                endDate: endDate,
-                member: member
-            }
-        post(`/kanban/card/create` ,arr);
-        setShow(!show)
-        setRefresh(refresh => ! refresh);
+    // closeIcon 클릭
+    const onRemove = (no) => {
+        setMember(member.filter(user => user.no !== no));
+    }
+
+    const CreateCard = () => {
+        const arr = {
+            cardNo: cardNo,
+            deckNo: no, //덱 넘버
+            title: title,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            member: member
         }
+        post(`/kanban/card/create`, arr);
+        setShow(!show)
+    }
 
     useEffect(() => {
         t();
     }, [])
-    
+
     return (
         <div className='col-xl-1'>
             <Modal size='lg' show={show} onHide={() => setShow(!show)}>
@@ -152,39 +136,41 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh }) => {
                                         setReset(reset => !reset);
                                     }}>add</button>
                                 </div>
-                                <table className=" mt-3 table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">name</th>
-                                            <th scope="col">email</th>
-                                            <th scope="col">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                                </svg>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            member.map((m, i) => {
-                                                return (
-                                                    <tr key={i}>
-                                                        <td>
-                                                            {m.name}
-                                                        </td>
-                                                        <td>
-                                                            {m.email}
-                                                        </td>
-                                                        <td>
-                                                            <CloseIcon />
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
+                                <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
+                                    <table className="table table-bordered" id="dataTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">name</th>
+                                                <th scope="col">email</th>
+                                                <th scope="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                member.map((m, i) => {
+                                                    return (
+                                                        <tr key={i}>
+                                                            <td>
+                                                                {m.name}
+                                                            </td>
+                                                            <td>
+                                                                {m.email}
+                                                            </td>
+                                                            <td onClick={() => onRemove(m.no)}>
+                                                                <CloseIcon />
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </Form>

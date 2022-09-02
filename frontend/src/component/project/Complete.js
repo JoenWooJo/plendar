@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Rating } from "@mui/material";
 
 const Complete = () => {
 
@@ -27,7 +28,13 @@ const Complete = () => {
                                         <div className="text-xs font-weight-bold text-gray text-uppercase mb-1">
                                             완료</div>
                                         <Link to={`/kanbanboard/${m.no}`} className="h5 mb-0 font-weight-bold text-gray-800" >{m.title}</Link>
-                                        <div className="text-xs text-gray text-uppercase mt-5">
+                                        <div className='mt-3'>
+                                            <Rating
+                                                value={m.priority}
+                                                size="small" 
+                                            />
+                                        </div>
+                                        <div className="text-xs text-gray text-uppercase mt-3">
                                             {m.startDate} ~{m.endDate}</div>
                                     </div>
                                     <div className="col-auto">
