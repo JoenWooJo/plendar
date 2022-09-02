@@ -69,4 +69,10 @@ public class CardService {
 		return cardVo;
 	}
 
+	public Long deleteCard(Long cardNo) {
+		cardRepository.deleteCard(cardNo);
+		return cardNo;
+		
+	}
+
 }

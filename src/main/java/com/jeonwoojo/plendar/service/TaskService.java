@@ -30,4 +30,9 @@ public class TaskService {
 		return taskRepository.deleteTask(taskNo);
 	}
 
+	public boolean updateTask(TaskVo taskVo) {
+		return taskRepository.updateTask(taskVo);
+		
+	}
+
 }

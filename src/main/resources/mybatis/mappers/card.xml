@@ -108,6 +108,31 @@
 		]]>
 	</insert>
 	
+	<delete id="deleteTask" parameterType="long">
+		<![CDATA[
+			delete from task where card_no = #{no};
+		]]>
+	</delete>
+	
+	<delete id="deleteComment" parameterType="long">
+		<![CDATA[
+			delete from comment where card_no = #{no};
+		]]>
+	</delete>
+	
+	<delete id="deleteCard" parameterType="long">
+		<![CDATA[
+			delete from card where no = #{no};
+		]]>
+	</delete>
+	
+	<delete id="deleteCardMember" parameterType="long">
+		<![CDATA[
+			delete from card_member where card_no = #{no};
+		]]>
+	</delete>
+	
+	
 	
 	
 </mapper>
