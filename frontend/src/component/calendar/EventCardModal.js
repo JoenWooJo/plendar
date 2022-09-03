@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import UpdateCard from '../kanbanboard/card/cardmodal/UpdateCard';
@@ -8,15 +8,22 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 
 
-const EventCardModal = ({ title, projectNo, show, cardNo, callback }) => {
+const EventCardModal = ({ show, setShow, title, cardNo, projectNo, deckNo}) => {
     const [page, setPage] = useState('card');
-    console.log({title});
+    const handleClose = () => {
+        setShow(false);
+        setPage('card');
+    }
+    useEffect(() => {
+        console.log("모달의show", show,"title",title, "pno", projectNo, "dno", deckNo, "cardNo", cardNo);
+    }, [title, projectNo, deckNo, show, setShow, cardNo])
+    
     return (
         <div>
             <div className="col-xl-6 modal-title h4">{title}</div>
             <div className='col-xl-1'>
-                <Modal size='lg' show={show} onHide={() => { callback(false); }}>
-                    <div style={{ height: "450px" }}>
+                <Modal size='lg' show={show} onHide={handleClose}>
+                    <div style={{ height: "520px" }}>
                         <Modal.Header closeButton>
                             <Modal.Title className='col-xl-6'>{title}</Modal.Title>
                             <Box className='col-xl-4'>
@@ -27,26 +34,11 @@ const EventCardModal = ({ title, projectNo, show, cardNo, callback }) => {
                                 </ButtonGroup>
                             </Box>
                         </Modal.Header>
-                        <Modal.Body>
-                            {page === "card" && <UpdateCard />}
-                            {page === "comment" && <Comment projectNo={projectNo} cardNo={cardNo} />}
-                            {page === "file" && <FileUpload />}
-                        </Modal.Body>
+                            {page === "card" && <UpdateCard show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo}/>}
+                            {page === "comment" && <Comment show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} title={title} />}
+                            {page === "file" && <FileUpload show={show} setShow={setShow}/>}
                     </div>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => {
-                            callback(false);
-                        }}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={() => {
-                            callback(false);
-                        }}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
-
             </div>
         </div>
     );

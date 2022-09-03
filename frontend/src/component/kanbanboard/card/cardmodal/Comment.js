@@ -52,9 +52,9 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
     }
 
     return (
-        <div>
+        <div className= "ml-2">
             comment
-            <Card style={{ height: "200px", overflow:"auto"}} >
+            <Card style={{ height: "270px", overflow:"auto"}} >
             {feedComments.map((content, i)=>{
                 return(
                 <Card body key={i}>
