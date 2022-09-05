@@ -16,7 +16,6 @@ const Myproject = () => {
                 .then((resp) => {
                     const list = resp.data.data;
                     setProjectList(list);
-                    console.log(list);
                 })
         }
         fetchAndProjectList();

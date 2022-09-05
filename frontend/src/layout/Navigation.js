@@ -14,8 +14,8 @@ export default class Navigation extends Component {
         this.state = {
             img: null
         }
-        console.log("this ", this)
-        console.log('[MOUNT01]: constructor()', props);
+        // console.log("this ", this)
+        // console.log('[MOUNT01]: constructor()', props);
     }
 
     /**
@@ -23,7 +23,7 @@ export default class Navigation extends Component {
      *  props로 받아온 값을 state에 동기화 한다.
      */
      static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(`[MOUNT02][UPDATE01]: getDerivedStateFromProps(nextProps=${nextProps.profileImg}, prevState=${prevState.img})`);
+        // console.log(`[MOUNT02][UPDATE01]: getDerivedStateFromProps(nextProps=${nextProps.profileImg}, prevState=${prevState.img})`);
         return nextProps.profileImg !== prevState.profileImg ? {img: nextProps.profileImg} : null;
     }
 
@@ -37,8 +37,8 @@ export default class Navigation extends Component {
      *  컴포넌트 성능 최적화(튜닝)에 사용할 수 있다.
      */
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(`[UPDATE02]: shouldComponentUpdate(nextProps=${nextProps.profileImg}, nextState=${nextState.img}) /// ${nextState.img == this.state.img}`);
-        console.log(">>> ", this.state.img)
+        // console.log(`[UPDATE02]: shouldComponentUpdate(nextProps=${nextProps.profileImg}, nextState=${nextState.img}) /// ${nextState.img == this.state.img}`);
+        // console.log(">>> ", this.state.img)
         return !(nextState.img == this.state.img);
     }
 

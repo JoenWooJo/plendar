@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import ChatRoom from './ChatRoom';
 
 
-const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewRoomList, notice, messages}) => {
+const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewRoomList, setNoticeSelected, messages}) => {
 
     return (
         <div className="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0 p-3">
@@ -21,7 +21,7 @@ const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewR
                                 roomNo={e.no}
                                 roomIdSelected={roomIdSelected}
                                 messages={messages}
-                                notice={notice}
+                                setNoticeSelected={setNoticeSelected}
                                 callback={callback}/>
                         ))                            
                     }

@@ -10,12 +10,10 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
-
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
 
     const client = useRef({});
-
     const [messages, _setMessages] = useState([]);
     const messagesRef = useRef(messages);
 
@@ -23,41 +21,45 @@ const Chat = () => {
         messagesRef.current = messages;
         _setMessages(messages);
     }
-
-    const [chatting, setChatting] = useState({});
-    const [notice, setNotice] = useState();
-
-    const [subStatus, setSubStatus] = useState([roomIdSelected]);
+    
+    const [noticeSelected, setNoticeSelected] = useState();
+    const [first, setFirst] = useState(true);
+    const [sub, setSub] = useState(null);
 
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
     };
 
-    useEffect(() => {
-        async function fetchAndSetRooms() {
-            connect();
-            const resp = await axios.get('/api/chat/rooms');
-            const rooms = resp.data.data;
-            if (resp.data.result == "fail") {
-                alert(resp.data.message);
-                window.location.replace("/login");
-            }
-            rooms.map((e) => {
-                setSubStatus([...subStatus, e.no]);
-                subscribe(e.no);
-                setNotice(e.notice);
-            });
-
-            setNewRoomList(resp.data.data);
-            setRoomList(resp.data.data);
+    const fetchAndSetRooms = async () => {
+        connect();
+        const resp = await axios.get('/api/chat/rooms');
+        const rooms = resp.data.data;
+        first && setSub(rooms);
+        if (resp.data.result == "fail") {
+            alert(resp.data.message);
+            window.location.replace("/login");
         }
-        fetchAndSetRooms();
 
+        setNewRoomList(resp.data.data);
+        setRoomList(resp.data.data);
+    }
+
+    useEffect(() => {
+        
+        fetchAndSetRooms();
 
         // return () => {
         //     disconnect();
         // };
-    }, []);
+    }, [messages, noticeSelected]);
+
+    useEffect(()=>{
+        console.log("ttt ",sub === null);
+        sub !== null && sub.map((e) => {
+            subscribe(e.no);
+            setFirst(false);
+        });
+    }, [sub])
 
 
     useEffect(() => {
@@ -67,6 +69,7 @@ const Chat = () => {
                     roomId: roomId
                 }
             })
+            
             setMessages(resp.data.data);
         }
         if (roomIdSelected == -1) {
@@ -75,7 +78,7 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-    }, [chatting, roomIdSelected]);
+    }, [roomIdSelected]);
 
     const connect = async () => {
         client.current = new StompJs.Client({
@@ -108,8 +111,8 @@ const Chat = () => {
     const subscribe = (roomId) => {
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
-            //setMessages([...messagesRef.current, line]);
-            setChatting(line);
+            console.log(line);
+            setMessages([...messagesRef.current, line]);
         });
     };
 
@@ -160,7 +163,7 @@ const Chat = () => {
                         newRoomList={newRoomList}
                         setNewRoomList={setNewRoomList}
                         messages={messages}
-                        notice={notice}
+                        setNoticeSelected={setNoticeSelected}
                     />
                     <ChatMessageList
                         messages={messages}
