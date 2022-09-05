@@ -34,4 +34,11 @@ public class NoticeController {
 				.body(JsonResult.success(alramList));
 	}
 	
+	@GetMapping("/chat/count")
+	public ResponseEntity<JsonResult> getChatAlramCount(@AuthUser UserVo authUser) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(noticeService.getChatAlramCount(authUser.getNo())));
+	}
+	
 }

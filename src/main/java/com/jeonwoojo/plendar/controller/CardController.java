@@ -61,7 +61,7 @@ public class CardController {
 		String projectTitle = projectService.findProjectTitle(newCardVo.getProjectNo());
 		System.out.println("card>> "+newCardVo);
 		NoticeMessage noticeMessage= noticeService.insertNoticeCard(newCardVo, authUser, projectTitle);
-		sendingOperations.convertAndSend("/topic/notice", noticeMessage);
+		sendingOperations.convertAndSend("/topic/notice/"+authUser.getNo(), noticeMessage);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(newCardVo));

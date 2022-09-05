@@ -38,5 +38,11 @@
 		]]>
 	</select>
 	
+	<select id="getChatAlramCount" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(*) as chatCount from chat_notice where user_no = #{userNo } and notice = 1
+		]]>
+	</select>
+	
 	
 </mapper>

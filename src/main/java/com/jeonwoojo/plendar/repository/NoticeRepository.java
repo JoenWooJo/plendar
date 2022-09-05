@@ -76,4 +76,8 @@ public class NoticeRepository {
 		
 		return noticeMessage;
 	}
+
+	public int getChatAlramCount(Long userNo) {
+		return sqlSession.selectOne("notice.getChatAlramCount", userNo);
+	}
 }
