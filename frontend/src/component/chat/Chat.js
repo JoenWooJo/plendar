@@ -3,7 +3,6 @@ import axios from 'axios';
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
-import SiteLayout from '../../layout/SiteLayout';
 import ChatRoomList from './ChatRoomList';
 import ChatMessageList from './ChatMessageList';
 
@@ -54,7 +53,6 @@ const Chat = () => {
     }, [messages, noticeSelected]);
 
     useEffect(()=>{
-        console.log("ttt ",sub === null);
         sub !== null && sub.map((e) => {
             subscribe(e.no);
             setFirst(false);
@@ -87,13 +85,13 @@ const Chat = () => {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
-                // console.log("!!!!!!", str);
+                console.log("!!!!!!", str);
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
             },
             onStompError: (frame) => {
                 console.error(frame);

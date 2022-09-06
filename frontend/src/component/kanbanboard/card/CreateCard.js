@@ -12,7 +12,7 @@ import axios from 'axios';
 import dayjs from "dayjs";
 
 
-const CreateCard = ({ show, setShow, projectNo, no, cardNo}) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [selectUser, setSelectUser] = useState();
@@ -35,6 +35,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo}) => {
 
     const CreateCard = () => {
         const arr = {
+            projectNo: projectNo,
             cardNo: cardNo,
             deckNo: no, //덱 넘버
             title: title,
@@ -44,7 +45,8 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo}) => {
             member: member
         }
         post(`/kanban/card/create`, arr);
-        setShow(!show)
+        setShow(!show);
+        setRefresh(refresh => ! refresh);
     }
 
     useEffect(() => {

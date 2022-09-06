@@ -69,7 +69,6 @@ const MypageChecked = () => {
 
     const keyEnter = (e) => {
         if (e.key === "Enter") {
-            console.log("엔터!!!!");
             passwordCheck();
         }
     };

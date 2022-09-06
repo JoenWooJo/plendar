@@ -47,7 +47,6 @@ const UpdateProject = () => {
     const projectMember = async () => {
         const projMember = await axios.get(`/api/project/find/member/${projectNo}`);
         setMember(projMember.data.data);
-        console.log(">><<< ", projMember.data.data);
     }
 
     const updateProject = async () => {
@@ -64,15 +63,11 @@ const UpdateProject = () => {
     };
 
     const is_checked = (event, index) => {
-        console.log("is_checked >> ", event.target.id)
         // 1. checkbox element를 찾습니다.
         const checkbox = document.getElementById(event.target.id);
 
         // 2. checked 속성을 체크합니다.
         const is_checked = checkbox.checked;
-
-        // 3. 결과를 출력합니다.
-        console.log(is_checked, event.target.id[0]);
 
         let leaderClick = null;
         let managerClick = null;
@@ -83,7 +78,6 @@ const UpdateProject = () => {
             managerClick = is_checked;
         }
 
-        console.log("l m", leaderClick, managerClick)
 
         const data = {
             no: member[index]['no'],
@@ -134,7 +128,6 @@ const UpdateProject = () => {
                                         value={priority}
                                         onChange={(event, priority) => {
                                             setPriority(priority);
-                                            //console.log(priority);
                                         }}
                                     />
                                 </div>
@@ -201,7 +194,6 @@ const UpdateProject = () => {
                                         freeSolo
                                         options={user}
                                         onChange={(e, newValue) => {
-                                            console.log(newValue)
                                             newValue != null && setSelectUser(newValue)
                                         }}
                                         getOptionLabel={(user) => user.email + " " + user.name}

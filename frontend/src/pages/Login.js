@@ -28,7 +28,6 @@ const Login = () => {
             .then((resp)=>{
 
                 const result = resp.data.data;
-                console.log("실패: ", result)
                 if (result["no"] == null) {
                     // 로그인 실패 했을 때
                     event.preventDefault(); 
@@ -39,7 +38,6 @@ const Login = () => {
                 localStorage.setItem('loginUserEmail', result["email"]);
                 localStorage.setItem('loginUserName', result["name"]);
                 localStorage.setItem('loginUserProfile', result["profile"]);
-                console.log("로그인한 사람의 프로젝트 수: ", result["projectCount"]);
 
                 if(result["projectCount"] >= 1)
                 {

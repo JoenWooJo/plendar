@@ -14,9 +14,6 @@ const EventCardModal = ({ show, setShow, title, cardNo, projectNo, deckNo}) => {
         setShow(false);
         setPage('card');
     }
-    useEffect(() => {
-        console.log("모달의show", show,"title",title, "pno", projectNo, "dno", deckNo, "cardNo", cardNo);
-    }, [title, projectNo, deckNo, show, setShow, cardNo])
     
     return (
         <div>

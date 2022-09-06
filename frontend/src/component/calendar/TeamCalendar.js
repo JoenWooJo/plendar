@@ -16,8 +16,8 @@ import "@fullcalendar/timegrid/main.css";
 import '../../assets/css/calendar.css'
 
 export default function TeamCalendar() {
-  const no = localStorage.getItem("loginUserNo")
-  const CardModalRef = useRef();
+  // const no = localStorage.getItem("loginUserNo")
+  // const CardModalRef = useRef();
 
   // 랜덤 컬러
   function getRandomColor() {
@@ -35,11 +35,9 @@ export default function TeamCalendar() {
     }
 
     let li = response.data.data;
-    // console.log(response.data.data[0]["id"]);
     for (let i = 0; i < li.length; i++) {
       li[i]['color'] = getRandomColor();
     }
-    console.log("li",li);
     return response.data.data;
   }
 
@@ -50,28 +48,15 @@ export default function TeamCalendar() {
   const [cardNo, setCardNo] = useState('');
   const [title, setTitle] = useState('');
 
-  // 이벤트 클릭했을 때 실행
-  // const eventClick = (info) => {
-  //   setShow(!show); //강사님꺼
-  //   // oneClick ? handleOffClick() : handleOneClick();//내꺼
-    
-  //   handleCardId(info);
-  //   handleTitle(info);
-  //   handleProjectNo(info);
-  //   handleDeckNo(info);
-  // }
 
   const eventClick = (e) => {
-    setShow(!show); //강사님꺼
-    // oneClick ? handleOffClick() : handleOneClick();//내꺼
+    setShow(!show); 
     setProjectNo(e.event._def.extendedProps.projectNo);
     setDeckNo(e.event._def.extendedProps.deckNo);
     setCardNo(e.event._def.publicId);
     setTitle(e.event._def.title);
   }
   return (
-
-    <SiteLayout>
       <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
         <div className="card shadow mb-4">
           <div className="card-header py-3">

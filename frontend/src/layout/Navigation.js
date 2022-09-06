@@ -14,8 +14,6 @@ export default class Navigation extends Component {
         this.state = {
             img: null
         }
-        // console.log("this ", this)
-        // console.log('[MOUNT01]: constructor()', props);
     }
 
     /**

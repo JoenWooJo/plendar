@@ -38,7 +38,6 @@ export default function PersonalCalendar() {
     for (let i = 0; i < li.length; i++) {
       li[i]["color"] = getRandomColor();
     }
-    console.log("퍼스널",li);
     return response.data.data;
   }
 
@@ -51,7 +50,6 @@ export default function PersonalCalendar() {
   // 이벤트 클릭했을 때 실행
   const eventClick = (e) => {
     setShow(!show);
-    console.log("퍼슬널 클릭!!!!!", e.event._def)
     setProjectNo(e.event._def.extendedProps.projectNo);
     setDeckNo(e.event._def.extendedProps.deckNo);
     setCardNo(e.event._def.publicId);

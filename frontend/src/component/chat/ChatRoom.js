@@ -46,7 +46,6 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
     useEffect(()=>{
         fetchAndNotice();
         getLastMessage();
-        console.log("하이")
     }, [messages]);
 
     useEffect(()=>{

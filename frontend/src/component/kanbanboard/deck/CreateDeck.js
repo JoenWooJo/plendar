@@ -20,7 +20,6 @@ const createDeck = () => {
       title: title,
       projectNo :projectNo
   }).then((resp)=>{
-      console.log(resp);
       setCreateResult(createResult => !createResult);
       handleClose();
   }).catch((err)=>{

@@ -61,9 +61,6 @@ const CreateProject = () => {
         // 2. checked 속성을 체크합니다.
         const is_checked = checkbox.checked;
 
-        // 3. 결과를 출력합니다.
-        //console.log(is_checked);
-
         const data = {
             no: member[index]['no'],
             name: member[index]['name'],
@@ -102,7 +99,6 @@ const CreateProject = () => {
                                         value={priority}
                                         onChange={(event, priority) => {
                                             setPriority(priority);
-                                            //console.log(priority);
                                         }}
                                     />
                                 </div>
