@@ -73,4 +73,12 @@ public class CardRepository {
 		sqlSession.insert("card.memberUpdate", map);
 	}
 
+	public Long deleteCard(Long cardNo) {
+		sqlSession.delete("card.deleteTask", cardNo);
+		sqlSession.delete("card.deleteComment", cardNo);
+		sqlSession.delete("card.deleteCardMember", cardNo);
+		sqlSession.delete("card.deleteCard", cardNo);
+		return cardNo;
+	}
+	
 }

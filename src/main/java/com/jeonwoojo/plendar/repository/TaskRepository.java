@@ -28,7 +28,11 @@ public class TaskRepository {
 	}
 
 	public boolean deleteTask(long taskNo) {
-		return sqlSession.update("task.deleteTask", taskNo) == 1;
+		return sqlSession.delete("task.deleteTask", taskNo) == 1;
+	}
+
+	public boolean updateTask(TaskVo taskVo) {
+		return sqlSession.update("task.updateTask",taskVo) ==1;
 	}
 
 

@@ -57,4 +57,10 @@ public class TaskController {
 		taskService.deleteTask(taskNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskNo));
 	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<JsonResult> updateTask(@RequestBody TaskVo taskVo) {
+		taskService.updateTask(taskVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskVo));
+	}
 }

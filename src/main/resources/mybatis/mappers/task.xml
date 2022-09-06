@@ -24,9 +24,17 @@
 				]]>
 	</update>
 	
-	<update id="deleteTask" parameterType="long">
+	<delete id="deleteTask" parameterType="long">
 		<![CDATA[
 		delete from task where no = #{no}; 
+		]]>
+	</delete>
+	
+	<update id="updateTask" parameterType="taskvo">
+		<![CDATA[
+		update task 
+			set content = #{content } 
+			where no = #{no };
 		]]>
 	</update>
 	
