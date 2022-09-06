@@ -37,6 +37,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
         <div>
             <Dropdown.Item  onClick={handleShow}>카드 수정</Dropdown.Item>
             {/* <div onClick={handleShow} ></div>  */}
+
             <div className='col-xl-1'>
                 <Modal size='lg' show={show}>
                     <div style={{height:"520px"}}>

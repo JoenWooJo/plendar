@@ -5,7 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import update from 'react-addons-update';
 import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
-import { get, remove } from '../../../api/Axios';
+import { get } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
@@ -14,17 +14,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
-
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
     const { description, title, no } = card;
-    const [showDetail, setShowDetail] = useState(false);
+    const [showDetail, setShowDetail] = useState(true);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
-   
-    //체크박스 설정
+    
     useEffect(() => {
         taskList.length === 0 && t();
         const arr = [];
@@ -43,6 +41,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
         const list = await get(`/kanban/task/find/${no}`);
         setTaskList(list);
     }
+
     //테스크 삭제하기
     const removeTask = async (taskNo) => {
         await remove(`/kanban/task/deleteTask/${taskNo}`);
@@ -81,6 +80,8 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
 
                 setTaskList(newTaskList)
             })
+        
+        
     }
 
     //카드 삭제하기 
@@ -114,11 +115,10 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
                             {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                         </div>
                     </div>
-
-                    {/* 테스크 리스트 불러오기 */}
                     {showDetail
                         ?
                         taskList.map((m, i) =>
+
                         (
                             <div key={i}>
                                 <hr />
@@ -144,6 +144,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
                                     </div>
                                 </div>
                             </div>
+
                         )
                         )
                         :
