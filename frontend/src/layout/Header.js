@@ -74,13 +74,13 @@ const Header = ({ }) => {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
-                console.log("!!!!!!", str);
+                // console.log("!!!!!!", str);
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
                 subscribe();
                 // publish("알림확인 메세지 보내주");
 

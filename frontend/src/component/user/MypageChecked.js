@@ -12,8 +12,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SiteLayout from '../../layout/SiteLayout';
-import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
+import Button from '@mui/material/Button';
 
 
 const MypageChecked = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from 'react';
 import axios from "axios";
 
 import FullCalendar from "@fullcalendar/react";
@@ -7,6 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import SiteLayout from "../../layout/SiteLayout";
 import { Link } from "react-router-dom";
+import EventCardModal from "./EventCardModal";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import "@fullcalendar/daygrid/main.css";
@@ -14,16 +15,16 @@ import "@fullcalendar/timegrid/main.css";
 
 import "../../assets/css/calendar.css";
 
-
 export default function PersonalCalendar() {
   const no = localStorage.getItem("loginUserNo");
+  const CardModalRef = useRef();
 
   // 랜덤 컬러
   function getRandomColor() {
     return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
   }
 
-  //DB에서 이벤트(카드) 불러오기
+  // DB에서 이벤트(카드) 불러오기
   const callback = async () => {
     const client = axios.create({ baseURL: "/api" });
     let response = await client.get("/calendar/axios/personal");
@@ -37,13 +38,24 @@ export default function PersonalCalendar() {
     for (let i = 0; i < li.length; i++) {
       li[i]["color"] = getRandomColor();
     }
-
+    console.log("퍼스널",li);
     return response.data.data;
-  };
+  }
 
+    // EventCardModal에 넘겨줄 값
+    const [show, setShow] = useState(false);
+    const [projectNo, setProjectNo] = useState('');
+    const [deckNo, setDeckNo] = useState('');
+    const [cardNo, setCardNo] = useState('');
+    const [title, setTitle] = useState('');
   // 이벤트 클릭했을 때 실행
-  const eventClick = () => {
-    return console.log("Event Clicked");
+  const eventClick = (e) => {
+    setShow(!show);
+    console.log("퍼슬널 클릭!!!!!", e.event._def)
+    setProjectNo(e.event._def.extendedProps.projectNo);
+    setDeckNo(e.event._def.extendedProps.deckNo);
+    setCardNo(e.event._def.publicId);
+    setTitle(e.event._def.title);
   };
 
   return (
@@ -92,6 +104,7 @@ export default function PersonalCalendar() {
                 events={callback}
                 eventClick={eventClick}
               />
+              <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo} />
             </div>
           </div>
         </div>

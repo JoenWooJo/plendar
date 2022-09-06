@@ -1,8 +1,8 @@
 import React ,{useState, useEffect} from 'react';
 import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const AddTask = ({cardNo, setRefresh}) => {
 
@@ -30,8 +30,10 @@ const AddTask = ({cardNo, setRefresh}) => {
     };
 
     return (
-        <div className='col-xl-2'>
-        <form type="button"><AddIcon onClick={handleShow} /></form>
+        <>
+        <Dropdown.Item onClick={handleShow}>테스크 추가</Dropdown.Item>
+        {/* <MenuItem onClick={handleShow}>테스크 추가</MenuItem> */}
+        {/* <form type="button"><AddIcon onClick={handleShow} /></form> */}
         <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>테스크 추가하기</Modal.Title>
@@ -59,7 +61,7 @@ const AddTask = ({cardNo, setRefresh}) => {
           </Button>
         </Modal.Footer>
       </Modal>
-        </div>
+      </>
     );
 };
 
