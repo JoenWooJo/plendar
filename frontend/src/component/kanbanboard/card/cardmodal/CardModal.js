@@ -6,7 +6,7 @@ import FileUpload from './FileUpload';
 import Comment from './Comment';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
@@ -35,9 +35,11 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
 
     return (
         <div>
-            <div type="button" onClick={handleShow} >{title}</div>
+            <Dropdown.Item  onClick={handleShow}>카드 수정</Dropdown.Item>
+            {/* <div onClick={handleShow} ></div>  */}
+
             <div className='col-xl-1'>
-                <Modal size='lg' show={show} onHide={handleClose}>
+                <Modal size='lg' show={show}>
                     <div style={{height:"520px"}}>
                     <Modal.Header closeButton>
                         <Modal.Title className='col-xl-6'>{title}</Modal.Title>

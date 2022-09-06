@@ -190,7 +190,8 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                                     setReset(reset => !reset);
                                 }}>add</button>
                             </div>
-                            <table className=" mt-3 table table-striped">
+                            <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
+                             <table className="table table-bordered" id="dataTable" width="100%"> 
                                 <thead>
                                     <tr>
                                         <th scope="col">name</th>
@@ -225,6 +226,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                                     }
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </Form>

@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 const Deck = ({ title, no, projectNo }) => {
     const [deckTitle, setDeckTitle] = useState(title);
@@ -15,6 +15,7 @@ const Deck = ({ title, no, projectNo }) => {
     const [cardList, setCardList] = useState([]);
     const [cardNo, setCardNo] = useState(0);
     const [refresh, setRefresh] = useState(false);
+    const [morevertList, setMorevertList] = useState(false);
 
     // 카드 리스트 가져오기
     const t = async () => {
@@ -51,9 +52,8 @@ const Deck = ({ title, no, projectNo }) => {
     //덱 수정하기 
     useEffect(() => {
         postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
-    }, [deckTitle, no]);
+    }, [deckTitle]);
 
-    const [morevertList, setMorevertList] = useState(false);
 
     return (
         <Paper>
