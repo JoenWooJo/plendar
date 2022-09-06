@@ -112,4 +112,8 @@ public class ProjectService {
 		return projectVo;
 	}
 
+	public String findProjectTitle(long no) {
+		return projectRepository.findProjectTitle(no);
+	}
+
 }

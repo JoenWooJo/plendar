@@ -8,6 +8,12 @@
 		]]>
 	</select>
 	
+	<select id="findProjectTitle" parameterType="long" resultType="string">
+		<![CDATA[
+			select title from project where no = #{projectNo }
+		]]>
+	</select>
+	
 	<insert id="createProject" parameterType="projectvo">
 		<![CDATA[
 		insert

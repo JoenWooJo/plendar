@@ -127,6 +127,10 @@ public class ProjectRepository {
 	public void noticeMessageInsert(ChatMessage memberMessage) {
 		sqlSession.update("chat.chatMessageInsert", memberMessage);
 	}
+
+	public String findProjectTitle(long no) {
+		return sqlSession.selectOne("project.findProjectTitle", no);
+	}
 	
 
 }

@@ -3,6 +3,7 @@ package com.jeonwoojo.plendar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
+import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.CardService;
+import com.jeonwoojo.plendar.service.NoticeService;
+import com.jeonwoojo.plendar.service.ProjectService;
 import com.jeonwoojo.plendar.vo.CardVo;
 import com.jeonwoojo.plendar.vo.CommentVo;
+import com.jeonwoojo.plendar.vo.NoticeMessage;
+import com.jeonwoojo.plendar.vo.UserVo;
 
 
 @Auth
@@ -24,8 +30,15 @@ import com.jeonwoojo.plendar.vo.CommentVo;
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/kanban/card")
 public class CardController {
+	
+	@Autowired
+	private SimpMessageSendingOperations sendingOperations;
 	@Autowired
 	private CardService cardService;
+	@Autowired
+	private NoticeService noticeService;
+	@Autowired
+	private ProjectService projectService;
 	
 	@GetMapping("/find/{deckNo}")
 	public ResponseEntity<JsonResult> findCard(@PathVariable("deckNo") Long deckNo) {
@@ -42,10 +55,17 @@ public class CardController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<JsonResult> createCard(@RequestBody CardVo cardVo) {
+	public ResponseEntity<JsonResult> createCard(@AuthUser UserVo authUser ,@RequestBody CardVo cardVo) {
+		CardVo newCardVo = cardService.createCard(cardVo);
+		newCardVo.setMember(cardVo.getMember());
+
+		String projectTitle = projectService.findProjectTitle(newCardVo.getProjectNo());
+		System.out.println("card>> "+newCardVo);
+		NoticeMessage noticeMessage= noticeService.insertNoticeCard(newCardVo, authUser, projectTitle);
+		sendingOperations.convertAndSend("/topic/notice/"+authUser.getNo(), noticeMessage);
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(cardService.createCard(cardVo)));
+				.body(JsonResult.success(newCardVo));
 	}
 	
 	@PostMapping("/comment/insert")

@@ -8,6 +8,7 @@ import lombok.Data;
 public class CardVo {
 	
 	private long no;
+	private long projectNo;
 	private long deckNo;
 	private String title;
 	private String description;

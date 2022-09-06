@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.DeckRepository;
 import com.jeonwoojo.plendar.vo.DeckVo;
-import com.jeonwoojo.plendar.vo.ProjectVo;
 
 @Service
 public class DeckService {
