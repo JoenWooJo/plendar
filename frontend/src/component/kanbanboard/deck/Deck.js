@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 const Deck = ({ title, no, projectNo }) => {
     const [deckTitle, setDeckTitle] = useState(title);

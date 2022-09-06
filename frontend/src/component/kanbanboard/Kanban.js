@@ -6,8 +6,8 @@ import { useParams } from 'react-router';
 import { get } from '../../api/Axios';
 import Box from '@mui/material/Box';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
-
 import { color } from '@mui/system';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 
@@ -26,42 +26,61 @@ const Kanban = () => {
     const list = await get(`/kanban/deck/find/${projectNo}`);
     setDeckLlist(list);
   }
+
+  // DragEnd  함수
+  const onDragEnd = () => {
+    console.log("드래그")
+  }
+
+
   return (
     <SiteLayout>
-      <div className="col-xl-11 ml-4" style={{width: "1000px", "overflow": "auto" }}>
-        <div className="card-header" style={{width: "3000px"}}> 
-          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large"/>&nbsp;Plendar Porject Kanban</h4>
+      <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
+        <div className="card-header" style={{ width: "3000px" }}>
+          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Porject Kanban</h4>
         </div>
-        <div className="card-body" style={{ width: "3000px", height: "750px", "overflow": "auto" }} >
-         
-          <CreateDeck setCreateResult={setCreateResult} />  
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              '& > :not(style)': {
-                ml: 2,
-                width: 300,
-                height: 80
-              }
-            }}
-          >
-            {
-              deckList.map((m, i) => {
-                return (
-                  <Deck
-                    no={m.no}
-                    key={i}
-                    title={m.title}
-                    projectNo={projectNo}
-                    setCreateResult={setCreateResult}
-                />
-                );
-              })}
-              </Box>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="title">
+            {provided => (
+              <div className="card-body" style={{ width: "3000px", height: "750px", "overflow": "auto" }} {...provided.droppableProps} ref={provided.innerRef}>
+                {/* 덱 생성하기 버튼 */}
+                <CreateDeck setCreateResult={setCreateResult} />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    '& > :not(style)': {
+                      ml: 2,
+                      width: 300,
+                      height: 80
+                    }
+                  }}>
+                  {
+                    deckList.map((m, i) => {
+                      return (
+                        <Draggable draggableId={String(i)} index={i} key={i}>
+                        {provided =>(
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <Deck
+                          no={m.no}
+                          key={i}
+                          title={m.title}
+                          projectNo={projectNo}
+                          setCreateResult={setCreateResult}
+                        />
+                        </div>
+                        )}
+                        </Draggable>
+                      );
+                    })}
+                </Box>
+                {provided.placeholder}
               </div>
-            </div>
-            
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
+
     </SiteLayout >
   );
 };
