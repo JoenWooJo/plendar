@@ -59,7 +59,6 @@ export default function PersonalCalendar() {
   };
 
   return (
-    <SiteLayout>
 
       <div className="col-xl-11 ml-5"  >
         <div className="card shadow mb-4">
@@ -110,6 +109,5 @@ export default function PersonalCalendar() {
           </div>
         </div>
       </div>
-    </SiteLayout>
   );
 }

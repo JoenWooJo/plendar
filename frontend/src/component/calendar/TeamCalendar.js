@@ -70,6 +70,7 @@ export default function TeamCalendar() {
     setTitle(e.event._def.title);
   }
   return (
+
     <SiteLayout>
       <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
         <div className="card shadow mb-4">
@@ -120,6 +121,5 @@ export default function TeamCalendar() {
           </div>
         </div>
       </div>
-      </SiteLayout>
     );
 }

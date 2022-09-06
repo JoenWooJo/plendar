@@ -10,12 +10,10 @@ import ChatMessageList from './ChatMessageList';
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
-
     const [roomList, setRoomList] = useState([]);
     const [newRoomList, setNewRoomList] = useState([]);
-    
-    const client = useRef({});
 
+    const client = useRef({});
     const [messages, _setMessages] = useState([]);
     const messagesRef = useRef(messages);
 
@@ -23,50 +21,55 @@ const Chat = () => {
         messagesRef.current = messages;
         _setMessages(messages);
     }
-
-    const [chatting, setChatting] = useState({});
-    const [notice, setNotice] = useState();
-
-    const [subStatus, setSubStatus] = useState([roomIdSelected]);
+    
+    const [noticeSelected, setNoticeSelected] = useState();
+    const [first, setFirst] = useState(true);
+    const [sub, setSub] = useState(null);
 
     const changeRoomIdSelected = (id) => {
-        setRoomIdSelected(id); 
+        setRoomIdSelected(id);
     };
 
+    const fetchAndSetRooms = async () => {
+        connect();
+        const resp = await axios.get('/api/chat/rooms');
+        const rooms = resp.data.data;
+        first && setSub(rooms);
+        if (resp.data.result == "fail") {
+            alert(resp.data.message);
+            window.location.replace("/login");
+        }
+
+        setNewRoomList(resp.data.data);
+        setRoomList(resp.data.data);
+    }
+
     useEffect(() => {
-        async function fetchAndSetRooms() {
-            connect();
-            const resp = await axios.get('/api/chat/rooms');
-            const rooms = resp.data.data;
-            if (resp.data.result == "fail") {
-                alert(resp.data.message);
-                window.location.replace("/login");
-            }
-            rooms.map((e)=>{
-                setSubStatus([...subStatus, e.no]);
-                subscribe(e.no);
-                setNotice(e.notice);
-            });
-
-            setNewRoomList(resp.data.data);
-            setRoomList(resp.data.data);
-        } 
+        
         fetchAndSetRooms();
-
 
         // return () => {
         //     disconnect();
         // };
-    },[]);
+    }, [messages, noticeSelected]);
 
-    
+    useEffect(()=>{
+        console.log("ttt ",sub === null);
+        sub !== null && sub.map((e) => {
+            subscribe(e.no);
+            setFirst(false);
+        });
+    }, [sub])
+
+
     useEffect(() => {
         async function fetchAndMessageList(roomId) {
             const resp = await axios.get('/api/chat/room/messages', {
                 params: {
-                  roomId: roomId
+                    roomId: roomId
                 }
             })
+            
             setMessages(resp.data.data);
         }
         if (roomIdSelected == -1) {
@@ -75,9 +78,9 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-    }, [chatting, roomIdSelected]);
+    }, [roomIdSelected]);
 
-    const connect = () => {
+    const connect = async () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
             connectHeaders: {
@@ -90,15 +93,14 @@ const Chat = () => {
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
-                
+                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
             },
             onStompError: (frame) => {
                 console.error(frame);
             }
         });
 
-        client.current.activate();
+        await client.current.activate();
     };
 
     const disconnect = () => {
@@ -108,8 +110,8 @@ const Chat = () => {
     const subscribe = (roomId) => {
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
-            //setMessages([...messagesRef.current, line]);
-            setChatting(line);
+            console.log(line);
+            setMessages([...messagesRef.current, line]);
         });
     };
 
@@ -131,7 +133,7 @@ const Chat = () => {
             minutes: ("0" + today.getMinutes()).slice(-2), //현재 분 ('0'+minutes).slice(-2)
             seconds: ("0" + today.getSeconds()).slice(-2)
         };
-        
+
         client.current.publish({
             destination: `/app/chat/message`,
             body: JSON.stringify({
@@ -147,30 +149,28 @@ const Chat = () => {
 
 
     return (
-        <SiteLayout>
-            <div className="col-xl-11 ml-4">
-                <div className="card-header py-3">
-                    <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
-                </div>
-                <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
-                    <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
-                        <ChatRoomList
-                            callback={changeRoomIdSelected}
-                            roomIdSelected={roomIdSelected}
-                            roomList={roomList}
-                            newRoomList={newRoomList}
-                            setNewRoomList={setNewRoomList}
-                            messages={messages}
-                            notice={notice}
-                            />
-                        <ChatMessageList
-                            messages={messages}
-                            roomIdSelected={roomIdSelected}
-                            publish={publish} />
-                    </div>
+        <div className="col-xl-11 ml-4">
+            <div className="card-header py-3">
+                <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
+            </div>
+            <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
+                <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>
+                    <ChatRoomList
+                        callback={changeRoomIdSelected}
+                        roomIdSelected={roomIdSelected}
+                        roomList={roomList}
+                        newRoomList={newRoomList}
+                        setNewRoomList={setNewRoomList}
+                        messages={messages}
+                        setNoticeSelected={setNoticeSelected}
+                    />
+                    <ChatMessageList
+                        messages={messages}
+                        roomIdSelected={roomIdSelected}
+                        publish={publish} />
                 </div>
             </div>
-        </SiteLayout>
+        </div>
     );
 };
 
