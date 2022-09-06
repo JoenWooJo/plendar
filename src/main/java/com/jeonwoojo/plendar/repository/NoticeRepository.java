@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Repository;
 
 import com.jeonwoojo.plendar.vo.CardVo;
@@ -15,7 +16,8 @@ import com.jeonwoojo.plendar.vo.UserVo;
 
 @Repository
 public class NoticeRepository {
-	
+	@Autowired
+	private SimpMessageSendingOperations sendingOperations;
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -58,7 +60,7 @@ public class NoticeRepository {
 		return noticeMessage;
 	}
 
-	public NoticeMessage insertNoticeCard(CardVo newCardVo, Long userNo, String projectTitle) {
+	public NoticeMessage insertNoticeCard(CardVo newCardVo, String projectTitle) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		NoticeMessage noticeMessage = new NoticeMessage();
 		noticeMessage.setMessage(projectTitle+" 프로젝트의 "+newCardVo.getTitle()+"(카드)가 생성 되었습니다.");
@@ -71,8 +73,8 @@ public class NoticeRepository {
 		for(int i=0;i<newCardVo.getMember().size();i++) {
 			noticeMessage.setUserNo(newCardVo.getMember().get(i).getNo());
 			sqlSession.insert("notice.insertNoticeCard", noticeMessage);
+			sendingOperations.convertAndSend("/topic/notice/"+newCardVo.getMember().get(i).getNo(), noticeMessage);
 		}
-		noticeMessage.setUserNo(userNo);
 		
 		return noticeMessage;
 	}

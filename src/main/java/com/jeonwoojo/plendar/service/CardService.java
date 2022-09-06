@@ -16,6 +16,8 @@ public class CardService {
 	
 	@Autowired
 	private CardRepository cardRepository;
+	@Autowired
+	private NoticeService noticeService;
 
 	public List<CardVo> findCard(Long deckNo) {
 		return cardRepository.findCard(deckNo);
@@ -73,6 +75,10 @@ public class CardService {
 		cardRepository.deleteCard(cardNo);
 		return cardNo;
 		
+	}
+
+	public void cardNotice(CardVo newCardVo, String projectTitle) {
+		noticeService.insertNoticeCard(newCardVo, projectTitle);
 	}
 
 }

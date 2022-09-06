@@ -35,8 +35,8 @@ public class NoticeService {
 		return noticeRepository.insertNoticeUpdateProject(updateProjectVo, authUser.getNo(), projectTitle);
 	}
 
-	public NoticeMessage insertNoticeCard(CardVo newCardVo, UserVo authUser, String projectTitle) {
-		return noticeRepository.insertNoticeCard(newCardVo, authUser.getNo(), projectTitle);
+	public NoticeMessage insertNoticeCard(CardVo newCardVo, String projectTitle) {
+		return noticeRepository.insertNoticeCard(newCardVo, projectTitle);
 	}
 
 	public void getChatAlramCount(ChatMessage message) {
