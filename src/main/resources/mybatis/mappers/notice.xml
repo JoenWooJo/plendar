@@ -32,7 +32,7 @@
 	
 	<select id="getAlramList" parameterType="long" resultType="noticemessage">
 		<![CDATA[
-			select no, message, type, time, user_no, project_no, deck_no, card_no 
+			select no, message, type, time, user_no as userNo, project_no as projectNo, deck_no as deckNo, card_no as cardNo 
 				from notice 
 			 where user_no = #{userNo } order by time desc 
 		]]>
@@ -41,6 +41,12 @@
 	<select id="getChatAlramCount" parameterType="long" resultType="int">
 		<![CDATA[
 			select count(*) as chatCount from chat_notice where user_no = #{userNo } and notice = 1
+		]]>
+	</select>
+	
+	<select id="deleteNotice" parameterType="long">
+		<![CDATA[
+			delete from notice where no = #{noticeNo }
 		]]>
 	</select>
 	

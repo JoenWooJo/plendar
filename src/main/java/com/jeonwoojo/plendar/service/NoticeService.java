@@ -53,4 +53,8 @@ public class NoticeService {
 		return noticeRepository.getChatAlramCount(userNo);
 	}
 
+	public void deleteNotice(long noticeNo) {
+		noticeRepository.deleteNotice(noticeNo);
+	}
+
 }

@@ -82,4 +82,8 @@ public class NoticeRepository {
 	public int getChatAlramCount(Long userNo) {
 		return sqlSession.selectOne("notice.getChatAlramCount", userNo);
 	}
+
+	public void deleteNotice(long noticeNo) {
+		sqlSession.delete("notice.deleteNotice", noticeNo);
+	}
 }
