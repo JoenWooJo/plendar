@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom"
 import Checkbox from '@mui/material/Checkbox';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import update from 'react-addons-update';
 import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
-import { get } from '../../../api/Axios';
+import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
@@ -14,15 +15,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-
-const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
+const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
+    const location = useLocation();
+    const state = location.state;
+    const cardView = state != null ? state["cardNo"] : "";
     const { description, title, no } = card;
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
-    
+
     useEffect(() => {
         taskList.length === 0 && t();
         const arr = [];
@@ -80,20 +81,27 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
 
                 setTaskList(newTaskList)
             })
-        
-        
+
+
     }
 
     //카드 삭제하기 
-     const removeCard = async (cardNo) => {
+    const removeCard = async (cardNo) => {
         await remove(`/kanban/card/deleteCard/${no}`);
         setRefresh(refresh => !refresh);
     }
 
+    setTimeout(()=>{
+        if(document.getElementById(`card-${no}`) != null) {
+             document.getElementById(`card-${no}`).style = "";
+        }
+    }, 1000)
+
     return (
         <div>
             <div className="card bg-light text-black shadow mb-2">
-                <div className="card-body">
+                <div className="card-body" id={`card-${no}`}
+                style={{ border: cardView == no ? "3px outset #6699FF" : "", borderRadius: cardView == no ? "10px" : "" }}>
                     <div className='row'>
                         <div className="col-xl-8 mt-2">
                             {title}
@@ -101,13 +109,13 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
 
                         {/* 드롭다운 */}
                         <div className='col-xl-1'>
-                        <DropdownButton id="dropdown-basic-button" title="카드수정" size="sm" variant="light">
-                            <AddTask cardNo = {no} setRefresh={setRefresh}/>
-                            <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
-                        <Dropdown.Item onClick={() => removeCard(no)} >삭제하기</Dropdown.Item>
-                        </DropdownButton>
+                            <DropdownButton id="dropdown-basic-button" title="카드수정" size="sm" variant="light">
+                                <AddTask cardNo={no} setRefresh={setRefresh} />
+                                <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
+                                <Dropdown.Item onClick={() => removeCard(no)} >삭제하기</Dropdown.Item>
+                            </DropdownButton>
 
-                    </div>
+                        </div>
                     </div>
                     <div className='row'>
                         <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>

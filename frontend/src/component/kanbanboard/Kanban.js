@@ -14,12 +14,21 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const Kanban = () => {
   const params = useParams();
   const [deckList, setDeckLlist] = useState([]);
-  const projectNo = params.no;
+  const [projectNo, setProjectNo] = useState(0);
   const [createResult, setCreateResult] = useState(false);
+  
+  if(projectNo !== params.no) {
+    setProjectNo(params.no);
+  }
 
   useEffect(() => {
     t();
   }, [createResult])
+
+  useEffect(() => {
+    console.log("t() called", projectNo);
+    t();
+  }, [projectNo])
 
   // 덱 리스트 가져오기
   const t = async () => {
@@ -27,11 +36,12 @@ const Kanban = () => {
     setDeckLlist(list);
   }
 
+
+
   // DragEnd  함수
   const onDragEnd = () => {
     console.log("드래그")
   }
-
 
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
@@ -60,13 +70,12 @@ const Kanban = () => {
                         <Draggable draggableId={String(i)} index={i} key={i}>
                         {provided =>(
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Deck
-                          no={m.no}
-                          key={i}
-                          title={m.title}
-                          projectNo={projectNo}
-                          setCreateResult={setCreateResult}
-                        />
+                          <Deck
+                            no={m.no}
+                            key={i}
+                            deckTitle={m.title}
+                            projectNo={projectNo}    
+                          />
                         </div>
                         )}
                         </Draggable>

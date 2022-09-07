@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import CreateCard from '../card/CreateCard';
 import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-import { Droppable, Draggable } from "react-beautiful-dnd";
 
-const Deck = ({ title, no, projectNo }) => {
-    const [deckTitle, setDeckTitle] = useState(title);
+const Deck = ({ deckTitle, no, projectNo }) => {
+    const [title, setTitle] = useState(deckTitle);
+
+    useEffect(()=>{
+        if(deckTitle !== title) {
+            setTitle(deckTitle);
+        }
+    }, [deckTitle]);
+    
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
@@ -27,36 +32,36 @@ const Deck = ({ title, no, projectNo }) => {
         t();
     }, [refresh])
 
+    useEffect(() => {
+        t();
+    }, [no])
+
     const onChangeTitle = (event) => {
-        setDeckTitle(event.target.value);
+        setTitle(event.target.value);
     };
 
     const onClickDeckTitle = () => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
         if (clickChk > 2) {
-            onChangeTitle
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
 
     const keyEnter = (e) => {
+        console.log(e.target.value);
         if (e.key == "Enter") {
-            onChangeTitle
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
 
-    //덱 수정하기 
-    useEffect(() => {
-        postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
-    }, [deckTitle]);
-
-
     return (
         <Paper>
+
             <div className="row">
                 <div className="col-xl-9 mt-4 ml-3" onClick={onClickDeckTitle}>
                     {changeTitle
@@ -66,14 +71,14 @@ const Deck = ({ title, no, projectNo }) => {
                             multiline
                             label='제목 수정'
                             maxRows={4}
-                            value={deckTitle}
+                            value={title}
                             onChange={(e) => onChangeTitle(e)}
                             onKeyPress={keyEnter}
                             sx={{ml: 1 }}
                             size="small"
                         />
                         :
-                        <h5 className="mb-3 font-weight-bold text-gray-dark">{deckTitle}</h5>
+                        <h5 className="mb-3 font-weight-bold text-gray-dark">{title}</h5>
                     }
                 </div>
                 <div className="col-xl-2 mt-2">
@@ -90,8 +95,7 @@ const Deck = ({ title, no, projectNo }) => {
                         cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />)
                         )}
                 </div>
-            </div>
-
+            </div>     
         </Paper>
     );
 };
