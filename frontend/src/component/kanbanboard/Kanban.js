@@ -4,10 +4,10 @@ import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck';
 import { useParams } from 'react-router';
 import { get } from '../../api/Axios';
-import Box from '@mui/material/Box';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { color } from '@mui/system';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Box from '@mui/material/Box';
 
 
 
@@ -39,25 +39,25 @@ const Kanban = () => {
           <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Porject Kanban</h4>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="title">
+          <Droppable droppableId="title"  direction="horizontal">
             {provided => (
-              <div className="card-body" style={{ width: "3000px", height: "750px", "overflow": "auto" }} {...provided.droppableProps} ref={provided.innerRef}>
+              <div className="card-body" {...provided.droppableProps} ref={provided.innerRef} style={{ width: "3000px", height: "750px", "overflow": "auto" }}>
                 {/* 덱 생성하기 버튼 */}
                 <CreateDeck setCreateResult={setCreateResult} />
                 <Box
-                  sx={{
+                    sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     '& > :not(style)': {
-                      ml: 2,
-                      width: 300,
-                      height: 80
+                        ml: 2,
+                        width: 300,
+                        height: 30
                     }
-                  }}>
+                }}>
                   {
                     deckList.map((m, i) => {
                       return (
-                        <Draggable draggableId={String(i)} index={i} key={i}>
+                        <Draggable draggableId={String(i)} index={i} key={i} direction="horizontal">
                         {provided =>(
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                         <Deck
@@ -69,16 +69,17 @@ const Kanban = () => {
                         />
                         </div>
                         )}
+                        
                         </Draggable>
                       );
                     })}
-                </Box>
+                    </Box>
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
-      </div>
+        </div>
   );
 };
 

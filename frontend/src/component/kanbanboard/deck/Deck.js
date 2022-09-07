@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Deck = ({ title, no, projectNo }) => {
     const [deckTitle, setDeckTitle] = useState(title);
@@ -54,6 +54,9 @@ const Deck = ({ title, no, projectNo }) => {
         postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
     }, [deckTitle]);
 
+    const onDragEnd = () => {
+        console.log("드래그")
+      }
 
     return (
         <Paper>
@@ -85,13 +88,28 @@ const Deck = ({ title, no, projectNo }) => {
                         setRefresh={setRefresh}
                     /> : null}
                 </div>
-                <div className="card-body">
-                    {
-                        cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />)
-                        )}
-                </div>
-            </div>
 
+                <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="title">
+                {provided =>(
+                <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
+                    {
+                        cardList.map((m, i) => (
+                        <Draggable draggableId={"title" + i} index={i}>
+                        {provided => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <Card key={i} title={title} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        </div>
+                        )}
+                        </Draggable>
+                        )
+                        )}
+                {provided.placeholder}
+                </div>
+                )}
+                </Droppable>
+                </DragDropContext>
+            </div>
         </Paper>
     );
 };

@@ -5,7 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import update from 'react-addons-update';
 import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
-import { get } from '../../../api/Axios';
+import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
@@ -19,7 +19,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
     const { description, title, no } = card;
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
     
