@@ -14,8 +14,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
     const { description, title, no } = card;

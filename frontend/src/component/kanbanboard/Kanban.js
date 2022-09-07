@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SiteLayout from '../../layout/SiteLayout';
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck';
 import { useParams } from 'react-router';
 import { get } from '../../api/Axios';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
-import { color } from '@mui/system';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
 
@@ -16,6 +15,7 @@ const Kanban = () => {
   const [deckList, setDeckLlist] = useState([]);
   const projectNo = params.no;
   const [createResult, setCreateResult] = useState(false);
+  const [dtTodos, setDtTodos] = useState(deckList);
 
   useEffect(() => {
     t();
@@ -27,11 +27,60 @@ const Kanban = () => {
     setDeckLlist(list);
   }
 
-  // DragEnd  함수
-  const onDragEnd = () => {
-    console.log("드래그")
-  }
+  const onDragEnd = useCallback((result) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) return;
+    if (
+      source.index === destination.index
+    )
+      return;
 
+    const column = deckList[source.index-1];
+    // console.log("11",deckList[source.index-1])
+    // console.log(deckList[source.index-1])
+    if (source.index < destination.index) {
+      deckList.map((e,i)=>{
+        if(e.sequence <= destination.index) {
+          if(source.index >= e.sequence){
+            return;
+          }
+          e.sequence = e.sequence -1
+        }  
+        // if(e.sequence >= destination.index){
+          // e.sequence = e.sequence +1
+        // } 
+        console.log("deckList>> ",e);
+      })
+  
+      deckList[source.index-1]["sequence"] = destination.index;
+  
+      console.log("---------", source.index-1)
+      console.log("-----destination----", destination.index)
+      console.log("----column-----",column)
+    }
+
+    else {
+      deckList.map((e,i)=>{
+        if(e.sequence >= destination.index){
+          if(source.index <= e.sequence){
+            return;
+          }
+          e.sequence = e.sequence +1
+        } 
+        console.log("deckList>> ",e);
+      })
+  
+      deckList[source.index-1]["sequence"] = destination.index;
+  
+      console.log("---------", source.index-1)
+      console.log("-----destination----", destination.index)
+      console.log("----column-----",column)
+    }
+    console.log("-------------------------------")
+    deckList.map((e)=>{console.log("REAL>>", e)})
+    
+   
+  }, [deckList]);
 
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
@@ -39,9 +88,9 @@ const Kanban = () => {
           <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Porject Kanban</h4>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="title"  direction="horizontal">
+          <Droppable droppableId="title" direction="horizontal">
             {provided => (
-              <div className="card-body" {...provided.droppableProps} ref={provided.innerRef} style={{ width: "3000px", height: "750px", "overflow": "auto" }}>
+              <div className="card-body" {...provided.droppableProps} ref={provided.innerRef} style={{ width: "3000px", height: "750px" }}>
                 {/* 덱 생성하기 버튼 */}
                 <CreateDeck setCreateResult={setCreateResult} />
                 <Box
@@ -55,17 +104,16 @@ const Kanban = () => {
                     }
                 }}>
                   {
-                    deckList.map((m, i) => {
+                    deckList.map((data, index) => {
                       return (
-                        <Draggable draggableId={String(i)} index={i} key={i} direction="horizontal">
+                        <Draggable draggableId={String(index)} index={data.sequence} key={index} direction="horizontal">
                         {provided =>(
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                         <Deck
-                          no={m.no}
-                          key={i}
-                          title={m.title}
+                          no={data.no}
+                          key={index}
+                          title={data.title}
                           projectNo={projectNo}
-                          setCreateResult={setCreateResult}
                         />
                         </div>
                         )}

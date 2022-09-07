@@ -35,7 +35,6 @@ const Deck = ({ title, no, projectNo }) => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
         if (clickChk > 2) {
-            onChangeTitle
             setChangeTitle(false);
             setClickChk(0);
         }
@@ -43,7 +42,6 @@ const Deck = ({ title, no, projectNo }) => {
 
     const keyEnter = (e) => {
         if (e.key == "Enter") {
-            onChangeTitle
             setChangeTitle(false);
             setClickChk(0);
         }
@@ -95,7 +93,7 @@ const Deck = ({ title, no, projectNo }) => {
                 <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
                     {
                         cardList.map((m, i) => (
-                        <Draggable draggableId={"title" + i} index={i}>
+                        <Draggable draggableId={"title" + i} index={i} key={i}>
                         {provided => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                         <Card key={i} title={title} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
