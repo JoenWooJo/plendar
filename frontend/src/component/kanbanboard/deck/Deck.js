@@ -8,8 +8,8 @@ import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const Deck = ({ title, no, projectNo }) => {
-    const [deckTitle, setDeckTitle] = useState(title);
+const Deck = ({ deckTitle, no, projectNo }) => {
+    const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
@@ -23,34 +23,41 @@ const Deck = ({ title, no, projectNo }) => {
         setCardList(list);
     }
 
+    useEffect(()=>{
+        if(deckTitle !== title) {
+            setTitle(deckTitle);
+        }
+    }, [deckTitle]);
+    
     useEffect(() => {
         t();
     }, [refresh])
 
-    const onChangeTitle = (event) => {
-        setDeckTitle(event.target.value);
-    };
+    useEffect(() => {
+        t();
+    }, [no])
 
+
+    const onChangeTitle = (event) => {
+        setTitle(event.target.value);
+    };
     const onClickDeckTitle = () => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
         if (clickChk > 2) {
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
-
     const keyEnter = (e) => {
+        console.log(e.target.value);
         if (e.key == "Enter") {
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
-
-    //덱 수정하기 
-    useEffect(() => {
-        postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
-    }, [deckTitle]);
 
     const onDragEnd = () => {
         console.log("드래그")
@@ -67,14 +74,14 @@ const Deck = ({ title, no, projectNo }) => {
                             multiline
                             label='제목 수정'
                             maxRows={4}
-                            value={deckTitle}
+                            value={title}
                             onChange={(e) => onChangeTitle(e)}
                             onKeyPress={keyEnter}
                             sx={{ml: 1 }}
                             size="small"
                         />
                         :
-                        <h5 className="mb-3 font-weight-bold text-gray-dark">{deckTitle}</h5>
+                        <h5 className="mb-3 font-weight-bold text-gray-dark">{title}</h5>
                     }
                 </div>
                 <div className="col-xl-2 mt-2">
@@ -95,7 +102,7 @@ const Deck = ({ title, no, projectNo }) => {
                         cardList.map((m, i) => (
                         <Draggable draggableId={"title" + i} index={i} key={i}>
                         {provided => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} direction="horizontal">
                         <Card key={i} title={title} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
                         </div>
                         )}

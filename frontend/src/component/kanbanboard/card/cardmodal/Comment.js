@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import dayjs from "dayjs";
-
 import { Form, Card } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import moment from 'moment';
@@ -97,6 +96,7 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
                         >
                     확인
                 </Button>
+                
             </div>
         </div>
     );

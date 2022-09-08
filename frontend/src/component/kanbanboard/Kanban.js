@@ -3,7 +3,7 @@ import SiteLayout from '../../layout/SiteLayout';
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck';
 import { useParams } from 'react-router';
-import { get } from '../../api/Axios';
+import { get, post } from '../../api/Axios';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
@@ -19,6 +19,7 @@ const Kanban = () => {
 
   useEffect(() => {
     t();
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }, [createResult])
 
   // 덱 리스트 가져오기
@@ -27,61 +28,56 @@ const Kanban = () => {
     setDeckLlist(list);
   }
 
-  const onDragEnd = useCallback((result) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) return;
-    if (
-      source.index === destination.index
-    )
-      return;
+   //덱 움직이기 
+   const moveDeck = async () => {
+    await post(`/kanban/deck/update/move`,deckList);
+  }
 
-    const column = deckList[source.index-1];
-    // console.log("11",deckList[source.index-1])
-    // console.log(deckList[source.index-1])
+  const onDragEnd = async (result) => {
+    const currentList = [...deckList];
+    const { destination, source } = result;
+
+    if (!destination || source.index === destination.index ) {
+      return;
+    }
+
+    const column = currentList[source.index-1];
     if (source.index < destination.index) {
-      deckList.map((e,i)=>{
+      currentList.map((e,i)=>{
         if(e.sequence <= destination.index) {
           if(source.index >= e.sequence){
             return;
           }
           e.sequence = e.sequence -1
         }  
-        // if(e.sequence >= destination.index){
-          // e.sequence = e.sequence +1
-        // } 
-        console.log("deckList>> ",e);
       })
   
-      deckList[source.index-1]["sequence"] = destination.index;
-  
-      console.log("---------", source.index-1)
-      console.log("-----destination----", destination.index)
-      console.log("----column-----",column)
-    }
-
-    else {
-      deckList.map((e,i)=>{
+      currentList[source.index-1]["sequence"] = destination.index;
+    } else {
+      currentList.map((e,i)=>{
         if(e.sequence >= destination.index){
           if(source.index <= e.sequence){
             return;
           }
           e.sequence = e.sequence +1
         } 
-        console.log("deckList>> ",e);
+        //console.log("currentList>> ",e);
       })
   
-      deckList[source.index-1]["sequence"] = destination.index;
-  
-      console.log("---------", source.index-1)
-      console.log("-----destination----", destination.index)
-      console.log("----column-----",column)
+      currentList[source.index-1]["sequence"] = destination.index;
     }
-    console.log("-------------------------------")
-    deckList.map((e)=>{console.log("REAL>>", e)})
-    
-   
-  }, [deckList]);
 
+    currentList.sort((a, b)=> {
+      return a.sequence - b.sequence;
+    })
+    
+    setDeckLlist(currentList);
+   
+   // await moveDeck();
+
+  };
+  
+  console.log("babo1--------------------------------")
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>
@@ -112,7 +108,7 @@ const Kanban = () => {
                         <Deck
                           no={data.no}
                           key={index}
-                          title={data.title}
+                          deckTitle={data.title}
                           projectNo={projectNo}
                         />
                         </div>
