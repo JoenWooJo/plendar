@@ -34,9 +34,6 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
     };
     const b = async(e) => {
         const commentList = await get(`/kanban/card/find/comment/${cardNo}`);
-
-        // 날짜 형식 바꿔서 다시 리스트로 저장
-        // 미안하다 채원아 여기서 못했다;;
         setFeedComments(commentList);
     }
      useEffect(() => {

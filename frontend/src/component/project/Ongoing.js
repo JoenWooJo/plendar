@@ -12,7 +12,9 @@ const Ongoing = ({
     finished,
     priority,
     startDate,
+    state
 }) => {
+    let projectNo = state != null ? state["projectNo"] : ""
     const [morevertList, setMorevertList] = useState(false);
     const projectData = {
         no: no,
@@ -23,9 +25,14 @@ const Ongoing = ({
         priority: priority
     }
 
+
+
     return (
         <div className="col-xl-3  mb-4" key={no}  >
-            <div className="card border-left-primary shadow h-100 py-2" >
+            <div className="card border-left-primary shadow h-100 py-2">
+            {
+                projectNo == no && <span><img id={"proj-new-img"} className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position:"absolute", width: "35px", left: "75%", marginBottom: "5px"}} /></span>
+            }
                 <div className="card-body" >
                     <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">

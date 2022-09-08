@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SiteLayout from '../../layout/SiteLayout';
+import { useLocation } from "react-router-dom";
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck';
 import { useParams } from 'react-router';
@@ -9,9 +9,15 @@ import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { color } from '@mui/system';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-
+let currentPath = "";
 
 const Kanban = () => {
+  let location = useLocation();
+  
+  const state = location.state;
+  const cardView = state != null ? state["cardNo"] : "";
+  const noticeType = state != null ? state["type"] : "";
+  const noticeNo = state != null && state["noticeNo"] ? state["noticeNo"] : "";
   const params = useParams();
   const [deckList, setDeckLlist] = useState([]);
   const [projectNo, setProjectNo] = useState(0);
@@ -30,6 +36,11 @@ const Kanban = () => {
     t();
   }, [projectNo])
 
+  useEffect(() => {
+    if(currentPath === location.pathname) window.location.reload();
+    currentPath = location.pathname;
+  }, [location]);
+
   // 덱 리스트 가져오기
   const t = async () => {
     const list = await get(`/kanban/deck/find/${projectNo}`);
@@ -42,6 +53,17 @@ const Kanban = () => {
   const onDragEnd = () => {
     console.log("드래그")
   }
+
+  useEffect(()=>{
+    console.log(state,cardView, noticeType, noticeNo)
+      const f = () => {
+          let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
+          child != null && child.parentNode.removeChild(child);
+        }
+        document.addEventListener("click", f)
+
+        
+    }, [state])
 
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>

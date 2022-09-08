@@ -85,9 +85,10 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
                     {morevertList ? <MoreVertDropdown
                         projectNo={projectNo}
-                        no={no}
+                        deckNo={no}
                         cardNo={cardNo}
                         setRefresh={setRefresh}
+                        setMorevertList={setMorevertList}
                     /> : null}
                 </div>
                 <div className="card-body">

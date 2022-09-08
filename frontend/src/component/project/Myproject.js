@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
+import { useLocation } from "react-router-dom"
 import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';
 
 const Myproject = () => {
+    const location = useLocation();
+    const state = location.state;
     const [projectList, setProjectList] = useState([]);
-
-
 
     useEffect(() => {
         const fetchAndProjectList = async () => {
@@ -20,6 +20,21 @@ const Myproject = () => {
         }
         fetchAndProjectList();
     }, []);
+
+    useEffect(()=>{
+        
+        const f = () => {
+            let child = document.getElementById("proj-new-img");
+            child != null && child.parentNode.removeChild(child);
+          }
+  
+          
+          document.addEventListener("click", f)
+  
+          return () => {
+              document.removeEventListener("click", f )
+          }
+      }, [])
 
     return (
             <div className="col-xl-11 ml-4">
@@ -56,6 +71,7 @@ const Myproject = () => {
                                         startDate={m.startDate}
                                         finished={m.finished}
                                         priority={m.priority}
+                                        state={state}
                                     />
                                 );
                             })}
