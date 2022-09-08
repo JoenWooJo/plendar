@@ -71,10 +71,8 @@ public class CardService {
 		return cardVo;
 	}
 
-	public Long deleteCard(Long cardNo) {
+	public void deleteCard(Long cardNo) {
 		cardRepository.deleteCard(cardNo);
-		return cardNo;
-		
 	}
 
 	public void cardNotice(CardVo newCardVo, String projectTitle) {

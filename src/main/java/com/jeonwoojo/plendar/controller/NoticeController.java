@@ -45,7 +45,6 @@ public class NoticeController {
 	
 	@DeleteMapping("/delete/{noticeNo}")
 	public ResponseEntity<JsonResult> deleteNotice(@PathVariable("noticeNo")long noticeNo) {
-		System.out.println(noticeNo);
 		noticeService.deleteNotice(noticeNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)

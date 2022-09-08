@@ -7,7 +7,7 @@
 		<![CDATA[
 			select no, deck_no as deckNo, title, description, start_date as startDate, end_date as endDate, sequence, finished
 				from card 
-				where deck_no = #{deck_no};
+				where deck_no = #{deck_no}
 		]]>
 	</select>
 	
@@ -16,7 +16,7 @@
 			select u.no, u.name, u.email , pm.leader, pm.manager
 				from user u, proj_member pm 
 			    where u.no = pm.user_no 
-			    and pm.project_no=#{projectNo};
+			    and pm.project_no=#{projectNo}
 		]]>
 	</select>
 
@@ -24,7 +24,7 @@
 		<![CDATA[
 		insert into card 
 		values(null, #{deckNo }, #{title }, #{description }, #{startDate }, #{endDate}, (SELECT IFNULL(MAX(d.sequence) + 1, 1) 
-		FROM card c, deck d where d.no = #{deckNo } and c.deck_no = d.no), 'N');	
+		FROM card c, deck d where d.no = #{deckNo } and c.deck_no = d.no), 'N')
 		]]>
 
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -45,6 +45,11 @@
       <![CDATA[
          insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
       ]]>
+      <selectKey keyProperty="no" resultType="long" order="AFTER">
+		<![CDATA[
+		  select last_insert_id()
+	  	]]>
+	  </selectKey>
    </insert>
    
    <select id="findComment" parameterType="long" resultType="commentvo">
@@ -83,7 +88,7 @@
 			select u.no, u.name, u.email
 				from user u, card_member cm 
 			    where u.no = cm.user_no
-			    and cm.card_no=#{cardNo };
+			    and cm.card_no=#{cardNo }
 		]]>
 	</select>
 	
@@ -110,29 +115,33 @@
 	
 	<delete id="deleteTask" parameterType="long">
 		<![CDATA[
-			delete from task where card_no = #{no};
+			delete from task where card_no = #{no}
 		]]>
 	</delete>
 	
 	<delete id="deleteComment" parameterType="long">
 		<![CDATA[
-			delete from comment where card_no = #{no};
+			delete from comment where card_no = #{no}
 		]]>
 	</delete>
 	
 	<delete id="deleteCard" parameterType="long">
 		<![CDATA[
-			delete from card where no = #{no};
+			delete from card where no = #{no }
 		]]>
 	</delete>
 	
 	<delete id="deleteCardMember" parameterType="long">
 		<![CDATA[
-			delete from card_member where card_no = #{no};
+			delete from card_member where card_no = #{no}
 		]]>
 	</delete>
 	
-	
+	<delete id="deleteCardNotice" parameterType="long">
+		<![CDATA[
+			delete from notice where card_no = #{no } and type= "card"
+		]]>
+	</delete>
 	
 	
 </mapper>

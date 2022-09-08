@@ -86,4 +86,12 @@ public class NoticeRepository {
 	public void deleteNotice(long noticeNo) {
 		sqlSession.delete("notice.deleteNotice", noticeNo);
 	}
+
+	public void insertNotice(NoticeMessage noticeMessage) {
+		sqlSession.insert("notice.insertNotice", noticeMessage);
+	}
+
+	public void insertNoticeDelete(NoticeMessage noticeMessage) {
+		sqlSession.insert("notice.insertNoticeProject", noticeMessage);
+	}
 }

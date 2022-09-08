@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.CardService;
+import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.service.ProjectService;
 import com.jeonwoojo.plendar.vo.CardVo;
 import com.jeonwoojo.plendar.vo.CommentVo;
@@ -29,6 +30,8 @@ public class CardController {
 	private CardService cardService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private NoticeService noticeService;
 	
 	@GetMapping("/find/{deckNo}")
 	public ResponseEntity<JsonResult> findCard(@PathVariable("deckNo") Long deckNo) {
@@ -63,6 +66,9 @@ public class CardController {
 	@PostMapping("/comment/insert")
 	 public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
 	      cardService.commentInsert(commentVo);
+	      System.out.println("commentVo"+commentVo);
+	      noticeService.commentNotice(commentVo);
+	      
 	      return ResponseEntity
 	            .status(HttpStatus.OK)
 	            .body(JsonResult.success("insert ok")); 
@@ -96,13 +102,13 @@ public class CardController {
 					.body(JsonResult.success(cardService.updateCard(cardVo)));
 		}
 	   
-	   @DeleteMapping("/deleteCard/{cardNo}")
-	   public ResponseEntity<JsonResult> deleteCard(@PathVariable("cardNo") Long cardNo) {
-			System.out.println("deleteCard: " + cardNo);
+	   @DeleteMapping("/deleteCard/{projectNo}/{cardNo}")
+	   public ResponseEntity<JsonResult> deleteCard(@PathVariable("projectNo") Long projectNo, @PathVariable("cardNo") Long cardNo) {
+			CardVo cardVo = cardService.findCardInfo(cardNo);
+
+//			noticeService.deleteCardNotice(projectNo, cardVo);
 			cardService.deleteCard(cardNo);
+			
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(cardNo));
 		}
-	   
-	   
-	
 }
