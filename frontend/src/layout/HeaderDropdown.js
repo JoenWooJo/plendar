@@ -7,6 +7,8 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import '../assets/css/bar.css';
+
 const HeaderDropdown = ({ alramList, setClick }) => {
 
     const alramClick = async (alram) => {
@@ -20,9 +22,10 @@ const HeaderDropdown = ({ alramList, setClick }) => {
         <div>
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show"
                 aria-labelledby="alertsDropdown">
-                <h6 className="dropdown-header">
-                    Notice
-                </h6>
+                <h4 className="dropdown-header">
+                    알림 확인
+                </h4>
+                <div className="bar pt-3 pe-3" style={{ height: "600px", "overflow": "auto" }}  data-mdb-perfect-scrollbar="true">
                 {
                     alramList.map((e, i) => {
                         let to = e.type == "card" || e.type == "cardDelete" || e.type == "comment" ? `/kanbanboard/${e.projectNo}` : "/project/myproject";
@@ -48,7 +51,7 @@ const HeaderDropdown = ({ alramList, setClick }) => {
                         )
                     })
                 }
-                <a className="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                </div>
             </div>
         </div>
     );

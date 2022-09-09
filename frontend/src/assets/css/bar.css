@@ -7,7 +7,7 @@
     width: 10px;
   }
   .bar::-webkit-scrollbar-thumb {
-    background-color: #6667ab;
+    background-color: #4e73df;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;

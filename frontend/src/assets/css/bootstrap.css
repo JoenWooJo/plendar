@@ -3639,7 +3639,7 @@ input[type=submit].btn-block {
     padding: .5rem 1.5rem;
     margin-bottom: 0;
     font-size: .875rem;
-    color: #858796;
+    color:  #4e73df;
     white-space: nowrap
 }
 
@@ -11437,8 +11437,7 @@ a:focus {
 }
 
 .topbar .dropdown-list .dropdown-header {
-    background-color: #6667ab;
-    opacity: 0.7;
+    background-color: #4e73df;
     border: 1px solid #4e73df;
     padding-top: .75rem;
     padding-bottom: .75rem;
