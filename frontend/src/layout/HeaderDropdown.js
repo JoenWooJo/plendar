@@ -23,7 +23,7 @@ const HeaderDropdown = ({ alramList, setClick }) => {
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show"
                 aria-labelledby="alertsDropdown">
                 <h4 className="dropdown-header">
-                    알림 확인
+                   NOTICE
                 </h4>
                 <div className="bar pt-3 pe-3" style={{ height: "600px", "overflow": "auto" }}  data-mdb-perfect-scrollbar="true">
                 {
