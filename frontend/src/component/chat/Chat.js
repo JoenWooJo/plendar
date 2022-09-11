@@ -63,9 +63,8 @@ const Chat = () => {
     useEffect(() => {
         async function fetchAndMessageList(roomId) {
             const resp = await axios.get('/api/chat/room/messages', {
-                params: {
-                  roomId: roomId
-                }
+                params: {roomId: roomId},
+                headers: {Authorization: window.localStorage.getItem("Authorization"),},
             })
             setMessages(resp.data.data);
         }

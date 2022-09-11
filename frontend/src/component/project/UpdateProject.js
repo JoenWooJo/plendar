@@ -45,7 +45,11 @@ const UpdateProject = () => {
     };
 
     const projectMember = async () => {
-        const projMember = await axios.get(`/api/project/find/member/${projectNo}`);
+        const projMember = await axios.get(`/api/project/find/member/${projectNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setMember(projMember.data.data);
         console.log(">><<< ", projMember.data.data);
     }
@@ -60,7 +64,11 @@ const UpdateProject = () => {
             endDate: endDate,
             member: member
         }
-        const resp = await axios.post("/api/project/update", projectData);
+        const resp = await axios.post("/api/project/update", projectData, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
     };
 
     const is_checked = (event, index) => {

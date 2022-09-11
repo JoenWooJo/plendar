@@ -18,20 +18,25 @@ const Header = ({ }) => {
     const [alramCount, setAlramCount] = useState(0);
 
     const logoutClick = async () => {
-        await axios.get('/api/user/logout')
-
+        await axios.get('/api/user/logout', {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
+        localStorage.removeItem("Authorization");
         localStorage.removeItem("loginUserNo");
-        localStorage.removeItem("loginUserEmail");
-        localStorage.removeItem("loginUserName");
-        localStorage.removeItem("loginUserProfile");
-
+        
         window.location.replace("/login");
     };
 
     const getAlramList = async () => {
-        const resp = await axios.get("/api/notice/alramList");
+        const resp = await axios.get("/api/notice/alramList", {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setAlramList(resp.data.data);
-        // console.log(">>>>>>>><<<<<",(resp.data.data).length)
         setAlramCount((resp.data.data).length);
     };
 

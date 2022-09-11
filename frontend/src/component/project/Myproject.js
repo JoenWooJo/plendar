@@ -7,12 +7,17 @@ import ComputerIcon from '@mui/icons-material/Computer';
 
 const Myproject = () => {
     const [projectList, setProjectList] = useState([]);
+    const userNo = localStorage.getItem("loginUserNo")
 
 
 
     useEffect(() => {
         const fetchAndProjectList = async () => {
-            await axios.get('/api/project/find/project')
+            await axios.get(`/api/project/find/project/${userNo}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                })
                 .then((resp) => {
                     const list = resp.data.data;
                     setProjectList(list);

@@ -7,7 +7,12 @@ const Complete = () => {
     const [projectList, setProjectList] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/project/find/completeProject')
+        axios.get('/api/project/find/completeProject', {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 const list = resp.data.data;
                 setProjectList(list);

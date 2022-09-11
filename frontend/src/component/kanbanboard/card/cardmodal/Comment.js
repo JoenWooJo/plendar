@@ -29,7 +29,11 @@ const Comment = ({ projectNo, deckNo, cardNo, show, setShow }) => {
             content: comment,
             date: nowTime
         }
-        axios.post('/api/kanban/card/comment/insert', body)
+        axios.post('/api/kanban/card/comment/insert', body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 // console.log("ddd",resp)
                 // 보내고나서 보낸값 지워지기
@@ -39,7 +43,11 @@ const Comment = ({ projectNo, deckNo, cardNo, show, setShow }) => {
 
     };
     const b = async () => {
-        const commentList = await get(`/kanban/card/find/comment/${cardNo}`);
+        const commentList = await get(`/kanban/card/find/comment/${cardNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         // console.log("aaaaa", a);
         // 날짜 형식 바꿔서 다시 리스트로 저장
         setFeedComments(commentList);

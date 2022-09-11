@@ -17,14 +17,17 @@ import { border, borderRadius } from '@mui/system';
 import BadgeIcon from '@mui/icons-material/Badge';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import PersonIcon from '@mui/icons-material/Person';
+import jwt_decode from "jwt-decode";
 
 const Mypage = () => {
     const client = axios.create({ baseURL: '/api' })
 
-    const [name, setName] = useState(localStorage.getItem("loginUserName"));
-    const [email, setEmail] = useState(localStorage.getItem("loginUserEmail"));
-    const [profile, setProfile] = useState(localStorage.getItem("loginUserProfile"))
+    const decode = jwt_decode(localStorage.getItem("Authorization"));
+    const [name, setName] = useState(decode["name"]);
+    const [email, setEmail] = useState(decode["email"]);
+    const [profile, setProfile] = useState(decode["profile"])
     const [imageSrc, setImageSrc] = useState(profile);
+    
 
     const changeName = (event) => {
         setName(event.target.value);
@@ -85,14 +88,21 @@ const Mypage = () => {
             no: localStorage.getItem("loginUserNo"),
             profile: profile
         }
-        axios.post("/api/user/axios/deleteProfile", body)
+        axios.post("/api/user/axios/deleteProfile", body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
                     window.location.replace("/login");
                 }
                 setProfile(resp.data.data);
-                localStorage.setItem("loginUserProfile", "/assets/profile/defaultProfile.png")
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("loginUserNo");
+                alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
+                window.location.replace("/login");
             });
     }
 
@@ -119,13 +129,17 @@ const Mypage = () => {
                 password: newValues.password
             }
 
-            axios.post('/api/user/axios/update', body)
+            axios.post('/api/user/axios/update', body, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                })
                 .then((resp) => {
                     if (resp.data.result == "fail") {
                         alert(resp.data.message);
                         window.location.replace("/login");
                     }
-                    resp.data.result === "success" && alert("수정이 완료되었습니다.")
+                    resp.data.result === "success" && alert("수정이 완료되었습니다. 다시 로그인 해주세요.")
                     setNewValues({
                         password: '',
                         showPassword: false,
@@ -134,6 +148,9 @@ const Mypage = () => {
                         password: '',
                         showPassword: false,
                     })
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("loginUserNo");
+                window.location.replace("/login");
                 })
         }
     }
@@ -156,8 +173,10 @@ const Mypage = () => {
 
         // Post
         const response = await client.post(`/user/axios/updateProfile`, formData, {
+            params: {userNo: localStorage.getItem("loginUserNo")},
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                Authorization: window.localStorage.getItem("Authorization"),
             }
         });
         // 바뀐 url
@@ -166,7 +185,10 @@ const Mypage = () => {
             window.location.replace("/login");
         }
         setProfile(response.data.data);
-        localStorage.setItem("loginUserProfile", response.data.data)
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("loginUserNo");
+        alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
+        window.location.replace("/login");
 
     }
 
