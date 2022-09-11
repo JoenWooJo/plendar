@@ -1,26 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import CreateCard from '../card/CreateCard';
-import Card from '../card/Card';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CardLayout from '../card/CardLayout';
+
 
 const Deck = ({ deckTitle, no, projectNo }) => {
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
-    const [cardNo, setCardNo] = useState(0);
+    const [cardNo, setCardNo] = useState();
     const [refresh, setRefresh] = useState(false);
     const [morevertList, setMorevertList] = useState(false);
+    const [taskCount, setTaskCount] = useState([]);
+    const [nCount, setNCount] = useState([]);
 
     // 카드 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/${no}`);
         setCardList(list);
+      
+       list.map((m,i)=>{
+            cardTask(m.no);
+            cardN(m.no);
+            setCardNo(m.no);
+       })
     }
 
     useEffect(()=>{
@@ -36,6 +45,26 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     useEffect(() => {
         t();
     }, [no])
+
+     //카드 테스크 개수
+     const cardTask = async (cardNo) => {
+        const list = await get(`/kanban/card/findtaskcount/${cardNo}`);
+        setTaskCount((prevTaskCount)=>(prevTaskCount.concat([list])));
+    }
+    
+    //테스크 완료 개수
+    const cardN = async (cardNo) => {
+        const list = await get(`/kanban/card/findncount/${cardNo}`);
+        setNCount((prevNCount)=>(prevNCount.concat([list])));
+    }
+
+    useEffect(() => {
+        console.log("테스크 개수",taskCount);
+    }, [taskCount])
+
+    useEffect(() => {
+        console.log("미완료 개수",nCount);
+    }, [nCount])
 
 
     const onChangeTitle = (event) => {
@@ -93,23 +122,24 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                         setRefresh={setRefresh}
                     /> : null}
                 </div>
-
+                
                 <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="title">
+                <Droppable droppableId="card">
                 {provided =>(
                 <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
                     {
-                        cardList.map((m, i) => (
-                        <Draggable draggableId={"title" + i} index={i} key={i}>
+                        cardList.map((data, index) => (
+                        <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
                         {provided => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} direction="horizontal">
-                        <Card key={i} title={title} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <CardLayout key={index} nCount={nCount} taskCount={taskCount} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        {provided.placeholder}
                         </div>
                         )}
                         </Draggable>
                         )
                         )}
-                {provided.placeholder}
+                    {provided.placeholder}
                 </div>
                 )}
                 </Droppable>

@@ -73,7 +73,7 @@ const Kanban = () => {
     
     setDeckLlist(currentList);
    
-   // await moveDeck();
+    await moveDeck();
 
   };
   
@@ -110,10 +110,10 @@ const Kanban = () => {
                           key={index}
                           deckTitle={data.title}
                           projectNo={projectNo}
+                          index={index}
                         />
                         </div>
                         )}
-                        
                         </Draggable>
                       );
                     })}

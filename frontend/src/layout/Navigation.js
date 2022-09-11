@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import '../assets/css/plendar.css';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
@@ -7,8 +7,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import LockIcon from '@mui/icons-material/Lock';
 
 export default class Navigation extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -63,6 +65,14 @@ export default class Navigation extends Component {
                     <NavLink className="nav-link"
                         to={'/user/mypagechecked'}>
                         <PersonIcon fontSize="large" /> &nbsp; My Page
+                    </NavLink>
+                </li>
+                <hr className="sidebar-divider" />
+
+                <li className="nav-item active">
+                    <NavLink className="nav-link"
+                        to={'/user/password'}>
+                        <LockIcon fontSize="large" /> &nbsp; change password
                     </NavLink>
                 </li>
                 <hr className="sidebar-divider" />
