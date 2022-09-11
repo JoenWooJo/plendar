@@ -12,7 +12,7 @@ import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.TestService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8000")
+@CrossOrigin(origins = "http://localhost:9090",allowedHeaders= "*")
 public class TestController {
 	
 	@Autowired
@@ -32,5 +32,6 @@ public class TestController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(testService.findName()));
+		
 	}
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="calendar">
+	<select id="findAll" parameterType="long" resultType="calendarvo">
+		<![CDATA[
+			select a.name as 'userName', b.no as 'id', b.title, b.start_date as 'start', b.end_date as 'end', d.project_no as 'projectNo', d.no as 'deckNo'
+				from user a, 
+					 card b, 
+					 card_member c, 
+					 deck d,
+					 (select p.no as "projctNo", pm.user_no as "userNo" from project p, proj_member pm where pm.user_no = #{userNo } group by p.no) ppm
+				    where a.no = c.user_no
+				    and b.no = c.card_no
+                    and ppm.userNo = #{userNo }
+                    and d.no = c.deck_no
+				  group by b.no;
+		]]>
+	</select>
+	<select id="findByNo" parameterType="long" resultType="calendarvo" >
+		<![CDATA[
+			select a.name as 'userName', b.no as 'id', b.title, b.start_date as 'start', b.end_date as 'end', d.project_no as 'projectNo', d.no as 'deckNo'
+				from user a, 
+					 card b, 
+					 card_member c,
+					 deck d
+				    where a.no = c.user_no
+				    and b.no = c.card_no
+				    and a.no = #{userNo }
+				    and d.no = c.deck_no
+				  group by b.no;
+		]]>
+	</select>
+</mapper>

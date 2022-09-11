@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="task">
+
+	<select id="findTask" resultType="taskvo" parameterType="long">
+		<![CDATA[
+			select no, card_no, content, finished from task where card_no = #{card_no};
+		]]>
+	</select>
+	
+	<insert id="insertTask" parameterType="taskvo">
+		<![CDATA[
+			insert into task  
+				VALUES (null, #{cardNo}, #{content}, "N");
+		]]>	
+	</insert>
+	
+	<update id="updateTaskStatus" parameterType="taskvo">
+				<![CDATA[
+				update task 
+				 set finished = #{finished }
+				where no = #{no }
+				]]>
+	</update>
+	
+	<delete id="deleteTask" parameterType="long">
+		<![CDATA[
+		delete from task where no = #{no}; 
+		]]>
+	</delete>
+	
+	<update id="updateTask" parameterType="taskvo">
+		<![CDATA[
+		update task 
+			set content = #{content } 
+			where no = #{no };
+		]]>
+	</update>
+	
+</mapper>

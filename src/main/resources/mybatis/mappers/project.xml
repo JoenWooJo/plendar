@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project">
+	<select id="findUser" resultType="uservo">
+		<![CDATA[
+			select no, name, email from user
+		]]>
+	</select>
+	
+	<select id="findProjectTitle" parameterType="long" resultType="string">
+		<![CDATA[
+			select title from project where no = #{projectNo }
+		]]>
+	</select>
+	
+	<insert id="createProject" parameterType="projectvo">
+		<![CDATA[
+		insert
+		  into project
+		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N')
+		]]>
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+  	
+	</insert>
+	
+	<insert id="insertMember" parameterType="map">
+		<![CDATA[
+			insert
+				into proj_member
+			 values (${userVo.no }, ${projectNo }, 0, ${userVo.permission })
+		]]>
+	</insert>
+	
+	<insert id="insertReader" parameterType="map">
+		<![CDATA[
+			insert
+				into proj_member
+			 values (${authUser.no }, ${projectNo }, 1, 1)
+		]]>
+	</insert>
+	
+	<select id="findProject" parameterType="long" resultType="projectvo">
+		<![CDATA[
+			select no, title, description, start_date as startDate, end_date as endDate, priority, finished
+			 from project pj, proj_member pjm 
+				where pj.no =  pjm.project_no 
+					and pjm.user_no = #{userNo } 
+					and pj.finished="N"
+					order by priority desc, title asc
+		]]>
+	</select>
+	
+	<select id="findCompleteProject" parameterType="long" resultType="projectvo">
+		<![CDATA[
+			select no, title, description, start_date as startDate, end_date as endDate, priority, finished
+			 from project pj, proj_member pjm 
+				where pj.no =  pjm.project_no 
+					and pjm.user_no = #{userNo } 
+					and pj.finished="Y"
+		]]>
+	</select>
+	
+	<update id="updateProject" parameterType="projectvo">
+	<![CDATA[
+		update project
+			set
+		 title = #{title }, description = #{description }, start_date = #{startDate }, end_date = #{endDate }, priority = #{priority }
+		 where no = #{no }
+		]]>
+	</update>
+	
+	<select id="findProjectMember" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select u.no, u.email, u.name, pm.leader, pm.manager  from user u, proj_member pm 
+				where u.no = pm.user_no
+    		 and project_no = #{projectNo }
+		]]>
+	</select>
+	
+	<delete id="deleteMember" parameterType="map">
+		<![CDATA[
+			delete from proj_member where user_no = ${userVo.no} and project_no = ${projectNo }
+		]]>
+	</delete>
+	
+	
+	<insert id="memberUpdate" parameterType="map">
+		<![CDATA[
+			insert
+				into proj_member
+			 values (${userVo.no }, ${projectNo }, ${userVo.leader }, ${userVo.manager })
+		]]>
+	</insert>
+
+	
+</mapper>

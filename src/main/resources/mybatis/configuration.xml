@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!--   
    <typeAliases>
-      <typeAlias type="com.example.demo.vo.ChatRoomVo" alias="chatroomvo" />
-      <typeAlias type="com.example.demo.vo.ChatMessageVo" alias="chatmessagevo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.CalendarVo" alias="calendarvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ChatRoomVo" alias="chatroomvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ProjectVo" alias="projectvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.UserVo" alias="uservo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ChatMessage" alias="message" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.DeckVo" alias="deckvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.ChatNotice" alias="chatnotice" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.CardVo" alias="cardvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.TaskVo" alias="taskvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.CommentVo" alias="commentvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.NoticeMessage" alias="noticemessage" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.FileSharingVo" alias="filesharingvo" />
+      
    </typeAliases>
-   -->
+   
    <mappers>
       <mapper resource="mybatis/mappers/test.xml" />
+      <mapper resource="mybatis/mappers/chat.xml" />
+      <mapper resource="mybatis/mappers/user.xml" />
+      <mapper resource="mybatis/mappers/calendar.xml" />
+      <mapper resource="mybatis/mappers/project.xml" />
+      <mapper resource="mybatis/mappers/deck.xml" />
+      <mapper resource="mybatis/mappers/card.xml" />
+      <mapper resource="mybatis/mappers/task.xml" />
+      <mapper resource="mybatis/mappers/notice.xml" />
    </mappers>
     
 </configuration>
