@@ -57,6 +57,7 @@
 				where pj.no =  pjm.project_no 
 					and pjm.user_no = #{userNo } 
 					and pj.finished="Y"
+					order by priority desc, title asc
 		]]>
 	</select>
 	

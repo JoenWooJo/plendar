@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
@@ -21,7 +22,6 @@ import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.ProjectVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/project")
@@ -52,20 +52,18 @@ public class ProjectController {
 				.body(JsonResult.success(projectService.findUser()));
 	}
 	
-	@Auth
-	@GetMapping("/find/project")
-	public ResponseEntity<JsonResult> findProject(@AuthUser UserVo authUser) {
+	@GetMapping("/find/project/{userNo}")
+	public ResponseEntity<JsonResult> findProject(@PathVariable("userNo")long userNo) {;
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(projectService.findProject(authUser.getNo())));
+				.body(JsonResult.success(projectService.findProject(userNo)));
 	}
 	
-	@Auth
 	@GetMapping("/find/completeProject")
-	public ResponseEntity<JsonResult> findCompleteProject(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> findCompleteProject(@RequestParam("userNo")long userNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(projectService.findCompleteProject(authUser.getNo())));
+				.body(JsonResult.success(projectService.findCompleteProject(userNo)));
 	}
 	
 	@GetMapping("/find/member/{projectNo}") 

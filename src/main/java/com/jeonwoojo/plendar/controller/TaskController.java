@@ -19,7 +19,6 @@ import com.jeonwoojo.plendar.vo.DeckVo;
 import com.jeonwoojo.plendar.vo.TaskVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/kanban/task")

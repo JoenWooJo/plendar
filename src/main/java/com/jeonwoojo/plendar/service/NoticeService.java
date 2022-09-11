@@ -19,8 +19,8 @@ public class NoticeService {
 		return noticeRepository.insertNoticeProject(projectVo, authUser.getNo());
 	}
 
-	public List<NoticeMessage> getAlramList(UserVo authUser) {
-		return noticeRepository.getAlramList(authUser.getNo());
+	public List<NoticeMessage> getAlramList(long userNo) {
+		return noticeRepository.getAlramList(userNo);
 	}
 
 }
