@@ -26,4 +26,11 @@ public class DeckService {
 		return deckRepository.updateDeck(deckVo);
 	}
 
+	public boolean moveDeck(List<DeckVo> deckList) {
+		for(int i=0; i<deckList.size(); i++ ) {
+		 deckRepository.moveDeck(deckList.get(i));
+		}
+		return false;
+	}
+
 }

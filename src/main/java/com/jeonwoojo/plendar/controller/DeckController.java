@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +58,13 @@ public class DeckController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("insert ok")); 
+	}
+	
+	@PostMapping("/update/move")
+	public ResponseEntity<JsonResult> moveDeck(@RequestBody List<DeckVo> deckList) {
+	System.out.println("컨트롤러덱리스트"+deckList);
+	deckService.moveDeck(deckList);
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("아직"));
 	}
 
 }

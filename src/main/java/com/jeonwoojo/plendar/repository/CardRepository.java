@@ -80,5 +80,13 @@ public class CardRepository {
 		sqlSession.delete("card.deleteCard", cardNo);
 		return cardNo;
 	}
+
+	public Long findTaskCount(Long cardNo) {
+		return sqlSession.selectOne("card.findTaskCount", cardNo);
+	}
+
+	public Long findNCount(Long cardNo) {
+		return sqlSession.selectOne("card.findNCount", cardNo);
+	}
 	
 }

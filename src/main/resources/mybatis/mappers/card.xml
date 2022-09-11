@@ -128,10 +128,21 @@
 	
 	<delete id="deleteCardMember" parameterType="long">
 		<![CDATA[
-			delete from card_member where card_no = #{no};
+			delete from card_member where card_no = #{no}
 		]]>
 	</delete>
 	
+	<select id="findTaskCount" resultType="long" parameterType="long">
+		<![CDATA[
+			select count(*) from task where card_no = #{cardNo}
+		]]>
+	</select>
+	
+	<select id="findNCount" resultType="long" parameterType="long">
+		<![CDATA[
+			select count(*) from task where card_no = #{cardNo} and finished="N";
+		]]>
+	</select>
 	
 	
 	
