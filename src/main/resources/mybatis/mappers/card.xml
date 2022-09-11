@@ -138,11 +138,23 @@
 		]]>
 	</delete>
 	
+
 	<delete id="deleteCardNotice" parameterType="long">
 		<![CDATA[
 			delete from notice where card_no = #{no } and type= "card"
 		]]>
 	</delete>
+
+	<select id="findTaskCount" resultType="long" parameterType="long">
+		<![CDATA[
+			select count(*) from task where card_no = #{cardNo}
+		]]>
+	</select>
 	
+	<select id="findNCount" resultType="long" parameterType="long">
+		<![CDATA[
+			select count(*) from task where card_no = #{cardNo} and finished="N";
+		]]>
+	</select>
 	
 </mapper>

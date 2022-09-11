@@ -79,4 +79,12 @@ public class CardService {
 		noticeService.insertNoticeCard(newCardVo, projectTitle);
 	}
 
+	public Long findTaskCount(Long cardNo) {
+		return cardRepository.findTaskCount(cardNo);
+	}
+
+	public Long findNCount(Long cardNo) {
+		return cardRepository.findNCount(cardNo);
+	}
+
 }

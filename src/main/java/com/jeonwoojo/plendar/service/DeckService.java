@@ -37,6 +37,13 @@ public class DeckService {
 			cardRepository.deleteCard(cardList.get(i).getNo());
 		}
 		deckRepository.deleteDeck(deckNo);
+
+	public boolean moveDeck(List<DeckVo> deckList) {
+		for(int i=0; i<deckList.size(); i++ ) {
+		 deckRepository.moveDeck(deckList.get(i));
+		}
+		return false;
+
 	}
 
 }

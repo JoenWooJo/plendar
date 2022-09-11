@@ -26,8 +26,13 @@ public class DeckRepository {
 		return sqlSession.update("deck.updateDeck",deckVo) ==1;
 	}
 
+
 	public void deleteDeck(long deckNo) {
 		sqlSession.delete("deck.deleteDeck", deckNo);
+
+	public boolean moveDeck(DeckVo deckList) {
+		return sqlSession.update("deck.moveDeck",deckList) ==1;
+
 	} 
 
 }

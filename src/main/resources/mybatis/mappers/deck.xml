@@ -14,7 +14,8 @@
 		<![CDATA[
 			select no, project_no as projectNo, title, sequence
 			  from deck 
-			  where project_no= #{project_no};
+			  where project_no= #{project_no}
+			  order by sequence asc
 		]]>
 	</select>
 	
@@ -31,6 +32,14 @@
 		<![CDATA[
 		update deck 
 			set title = #{title } 
+			where no = #{no }
+		]]>
+	</update>
+	
+	<update id="moveDeck" parameterType="deckvo">
+		<![CDATA[
+		update deck 
+			set sequence = #{sequence } 
 			where no = #{no }
 		]]>
 	</update>
