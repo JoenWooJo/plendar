@@ -21,6 +21,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     const cardView = state != null ? state["cardNo"] : "";
     const noticeType = state != null ? state["type"] : "";
     const noticeNo = state != null && state["noticeNo"] ? state["noticeNo"] : "";
+    
     const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
@@ -93,6 +94,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
         setRefresh(refresh => !refresh);
     }
 
+
     return (
         <div>
             <div className="card bg-light text-black shadow mb-2" style={{position: "relative"}}>
@@ -155,8 +157,6 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                         :
                         null
                     }
-                </div>
-            </div>
         </div>
     );
 };
