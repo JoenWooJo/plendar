@@ -66,6 +66,7 @@ public class DeckController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("delete ok"));
+	}
         
 	@PostMapping("/update/move")
 	public ResponseEntity<JsonResult> moveDeck(@RequestBody List<DeckVo> deckList) {
