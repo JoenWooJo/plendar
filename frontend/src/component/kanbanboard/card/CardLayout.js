@@ -13,7 +13,7 @@ const CardLayout = ({ taskCount, nCount, card, projectNo, deckNo, refresh, setRe
         return stack + el;
     },0);
 
-    console.log("no sum", noSum);
+    //console.log("no sum", noSum);
 
 
     return (

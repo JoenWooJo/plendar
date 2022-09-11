@@ -1,5 +1,4 @@
 import React,{ useEffect, useState } from 'react';
-import CreateCard from '../card/CreateCard';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
@@ -7,6 +6,8 @@ import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import CardLayout from '../card/CardLayout';
+import { Container } from 'react-bootstrap';
+//import styled from 'styled-components';
 
 
 const Deck = ({ deckTitle, no, projectNo }) => {
@@ -126,7 +127,10 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     
        setState(newState);
       };
-    
+
+    //   const Container = styled.div`
+    //     flex-direction: column;
+    //   `;    
 
     return (
         <Paper>
@@ -160,6 +164,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                 </div>
                 
                 <DragDropContext onDragEnd={onDragEnd}>
+                {/* <Container> */}
                 <Droppable droppableId="card">
                 {provided =>(
                 <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
@@ -179,6 +184,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                 </div>
                 )}
                 </Droppable>
+                {/* </Container> */}
                 </DragDropContext>
             </div>
         </Paper>
