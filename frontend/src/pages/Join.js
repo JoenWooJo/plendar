@@ -56,14 +56,8 @@ const Join = () => {
         });
     };
 
-    useEffect(() => { console.log(checkEmail) }, [checkEmail])
-
     const joinClick = (event) => {
 
-        // console.log(name);
-        // console.log(email);
-        // console.log(password);
-        // console.log(confirmpassword);
         if (name == "" || email == "" || password == "" || confirmpassword == "") {
             event.preventDefault();
             alert("빈칸을 입력해 주세요!");

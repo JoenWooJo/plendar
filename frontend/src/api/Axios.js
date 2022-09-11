@@ -36,7 +36,6 @@ export const post = async (url, data) => {
 }
 
 export const postJson = async (url, data) => {
-    console.log(url, data);
     try {
         let response = await client.post(url, data, {
             headers: { 'Content-Type': 'application/json' }

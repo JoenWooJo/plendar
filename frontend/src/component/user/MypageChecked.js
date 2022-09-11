@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -11,9 +10,8 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import SiteLayout from '../../layout/SiteLayout';
-import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
+import Button from '@mui/material/Button';
 
 
 const MypageChecked = () => {
@@ -73,14 +71,12 @@ const MypageChecked = () => {
 
     const keyEnter = (e) => {
         if (e.key === "Enter") {
-            console.log("엔터!!!!");
             passwordCheck();
         }
     };
 
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-5" style={{ height: "900px", overflow: "auto" }} >
                 <div className="card shadow mb-4">
                     <div className="card-header py-3">
@@ -133,7 +129,6 @@ const MypageChecked = () => {
                     </div>
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

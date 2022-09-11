@@ -11,11 +11,30 @@ import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
 const Header = ({ }) => {
+    const current = decodeURI(window.location.pathname);
+    
     const client = useRef({});
-    const [alramList, setAlramList] = useState([]);
+    const [alramList, _setAlramList] = useState([]);
+    
+
     const [click, setClick] = useState(false);
+    const [del, setDel] = useState(false); 
     const [chatCount, setCount] = useState(0);
-    const [alramCount, setAlramCount] = useState(0);
+    const [alramCount, _setAlramCount] = useState(0);
+
+    const alramRef = useRef(alramList);
+
+    const setAlramList = (alramList) => {
+        alramRef.current = alramList;
+        _setAlramList(alramList);
+    }
+
+    const alramCountRef = useRef(alramCount);
+
+    const setAlramCount = (count) => {
+        alramCountRef.current = count;
+        _setAlramCount(count);
+    }
 
     const logoutClick = async () => {
         await axios.get('/api/user/logout', {
@@ -40,28 +59,38 @@ const Header = ({ }) => {
         setAlramCount((resp.data.data).length);
     };
 
+    const getChatAlramCount = async () => {
+        const resp = await axios.get("/api/notice/chat/count");
+        setCount(resp.data.data);
+    };
+
     useEffect(() => {
         connect();
     }, []);
 
-    useEffect(() => {
-        getAlramList();
-    }, [alramList, alramCount])
+    useEffect(()=>{
+        getChatAlramCount();
+    }, [current]);
 
-    const connect = () => {
+    useEffect(()=>{
+        getAlramList();
+    }, [click]);
+
+
+    const connect = async () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
             connectHeaders: {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
-                console.log("!!!!!!", str);
+                // console.log("!!!!!!", str);
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
                 subscribe();
                 // publish("알림확인 메세지 보내주");
 
@@ -71,46 +100,23 @@ const Header = ({ }) => {
             }
         });
 
-        client.current.activate();
+        await client.current.activate();
     };
 
     const subscribe = () => {
-        client.current.subscribe(`/topic/notice`, (data) => {
+        client.current.subscribe(`/topic/notice/${localStorage.getItem("loginUserNo")}`, (data) => {
             let list = JSON.parse(data.body);
-            setAlramList([...alramList, list]);
-            //setMessages([...messagesRef.current, line]);
-            // setChatting(line);
-        }, { id: "notice" });
+            setAlramList([list, ...alramRef.current]);
+            setAlramCount(alramCountRef.current+1);
+        }, { id: "notice-proj" });
+
+        client.current.subscribe(`/topic/notice/chat/${localStorage.getItem("loginUserNo")}`, (data) => {
+            let list = JSON.parse(data.body);
+            console.log("count...?",list);
+            setCount(list);
+        }, { id: "notice-chat" });
     };
 
-    const publish = async (line) => {
-        if (!client.current.connected) {
-            return;
-        }
-
-        let today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
-        let time = {
-            year: today.getFullYear(), //현재 년도
-            month: today.getMonth() + 1, // 현재 월
-            date: today.getDate(), // 현재 날짜
-            hours: today.getHours(), //현재 시간
-            minutes: ("0" + today.getMinutes()).slice(-2), //현재 분 ('0'+minutes).slice(-2)
-            seconds: ("0" + today.getSeconds()).slice(-2)
-        };
-
-        client.current.publish({
-            destination: `/app/notice/message`,
-            body: JSON.stringify({
-                no: null,
-                message: line,
-                type: "notice",
-                projectNo: 1,
-                userNo: localStorage.getItem("loginUserNo"),
-                time: `${time.year}-${time.month}-${time.date} ${time.hours}:${time.minutes}:${time.minutes}`,
-
-            }),
-        });
-    };
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
@@ -133,7 +139,7 @@ const Header = ({ }) => {
                 <li className="nav-item dropdown no-arrow mx-1">
                     <Link to="/chat" className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <Badge color="error" badgeContent={chatCount}>
+                        <Badge color="error" badgeContent={current == "/chat" ? 0 : chatCount == 0 ? 0 : " "} variant="dot">
                             <ChatIcon color="primary" fontSize="large" />
                         </Badge>
                     </Link>
@@ -145,7 +151,7 @@ const Header = ({ }) => {
                         <Badge color="error" badgeContent={alramCount}>
                             <AccessAlarmIcon color="primary" fontSize="large" onClick={e => { setClick(click => !click) }} />
                         </Badge>
-                        {click ? <HeaderDropdown alramList={alramList} /> : null}
+                        {click ? <HeaderDropdown alramList={alramList} setClick={setClick} setDel={setDel}/> : null}
                     </div>
 
                 </li>

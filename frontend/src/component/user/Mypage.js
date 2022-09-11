@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -12,8 +11,6 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import SiteLayout from '../../layout/SiteLayout';
-import { border, borderRadius } from '@mui/system';
 import BadgeIcon from '@mui/icons-material/Badge';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import PersonIcon from '@mui/icons-material/Person';
@@ -99,6 +96,7 @@ const Mypage = () => {
                     window.location.replace("/login");
                 }
                 setProfile(resp.data.data);
+
                 localStorage.removeItem("Authorization");
                 localStorage.removeItem("loginUserNo");
                 alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
@@ -190,6 +188,8 @@ const Mypage = () => {
         alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
         window.location.replace("/login");
 
+        window.location.reload();
+
     }
 
     // 파일 미리보기 로직
@@ -205,7 +205,6 @@ const Mypage = () => {
     };
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-4">
                 <div className="card-header py-3">
                     <h4 className="m-0 font-weight-bold text-primary"><PersonIcon fontSize="large" /> &nbsp;회원정보 수정</h4>
@@ -327,7 +326,6 @@ const Mypage = () => {
 
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

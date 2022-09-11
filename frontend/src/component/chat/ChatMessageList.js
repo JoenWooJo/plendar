@@ -7,13 +7,13 @@ import ChatMessageSend from "./ChatMessageSend";
 
 
 const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
+    const [message, setMessage] = useState("");
+
     useEffect(() => {
-        if (messages.length !== 0) {
+        if (document.getElementById('chatList') != null) {
             document.getElementById('chatList').scrollTop = document.getElementById('chatList').scrollHeight;
         }
     }, [messages])
-
-    const [message, setMessage] = useState("");
 
     return (
         <div className="col-md-6 col-lg-7 col-xl-8" >
@@ -22,7 +22,6 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                     <div
                         id="chatList"
                         className="bar pt-3 pe-3"
-                        data-mdb-perfect-scrollbar="true"
                         style={{ position: "relative", height: "500px" }}>
                         {
                             messages.map((msg, i) => {

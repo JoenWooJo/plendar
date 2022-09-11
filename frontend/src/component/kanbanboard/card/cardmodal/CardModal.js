@@ -6,14 +6,13 @@ import FileUpload from './FileUpload';
 import Comment from './Comment';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
 const CardModal = ({title, projectNo, deckNo, cardNo}) => {
     const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
-    // const [cardMember, setCardMember] = useState([]);
 
     const handleShow = () => setShow(true);
     const handleClose = () => {
@@ -21,23 +20,11 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
         setPage('card');
     }
 
-    // useEffect(() => {
-    //     const findCurrentCardmember = async () => {
-    //         await axios.get(`/api/kanban/card/findCurrentCardmember/${cardNo}`)
-    //         .then((resp) => {
-    //             const list = resp.data.data;
-    //             setCardMember(list);
-    //             console.log(list);
-    //         })
-    //     }
-    //     findCurrentCardmember();
-    // }, []);
-
     return (
         <div>
-            <div onClick={handleShow} >{title}</div>
+            <Dropdown.Item  onClick={handleShow}>카드 수정</Dropdown.Item>
             <div className='col-xl-1'>
-                <Modal size='lg' show={show} onHide={handleClose}>
+                <Modal size='lg' show={show}>
                     <div style={{height:"520px"}}>
                     <Modal.Header closeButton>
                         <Modal.Title className='col-xl-6'>{title}</Modal.Title>

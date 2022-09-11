@@ -29,8 +29,8 @@ const Login = () => {
                 const result = JSON.parse(resp.config.data);
                 console.log(resp);
                 const accesToken = resp.headers.authorization;
+                const result = resp.data.data;
 
-                if (result["email"] == null) {
                     // 로그인 실패 했을 때
                     event.preventDefault(); 
                     alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.")

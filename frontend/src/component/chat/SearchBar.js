@@ -7,13 +7,18 @@ import '../../assets/css/bar.css';
 const SearchBar = ({ roomList, setNewRoomList }) => {
 
     const searchRoom = (e) => {
-        setNewRoomList(roomList.filter((room)=> {
+        const searchResult = roomList.filter((room)=> {
             if (e.target.value == "") {
+                return room
+            } else if (room.title.includes(e.target.value)) {
                 return room
             } else if (room.title.toLowerCase().includes(e.target.value.toLowerCase())) {
                 return room
-            }
-        }))
+            } 
+        })
+
+        setNewRoomList(searchResult);
+        console.log(searchResult)  
     };
 
     return (

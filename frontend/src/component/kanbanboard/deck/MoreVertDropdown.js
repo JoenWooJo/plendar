@@ -1,30 +1,38 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import CreateCard from '../card/CreateCard';
 
-const MoreVertDropdown = ({projectNo, no, cardNo, setRefresh}) => {
+const MoreVertDropdown = ({projectNo, deckNo, cardNo, setCardList, setRefresh, setMorevertList}) => {
 
     const [show, setShow] = useState(false);
+
+    const delteDeck = async () => {
+        const resp = await axios.delete(`/api/kanban/deck/delete/${deckNo}`)
+    };
 
     return (
         <div>
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show "
                 aria-labelledby="alertsDropdown">
-                <a className="dropdown-item d-flex align-items-right" type="button" onClick={()=>{setShow(!show)}}>
-                    <div className="status-indicator bg-success"></div>
+                <div className="dropdown-item d-flex align-items-right" type="button" onClick={()=>{
+                    setShow(show => !show) 
+                    }}>
                     카드 추가하기
-                </a>
+                </div>
                 <CreateCard 
                     show={show} 
                     setShow={setShow} 
                     projectNo={projectNo} 
-                    no={no}
+                    no={deckNo}
                     cardNo={cardNo}
+                    setCardList={setCardList}
                     setRefresh={setRefresh}
+                    setMorevertList={setMorevertList}
                 />
-                <a className="dropdown-item d-flex align-items-right" href="#">
-                    <div className="status-indicator"></div>
+                <Link className="dropdown-item d-flex align-items-right" to={`/kanbanboard/${projectNo}`} onClick={()=>delteDeck()}>
                     삭제
-                </a>
+                </Link>
             </div>
         </div>
     );

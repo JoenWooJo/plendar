@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
+import { useLocation } from "react-router-dom"
 import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';
 
+let currentPath = "";
+
 const Myproject = () => {
+    const location = useLocation();
+    const state = location.state;
     const [projectList, setProjectList] = useState([]);
     const userNo = localStorage.getItem("loginUserNo")
 
+    const fetchAndProjectList = async () => {
+        await axios.get('/api/project/find/project')
+            .then((resp) => {
+                const list = resp.data.data;
+                setProjectList(list);
+            })
+    }
 
+    useEffect(() => {
+        if(currentPath === location.pathname) window.location.reload();
+        currentPath = location.pathname;
+      }, [location]);
 
     useEffect(() => {
         const fetchAndProjectList = async () => {
@@ -24,11 +39,21 @@ const Myproject = () => {
                     console.log(list);
                 })
         }
+
         fetchAndProjectList();
-    }, []);
+
+        const f = () => {
+            let child = document.getElementById("proj-new-img");
+            child != null && child.parentNode.removeChild(child);
+        }
+        document.addEventListener("click", f)
+
+        return () => {
+            document.removeEventListener("click", f)
+        }
+    }, [])
 
     return (
-        <SiteLayout>
             <div className="col-xl-11 ml-4">
                 <div className="card-header py-3">
                     <h4 className="m-0 font-weight-bold text-primary"><ComputerIcon fontSize="large" /> &nbsp;My Projects</h4>
@@ -63,6 +88,7 @@ const Myproject = () => {
                                         startDate={m.startDate}
                                         finished={m.finished}
                                         priority={m.priority}
+                                        state={state}
                                     />
                                 );
                             })}
@@ -70,7 +96,6 @@ const Myproject = () => {
 
                 </div>
             </div>
-        </SiteLayout>
     );
 };
 

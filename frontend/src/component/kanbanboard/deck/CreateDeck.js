@@ -20,7 +20,6 @@ const createDeck = () => {
       title: title,
       projectNo :projectNo
   }).then((resp)=>{
-      console.log(resp);
       setCreateResult(createResult => !createResult);
       handleClose();
   }).catch((err)=>{
@@ -37,7 +36,12 @@ const keyEnter = (e) => {
 
     return (
         <div>
-      <Button sx={{mb:2 }} variant="contained" size="medium" onClick={handleShow}>덱 추가하기</Button>
+      {/* 덱 추가 버튼 */}
+      <Button sx={{mb:2, ml:2}} variant="contained" size="medium" onClick={handleShow}>덱 추가하기</Button>
+
+      {/* 프로젝트완료 */}
+      <Button variant="contained"  type="submit" size="medium" sx={{mb:2, ml:1}} >프로젝트 완료</Button>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>덱 추가하기</Modal.Title>
