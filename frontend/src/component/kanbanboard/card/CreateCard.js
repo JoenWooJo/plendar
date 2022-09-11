@@ -12,7 +12,7 @@ import axios from 'axios';
 import dayjs from "dayjs";
 
 
-const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorevertList}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [selectUser, setSelectUser] = useState();
@@ -178,7 +178,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(!show)}>
+                    <Button variant="secondary" onClick={() => {setShow(!show), setMorevertList(morevertList=>!morevertList)}}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={CreateCard}>

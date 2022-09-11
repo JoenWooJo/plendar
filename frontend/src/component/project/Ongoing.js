@@ -12,7 +12,10 @@ const Ongoing = ({
     finished,
     priority,
     startDate,
+    state
 }) => {
+    let projectNo = state != null ? state["projectNo"] : "";
+    let alramType = state != null ? state["type"] : ""; 
     const [morevertList, setMorevertList] = useState(false);
     const projectData = {
         no: no,
@@ -23,9 +26,17 @@ const Ongoing = ({
         priority: priority
     }
 
+
+
     return (
         <div className="col-xl-3  mb-4" key={no}  >
-            <div className="card border-left-primary shadow h-100 py-2" >
+            <div className="card border-left-primary shadow h-100 py-2">
+            {
+                projectNo == no && alramType == "update"? 
+                <span><img id={"proj-new-img"} className="mb-3 ml-1" src="/images/update.png" alt="" style={{ position:"absolute", width: "30px", left: "75%", marginBottom: "5px"}} /></span>:
+                projectNo == no && alramType == "create" ?
+                <span><img id={"proj-new-img"} className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position:"absolute", width: "35px", left: "75%", marginBottom: "5px"}} /></span> : <></>
+            }
                 <div className="card-body" >
                     <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">

@@ -21,7 +21,8 @@ const Chat = () => {
         _setMessages(messages);
     }
     
-    const [noticeSelected, setNoticeSelected] = useState();
+    const [line, setLine] = useState("");
+    const [noticeSelected, setNoticeSelected] = useState("");
     const [first, setFirst] = useState(true);
     const [sub, setSub] = useState(null);
 
@@ -30,27 +31,29 @@ const Chat = () => {
     };
 
     const fetchAndSetRooms = async () => {
-        connect();
         const resp = await axios.get('/api/chat/rooms');
         const rooms = resp.data.data;
-        first && setSub(rooms);
+        first && setSub(rooms) 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
         }
 
-        setNewRoomList(resp.data.data);
-        setRoomList(resp.data.data);
+        setRoomList(rooms);
+        setNewRoomList(rooms);
     }
 
-    useEffect(() => {
-        
-        fetchAndSetRooms();
-
+    useEffect(()=>{
+        connect();
         // return () => {
         //     disconnect();
         // };
-    }, [messages, noticeSelected]);
+    }, [])
+
+    useEffect(() => {
+        console.log("왜한글은 안먹어???")
+        fetchAndSetRooms();
+    }, [ noticeSelected, line ]);
 
     useEffect(()=>{
         sub !== null && sub.map((e) => {
@@ -67,7 +70,6 @@ const Chat = () => {
                     roomId: roomId
                 }
             })
-            
             setMessages(resp.data.data);
         }
         if (roomIdSelected == -1) {
@@ -76,7 +78,7 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-    }, [roomIdSelected]);
+    }, [roomIdSelected, line]);
 
     const connect = async () => {
         client.current = new StompJs.Client({
@@ -109,6 +111,7 @@ const Chat = () => {
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
             console.log(line);
+            setLine(line);
             setMessages([...messagesRef.current, line]);
         });
     };
@@ -164,6 +167,7 @@ const Chat = () => {
                     />
                     <ChatMessageList
                         messages={messages}
+                        line={line}
                         roomIdSelected={roomIdSelected}
                         publish={publish} />
                 </div>

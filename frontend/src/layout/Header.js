@@ -18,6 +18,7 @@ const Header = ({ }) => {
     
 
     const [click, setClick] = useState(false);
+    const [del, setDel] = useState(false); 
     const [chatCount, setCount] = useState(0);
     const [alramCount, _setAlramCount] = useState(0);
 
@@ -59,12 +60,15 @@ const Header = ({ }) => {
 
     useEffect(() => {
         connect();
-        getAlramList();
     }, []);
 
     useEffect(()=>{
         getChatAlramCount();
     }, [current]);
+
+    useEffect(()=>{
+        getAlramList();
+    }, [click]);
 
 
     const connect = async () => {
@@ -141,7 +145,7 @@ const Header = ({ }) => {
                         <Badge color="error" badgeContent={alramCount}>
                             <AccessAlarmIcon color="primary" fontSize="large" onClick={e => { setClick(click => !click) }} />
                         </Badge>
-                        {click ? <HeaderDropdown alramList={alramList} /> : null}
+                        {click ? <HeaderDropdown alramList={alramList} setClick={setClick} setDel={setDel}/> : null}
                     </div>
 
                 </li>

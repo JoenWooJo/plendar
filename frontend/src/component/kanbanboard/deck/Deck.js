@@ -68,7 +68,6 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     //     console.log("미완료 개수",nCount);
     // }, [nCount])
 
-
     const onChangeTitle = (event) => {
         setTitle(event.target.value);
     };
@@ -134,6 +133,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
 
     return (
         <Paper>
+
             <div className="row">
                 <div className="col-xl-9 mt-4 ml-3" onClick={onClickDeckTitle}>
                     {changeTitle
@@ -157,9 +157,10 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                     <MoreVertIcon type="button" onClick={() => { setMorevertList(morevertList => !morevertList) }} />
                     {morevertList ? <MoreVertDropdown
                         projectNo={projectNo}
-                        no={no}
+                        deckNo={no}
                         cardNo={cardNo}
                         setRefresh={setRefresh}
+                        setMorevertList={setMorevertList}
                     /> : null}
                 </div>
                 

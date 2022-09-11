@@ -90,6 +90,7 @@ const Mypage = () => {
                 }
                 setProfile(resp.data.data);
                 localStorage.setItem("loginUserProfile", "/assets/profile/defaultProfile.png")
+                window.location.reload();
             });
     }
 
@@ -164,6 +165,8 @@ const Mypage = () => {
         }
         setProfile(response.data.data);
         localStorage.setItem("loginUserProfile", response.data.data)
+
+        window.location.reload();
 
     }
 

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import SiteLayout from '../../layout/SiteLayout';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import CreateDeck from './deck/CreateDeck';
 import Deck from './deck/Deck';
 import { useParams } from 'react-router';
@@ -8,25 +8,55 @@ import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
 
-
+let currentPath = "";
 
 const Kanban = () => {
+  let location = useLocation();
+  
+  const state = location.state;
+  const cardView = state != null ? state["cardNo"] : "";
+  const noticeType = state != null ? state["type"] : "";
+  const noticeNo = state != null && state["noticeNo"] ? state["noticeNo"] : "";
   const params = useParams();
   const [deckList, setDeckLlist] = useState([]);
-  const projectNo = params.no;
+  const [projectNo, setProjectNo] = useState(0);
   const [createResult, setCreateResult] = useState(false);
-  const [dtTodos, setDtTodos] = useState(deckList);
+  
+  if(projectNo !== params.no) {
+    setProjectNo(params.no);
+  }
 
   useEffect(() => {
     t();
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }, [createResult])
 
+  useEffect(() => {
+    console.log("t() called", projectNo);
+    t();
+  }, [projectNo])
+
+  useEffect(() => {
+    if(currentPath === location.pathname) window.location.reload();
+    currentPath = location.pathname;
+  }, [location]);
+
   // 덱 리스트 가져오기
   const t = async () => {
     const list = await get(`/kanban/deck/find/${projectNo}`);
     setDeckLlist(list);
   }
+
+  useEffect(()=>{
+    console.log(state,cardView, noticeType, noticeNo)
+      const f = () => {
+          let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
+          child != null && child.parentNode.removeChild(child);
+        }
+        document.addEventListener("click", f)
+
+        
+    }, [state])
 
    //덱 움직이기 
    const moveDeck = async () => {
