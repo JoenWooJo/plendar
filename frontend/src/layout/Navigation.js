@@ -7,7 +7,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import LockIcon from '@mui/icons-material/Lock';
 
 export default class Navigation extends Component {
 
@@ -65,14 +64,6 @@ export default class Navigation extends Component {
                     <NavLink className="nav-link"
                         to={'/user/mypagechecked'}>
                         <PersonIcon fontSize="large" /> &nbsp; My Page
-                    </NavLink>
-                </li>
-                <hr className="sidebar-divider" />
-
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/user/password'}>
-                        <LockIcon fontSize="large" /> &nbsp; change password
                     </NavLink>
                 </li>
                 <hr className="sidebar-divider" />

@@ -16,7 +16,6 @@ import Kanban from './component/kanbanboard/Kanban';
 import Chat from './component/chat/Chat';
 import CompletePage from './component/project/CompletePage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
-import Password from './component/user/Password';
 import About from './About';
 
 const App= () => (
@@ -32,7 +31,6 @@ const App= () => (
         {path: '/component', element: <Main />},                                                                                                                                                                                                                                 
         {path: '/user/mypage', element: <Mypage />},
         {path: '/user/mypagechecked', element: <MypageChecked />},
-        {path: '/user/password', element: <Password />},
         {path: '/calendar/team', element: <Calendar />},
         {path: '/calendar/Personal', element: <PersonalCalendar />},
         {path: '/fileSharing/fileSharing', element: <FileSharing />},
