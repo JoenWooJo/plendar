@@ -19,6 +19,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     const [morevertList, setMorevertList] = useState(false);
     const [taskCount, setTaskCount] = useState([]);
     const [nCount, setNCount] = useState([]);
+    const [state, setState] = useState();
 
     // 카드 리스트 가져오기
     const t = async () => {
@@ -58,13 +59,13 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         setNCount((prevNCount)=>(prevNCount.concat([list])));
     }
 
-    useEffect(() => {
-        console.log("테스크 개수",taskCount);
-    }, [taskCount])
+    // useEffect(() => {
+    //     console.log("테스크 개수",taskCount);
+    // }, [taskCount])
 
-    useEffect(() => {
-        console.log("미완료 개수",nCount);
-    }, [nCount])
+    // useEffect(() => {
+    //     console.log("미완료 개수",nCount);
+    // }, [nCount])
 
 
     const onChangeTitle = (event) => {
@@ -88,9 +89,44 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         }
     }
 
-    const onDragEnd = () => {
-        console.log("드래그")
-      }
+    const onDragEnd = async (result) => {
+        const currentList = [...cardList];
+        const { destination, source, draggableId } = result;
+    
+        //위치 예외처리
+        if (!destination || source.index === destination.index ) {
+            return;
+          }
+        
+        //출발지점의 값
+        const column = currentList[source.index];
+        //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
+        const newTaskIds = Array.from(column.sequence);
+        
+        console.log("출발지점의 값 column:", column);
+        
+
+        // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
+        newTaskIds.splice(source.index, 1);
+        newTaskIds.splice(destination.index, 0, draggableId);
+        console.log("새로운 배열 newTaskIds", newTaskIds);
+
+        const newColumn = {
+          ...column,
+          index: newTaskIds,
+        };
+    
+        const newState = {
+          ...state,
+          index: {
+            ...state,
+            [newColumn.id]: newColumn,
+          },
+        };
+    
+       setState(newState);
+      };
+    
 
     return (
         <Paper>
