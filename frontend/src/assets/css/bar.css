@@ -17,3 +17,7 @@
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
+
+  .text-truncate-detail-message:hover + .detail-message {
+    display: block;
+  }

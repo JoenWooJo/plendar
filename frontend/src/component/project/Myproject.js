@@ -5,36 +5,39 @@ import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';
 
+let currentPath = "";
+
 const Myproject = () => {
     const location = useLocation();
     const state = location.state;
     const [projectList, setProjectList] = useState([]);
 
-    useEffect(() => {
-        const fetchAndProjectList = async () => {
-            await axios.get('/api/project/find/project')
-                .then((resp) => {
-                    const list = resp.data.data;
-                    setProjectList(list);
-                })
-        }
-        fetchAndProjectList();
-    }, []);
+    const fetchAndProjectList = async () => {
+        await axios.get('/api/project/find/project')
+            .then((resp) => {
+                const list = resp.data.data;
+                setProjectList(list);
+            })
+    }
 
-    useEffect(()=>{
-        
+    useEffect(() => {
+        if(currentPath === location.pathname) window.location.reload();
+        currentPath = location.pathname;
+      }, [location]);
+
+    useEffect(() => {
+        fetchAndProjectList();
+
         const f = () => {
             let child = document.getElementById("proj-new-img");
             child != null && child.parentNode.removeChild(child);
-          }
-  
-          
-          document.addEventListener("click", f)
-  
-          return () => {
-              document.removeEventListener("click", f )
-          }
-      }, [])
+        }
+        document.addEventListener("click", f)
+
+        return () => {
+            document.removeEventListener("click", f)
+        }
+    }, [])
 
     return (
             <div className="col-xl-11 ml-4">

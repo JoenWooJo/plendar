@@ -25,7 +25,7 @@ const HeaderDropdown = ({ alramList, setClick }) => {
                 <h4 className="dropdown-header">
                    NOTICE
                 </h4>
-                <div className="bar pt-3 pe-3" style={{ height: "600px", "overflow": "auto" }}  data-mdb-perfect-scrollbar="true">
+                <div className="bar" style={{ height: alramList.length<3?"180px":"400px" , overflow: "auto", paddingTop: "0" }}  data-mdb-perfect-scrollbar="true">
                 {
                     alramList.map((e, i) => {
                         let to = e.type == "card" || e.type == "cardDelete" || e.type == "comment" ? `/kanbanboard/${e.projectNo}` : "/project/myproject";
@@ -44,9 +44,10 @@ const HeaderDropdown = ({ alramList, setClick }) => {
                                     </Badge>
                                 </div>
                                 <div className="font-weight-bold">
-                                    <div className="text-truncate">{e.message}</div>
-                                    <div className="small text-gray-500">{e.time}</div>
+                                    <div>{e.message}</div>
+                                    <div className="small text-gray-500">{(e.time).slice(0, -5)}</div>
                                 </div>
+                                
                             </Link>
                         )
                     })
