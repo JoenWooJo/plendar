@@ -111,6 +111,20 @@ public class CardController {
 			return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(cardNo));
 		}
 	   
+	   @GetMapping("/findtaskcount/{cardNo}")
+		public ResponseEntity<JsonResult> findTaskCount(@PathVariable("cardNo") Long cardNo) {
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(cardService.findTaskCount(cardNo)));
+		}
+	   
+	   @GetMapping("/findncount/{cardNo}")
+		public ResponseEntity<JsonResult> findNCount(@PathVariable("cardNo") Long cardNo) {
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(cardService.findNCount(cardNo)));
+		}
+	   
 	   
 	
 }
