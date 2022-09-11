@@ -26,9 +26,14 @@ export default function TeamCalendar() {
 
   // DB에서 이벤트(카드) 불러오기
   const callback = async () => {
-    const client = axios.create({ baseURL: '/api' });
-    let response = await client.get('/calendar/axios/team');
-
+    const client = axios.create({ baseURL: '/api', 
+        params: {userNo: localStorage.getItem("loginUserNo")},
+        headers: {
+            Authorization : `Bearer ${localStorage.getItem("Authorization")}`
+        } 
+    });
+    let response = await client.get('/calendar/axios/team')
+    
     if (response.data.result == "fail") {
       alert(response.data.message);
       window.location.replace("/login");

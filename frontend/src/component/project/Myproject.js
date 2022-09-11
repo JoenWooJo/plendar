@@ -11,6 +11,7 @@ const Myproject = () => {
     const location = useLocation();
     const state = location.state;
     const [projectList, setProjectList] = useState([]);
+    const userNo = localStorage.getItem("loginUserNo")
 
     const fetchAndProjectList = async () => {
         await axios.get('/api/project/find/project')
@@ -26,6 +27,19 @@ const Myproject = () => {
       }, [location]);
 
     useEffect(() => {
+        const fetchAndProjectList = async () => {
+            await axios.get(`/api/project/find/project/${userNo}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                })
+                .then((resp) => {
+                    const list = resp.data.data;
+                    setProjectList(list);
+                    console.log(list);
+                })
+        }
+
         fetchAndProjectList();
 
         const f = () => {

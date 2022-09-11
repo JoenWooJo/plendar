@@ -26,8 +26,17 @@ export default function PersonalCalendar() {
 
   // DB에서 이벤트(카드) 불러오기
   const callback = async () => {
-    const client = axios.create({ baseURL: "/api" });
-    let response = await client.get("/calendar/axios/personal");
+    const client = axios.create({ baseURL: "/api", 
+        params: {userNo: localStorage.getItem("loginUserNo")},
+        headers: {
+            Authorization : `Bearer ${localStorage.getItem("Authorization")}`
+        } 
+    });
+    let response = await client.get("/calendar/axios/personal", {
+      headers: {
+          Authorization: window.localStorage.getItem("Authorization"),
+      },
+      })
     
     if (response.data.result == "fail") {
       alert(response.data.message);

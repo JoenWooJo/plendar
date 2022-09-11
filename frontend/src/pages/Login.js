@@ -4,6 +4,7 @@ import {useRef, useState, useEffect} from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { set } from 'date-fns';
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -15,8 +16,7 @@ const Login = () => {
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
     }
-
-
+    
     const loginClick = (event) => {
         event.preventDefault(); 
         let data = {
@@ -24,20 +24,22 @@ const Login = () => {
             password: password,
         }
         
-        axios.post('/api/user/login', new URLSearchParams(data))
+        axios.post('/api/login', data)
             .then((resp)=>{
-
+                const result = JSON.parse(resp.config.data);
+                console.log(resp);
+                const accesToken = resp.headers.authorization;
                 const result = resp.data.data;
-                if (result["no"] == null) {
+
                     // 로그인 실패 했을 때
                     event.preventDefault(); 
                     alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.")
-                    return;
+                    console.log("실패: ", result)
                 }
-                localStorage.setItem('loginUserNo', result["no"]);
-                localStorage.setItem('loginUserEmail', result["email"]);
-                localStorage.setItem('loginUserName', result["name"]);
-                localStorage.setItem('loginUserProfile', result["profile"]);
+
+                localStorage.setItem('Authorization', accesToken);
+                const decode = jwt_decode(accesToken);
+                localStorage.setItem('loginUserNo', decode["no"]);
 
                 if(result["projectCount"] >= 1)
                 {

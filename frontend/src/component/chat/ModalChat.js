@@ -17,9 +17,12 @@ const ModalChat = ({ roomNo }) => {
     useEffect(()=>{
         axios.get('/api/chat/room/member', {
             params: {
-              roomNo: roomNo
-            }
-          })
+                roomNo: roomNo
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+        })
             .then((resp)=>{
                 setChatMember(resp.data.data);
             }).catch((err)=>{

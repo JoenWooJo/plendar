@@ -47,7 +47,11 @@ const MypageChecked = () => {
             password: password,
         }
 
-        axios.post('/api/user/confirmPassword', body)
+        axios.post('/api/user/confirmPassword', body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 const result = resp.data.data;
                 if (resp.data.result == "fail") {

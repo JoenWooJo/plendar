@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const client = axios.create({ baseURL: '/api' })
+const client = axios.create({ baseURL: '/api', 
+    headers: {
+        Authorization : `Bearer ${localStorage.getItem("Authorization")}`
+    } 
+})
 
 /**
  * axios GET(Read) 요청

@@ -24,15 +24,24 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
             content : comment,
             date : nowTime
         }
-        axios.post('/api/kanban/card/comment/insert', body)
+        axios.post('/api/kanban/card/comment/insert', body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then(()=>{
                 //인서트 후 초기화
                 clearRef.current.value='';
                 setComment('');
             })
     };
-    const b = async(e) => {
-        const commentList = await get(`/kanban/card/find/comment/${cardNo}`);
+    
+    const b = async () => {
+        const commentList = await get(`/kanban/card/find/comment/${cardNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setFeedComments(commentList);
     }
      useEffect(() => {
