@@ -58,6 +58,7 @@
             from comment a, user b
             where a.pm_user_no = b.no 
             and a.card_no=#{cardNo } 
+            order by a.date asc
       ]]>
    </select>
    
