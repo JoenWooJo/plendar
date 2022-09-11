@@ -60,7 +60,14 @@ const Header = ({ }) => {
     };
 
     const getChatAlramCount = async () => {
-        const resp = await axios.get("/api/notice/chat/count");
+        const resp = await axios.get("/api/notice/chat/count", {
+            params: {
+            userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+        });
         setCount(resp.data.data);
     };
 

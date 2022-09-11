@@ -66,6 +66,9 @@ const UpdateProject = () => {
             member: member
         }
         const resp = await axios.post("/api/project/update", projectData, {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),
             },

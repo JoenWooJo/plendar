@@ -17,6 +17,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
     const fetchAndNotice = async () => {
         const resp = await axios.get('/api/chat/notice', {
             params: {
+            userNo: localStorage.getItem("loginUserNo"),
             roomId: roomNo,
             roomIdSelected: roomIdSelected
             },

@@ -21,7 +21,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     const cardView = state != null ? state["cardNo"] : "";
     const noticeType = state != null ? state["type"] : "";
     const noticeNo = state != null && state["noticeNo"] ? state["noticeNo"] : "";
-    
+
     const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
@@ -96,67 +96,67 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
 
 
     return (
-        <div>
-            <div className="card bg-light text-black shadow mb-2" style={{position: "relative"}}>
+        <div className="card bg-light text-black shadow mb-2" style={{ position: "relative" }}>
             {
-                cardView == no &&  noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position:"absolute", width: "35px"}} /></span> :
-                cardView == no &&  noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/images/comment.png' alt='' style={{position: "absolute", width: "30px", paddingTop: "5px"}}/></span> : ""
+                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position: "absolute", width: "35px" }} /></span> :
+                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px" }} /></span> : ""
             }
-                
-                <div className="card-body" id={`card-${no}`} >
-                    <div className='row'>
-                        <div className="col-xl-8 mt-2">
-                            <b>{title}</b>                        
-                        </div>
-                        {/* 드롭다운 */}
-                        <div className='col-xl-1 mr-1'>
-                            <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
-                                <AddTask cardNo={no} setRefresh={setRefresh} />
-                                <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
-                                <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
-                            </DropdownButton>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
-                        <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
-                            {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                        </div>
-                    </div>
-                    {showDetail
-                        ?
-                        taskList.map((m, i) =>
-                        (
-                            <div key={i}>
-                                <hr />
-                                {/* 체크박스 */}
-                                <div className='row'>
-                                    <Checkbox
-                                        className='col-xl-1'
-                                        value={m.no}
-                                        onChange={(e) => {
-                                            changeTaskStatus(e);
-                                        }}
-                                        checked={m.finished === "Y" ? true : false}
-                                    />
 
-                                    {/* task내용 */}
-                                    <TaskList
-                                        content={m.content}
-                                        taskNo={m.no} />
+            <div className="card-body" id={`card-${no}`} >
+                <div className='row'>
+                    <div className="col-xl-8 mt-2">
+                        <b>{title}</b>
+                    </div>
+                    {/* 드롭다운 */}
+                    <div className='col-xl-1 mr-1'>
+                        <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
+                            <AddTask cardNo={no} setRefresh={setRefresh} />
+                            <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
+                            <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
+                        </DropdownButton>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
+                    <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
+                        {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                    </div>
+                </div>
+                {showDetail
+                    ?
+                    taskList.map((m, i) =>
+                    (
+                        <div key={i}>
+                            <hr />
+                            {/* 체크박스 */}
+                            <div className='row'>
+                                <Checkbox
+                                    className='col-xl-1'
+                                    value={m.no}
+                                    onChange={(e) => {
+                                        changeTaskStatus(e);
+                                    }}
+                                    checked={m.finished === "Y" ? true : false}
+                                />
 
-                                    {/* 삭제버튼 */}
-                                    <div className='col-xl-1'>
-                                        <ClearIcon onClick={() => removeTask(m.no)} />
-                                    </div>
+                                {/* task내용 */}
+                                <TaskList
+                                    content={m.content}
+                                    taskNo={m.no} />
+
+                                {/* 삭제버튼 */}
+                                <div className='col-xl-1'>
+                                    <ClearIcon onClick={() => removeTask(m.no)} />
                                 </div>
                             </div>
+                        </div>
 
-                        )
-                        )
-                        :
-                        null
-                    }
+                    )
+                    )
+                    :
+                    null
+                }
+            </div>
         </div>
     );
 };

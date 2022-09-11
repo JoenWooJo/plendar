@@ -53,6 +53,7 @@ const CreateProject = () => {
             endDate: endDate,
             member: member
         }, {
+            params: {userNo: localStorage.getItem("loginUserNo")},
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
