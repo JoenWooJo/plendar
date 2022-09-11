@@ -18,7 +18,6 @@ import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/chat")
@@ -28,10 +27,10 @@ public class ChatRoomController {
 	private ChatService chatService;
 
 	@GetMapping("/rooms")
-	public ResponseEntity<JsonResult> rooms(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> rooms(@RequestParam("userNo")Long no) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(chatService.findAllRoom(authUser.getNo())));
+				.body(JsonResult.success(chatService.findAllRoom(no)));
 	}
 	
 	@GetMapping("/room/member")

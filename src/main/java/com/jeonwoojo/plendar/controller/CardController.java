@@ -21,7 +21,6 @@ import com.jeonwoojo.plendar.vo.CardVo;
 import com.jeonwoojo.plendar.vo.CommentVo;
 
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/kanban/card")

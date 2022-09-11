@@ -31,7 +31,6 @@ public class DeckController {
 	@Autowired
 	private CardService cardService;
 	
-	@Auth
 	@GetMapping("/find/{projectNo}")
 	public ResponseEntity<JsonResult> findDeck(@PathVariable("projectNo") Long projectNo) {
 		return ResponseEntity

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.security.Auth;
@@ -19,7 +20,6 @@ import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/notice")
@@ -28,8 +28,10 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@GetMapping("/alramList")
-	public ResponseEntity<JsonResult> getAlramList(@AuthUser UserVo authUser) {
-		List<NoticeMessage> alramList = noticeService.getAlramList(authUser);
+	public ResponseEntity<JsonResult> getAlramList(@RequestParam("userNo")long userNo) {
+		System.out.println(userNo);
+		
+		List<NoticeMessage> alramList = noticeService.getAlramList(userNo);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
