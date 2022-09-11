@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.vo.NoticeMessage;
-import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -39,10 +36,10 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/chat/count")
-	public ResponseEntity<JsonResult> getChatAlramCount(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> getChatAlramCount(@RequestParam("userNo")long userNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(noticeService.getChatAlramCount(authUser.getNo())));
+				.body(JsonResult.success(noticeService.getChatAlramCount(userNo)));
 	}
 	
 	@DeleteMapping("/delete/{noticeNo}")

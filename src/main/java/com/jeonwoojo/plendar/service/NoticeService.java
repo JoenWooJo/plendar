@@ -29,16 +29,16 @@ public class NoticeService {
 	@Autowired
 	private CardRepository cardRepository;
 	
-	public NoticeMessage insertNoticeProject(ProjectVo projectVo, UserVo authUser) {
-		return noticeRepository.insertNoticeProject(projectVo, authUser.getNo());
+	public NoticeMessage insertNoticeProject(ProjectVo projectVo, long userNo) {
+		return noticeRepository.insertNoticeProject(projectVo, userNo);
 	}
 
 	public List<NoticeMessage> getAlramList(long userNo) {
 		return noticeRepository.getAlramList(userNo);
 	}
 
-	public NoticeMessage insertNoticeUpdateProject(ProjectVo updateProjectVo, UserVo authUser, String projectTitle) {
-		return noticeRepository.insertNoticeUpdateProject(updateProjectVo, authUser.getNo(), projectTitle);
+	public NoticeMessage insertNoticeUpdateProject(ProjectVo updateProjectVo, long userNo, String projectTitle) {
+		return noticeRepository.insertNoticeUpdateProject(updateProjectVo, userNo, projectTitle);
 	}
 
 	public NoticeMessage insertNoticeCard(CardVo newCardVo, String projectTitle) {

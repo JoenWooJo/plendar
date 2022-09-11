@@ -34,7 +34,7 @@ public class UserRepository {
 		return sqlSession.update("user.updateUser", vo) == 1;
 	}
 
-	public boolean updateProfile(Map map) {
+	public boolean updateProfile(Map<?, ?> map) {
 		return sqlSession.update("user.updateProfile", map) == 1;
 	}
 
@@ -45,5 +45,9 @@ public class UserRepository {
 	public boolean deleteProfile(UserVo vo) {
 		System.out.println("repositry" + vo);
 		return sqlSession.update("user.deleteProfile", vo) == 1;
+	}
+
+	public UserVo findByUserProject(long userNo) {
+		return sqlSession.selectOne("user.findByUserProject", userNo);
 	}
 }

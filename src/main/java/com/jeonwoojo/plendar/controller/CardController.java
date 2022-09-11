@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
 import com.jeonwoojo.plendar.service.CardService;
 import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.service.ProjectService;

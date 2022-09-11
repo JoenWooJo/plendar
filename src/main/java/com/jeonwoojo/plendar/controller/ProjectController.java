@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.service.ProjectService;
 import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.ProjectVo;
-import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
@@ -36,11 +33,11 @@ public class ProjectController {
 	private NoticeService noticeService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<JsonResult> create(@AuthUser UserVo authUser, @RequestBody ProjectVo projectVo) {
-		ProjectVo newVo = projectService.createProject(projectVo, authUser);
-		NoticeMessage noticeMessage= noticeService.insertNoticeProject(newVo, authUser);
+	public ResponseEntity<JsonResult> create(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
+		ProjectVo newVo = projectService.createProject(projectVo, userNo);
+		NoticeMessage noticeMessage= noticeService.insertNoticeProject(newVo, userNo);
 		System.out.println(noticeMessage);
-		sendingOperations.convertAndSend("/topic/notice/"+authUser.getNo(), noticeMessage);
+		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(newVo));
@@ -75,12 +72,12 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<JsonResult> updateProject(@AuthUser UserVo authUser, @RequestBody ProjectVo projectVo) {
+	public ResponseEntity<JsonResult> updateProject(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
 		System.out.println(">>>"+projectVo);
 		String projectTitle = projectService.findProjectTitle(projectVo.getNo());
 		ProjectVo updateProjectVo = projectService.updateProject(projectVo);
-		NoticeMessage noticeMessage= noticeService.insertNoticeUpdateProject(updateProjectVo, authUser, projectTitle);
-		sendingOperations.convertAndSend("/topic/notice/"+authUser.getNo(), noticeMessage);
+		NoticeMessage noticeMessage= noticeService.insertNoticeUpdateProject(updateProjectVo, userNo, projectTitle);
+		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)

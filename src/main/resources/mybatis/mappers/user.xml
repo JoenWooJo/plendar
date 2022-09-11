@@ -67,4 +67,10 @@
 		]]>
 	</select>
 	
+	<select id="findByUserProject" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select count(*) as projectCount from proj_member where user_no = #{userNo }
+		]]>
+	</select>
+	
 </mapper>

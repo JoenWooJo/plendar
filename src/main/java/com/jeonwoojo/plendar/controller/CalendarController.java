@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.CalendarService;
-import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @RequestMapping("api/calendar")

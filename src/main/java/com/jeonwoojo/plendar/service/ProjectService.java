@@ -27,8 +27,8 @@ public class ProjectService {
 		return projectRepository.findUser();
 	}
 
-	public ProjectVo createProject(ProjectVo projectVo, UserVo authUser) {
-		return projectRepository.createProject(projectVo, authUser);
+	public ProjectVo createProject(ProjectVo projectVo, long userNo) {
+		return projectRepository.createProject(projectVo, userNo);
 	}
 
 	public List<ProjectVo> findProject(Long userNo) {

@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.FileUploadService;
 import com.jeonwoojo.plendar.service.UserService;
 import com.jeonwoojo.plendar.vo.UserVo;
@@ -104,10 +102,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/findByUserNo")
-	public ResponseEntity<JsonResult> findByNo(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> findByNo(@RequestParam("userNo") long userNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(userService.findByNo(authUser.getNo())));
+				.body(JsonResult.success(userService.findByUserProject(userNo)));
 	}
 
 }

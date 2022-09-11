@@ -3,7 +3,6 @@ package com.jeonwoojo.plendar.service;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.UserRepository;
@@ -15,9 +14,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
-
 	public boolean insert(UserVo vo) {
 		return userRepository.insert(vo);
 	}
@@ -45,7 +41,7 @@ public class UserService {
 		return userRepository.updateUser(vo);
 	}
 
-	public boolean updateProfile (Map map) {
+	public boolean updateProfile (Map<?, ?> map) {
 		return userRepository.updateProfile(map);
 		
 	}
@@ -64,6 +60,10 @@ public class UserService {
 
 	public UserVo findByNo(Long no) {
 		return userRepository.findByNo(no);
+	}
+
+	public UserVo findByUserProject(long userNo) {
+		return userRepository.findByUserProject(userNo);
 	}
 
 }
