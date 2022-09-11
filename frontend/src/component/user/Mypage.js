@@ -183,13 +183,10 @@ const Mypage = () => {
             window.location.replace("/login");
         }
         setProfile(response.data.data);
-        localStorage.removeItem("Authorization");
-        localStorage.removeItem("loginUserNo");
         alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
         window.location.replace("/login");
-
-        window.location.reload();
-
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("loginUserNo");
     }
 
     // 파일 미리보기 로직

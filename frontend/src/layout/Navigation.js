@@ -9,9 +9,10 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import jwt_decode from "jwt-decode";
 
-const decode = jwt_decode(localStorage.getItem("Authorization"))
+
 
 export default class Navigation extends Component {
+    
     
     constructor(props) {
         super(props);
@@ -45,6 +46,8 @@ export default class Navigation extends Component {
     }
 
     render() {
+        const decode = jwt_decode(localStorage.getItem("Authorization"));
+        
         return (
         <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2">
             <NavLink className="sidebar-brand align-items-center justify-content-center "

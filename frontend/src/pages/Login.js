@@ -23,53 +23,36 @@ const Login = () => {
             email: email,
             password: password,
         }
-    
+        
         await axios.post('/api/login', data)
-            .then((resp) => {
+            .then((resp)=>{
                 const result = JSON.parse(resp.config.data);
                 console.log(resp);
                 const accesToken = resp.headers.authorization;
-                // 로그인 실패 했을 때
-                event.preventDefault();
-                alert("아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.입력하신 내용을 다시 확인해주세요.")
-                console.log("실패: ", result)
 
                 localStorage.setItem('Authorization', accesToken);
-                try {    
                 const decode = jwt_decode(accesToken);
-                } catch{
-                    console.log("토큰이 없습니다.")
-
-                }
-
                 localStorage.setItem('loginUserNo', decode["no"]);
+            });
 
+        await axios.get('/api/user/findByUserNo', {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            }).then((resp) => {
+                const result = resp.data.data;
+                console.log(result);
                 if (result["projectCount"] >= 1) {
                     window.location.replace("/project/myproject");
                 }
                 else {
                     window.location.replace("/component");
                 }
-            }).catch((e) => console.log(e));
-
-        // await axios.get('/api/user/findByUserNo', {
-        //     params: {
-        //         userNo: localStorage.getItem("loginUserNo"),
-        //     },
-        //     headers: {
-        //         Authorization: window.localStorage.getItem("Authorization"),
-        //     },
-        //     }).then((resp) => {
-        //         const result = resp.data.data;
- 
-        //         if (result["projectCount"] >= 1) {
-        //             window.location.replace("/project/myproject");
-        //         }
-        //         else {
-        //             window.location.replace("/component");
-        //         }
-        //     })
-
+            })
+        
     }
 
 

@@ -13,9 +13,12 @@ const AddTask = ({cardNo, setRefresh}) => {
 
     //task 추가하기
     const createTask = () => {
-      axios.post('/api/kanban/task/create',{
-          content: content,
-          cardNo : cardNo
+      axios.post('/api/kanban/task/create', {
+        content: content,
+        cardNo : cardNo }, {
+          headers: {
+              Authorization: window.localStorage.getItem("Authorization"),
+          },
       }).then((resp)=>{
           setRefresh(refresh => ! refresh);
           handleClose();

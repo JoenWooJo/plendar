@@ -67,7 +67,11 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
             no: no,
             finished: finish ? "Y" : "N"
         }
-        await axios.post("/api/kanban/task/clickTask", body)
+        await axios.post("/api/kanban/task/clickTask", body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
@@ -96,13 +100,13 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
 
 
     return (
-        <div className="card bg-light text-black shadow mb-2" style={{ position: "relative" }}>
+        <div style={{ position: "relative" }}>
             {
                 cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position: "absolute", width: "35px" }} /></span> :
                     cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px" }} /></span> : ""
             }
 
-            <div className="card-body" id={`card-${no}`} >
+            <div id={`card-${no}`} >
                 <div className='row'>
                     <div className="col-xl-8 mt-2">
                         <b>{title}</b>

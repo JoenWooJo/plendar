@@ -31,7 +31,14 @@ const Chat = () => {
     };
 
     const fetchAndSetRooms = async () => {
-        const resp = await axios.get('/api/chat/rooms');
+        const resp = await axios.get('/api/chat/rooms', {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         const rooms = resp.data.data;
         first && setSub(rooms) 
         if (resp.data.result == "fail") {
