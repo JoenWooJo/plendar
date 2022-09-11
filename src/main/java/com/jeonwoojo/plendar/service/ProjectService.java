@@ -116,4 +116,8 @@ public class ProjectService {
 		return projectRepository.findProjectTitle(no);
 	}
 
+	public void deleteProject(long projectNo) {
+		projectRepository.deleteProject(projectNo);
+	}
+
 }

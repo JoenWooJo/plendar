@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
@@ -39,6 +41,14 @@ public class NoticeController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(noticeService.getChatAlramCount(authUser.getNo())));
+	}
+	
+	@DeleteMapping("/delete/{noticeNo}")
+	public ResponseEntity<JsonResult> deleteNotice(@PathVariable("noticeNo")long noticeNo) {
+		noticeService.deleteNotice(noticeNo);
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success("ok"));
 	}
 	
 }

@@ -131,6 +131,10 @@ public class ProjectRepository {
 	public String findProjectTitle(long no) {
 		return sqlSession.selectOne("project.findProjectTitle", no);
 	}
+
+	public void deleteProject(long projectNo) {
+		sqlSession.update("project.deleteProject", projectNo);
+	}
 	
 
 }

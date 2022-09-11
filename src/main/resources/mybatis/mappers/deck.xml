@@ -24,7 +24,7 @@
 		insert into deck values(null, #{projectNo}, #{title}, (SELECT IFNULL(MAX(sequence) + 1, 1)
 			FROM deck a, project b 
 		 	where b.no = #{projectNo} 
-		 	and a.project_no = b.no))	
+		 	and a.project_no = b.no))
 		]]>	
 	</insert>
 	
@@ -43,6 +43,12 @@
 			where no = #{no }
 		]]>
 	</update>
+	
+	<delete id="deleteDeck" parameterType="long">
+		<![CDATA[
+			delete from deck where no = #{deckNo }
+		]]>
+	</delete>
 	
 	
 
