@@ -34,7 +34,11 @@ const UpdateProject = () => {
     const [leaderCheck, setLeaderCheck] = useState(1);
 
     const userList = async () => {
-        const resp = await axios.get('/api/project/find/user')
+        const resp = await axios.get('/api/project/find/user', {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         const list = [];
         (resp.data.data).map((e) => {
             if( e.no != localStorage.getItem('loginUserNo') && e.no != 1) {
