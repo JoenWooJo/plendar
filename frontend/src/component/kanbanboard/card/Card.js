@@ -5,7 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import update from 'react-addons-update';
 import AddTask from '../task/AddTask';
 import CardModal from './cardmodal/CardModal';
-import { get } from '../../../api/Axios';
+import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
@@ -14,12 +14,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
     const { description, title, no } = card;
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
     
@@ -90,10 +88,9 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
         setRefresh(refresh => !refresh);
     }
 
+
     return (
         <div>
-            <div className="card bg-light text-black shadow mb-2">
-                <div className="card-body">
                     <div className='row'>
                         <div className="col-xl-8 mt-2">
                             {title}
@@ -101,7 +98,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
 
                         {/* 드롭다운 */}
                         <div className='col-xl-1'>
-                        <DropdownButton id="dropdown-basic-button" title="카드수정" size="sm" variant="light">
+                        <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
                             <AddTask cardNo = {no} setRefresh={setRefresh}/>
                             <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
                         <Dropdown.Item onClick={() => removeCard(no)} >삭제하기</Dropdown.Item>
@@ -150,8 +147,6 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh}) => {
                         :
                         null
                     }
-                </div>
-            </div>
         </div>
     );
 };

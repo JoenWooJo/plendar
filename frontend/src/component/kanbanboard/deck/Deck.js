@@ -1,59 +1,136 @@
-import React, { useEffect, useState } from 'react';
-import CreateCard from '../card/CreateCard';
-import Card from '../card/Card';
+import React,{ useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-import { Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import CardLayout from '../card/CardLayout';
+import { Container } from 'react-bootstrap';
+//import styled from 'styled-components';
 
-const Deck = ({ title, no, projectNo }) => {
-    const [deckTitle, setDeckTitle] = useState(title);
+
+const Deck = ({ deckTitle, no, projectNo }) => {
+    const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
-    const [cardNo, setCardNo] = useState(0);
+    const [cardNo, setCardNo] = useState();
     const [refresh, setRefresh] = useState(false);
     const [morevertList, setMorevertList] = useState(false);
+    const [taskCount, setTaskCount] = useState([]);
+    const [nCount, setNCount] = useState([]);
+    const [state, setState] = useState();
 
     // 카드 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/${no}`);
         setCardList(list);
+      
+       list.map((m,i)=>{
+            cardTask(m.no);
+            cardN(m.no);
+            setCardNo(m.no);
+       })
     }
 
+    useEffect(()=>{
+        if(deckTitle !== title) {
+            setTitle(deckTitle);
+        }
+    }, [deckTitle]);
+    
     useEffect(() => {
         t();
     }, [refresh])
 
-    const onChangeTitle = (event) => {
-        setDeckTitle(event.target.value);
-    };
+    useEffect(() => {
+        t();
+    }, [no])
 
+     //카드 테스크 개수
+     const cardTask = async (cardNo) => {
+        const list = await get(`/kanban/card/findtaskcount/${cardNo}`);
+        setTaskCount((prevTaskCount)=>(prevTaskCount.concat([list])));
+    }
+    
+    //테스크 완료 개수
+    const cardN = async (cardNo) => {
+        const list = await get(`/kanban/card/findncount/${cardNo}`);
+        setNCount((prevNCount)=>(prevNCount.concat([list])));
+    }
+
+    // useEffect(() => {
+    //     console.log("테스크 개수",taskCount);
+    // }, [taskCount])
+
+    // useEffect(() => {
+    //     console.log("미완료 개수",nCount);
+    // }, [nCount])
+
+
+    const onChangeTitle = (event) => {
+        setTitle(event.target.value);
+    };
     const onClickDeckTitle = () => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
         if (clickChk > 2) {
-            onChangeTitle
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
-
     const keyEnter = (e) => {
+        console.log(e.target.value);
         if (e.key == "Enter") {
-            onChangeTitle
+            postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
             setClickChk(0);
         }
     }
 
-    //덱 수정하기 
-    useEffect(() => {
-        postJson(`/kanban/deck/update`, JSON.stringify({ title: deckTitle, no: no, cardNo: cardNo }));
-    }, [deckTitle]);
+    const onDragEnd = async (result) => {
+        const currentList = [...cardList];
+        const { destination, source, draggableId } = result;
+    
+        //위치 예외처리
+        if (!destination || source.index === destination.index ) {
+            return;
+          }
+        
+        //출발지점의 값
+        const column = currentList[source.index];
+        //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
+        const newTaskIds = Array.from(column.sequence);
+        
+        console.log("출발지점의 값 column:", column);
+        
 
+        // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
+        newTaskIds.splice(source.index, 1);
+        newTaskIds.splice(destination.index, 0, draggableId);
+        console.log("새로운 배열 newTaskIds", newTaskIds);
+
+        const newColumn = {
+          ...column,
+          index: newTaskIds,
+        };
+    
+        const newState = {
+          ...state,
+          index: {
+            ...state,
+            [newColumn.id]: newColumn,
+          },
+        };
+    
+       setState(newState);
+      };
+
+    //   const Container = styled.div`
+    //     flex-direction: column;
+    //   `;    
 
     return (
         <Paper>
@@ -66,14 +143,14 @@ const Deck = ({ title, no, projectNo }) => {
                             multiline
                             label='제목 수정'
                             maxRows={4}
-                            value={deckTitle}
+                            value={title}
                             onChange={(e) => onChangeTitle(e)}
                             onKeyPress={keyEnter}
                             sx={{ml: 1 }}
                             size="small"
                         />
                         :
-                        <h5 className="mb-3 font-weight-bold text-gray-dark">{deckTitle}</h5>
+                        <h5 className="mb-3 font-weight-bold text-gray-dark">{title}</h5>
                     }
                 </div>
                 <div className="col-xl-2 mt-2">
@@ -85,13 +162,31 @@ const Deck = ({ title, no, projectNo }) => {
                         setRefresh={setRefresh}
                     /> : null}
                 </div>
-                <div className="card-body">
+                
+                <DragDropContext onDragEnd={onDragEnd}>
+                {/* <Container> */}
+                <Droppable droppableId="card">
+                {provided =>(
+                <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
                     {
-                        cardList.map((m, i) => (<Card key={i} card={m} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />)
+                        cardList.map((data, index) => (
+                        <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
+                        {provided => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <CardLayout key={index} nCount={nCount} taskCount={taskCount} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        {provided.placeholder}
+                        </div>
                         )}
+                        </Draggable>
+                        )
+                        )}
+                    {provided.placeholder}
                 </div>
+                )}
+                </Droppable>
+                {/* </Container> */}
+                </DragDropContext>
             </div>
-
         </Paper>
     );
 };
