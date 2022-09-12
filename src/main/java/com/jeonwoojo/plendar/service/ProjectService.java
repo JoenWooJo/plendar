@@ -120,4 +120,8 @@ public class ProjectService {
 		projectRepository.deleteProject(projectNo);
 	}
 
+	public void finishProject(long projectNo) {
+		projectRepository.finishProject(projectNo);
+	}
+
 }

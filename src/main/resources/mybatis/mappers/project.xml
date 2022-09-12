@@ -64,6 +64,7 @@
 				where pj.no =  pjm.project_no 
 					and pjm.user_no = #{userNo } 
 					and pj.finished="Y"
+					and pj.visible = 1
 					order by priority desc, title asc
 		]]>
 	</select>
@@ -105,6 +106,16 @@
 		update project
 			set
 		 visible = 0
+		 where no = #{no }
+		]]>
+	</update>
+	
+	
+	<update id="finishProject" parameterType="long">
+	<![CDATA[
+		update project
+			set
+		 finished = "Y"
 		 where no = #{no }
 		]]>
 	</update>
