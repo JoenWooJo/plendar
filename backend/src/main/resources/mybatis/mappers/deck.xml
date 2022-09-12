@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="deck">
+<insert id="insertDefaultDeck" parameterType="map">
+		<![CDATA[
+			insert
+				into deck
+			 values (null, #{projectNo }, #{deck.title }, #{deck.sequence })
+		]]>
+	</insert>
+
+	<select id="findDeck" resultType="deckvo">
+		<![CDATA[
+			select no, project_no as projectNo, title, sequence
+			  from deck 
+			  where project_no= #{project_no}
+			  order by sequence asc
+		]]>
+	</select>
+	
+	<insert id="insertDeck" parameterType="deckvo">
+		<![CDATA[
+		insert into deck values(null, #{projectNo}, #{title}, (SELECT IFNULL(MAX(sequence) + 1, 1)
+			FROM deck a, project b 
+		 	where b.no = #{projectNo} 
+		 	and a.project_no = b.no))
+		]]>	
+	</insert>
+	
+	<update id="updateDeck" parameterType="deckvo">
+		<![CDATA[
+		update deck 
+			set title = #{title } 
+			where no = #{no }
+		]]>
+	</update>
+	
+	<update id="moveDeck" parameterType="deckvo">
+		<![CDATA[
+		update deck 
+			set sequence = #{sequence } 
+			where no = #{no }
+		]]>
+	</update>
+	
+	<delete id="deleteDeck" parameterType="long">
+		<![CDATA[
+			delete from deck where no = #{deckNo }
+		]]>
+	</delete>
+	
+	<select id="findOneDeck" parameterType="long" resultType="deckvo">
+		<![CDATA[
+			select no, project_no as projectNo, title, sequence
+			  from deck 
+			  where no= #{deckNo}
+		]]>
+	</select>
+	
+	<update id="updateSequence" parameterType="deckvo">
+		<![CDATA[
+			update deck 
+				set sequence = sequence -1 
+			  where no = #{no }
+		]]>
+	</update>
+</mapper>

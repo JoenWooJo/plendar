@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+		insert
+		  into user
+		values (null, #{email }, #{name }, #{password }, "/assets/profile/defaultProfile.png", 'USER')
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+	</insert>
+	
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select u.no as no , u.email as email, u.name as name, u.profile as profile, count(*) as projectCount
+				from project pj, proj_member pm, user u
+			 where pj.no = pm.project_no
+			 and u.no = pm.user_no		 
+			 and pm.user_no = (select no from user where email=#{email } and password=#{password })
+		]]>
+	</select>
+	
+	<select id="checkEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select email from user where email=#{email }
+		]]>
+	</select>
+	
+	<update id="updateUser" parameterType="uservo">
+		<![CDATA[
+		update user
+		 set name = #{name }, password = #{password } 
+		where no = #{no }
+		]]>
+	</update>
+	
+	<update id="deleteProfile" parameterType="uservo">
+		<![CDATA[
+		update user 
+		 set profile = "/assets/profile/defaultProfile.png"
+		where no = #{no }
+		]]>
+	</update>
+	
+	<update id="updateProfile" parameterType="map">
+		<![CDATA[
+		update user 
+		 set profile = #{profile } 
+		where no = #{userNo }
+		]]>
+	</update>
+	
+	<select id="checkPassword" parameterType="uservo" resultType="uservo">
+		<![CDATA[
+			select password from user where password=#{password } and no = #{no }
+		]]>
+	</select>
+	
+	<select id="findAll" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select * from user where no = #{no }
+		]]>
+	</select>
+	
+	<select id="findByUserProject" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select count(*) as projectCount from proj_member where user_no = #{userNo }
+		]]>
+	</select>
+	
+	<update id="updateName" parameterType="uservo">
+		<![CDATA[
+		update user
+		 set name = #{name } where no = #{no }
+		]]>
+	</update>
+	
+</mapper>

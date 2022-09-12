@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chat">
+	<select id="findAllRoom" parameterType="long" resultType="chatroomvo">
+		<![CDATA[
+			select cr.no, cr.title, n.notice, cm.sendTime
+				from chat_room cr, proj_member pm, chat_notice n, (select distinct room_id, max(send_time) as sendTime from chat_message group by room_id) cm
+			 where cr.no = pm.project_no and cr.no = n.room_id and cr.no = cm.room_id
+             and n.user_no =#{userNo } and pm.user_no = #{userNo } order by n.notice desc, cm.sendTime desc, cr.no desc
+		]]>
+	</select>
+	
+	<insert id="chatRoomCreate" parameterType="projectvo">
+		<![CDATA[
+			insert
+				into chat_room
+			 values (#{no }, #{title })
+		]]>
+	</insert>
+	
+	<insert id="chatNoticeInsert" parameterType="map">
+		<![CDATA[
+			insert
+				into chat_notice
+			 values (null, ${projectNo }, ${userVo.no }, 1)
+		]]>
+	</insert>
+	
+	<insert id="chatNoticeInsertReader" parameterType="map">
+		<![CDATA[
+			insert
+				into chat_notice
+			 values (null, ${projectNo }, ${authUser }, 1)
+		]]>
+	</insert>
+	
+	<select id="findRoomMember" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select a.no, a.name, a.email, a.profile, b.no as projectNo 
+				from user a, chat_room b, proj_member c 
+			 where b.no = c.project_no and c.user_no = a.no and b.no = #{no} 
+		]]>
+	</select>
+	
+	<insert id="chatMessageInsert" parameterType="message">
+		<![CDATA[
+			insert
+				into chat_message
+			 values (null, #{roomId }, #{sender }, #{message }, #{sendTime }, #{type })
+		]]>
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+	</insert>
+	
+	
+	<select id="findMessages" parameterType="long" resultType="message">
+		<![CDATA[
+			select msg.no as no, msg.room_id as room_id, msg.sender as sender, msg.message as message, msg.send_time as sendTime, u.name as senderName, u.profile as senderProfile, msg.type
+				from chat_message msg, user u
+			 where msg.sender = u.no
+				and msg.room_id = #{roomId } order by msg.no asc
+		]]>
+	</select>
+	
+	<select id="findsendUser" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select name, profile from user where no = #{senderNo }
+		]]>
+	</select>
+	
+	<update id="updateNoticeFalse" parameterType="map">
+		<![CDATA[
+			update chat_notice set notice = 0 where user_no = ${userNo } and room_id = ${roomId }
+		]]>
+	</update>
+	
+	<select id="findRoomNotice" parameterType="map" resultType="chatnotice">
+		<![CDATA[
+			select notice from chat_notice where user_no = ${userNo } and room_id = ${roomId }
+		]]>
+	</select>
+	
+	<update id="noticeUpdateTrue" parameterType="map">
+		<![CDATA[
+			update chat_notice set notice = 1 where user_no = ${userNo } and room_id = ${roomId }
+		]]>
+	</update>
+	
+	<select id="findLastMessage" parameterType="long" resultType="message">
+		<![CDATA[
+			select no, room_id, sender, message, send_time as sendTime, type  from chat_message where room_id = ${roomId } order by no DESC LIMIT 1
+		]]>
+	</select>
+	
+	<select id="findNoticeCount" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(*) from chat_notice where user_no = #{userNo } and notice = 1
+		]]>
+	</select>
+	
+	
+	<update id="updateChatRoom" parameterType="projectvo">
+		<![CDATA[
+			update chat_room
+				set
+			 title = #{title }
+			 where no = #{no }
+		]]>
+	</update>
+	
+</mapper>

@@ -1,0 +1,62 @@
+# spring configuration
+spring:
+   application:
+      name: plendar
+
+   # devtools - live reload
+   devtools:
+      livereload:
+         enabled: true
+          
+   mvc:
+      # Path pattern used for static resources
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+
+   web:
+      resources:
+         static-locations: classpath:/assets/, file:/plendar-uploads/
+
+   thymeleaf:
+      prefix: classpath:templates/
+      check-template-location: true
+      mode: HTML5
+      suffix: .html
+      cache: false
+   
+   # multipart
+   servlet:
+      multipart:
+         enabled: true
+         max-file-size: 10MB
+         max-request-size: 50MB
+    
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mysql://34.64.81.221:3306/plendar?characterEncoding=utf8
+      username: ENC(bm+3OxWFqFign+Nd+Dp3Op30vcOlTPTlXiKAuGKT1cAMhup5fuFKRLxfySTjfoH3)
+      password: ENC(9UKbp63zb6Dia33ahXsonli6aEffomUYpgM26cVHbG+5/D/Xzq2zwhoJABERUEjmIlAxy/Aw6C+SvH3aIIq61w==)
+      hikari:
+           minimum-idle: 10
+           maximum-pool-size: 20
+jasypt:
+   encryptor:
+      bean: jasyptStringEncryptor
+      
+      
+mybatis:
+    config-location: classpath:mybatis/configuration.xml
+
+server:
+   port: 8080
+   servlet:
+      context-path: /
+      encoding:
+         charset: UTF-8
+         enabled: true
+         
+         
+# logging configuration
+logging:
+   level:
+      root: INFO

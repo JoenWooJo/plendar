@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<insert id="insertNoticeProject" parameterType="noticemessage">
+		<![CDATA[
+		insert
+		  into notice
+		values (null, #{message }, #{type }, #{time }, #{userNo }, #{projectNo }, null, null)
+		]]>
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+	</insert>
+	
+	<insert id="insertNoticeCard" parameterType="noticemessage">
+		<![CDATA[
+		insert
+		  into notice
+		values (null, #{message }, #{type }, #{time }, #{userNo }, #{projectNo }, #{deckNo }, #{cardNo })
+		]]>
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+	</insert>
+	
+	<insert id="insertNotice" parameterType="noticemessage">
+		<![CDATA[
+		insert
+		  into notice
+		values (null, #{message }, #{type }, #{time }, #{userNo }, #{projectNo }, null, #{cardNo })
+		]]>
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+		  	select last_insert_id()
+	  		]]>
+	  	</selectKey>	
+	</insert>
+	
+	<select id="getAlramList" parameterType="long" resultType="noticemessage">
+		<![CDATA[
+			select no, message, type, time, user_no as userNo, project_no as projectNo, deck_no as deckNo, card_no as cardNo 
+				from notice 
+			 where user_no = #{userNo } order by time desc 
+		]]>
+	</select>
+	
+	<select id="getChatAlramCount" parameterType="long" resultType="int">
+		<![CDATA[
+			select count(*) as chatCount from chat_notice where user_no = #{userNo } and notice = 1
+		]]>
+	</select>
+	
+	<select id="deleteNotice" parameterType="long">
+		<![CDATA[
+			delete from notice where no = #{noticeNo }
+		]]>
+	</select>
+	
+	
+</mapper>
