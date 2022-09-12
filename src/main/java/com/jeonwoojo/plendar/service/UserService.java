@@ -66,4 +66,8 @@ public class UserService {
 		return userRepository.findByUserProject(userNo);
 	}
 
+	public boolean updateName(UserVo vo) {
+		return userRepository.updateName(vo);
+	}
+
 }

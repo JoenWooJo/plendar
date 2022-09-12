@@ -73,4 +73,11 @@
 		]]>
 	</select>
 	
+	<update id="updateName" parameterType="uservo">
+		<![CDATA[
+		update user
+		 set name = #{name } where no = #{no }
+		]]>
+	</update>
+	
 </mapper>

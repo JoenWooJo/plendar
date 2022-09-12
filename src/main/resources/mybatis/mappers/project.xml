@@ -18,7 +18,7 @@
 		<![CDATA[
 		insert
 		  into project
-		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N', null)
+		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N', 1)
 		]]>
 		
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -41,7 +41,7 @@
 		<![CDATA[
 			insert
 				into proj_member
-			 values (${authUser.no }, ${projectNo }, 1, 1)
+			 values (${authUser }, ${projectNo }, 1, 1)
 		]]>
 	</insert>
 	
