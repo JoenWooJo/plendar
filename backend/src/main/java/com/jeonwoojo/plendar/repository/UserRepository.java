@@ -43,7 +43,6 @@ public class UserRepository {
 	}
 
 	public boolean deleteProfile(UserVo vo) {
-		System.out.println("repositry" + vo);
 		return sqlSession.update("user.deleteProfile", vo) == 1;
 	}
 

@@ -21,8 +21,7 @@ public class TestController {
 	@GetMapping("/")
 	@ResponseBody
 	public String test() {
-		String name = testService.findName();
-		System.out.println(name);
+//		String name = testService.findName();
 		return "Hello Test Good~~";
 	}
 	

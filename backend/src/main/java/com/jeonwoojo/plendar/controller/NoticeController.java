@@ -26,8 +26,6 @@ public class NoticeController {
 	
 	@GetMapping("/alramList")
 	public ResponseEntity<JsonResult> getAlramList(@RequestParam("userNo")long userNo) {
-		System.out.println(userNo);
-		
 		List<NoticeMessage> alramList = noticeService.getAlramList(userNo);
 		
 		return ResponseEntity

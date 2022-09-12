@@ -51,7 +51,6 @@ public class CardController {
 		newCardVo.setMember(cardVo.getMember());
 
 		String projectTitle = projectService.findProjectTitle(newCardVo.getProjectNo());
-		System.out.println("card>> "+newCardVo);
 		
 		cardService.cardNotice(newCardVo, projectTitle);
 		
@@ -64,7 +63,6 @@ public class CardController {
 	@PostMapping("/comment/insert")
 	 public ResponseEntity<JsonResult> commentInsert(@RequestBody CommentVo commentVo) {
 	      cardService.commentInsert(commentVo);
-	      System.out.println("commentVo"+commentVo);
 	      noticeService.commentNotice(commentVo);
 	      
 	      return ResponseEntity
@@ -102,7 +100,8 @@ public class CardController {
 	   
 	   @DeleteMapping("/deleteCard/{projectNo}/{cardNo}")
 	   public ResponseEntity<JsonResult> deleteCard(@PathVariable("projectNo") Long projectNo, @PathVariable("cardNo") Long cardNo) {
-			CardVo cardVo = cardService.findCardInfo(cardNo);
+//			CardVo cardVo = 
+			cardService.findCardInfo(cardNo);
 
 //			noticeService.deleteCardNotice(projectNo, cardVo);
 			cardService.deleteCard(cardNo);
