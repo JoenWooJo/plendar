@@ -22,7 +22,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
 
     return (
         <div>
-            <Dropdown.Item  onClick={handleShow}>카드 수정</Dropdown.Item>
+            <Dropdown.Item  onClick={handleShow}>카드 정보</Dropdown.Item>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>

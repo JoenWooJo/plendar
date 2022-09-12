@@ -33,7 +33,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
         setMember(member.filter(user => user.no !== no));
     }
 
-    const CreateCard = () => {
+    const CreateCard = async () => {
         const arr = {
             projectNo: projectNo,
             cardNo: cardNo,
@@ -44,9 +44,10 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
             endDate: endDate,
             member: member
         }
-        post(`/kanban/card/create`, arr);
-        setShow(!show);
-        setRefresh(refresh => ! refresh);
+        await post(`/kanban/card/create`, arr);
+        setShow(show => !show);
+        setRefresh(refresh => !refresh);
+        setMorevertList(morevertList => !morevertList);
     }
 
     useEffect(() => {

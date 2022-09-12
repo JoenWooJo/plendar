@@ -29,7 +29,6 @@ const UpdateProject = () => {
     const [selectUser, setSelectUser] = useState();
     const [user, setUser] = useState([]);
 
-    const [leaderCheck, setLeaderCheck] = useState(1);
 
     const userList = async () => {
         const resp = await axios.get('/api/project/find/user', {

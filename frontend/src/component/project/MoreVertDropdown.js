@@ -3,18 +3,17 @@ import React, { useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-let currentPath = "";
 
 const MoreVertDropdown = ({ projectNo, projectData }) => {
-    let location = useLocation();
-
-    useEffect(() => {
-        if(currentPath === location.pathname) window.location.reload();
-        currentPath = location.pathname;
-      }, [location]);
+    
 
     const deleteProject = async () => {
-        const resp = await axios.put(`/api/project/delete/${projectNo}`)
+        // console.log(">>",projectNo);
+        await axios.delete(`/api/project/delete/${projectNo}`,{
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+        });
     };
 
     return (
