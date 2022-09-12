@@ -115,7 +115,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                     <div className='col-xl-1 mr-1'>
                         <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
                             <AddTask cardNo={no} setRefresh={setRefresh} />
-                            <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} />
+                            <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh}/>
                             <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
                         </DropdownButton>
                     </div>

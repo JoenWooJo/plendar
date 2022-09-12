@@ -18,7 +18,8 @@ const handleClose = () => setShow(false);
 const createDeck = () => {
   axios.post('/api/kanban/deck/create',{
       title: title,
-      projectNo :projectNo
+      projectNo :projectNo, }, {
+      headers: {Authorization: localStorage.getItem("Authorization"),},
   }).then((resp)=>{
       setCreateResult(createResult => !createResult);
       handleClose();
@@ -32,6 +33,7 @@ const keyEnter = (e) => {
     title==''? handleClose() : createDeck()
      );
   }
+  e.preventDefault();
 }
 
     return (

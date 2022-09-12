@@ -13,7 +13,7 @@ import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
 
-const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
+const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) => {
 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState("");
@@ -67,6 +67,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                 }
                 resp.data.result === "success" && alert("수정이 완료되었습니다.")
                 setShow(!show);
+                setRefresh(refresh => !refresh);
             })
     }
 
