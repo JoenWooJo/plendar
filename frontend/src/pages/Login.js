@@ -1,9 +1,7 @@
 import React from 'react';
 import '../assets/scss/sb-admin-2.scss';
-import {useRef, useState, useEffect} from 'react';
+import { useState } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import { set } from 'date-fns';
 import jwt_decode from "jwt-decode";
 
 const Login = () => {
@@ -27,10 +25,7 @@ const Login = () => {
         await axios.post('/api/login', data)
             .then((resp)=>{
                 const result = JSON.parse(resp.config.data);
-                console.log(resp);
                 const accesToken = resp.headers.authorization;
-
-                console.log(result);
 
                 localStorage.setItem('Authorization', accesToken);
                 const decode = jwt_decode(accesToken);
@@ -48,7 +43,6 @@ const Login = () => {
             },
             }).then((resp) => {
                 const result = resp.data.data;
-                console.log(result);
                 if (result["projectCount"] >= 1) {
                     window.location.replace("/project/myproject");
                 }

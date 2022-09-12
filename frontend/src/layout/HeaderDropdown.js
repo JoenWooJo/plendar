@@ -12,7 +12,6 @@ import '../assets/css/bar.css';
 const HeaderDropdown = ({ alramList, setClick }) => {
 
     const alramClick = async (alram) => {
-        console.log("alram>>",alram)
         // notice => 삭제
         await axios.delete(`/api/notice/delete/${alram.no}`, {
             headers: {

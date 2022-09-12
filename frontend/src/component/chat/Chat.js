@@ -58,7 +58,6 @@ const Chat = () => {
     }, [])
 
     useEffect(() => {
-        console.log("왜한글은 안먹어???")
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
@@ -93,7 +92,7 @@ const Chat = () => {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
-                console.log("!!!!!!", str);
+                // console.log("!!!!!!", str);
             },
             reconnectDelay: 5000,
             heartbeatIncoming: 4000,

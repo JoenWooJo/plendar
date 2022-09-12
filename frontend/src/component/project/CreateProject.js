@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import dayjs from "dayjs";
-
-import SiteLayout from '../../layout/SiteLayout';
 import { TextField, Typography, Rating, Autocomplete, Checkbox } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -40,10 +38,6 @@ const CreateProject = () => {
             })
     }, []);
 
-    useEffect(() => {
-        console.log("member: ", member);
-    }, [member, is_checked]);
-
     const createProject = () => {
         axios.post('/api/project/create', {
             title: title,
@@ -58,7 +52,6 @@ const CreateProject = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             }).then((resp) => {
-            console.log(resp);
         }).catch((err) => {
             console.error(err)
         });

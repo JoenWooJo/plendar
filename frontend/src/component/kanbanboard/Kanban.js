@@ -28,11 +28,9 @@ const Kanban = () => {
 
   useEffect(() => {
     t();
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }, [createResult])
 
   useEffect(() => {
-    console.log("t() called", projectNo);
     t();
   }, [projectNo])
 
@@ -48,7 +46,6 @@ const Kanban = () => {
   }
 
   useEffect(()=>{
-    console.log(state,cardView, noticeType, noticeNo)
       const f = () => {
           let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
           child != null && child.parentNode.removeChild(child);
@@ -91,7 +88,6 @@ const Kanban = () => {
           }
           e.sequence = e.sequence +1
         } 
-        //console.log("currentList>> ",e);
       })
   
       currentList[source.index-1]["sequence"] = destination.index;
@@ -107,7 +103,6 @@ const Kanban = () => {
 
   };
   
-  console.log("babo1--------------------------------")
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>

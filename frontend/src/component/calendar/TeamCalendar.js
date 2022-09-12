@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import SiteLayout from '../../layout/SiteLayout';
 import { Link } from 'react-router-dom';
 import EventCardModal from './EventCardModal';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';

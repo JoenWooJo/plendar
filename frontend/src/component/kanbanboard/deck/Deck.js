@@ -80,7 +80,6 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         }
     }
     const keyEnter = (e) => {
-        console.log(e.target.value);
         if (e.key == "Enter") {
             postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
@@ -102,13 +101,10 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
         const newTaskIds = Array.from(column.sequence);
         
-        console.log("출발지점의 값 column:", column);
-        
 
         // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
-        console.log("새로운 배열 newTaskIds", newTaskIds);
 
         const newColumn = {
           ...column,

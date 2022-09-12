@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
 import '../../assets/css/bar.css';
@@ -18,7 +18,6 @@ const SearchBar = ({ roomList, setNewRoomList }) => {
         })
 
         setNewRoomList(searchResult);
-        console.log(searchResult)  
     };
 
     return (

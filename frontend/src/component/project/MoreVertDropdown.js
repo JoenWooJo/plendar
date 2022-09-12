@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 
@@ -8,7 +7,6 @@ const MoreVertDropdown = ({ projectNo, projectData }) => {
     
 
     const deleteProject = async () => {
-        // console.log(">>",projectNo);
         await axios.delete(`/api/project/delete/${projectNo}`,{
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),

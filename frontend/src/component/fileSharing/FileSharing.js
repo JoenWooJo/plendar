@@ -1,5 +1,4 @@
 import React from 'react';
-import SiteLayout from '../../layout/SiteLayout';
 import Files from './Files'
 
 import FileManager, { Permissions } from 'devextreme-react/file-manager';
