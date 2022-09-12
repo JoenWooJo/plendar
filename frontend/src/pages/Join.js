@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
 
 const Join = () => {
     const [name, setName] = useState("");
@@ -106,7 +105,6 @@ const Join = () => {
             }
             axios.post('/api/user/join', data)
                 .then((resp) => {
-                    console.log(resp.data.result);
                 }).catch((err) => {
                     console.error(err);
                 });

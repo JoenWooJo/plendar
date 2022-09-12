@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import '../assets/scss/sb-admin-2.scss';
 import { Link } from 'react-router-dom';
 

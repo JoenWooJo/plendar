@@ -119,7 +119,6 @@ const Header = ({ }) => {
 
         client.current.subscribe(`/topic/notice/chat/${localStorage.getItem("loginUserNo")}`, (data) => {
             let list = JSON.parse(data.body);
-            console.log("count...?",list);
             setCount(list);
         }, { id: "notice-chat" });
     };
