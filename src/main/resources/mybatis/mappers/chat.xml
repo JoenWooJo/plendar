@@ -31,7 +31,7 @@
 		<![CDATA[
 			insert
 				into chat_notice
-			 values (null, ${projectNo }, ${authUser.no }, 1)
+			 values (null, ${projectNo }, ${authUser }, 1)
 		]]>
 	</insert>
 	
