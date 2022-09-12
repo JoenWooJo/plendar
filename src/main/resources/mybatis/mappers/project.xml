@@ -16,9 +16,9 @@
 	
 	<insert id="createProject" parameterType="projectvo">
 		<![CDATA[
-		insert
-		  into project
-		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N', '1')
+      insert
+        into project
+      values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N', 1)
 		]]>
 		
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
