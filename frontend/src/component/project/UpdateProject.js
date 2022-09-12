@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import dayjs from "dayjs";
-import update from 'react-addons-update';
-import SiteLayout from '../../layout/SiteLayout';
 import { TextField, Typography, Rating, Autocomplete, Checkbox } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom"
@@ -31,10 +29,13 @@ const UpdateProject = () => {
     const [selectUser, setSelectUser] = useState();
     const [user, setUser] = useState([]);
 
-    const [leaderCheck, setLeaderCheck] = useState(1);
 
     const userList = async () => {
-        const resp = await axios.get('/api/project/find/user')
+        const resp = await axios.get('/api/project/find/user', {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         const list = [];
         (resp.data.data).map((e) => {
             if (e.no != localStorage.getItem('loginUserNo') && e.no != 1) {
@@ -45,7 +46,11 @@ const UpdateProject = () => {
     };
 
     const projectMember = async () => {
-        const projMember = await axios.get(`/api/project/find/member/${projectNo}`);
+        const projMember = await axios.get(`/api/project/find/member/${projectNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setMember(projMember.data.data);
     }
 
@@ -59,7 +64,14 @@ const UpdateProject = () => {
             endDate: endDate,
             member: member
         }
-        const resp = await axios.post("/api/project/update", projectData);
+        const resp = await axios.post("/api/project/update", projectData, {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
     };
 
     const is_checked = (event, index) => {

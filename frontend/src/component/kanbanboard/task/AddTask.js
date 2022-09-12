@@ -13,9 +13,12 @@ const AddTask = ({cardNo, setRefresh}) => {
 
     //task 추가하기
     const createTask = () => {
-      axios.post('/api/kanban/task/create',{
-          content: content,
-          cardNo : cardNo
+      axios.post('/api/kanban/task/create', {
+        content: content,
+        cardNo : cardNo }, {
+          headers: {
+              Authorization: window.localStorage.getItem("Authorization"),
+          },
       }).then((resp)=>{
           setRefresh(refresh => ! refresh);
           handleClose();
@@ -25,7 +28,8 @@ const AddTask = ({cardNo, setRefresh}) => {
 
     const handleOnKeyPress = e => {
       if (e.key === 'Enter') {
-      createTask(); // Enter 입력이 되면 클릭 이벤트 실행
+      createTask();
+      e.preventDefault();
     }
     };
 

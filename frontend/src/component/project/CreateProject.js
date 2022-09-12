@@ -23,7 +23,11 @@ const CreateProject = () => {
     const [user, setUser] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/project/find/user')
+        axios.get('/api/project/find/user', {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 const userList = resp.data.data;
                 const list = [];
@@ -48,7 +52,12 @@ const CreateProject = () => {
             startDate: startDate,
             endDate: endDate,
             member: member
-        }).then((resp) => {
+        }, {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            }).then((resp) => {
             console.log(resp);
         }).catch((err) => {
             console.error(err)

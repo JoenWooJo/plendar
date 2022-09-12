@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import dayjs from "dayjs";
-
 import { Form, Card } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import moment from 'moment';
@@ -25,18 +24,24 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
             content : comment,
             date : nowTime
         }
-        axios.post('/api/kanban/card/comment/insert', body)
+        axios.post('/api/kanban/card/comment/insert', body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then(()=>{
                 //인서트 후 초기화
                 clearRef.current.value='';
                 setComment('');
             })
     };
-    const b = async(e) => {
-        const commentList = await get(`/kanban/card/find/comment/${cardNo}`);
-
-        // 날짜 형식 바꿔서 다시 리스트로 저장
-        // 미안하다 채원아 여기서 못했다;;
+    
+    const b = async () => {
+        const commentList = await get(`/kanban/card/find/comment/${cardNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setFeedComments(commentList);
     }
      useEffect(() => {
@@ -97,6 +102,7 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
                         >
                     확인
                 </Button>
+                
             </div>
         </div>
     );

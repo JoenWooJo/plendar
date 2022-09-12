@@ -18,6 +18,7 @@ const Header = ({ }) => {
     
 
     const [click, setClick] = useState(false);
+    const [del, setDel] = useState(false); 
     const [chatCount, setCount] = useState(0);
     const [alramCount, _setAlramCount] = useState(0);
 
@@ -36,35 +37,51 @@ const Header = ({ }) => {
     }
 
     const logoutClick = async () => {
-        await axios.get('/api/user/logout')
-
+        await axios.get('/api/user/logout', {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
+        localStorage.removeItem("Authorization");
         localStorage.removeItem("loginUserNo");
-        localStorage.removeItem("loginUserEmail");
-        localStorage.removeItem("loginUserName");
-        localStorage.removeItem("loginUserProfile");
-
+        
         window.location.replace("/login");
     };
 
     const getAlramList = async () => {
-        const resp = await axios.get("/api/notice/alramList");
+        const resp = await axios.get("/api/notice/alramList", {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setAlramList(resp.data.data);
         setAlramCount((resp.data.data).length);
     };
 
     const getChatAlramCount = async () => {
-        const resp = await axios.get("/api/notice/chat/count");
+        const resp = await axios.get("/api/notice/chat/count", {
+            params: {
+            userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+        });
         setCount(resp.data.data);
     };
 
     useEffect(() => {
         connect();
-        getAlramList();
     }, []);
 
     useEffect(()=>{
         getChatAlramCount();
     }, [current]);
+
+    useEffect(()=>{
+        getAlramList();
+    }, [click]);
 
 
     const connect = async () => {
@@ -141,7 +158,7 @@ const Header = ({ }) => {
                         <Badge color="error" badgeContent={alramCount}>
                             <AccessAlarmIcon color="primary" fontSize="large" onClick={e => { setClick(click => !click) }} />
                         </Badge>
-                        {click ? <HeaderDropdown alramList={alramList} /> : null}
+                        {click ? <HeaderDropdown alramList={alramList} setClick={setClick} setDel={setDel}/> : null}
                     </div>
 
                 </li>

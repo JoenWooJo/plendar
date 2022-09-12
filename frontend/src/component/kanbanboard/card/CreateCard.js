@@ -12,7 +12,7 @@ import axios from 'axios';
 import dayjs from "dayjs";
 
 
-const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
+const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorevertList}) => {
     const [endDate, setEndDate] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [selectUser, setSelectUser] = useState();
@@ -33,7 +33,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
         setMember(member.filter(user => user.no !== no));
     }
 
-    const CreateCard = () => {
+    const CreateCard = async () => {
         const arr = {
             projectNo: projectNo,
             cardNo: cardNo,
@@ -44,9 +44,10 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
             endDate: endDate,
             member: member
         }
-        post(`/kanban/card/create`, arr);
-        setShow(!show);
-        setRefresh(refresh => ! refresh);
+        await post(`/kanban/card/create`, arr);
+        setShow(show => !show);
+        setRefresh(refresh => !refresh);
+        setMorevertList(morevertList => !morevertList);
     }
 
     useEffect(() => {
@@ -178,7 +179,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh}) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(!show)}>
+                    <Button variant="secondary" onClick={() => {setShow(!show), setMorevertList(morevertList=>!morevertList)}}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={CreateCard}>

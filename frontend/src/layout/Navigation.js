@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import '../assets/css/plendar.css';
 import '../assets/scss/sb-admin-2.scss';
 import { NavLink } from 'react-router-dom';
@@ -7,8 +7,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import jwt_decode from "jwt-decode";
+
+
 
 export default class Navigation extends Component {
+    
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -41,7 +46,8 @@ export default class Navigation extends Component {
     }
 
     render() {
-        const el = document.getElementById("img");
+        const decode = jwt_decode(localStorage.getItem("Authorization"));
+        
         return (
         <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2">
             <NavLink className="sidebar-brand align-items-center justify-content-center "
@@ -51,9 +57,9 @@ export default class Navigation extends Component {
 
 
             <div className="text-center mt-5 2">
-                <img src={localStorage.getItem("loginUserProfile")} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
+                <img src={decode["profile"]} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
                 <br /><br />
-                <div className="text-light "><h6>{localStorage.getItem("loginUserName")} &nbsp; 님</h6><br /></div>
+                <div className="text-light "><h6>{decode["name"]} &nbsp; 님</h6><br /></div>
             </div>
             <hr className="sidebar-divider" />
 

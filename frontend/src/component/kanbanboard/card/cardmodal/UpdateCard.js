@@ -13,7 +13,7 @@ import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
 
-const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
+const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) => {
 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState("");
@@ -26,7 +26,11 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
 
     //카드 유저 리스트 가져오기
     const getCardUser = async () => {
-        const list = await get(`/kanban/card/find/carduser/${projectNo}`);
+        const list = await get(`/kanban/card/find/carduser/${projectNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
         setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
     }
 
@@ -51,7 +55,11 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
             member: member
         }
 
-        axios.post('/api/kanban/card/updateCard', body)
+        axios.post('/api/kanban/card/updateCard', body, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
@@ -59,13 +67,18 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
                 }
                 resp.data.result === "success" && alert("수정이 완료되었습니다.")
                 setShow(!show);
+                setRefresh(refresh => !refresh);
             })
     }
 
     // 카드의 현재 유저 불러오기
     useEffect(() => {
         const findCurrentCardmember = async () => {
-            await axios.get(`/api/kanban/card/findCurrentCardmember/${cardNo}`)
+            await axios.get(`/api/kanban/card/findCurrentCardmember/${cardNo}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                })
             .then((resp) => {
                 const list = resp.data.data;
                 setMember(list);
@@ -77,7 +90,11 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo }) => {
     // 현재 카드 정보 가져오기
     useEffect(() => {
         const findCardInfo = async () => {
-            await axios.get(`/api/kanban/card/findCardInfo/${cardNo}`)
+            await axios.get(`/api/kanban/card/findCardInfo/${cardNo}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                })
             .then((resp) => {
                 const info = resp.data.data;
                 setTitle(info.title);

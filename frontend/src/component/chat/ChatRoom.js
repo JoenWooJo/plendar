@@ -17,9 +17,13 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
     const fetchAndNotice = async () => {
         const resp = await axios.get('/api/chat/notice', {
             params: {
+            userNo: localStorage.getItem("loginUserNo"),
             roomId: roomNo,
             roomIdSelected: roomIdSelected
-            }
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
         })
             
         // console.log("roomNo roomIdSelected notice", roomNo, roomIdSelected, resp.data.data);
@@ -30,7 +34,10 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
         const resp = await axios.get('/api/chat/last/message', {
             params: {
                 roomId: roomNo
-            }
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
         })
         if(resp.data.data != null ){
             setLine(resp.data.data);

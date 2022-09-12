@@ -8,7 +8,12 @@ const Complete = () => {
     const [projectList, setProjectList] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/project/find/completeProject')
+        axios.get('/api/project/find/completeProject', {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 const list = resp.data.data;
                 setProjectList(list);
@@ -31,7 +36,8 @@ const Complete = () => {
                                         <div className='mt-3'>
                                             <Rating
                                                 value={m.priority}
-                                                size="small" 
+                                                size="small"
+                                                readOnly
                                             />
                                         </div>
                                         <div className="text-xs text-gray text-uppercase mt-3">

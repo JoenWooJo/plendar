@@ -41,15 +41,15 @@ const Join = () => {
         if (email == '') {
             return alert('Email 입력해 주세요');
         }
-        axios.post('/api/user/check/email', {
+        axios.post('api/user/check/email', {
             email: email
-        }).then((resp) => {
-            if (resp.data.data) {
-                setCheckEmail(true);
-                return alert("Email 사용 가능 합니다!");
-            }
-            setCheckEmail(false);
-            return alert("중복된 Email 입니다. 다른 Email을 사용해주세요");
+            }).then((resp) => {
+                if (resp.data.data) {
+                    setCheckEmail(true);
+                    return alert("Email 사용 가능 합니다!");
+                }
+                setCheckEmail(false);
+                return alert("중복된 Email 입니다. 다른 Email을 사용해주세요");
 
         }).catch((err) => {
             console.error(err);
