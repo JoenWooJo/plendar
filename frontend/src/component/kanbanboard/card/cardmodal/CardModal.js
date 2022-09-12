@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
-const CardModal = ({title, projectNo, deckNo, cardNo}) => {
+const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
     const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
 
@@ -24,7 +24,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
         <div>
             <Dropdown.Item  onClick={handleShow}>카드 정보</Dropdown.Item>
             <div className='col-xl-1'>
-                <Modal size='lg' show={show}>
+                <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>
                     <Modal.Header closeButton>
                         <Modal.Title className='col-xl-6'>{title}</Modal.Title>
@@ -36,7 +36,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo}) => {
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>
-                        {page === "card" && <UpdateCard show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo}/>}
+                        {page === "card" && <UpdateCard show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} setRefresh={setRefresh}/>}
                         {page === "comment" && <Comment show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} title={title} />}
                         {page === "file" && <FileUpload show={show} setShow={setShow}/>}
                     </div>

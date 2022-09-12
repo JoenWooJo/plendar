@@ -19,8 +19,9 @@ const CreateDeck = ({ setCreateResult }) => {
   const createDeck = () => {
     axios.post('/api/kanban/deck/create', {
       title: title,
-      projectNo: projectNo
-    }).then((resp) => {
+      projectNo :projectNo, }, {
+      headers: {Authorization: localStorage.getItem("Authorization"),},
+  }).then((resp)=>{
       setCreateResult(createResult => !createResult);
       handleClose();
     }).catch((err) => {
@@ -44,6 +45,9 @@ const CreateDeck = ({ setCreateResult }) => {
       })
     // console.log(resp);
   }
+
+
+
 
   return (
     <div>

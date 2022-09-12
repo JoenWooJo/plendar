@@ -25,7 +25,7 @@ const CardLayout = ({ taskCount, nCount, card, projectNo, deckNo, refresh, setRe
             <Card card={card} projectNo={projectNo} deckNo={deckNo} refresh={refresh} setRefresh={setRefresh}/>
             </div>
             :
-            noSum == 0
+            noSum == 0 && taskSum != 0
             ?
             <div className="card-body" id="card-border">
             <Card card={card} projectNo={projectNo} deckNo={deckNo} refresh={refresh} setRefresh={setRefresh}/>
