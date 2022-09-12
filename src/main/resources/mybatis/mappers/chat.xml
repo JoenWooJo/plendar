@@ -7,7 +7,7 @@
 			select cr.no, cr.title, n.notice, cm.sendTime
 				from chat_room cr, proj_member pm, chat_notice n, (select distinct room_id, max(send_time) as sendTime from chat_message group by room_id) cm
 			 where cr.no = pm.project_no and cr.no = n.room_id and cr.no = cm.room_id
-             and n.user_no =#{userNo } and pm.user_no = #{userNo } order by n.notice desc, cm.sendTime desc
+             and n.user_no =#{userNo } and pm.user_no = #{userNo } order by n.notice desc, cm.sendTime desc, cr.no desc
 		]]>
 	</select>
 	
@@ -31,7 +31,7 @@
 		<![CDATA[
 			insert
 				into chat_notice
-			 values (null, ${projectNo }, ${authUser.no }, 1)
+			 values (null, ${projectNo }, ${authUser }, 1)
 		]]>
 	</insert>
 	

@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
-import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @CrossOrigin(origins = "http://localhost:9090")
 @RequestMapping("/api/chat")
@@ -28,10 +24,10 @@ public class ChatRoomController {
 	private ChatService chatService;
 
 	@GetMapping("/rooms")
-	public ResponseEntity<JsonResult> rooms(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> rooms(@RequestParam("userNo")Long no) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(chatService.findAllRoom(authUser.getNo())));
+				.body(JsonResult.success(chatService.findAllRoom(no)));
 	}
 	
 	@GetMapping("/room/member")
@@ -42,9 +38,9 @@ public class ChatRoomController {
 	}
 	
 	@GetMapping("/room/messages")
-	public ResponseEntity<JsonResult> roomMessages(@AuthUser UserVo authUser, @RequestParam(value="roomId") long roomId) {
+	public ResponseEntity<JsonResult> roomMessages(@RequestParam(value="userNo") long userNo, @RequestParam(value="roomId") long roomId) {
 		List<ChatMessage> messages = chatService.findMessages(roomId);
-		chatService.updateNotice(authUser, roomId);
+		chatService.updateNotice(userNo, roomId);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -52,13 +48,13 @@ public class ChatRoomController {
 	}
 	
 	@GetMapping("/notice")
-	public ResponseEntity<JsonResult> roomNotice(@AuthUser UserVo authUser, 
+	public ResponseEntity<JsonResult> roomNotice(@RequestParam(value="userNo") long userNo, 
 			@RequestParam(value="roomId") long roomId, 
 			@RequestParam(value="roomIdSelected") long roomIdSelected) {
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(chatService.findRoomNotice(authUser, roomId, roomIdSelected))); 
+				.body(JsonResult.success(chatService.findRoomNotice(userNo, roomId, roomIdSelected))); 
 	}
 	
 	@GetMapping("/last/message")
@@ -68,11 +64,11 @@ public class ChatRoomController {
 				.body(JsonResult.success(chatService.findLastMessage(roomId))); 
 	}
 	
-	@GetMapping("/notice/count")
-	public ResponseEntity<JsonResult> findNoticeCount(@AuthUser UserVo authUser) {
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(JsonResult.success(chatService.findNoticeCount(authUser))); 
-	}
+//	@GetMapping("/notice/count")
+//	public ResponseEntity<JsonResult> findNoticeCount(@AuthUser UserVo authUser) {
+//		return ResponseEntity
+//				.status(HttpStatus.OK)
+//				.body(JsonResult.success(chatService.findNoticeCount(authUser))); 
+//	}
 	
 }

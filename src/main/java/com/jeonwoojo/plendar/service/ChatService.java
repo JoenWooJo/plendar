@@ -40,15 +40,15 @@ public class ChatService {
 		return chatRepository.chatNoticeInsert(message);
 	}
 
-	public boolean updateNotice(UserVo authUser, long roomId) {
-		return chatRepository.updateNotice(authUser.getNo(), roomId);
+	public boolean updateNotice(long userNo, long roomId) {
+		return chatRepository.updateNotice(userNo, roomId);
 	}
 
-	public ChatNotice findRoomNotice(UserVo authUser, long roomId, long roomIdSelected) {
+	public ChatNotice findRoomNotice(long userNo, long roomId, long roomIdSelected) {
 		if (roomId == roomIdSelected) {
-			chatRepository.updateNotice(authUser.getNo(), roomId);
+			chatRepository.updateNotice(userNo, roomId);
 		}
-		return chatRepository.findRoomNotice(authUser.getNo(), roomId);
+		return chatRepository.findRoomNotice(userNo, roomId);
 	}
 
 	public void chatNoticeUpdate(ChatMessage message) {

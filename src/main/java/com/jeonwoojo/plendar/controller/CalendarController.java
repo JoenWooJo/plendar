@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jeonwoojo.plendar.dto.JsonResult;
-import com.jeonwoojo.plendar.security.Auth;
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.CalendarService;
-import com.jeonwoojo.plendar.vo.UserVo;
 
-@Auth
 @Controller
 @RequestMapping("api/calendar")
 @CrossOrigin(origins = "http://localhost:9090")
@@ -24,16 +21,16 @@ public class CalendarController {
 	private CalendarService calendarService;
 	
 	@GetMapping("/axios/team")
-	public ResponseEntity<JsonResult> readTC(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> readTC(@RequestParam("userNo") Long userNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(calendarService.findAll(authUser.getNo())));
+				.body(JsonResult.success(calendarService.findAll(userNo)));
 	}
 	
 	@GetMapping("/axios/personal")
-	public ResponseEntity<JsonResult> readPC(@AuthUser UserVo authUser) {
+	public ResponseEntity<JsonResult> readPC(@RequestParam("userNo") Long userNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(JsonResult.success(calendarService.findByNo(authUser.getNo())));
+				.body(JsonResult.success(calendarService.findByNo(userNo)));
 	}
 }

@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.repository;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,8 +34,8 @@ public class UserRepository {
 		return sqlSession.update("user.updateUser", vo) == 1;
 	}
 
-	public boolean updateProfile(UserVo vo) {
-		return sqlSession.update("user.updateProfile", vo) == 1;
+	public boolean updateProfile(Map<?, ?> map) {
+		return sqlSession.update("user.updateProfile", map) == 1;
 	}
 
 	public UserVo checkPassword(UserVo vo) {
@@ -43,5 +45,13 @@ public class UserRepository {
 	public boolean deleteProfile(UserVo vo) {
 		System.out.println("repositry" + vo);
 		return sqlSession.update("user.deleteProfile", vo) == 1;
+	}
+
+	public UserVo findByUserProject(long userNo) {
+		return sqlSession.selectOne("user.findByUserProject", userNo);
+	}
+
+	public boolean updateName(UserVo vo) {
+		return sqlSession.update("user.updateName", vo) == 1;
 	}
 }

@@ -6,7 +6,7 @@
 		<![CDATA[
 		insert
 		  into user
-		values (null, #{email }, #{name }, #{password }, "/assets/profile/defaultProfile.png")
+		values (null, #{email }, #{name }, #{password }, "/assets/profile/defaultProfile.png", 'USER')
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
@@ -47,11 +47,11 @@
 		]]>
 	</update>
 	
-	<update id="updateProfile" parameterType="uservo">
+	<update id="updateProfile" parameterType="map">
 		<![CDATA[
 		update user 
 		 set profile = #{profile } 
-		where no = #{no }
+		where no = #{userNo }
 		]]>
 	</update>
 	
@@ -60,5 +60,24 @@
 			select password from user where password=#{password } and no = #{no }
 		]]>
 	</select>
+	
+	<select id="findAll" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select * from user where no = #{no }
+		]]>
+	</select>
+	
+	<select id="findByUserProject" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select count(*) as projectCount from proj_member where user_no = #{userNo }
+		]]>
+	</select>
+	
+	<update id="updateName" parameterType="uservo">
+		<![CDATA[
+		update user
+		 set name = #{name } where no = #{no }
+		]]>
+	</update>
 	
 </mapper>

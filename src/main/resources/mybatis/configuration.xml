@@ -27,6 +27,7 @@
       <mapper resource="mybatis/mappers/card.xml" />
       <mapper resource="mybatis/mappers/task.xml" />
       <mapper resource="mybatis/mappers/notice.xml" />
+      <mapper resource="mybatis/mappers/auth.xml" />
    </mappers>
     
 </configuration>

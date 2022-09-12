@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	public boolean insert(UserVo vo) {
 		return userRepository.insert(vo);
 	}
@@ -39,8 +41,8 @@ public class UserService {
 		return userRepository.updateUser(vo);
 	}
 
-	public boolean updateProfile (UserVo vo) {
-		return userRepository.updateProfile(vo);
+	public boolean updateProfile (Map<?, ?> map) {
+		return userRepository.updateProfile(map);
 		
 	}
 	
@@ -58,6 +60,14 @@ public class UserService {
 
 	public UserVo findByNo(Long no) {
 		return userRepository.findByNo(no);
+	}
+
+	public UserVo findByUserProject(long userNo) {
+		return userRepository.findByUserProject(userNo);
+	}
+
+	public boolean updateName(UserVo vo) {
+		return userRepository.updateName(vo);
 	}
 
 }

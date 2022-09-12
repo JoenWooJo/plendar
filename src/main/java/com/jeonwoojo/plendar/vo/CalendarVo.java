@@ -12,5 +12,6 @@ public class CalendarVo {
 	private String title;
 	private String start;
 	private String end;
+	private Long priority;
 	
 }

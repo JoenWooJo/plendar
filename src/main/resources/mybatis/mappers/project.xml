@@ -18,7 +18,7 @@
 		<![CDATA[
 		insert
 		  into project
-		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N')
+		values (null, #{title }, #{description }, #{startDate }, #{endDate }, #{priority }, 'N', 1)
 		]]>
 		
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -41,7 +41,7 @@
 		<![CDATA[
 			insert
 				into proj_member
-			 values (${authUser.no }, ${projectNo }, 1, 1)
+			 values (${authUser }, ${projectNo }, 1, 1)
 		]]>
 	</insert>
 	
@@ -52,6 +52,7 @@
 				where pj.no =  pjm.project_no 
 					and pjm.user_no = #{userNo } 
 					and pj.finished="N"
+					and visible = 1
 					order by priority desc, title asc
 		]]>
 	</select>
@@ -63,6 +64,8 @@
 				where pj.no =  pjm.project_no 
 					and pjm.user_no = #{userNo } 
 					and pj.finished="Y"
+					and pj.visible = 1
+					order by priority desc, title asc
 		]]>
 	</select>
 	
@@ -97,6 +100,24 @@
 			 values (${userVo.no }, ${projectNo }, ${userVo.leader }, ${userVo.manager })
 		]]>
 	</insert>
-
+	
+	<update id="deleteProject" parameterType="long">
+	<![CDATA[
+		update project
+			set
+		 visible = 0
+		 where no = #{no }
+		]]>
+	</update>
+	
+	
+	<update id="finishProject" parameterType="long">
+	<![CDATA[
+		update project
+			set
+		 finished = "Y"
+		 where no = #{no }
+		]]>
+	</update>
 	
 </mapper>

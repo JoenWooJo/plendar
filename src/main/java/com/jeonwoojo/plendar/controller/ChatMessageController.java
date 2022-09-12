@@ -5,11 +5,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jeonwoojo.plendar.security.AuthUser;
 import com.jeonwoojo.plendar.service.ChatService;
 import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.vo.ChatMessage;
-import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 
@@ -23,7 +21,7 @@ public class ChatMessageController {
 	private NoticeService noticeService;
 
     @MessageMapping("/chat/message")
-    public void enter(@AuthUser UserVo authUser, ChatMessage message) {
+    public void enter(ChatMessage message) {
     	UserVo sendUserVo= chatService.findsendUser(message.getSender());
     	message.setSenderName(sendUserVo.getName());
     	message.setSenderProfile(sendUserVo.getProfile());
@@ -37,8 +35,8 @@ public class ChatMessageController {
         noticeService.getChatAlramCount(message);
     }
     
-    @MessageMapping("/notice/message")
-    public void notice (NoticeMessage noticeMessage) {
-//    	sendingOperations.convertAndSend("/topic/notice", noticeMessage);
-    }
+//    @MessageMapping("/notice/message")
+//    public void notice (NoticeMessage noticeMessage) {
+////    	sendingOperations.convertAndSend("/topic/notice", noticeMessage);
+//    }
 }

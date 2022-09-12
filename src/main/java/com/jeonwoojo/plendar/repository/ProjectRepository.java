@@ -25,14 +25,14 @@ public class ProjectRepository {
 		return sqlSession.selectList("project.findUser");
 	}
 
-	public ProjectVo createProject(ProjectVo projectVo, UserVo authUser) {
+	public ProjectVo createProject(ProjectVo projectVo, long userNo) {
 		sqlSession.insert("project.createProject", projectVo);
 		
 		List<UserVo> list = projectVo.getMember();
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("projectNo", projectVo.getNo());
-		map.put("authUser", authUser);
+		map.put("authUser", userNo);
 		
 		sqlSession.insert("chat.chatRoomCreate", projectVo);
 		sqlSession.insert("project.insertReader", map);
@@ -130,6 +130,14 @@ public class ProjectRepository {
 
 	public String findProjectTitle(long no) {
 		return sqlSession.selectOne("project.findProjectTitle", no);
+	}
+
+	public void deleteProject(long projectNo) {
+		sqlSession.update("project.deleteProject", projectNo);
+	}
+
+	public void finishProject(long projectNo) {
+		sqlSession.update("project.finishProject", projectNo);
 	}
 	
 

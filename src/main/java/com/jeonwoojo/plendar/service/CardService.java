@@ -16,6 +16,8 @@ public class CardService {
 	
 	@Autowired
 	private CardRepository cardRepository;
+	@Autowired
+	private NoticeService noticeService;
 
 	public List<CardVo> findCard(Long deckNo) {
 		return cardRepository.findCard(deckNo);
@@ -69,10 +71,20 @@ public class CardService {
 		return cardVo;
 	}
 
-	public Long deleteCard(Long cardNo) {
+	public void deleteCard(Long cardNo) {
 		cardRepository.deleteCard(cardNo);
-		return cardNo;
-		
+	}
+
+	public void cardNotice(CardVo newCardVo, String projectTitle) {
+		noticeService.insertNoticeCard(newCardVo, projectTitle);
+	}
+
+	public Long findTaskCount(Long cardNo) {
+		return cardRepository.findTaskCount(cardNo);
+	}
+
+	public Long findNCount(Long cardNo) {
+		return cardRepository.findNCount(cardNo);
 	}
 
 }
