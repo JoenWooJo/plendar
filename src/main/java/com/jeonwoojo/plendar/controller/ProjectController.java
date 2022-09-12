@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,13 +85,23 @@ public class ProjectController {
 				.body(JsonResult.success(updateProjectVo));
 	}
 	
-	@PutMapping("/delete/{projectNo}")
+	@DeleteMapping("/delete/{projectNo}")
 	public ResponseEntity<JsonResult> deleteProject(@PathVariable("projectNo")long projectNo) {
+		System.out.println("projectNo: "+projectNo);
 		projectService.deleteProject(projectNo);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("delete ok!"));
+	}
+	
+	@PutMapping("/finish/{projectNo}")
+	public ResponseEntity<JsonResult> finishProject(@PathVariable("projectNo")long projectNo) {
+		projectService.finishProject(projectNo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success("finish ok!"));
 	}
 	
 }

@@ -135,6 +135,10 @@ public class ProjectRepository {
 	public void deleteProject(long projectNo) {
 		sqlSession.update("project.deleteProject", projectNo);
 	}
+
+	public void finishProject(long projectNo) {
+		sqlSession.update("project.finishProject", projectNo);
+	}
 	
 
 }
