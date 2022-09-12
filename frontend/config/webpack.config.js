@@ -5,7 +5,7 @@ module.exports = function(env) {
         mode: 'development',
         entry: path.resolve(`src/index.js`),
         output: {
-            path: path.resolve('public'),
+            path: path.resolve('../backend/src/main/resources'),
             filename: 'assets/js/main.js',
             assetModuleFilename:'../src/assets/img/[hash][ext]'
         },
