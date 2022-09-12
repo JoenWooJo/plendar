@@ -50,6 +50,19 @@
 		]]>
 	</delete>
 	
+	<select id="findOneDeck" parameterType="long" resultType="deckvo">
+		<![CDATA[
+			select no, project_no as projectNo, title, sequence
+			  from deck 
+			  where no= #{deckNo}
+		]]>
+	</select>
 	
-
+	<update id="updateSequence" parameterType="deckvo">
+		<![CDATA[
+			update deck 
+				set sequence = sequence -1 
+			  where no = #{no }
+		]]>
+	</update>
 </mapper>

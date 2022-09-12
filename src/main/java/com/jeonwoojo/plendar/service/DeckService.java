@@ -30,11 +30,20 @@ public class DeckService {
 		return deckRepository.updateDeck(deckVo);
 	}
 
-	public void deleteDeck(long deckNo) {
+	public void deleteDeck(long projectNo, long deckNo) {
 		List<CardVo> cardList = cardRepository.findCard(deckNo);
 		
 		for(int i=0; i < cardList.size(); i++) {
 			cardRepository.deleteCard(cardList.get(i).getNo());
+		}
+		// deck sequence 교체 해주기
+		List<DeckVo> deckList = deckRepository.findDeck(projectNo);
+		DeckVo deckVo = deckRepository.findOneDeck(deckNo);
+		
+		for(int i=0; i< deckList.size();i++) {
+			if(deckVo.getSequence()<deckList.get(i).getSequence()) {
+				deckRepository.updateSequence(deckList.get(i));
+			}
 		}
 		deckRepository.deleteDeck(deckNo);
 	}

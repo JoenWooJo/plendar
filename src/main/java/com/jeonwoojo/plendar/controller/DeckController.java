@@ -59,9 +59,10 @@ public class DeckController {
 				.body(JsonResult.success("insert ok")); 
 	}
 	
-	@DeleteMapping("/delete/{deckNo}")
-	public ResponseEntity<JsonResult> deleteDeck(@PathVariable("deckNo")long deckNo) {
-		deckService.deleteDeck(deckNo);
+	@DeleteMapping("/delete/{projectNo}/{deckNo}")
+	public ResponseEntity<JsonResult> deleteDeck(@PathVariable("projectNo") long projectNo,
+			@PathVariable("deckNo")long deckNo) {
+		deckService.deleteDeck(projectNo,deckNo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("delete ok"));
