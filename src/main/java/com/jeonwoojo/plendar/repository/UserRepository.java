@@ -50,4 +50,8 @@ public class UserRepository {
 	public UserVo findByUserProject(long userNo) {
 		return sqlSession.selectOne("user.findByUserProject", userNo);
 	}
+
+	public boolean updateName(UserVo vo) {
+		return sqlSession.update("user.updateName", vo) == 1;
+	}
 }

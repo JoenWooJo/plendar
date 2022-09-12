@@ -107,5 +107,11 @@ public class UserController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(userService.findByUserProject(userNo)));
 	}
+	@PostMapping("/updateName")
+	public ResponseEntity<JsonResult> updateName(@RequestBody UserVo vo) {;
+		userService.updateName(vo);
+
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
+	}
 
 }
