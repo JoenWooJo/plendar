@@ -36,7 +36,8 @@ const Complete = () => {
                                         <div className='mt-3'>
                                             <Rating
                                                 value={m.priority}
-                                                size="small" 
+                                                size="small"
+                                                readOnly
                                             />
                                         </div>
                                         <div className="text-xs text-gray text-uppercase mt-3">

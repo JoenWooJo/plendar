@@ -11,15 +11,20 @@ const Myproject = () => {
     const location = useLocation();
     const state = location.state;
     const [projectList, setProjectList] = useState([]);
-    const userNo = localStorage.getItem("loginUserNo")
+    const userNo = localStorage.getItem("loginUserNo");
 
     const fetchAndProjectList = async () => {
-        await axios.get('/api/project/find/project')
+        await axios.get(`/api/project/find/project/${userNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
             .then((resp) => {
                 const list = resp.data.data;
                 setProjectList(list);
+                console.log(list);
             })
-    }
+    };
 
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();
@@ -27,31 +32,19 @@ const Myproject = () => {
       }, [location]);
 
     useEffect(() => {
-        const fetchAndProjectList = async () => {
-            await axios.get(`/api/project/find/project/${userNo}`, {
-                headers: {
-                    Authorization: window.localStorage.getItem("Authorization"),
-                },
-                })
-                .then((resp) => {
-                    const list = resp.data.data;
-                    setProjectList(list);
-                    console.log(list);
-                })
-        }
-
         fetchAndProjectList();
 
         const f = () => {
             let child = document.getElementById("proj-new-img");
             child != null && child.parentNode.removeChild(child);
         }
-        document.addEventListener("click", f)
+        document.addEventListener("click", f);
 
         return () => {
             document.removeEventListener("click", f)
         }
-    }, [])
+    }, []);
+
 
     return (
             <div className="col-xl-11 ml-4">
