@@ -8,7 +8,11 @@ const MoreVertDropdown = ({projectNo, deckNo, cardNo, setCardList, setRefresh, s
     const [show, setShow] = useState(false);
 
     const delteDeck = async () => {
-        const resp = await axios.delete(`/api/kanban/deck/delete/${deckNo}`)
+        const resp = await axios.delete(`/api/kanban/deck/delete/${deckNo}`, {
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
     };
 
     return (

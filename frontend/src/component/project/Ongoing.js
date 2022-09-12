@@ -50,8 +50,10 @@ const Ongoing = ({
                             <Link to={`/kanbanboard/${no}`} className="h5 mb-0 font-weight-bold text-gray-800" >{title}</Link>
                             <div className='mt-3'>
                                 <Rating
+                                    name="read-only"
                                     value={priority}
                                     size="small" 
+                                    readOnly
                                 />
                             </div>
                             <div className="text-xs text-gray text-uppercase mt-3">{startDate} ~{endDate}</div>
