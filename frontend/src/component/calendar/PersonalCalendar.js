@@ -16,13 +16,6 @@ import "@fullcalendar/timegrid/main.css";
 import "../../assets/css/calendar.css";
 
 export default function PersonalCalendar() {
-  const no = localStorage.getItem("loginUserNo");
-  const CardModalRef = useRef();
-
-  // 랜덤 컬러
-  function getRandomColor() {
-    return `hsl(${parseInt(Math.random() * 106, 10) * 15}, 100%, 77%)`;
-  }
 
   // DB에서 이벤트(카드) 불러오기
   const callback = async () => {
@@ -45,7 +38,22 @@ export default function PersonalCalendar() {
     
     let li = response.data.data; 
     for (let i = 0; i < li.length; i++) {
-      li[i]["color"] = getRandomColor();
+      if (li[i]['priority'] == 5) {
+        li[i]['color'] = '#77aaff';
+      }
+      else if (li[i]['priority'] == 4) {
+        li[i]['color'] = '#99ccff';
+      }
+      else if (li[i]['priority'] == 3) {
+        li[i]['color'] = '#bbeeff';
+      }
+      else if (li[i]['priority'] == 2) {
+        li[i]['color'] = '#5588ff';
+      }
+      else if (li[i]['priority'] == 1) {
+        li[i]['color'] = '#bec8d1';
+      }
+      else (li[i]['color'] == '#d2d2d2');
     }
     return response.data.data;
   }

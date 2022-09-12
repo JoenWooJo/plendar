@@ -106,8 +106,21 @@ const Mypage = () => {
 
     const onSubmitU = (event) => {
         event.preventDefault();
-        if (newValues.password === '' || confirmValues.password === '') {
-            return alert("변경할 비밀번호를 입력해 주세요.")
+        if (newValues.password === '' && confirmValues.password === '') {
+            // return alert("변경할 비밀번호를 입력해 주세요.")
+            let body = {
+                no: localStorage.getItem("loginUserNo"),
+                name: name
+            }
+            axios.post('/api/user/updateName', body, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                });
+                alert("수정이 완료되었습니다. 다시 로그인 해주세요.")
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("loginUserNo");
+                window.location.replace("/login");
         }
         else if (newValues.password !== confirmValues.password) {
             return alert('비밀번호와 비밀번호 확인이 같아야 합니다.')
@@ -133,10 +146,6 @@ const Mypage = () => {
                 },
                 })
                 .then((resp) => {
-                    if (resp.data.result == "fail") {
-                        alert(resp.data.message);
-                        window.location.replace("/login");
-                    }
                     resp.data.result === "success" && alert("수정이 완료되었습니다. 다시 로그인 해주세요.")
                     setNewValues({
                         password: '',
