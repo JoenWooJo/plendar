@@ -28,8 +28,9 @@ export default function TeamCalendar() {
     });
     let response = await client.get('/calendar/axios/team')
     let li = response.data.data;
-
+    
     for (let i = 0; i < li.length; i++) {
+      li[i]['borderColor'] = '#fff';
       if (li[i]['priority'] == 5) {
         li[i]['color'] = '#77aaff';
       }
@@ -108,6 +109,7 @@ export default function TeamCalendar() {
 
               }
               events={callback}
+              eventBorderColor="red"
               eventClick={eventClick}
             />
             <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo} />
