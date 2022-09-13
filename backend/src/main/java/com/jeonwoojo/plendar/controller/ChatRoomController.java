@@ -30,6 +30,13 @@ public class ChatRoomController {
 				.body(JsonResult.success(chatService.findAllRoom(no)));
 	}
 	
+	@GetMapping("/sub/rooms")
+	public ResponseEntity<JsonResult> subRooms(@RequestParam("userNo")Long no) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(chatService.findAllRoom(no)));
+	}
+	
 	@GetMapping("/room/member")
 	public ResponseEntity<JsonResult> roomMemberList(@RequestParam(value="roomNo") long no) {
 		return ResponseEntity
