@@ -42,7 +42,7 @@ public class GlobalException {
        message.setData(errors.toString());
        
        if(e instanceof NoHandlerFoundException) {
-          return "/index";
+          return "index";
        }
       
       // 2. JSON 응답
