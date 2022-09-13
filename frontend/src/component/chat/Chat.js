@@ -83,7 +83,7 @@ const Chat = () => {
             });
             
         }
-    }, [subIds, delay]);
+    }, [subIds, delay, subStatus]);
 
 
     useEffect(() => {
@@ -137,7 +137,7 @@ const Chat = () => {
             console.log(line);
             setLine(line);
             setMessages([...messagesRef.current, line]);
-        });
+        }, {id: `chatting-${roomId}`});
     };
 
     // const unsubscribe = () => {
