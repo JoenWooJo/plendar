@@ -25,6 +25,7 @@ const Chat = () => {
     const [noticeSelected, setNoticeSelected] = useState("");
     const [first, setFirst] = useState(true);
     const [sub, setSub] = useState(null);
+    const [delay, setDelay] = useState(false);
 
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
@@ -40,7 +41,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        first && sub != null && setSub(rooms) 
+        first && delay && setSub(rooms) 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
@@ -108,6 +109,7 @@ const Chat = () => {
         });
 
         await client.current.activate();
+        setDelay(true);
     };
 
     const disconnect = () => {
