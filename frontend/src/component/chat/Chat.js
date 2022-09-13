@@ -98,6 +98,7 @@ const Chat = () => {
             return;
         }
         if (roomIdSelected != -1) {
+            console.log("hey")
             fetchAndMessageList(roomIdSelected);
         }
     }, [roomIdSelected]);
