@@ -77,7 +77,7 @@ const Chat = () => {
         // return () => {
         //     disconnect();
         // };
-    }, []);
+    }, [delay]);
 
     useEffect(() => {
         fetchAndSetRooms();
