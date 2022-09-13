@@ -32,21 +32,6 @@ const Chat = () => {
         setRoomIdSelected(id);
     };
 
-    const subRooms = async () => {
-        const resp = await axios.get('/api/chat/sub/rooms', {
-            params: {
-                userNo: localStorage.getItem("loginUserNo"),
-            },
-            headers: {
-                Authorization: window.localStorage.getItem("Authorization"),
-            },
-            });
-        
-        const rooms = resp.data.data;
-        delay && rooms.map((e)=>{subscribe(e.no)});
-    }
-
-
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
             params: {
@@ -56,28 +41,31 @@ const Chat = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             });
-        
+        const rooms = resp.data.data;
+        delay && first && rooms.map((e, i)=>{
+            
+            subscribe(e.no)
+            if(rooms.length-1 == i) {
+                setFirst(false);
+            }
+        });
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
         }
 
-        setRoomList(resp.data.data);
-        setNewRoomList(resp.data.data);
+        setRoomList(rooms);
+        setNewRoomList(rooms);
     }
 
     useEffect(()=>{
         connect();
+        
         // return () => {
         //     disconnect();
         // };
     }, []);
-
-    useEffect(()=>{
-        subRooms();
-       
-    }, [delay]);
 
     useEffect(() => {
         fetchAndSetRooms();
@@ -131,7 +119,7 @@ const Chat = () => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 5000,
+            reconnectDelay: 10000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
