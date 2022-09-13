@@ -100,7 +100,7 @@ const Chat = () => {
         if (roomIdSelected != -1) {
             fetchAndMessageList(roomIdSelected);
         }
-    }, [roomIdSelected, line]);
+    }, [roomIdSelected]);
 
     const connect = async () => {
         client.current = new StompJs.Client({
