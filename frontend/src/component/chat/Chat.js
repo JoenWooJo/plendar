@@ -41,7 +41,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        first && delay && rooms.map((e,i)=>{subscribe(e)})
+        delay && rooms.map((e,i)=>{subscribe(e)})
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
@@ -49,6 +49,7 @@ const Chat = () => {
 
         setRoomList(rooms);
         setNewRoomList(rooms);
+        setDelay(false);
     }
 
     useEffect(()=>{
