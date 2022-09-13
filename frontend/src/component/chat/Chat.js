@@ -52,9 +52,10 @@ const Chat = () => {
 
     useEffect(()=>{
         connect();
-        // return () => {
-        //     disconnect();
-        // };
+        
+        return () => {
+            disconnect();
+        };
     }, [])
 
     useEffect(() => {
