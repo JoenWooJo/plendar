@@ -24,7 +24,7 @@ const Chat = () => {
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
     const [first, setFirst] = useState(true);
-    const [sub, setSub] = useState(null);
+    const [subStatus, setSubStatus] = useState([]);
     const [delay, setDelay] = useState(false);
 
     const changeRoomIdSelected = (id) => {
@@ -41,7 +41,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        first && delay && setSub(rooms) 
+        first && delay && rooms.map((e,i)=>{subscribe(e)})
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
@@ -63,13 +63,13 @@ const Chat = () => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    useEffect(()=>{
-        sub !== null && delay && sub.map((e) => {
-            console.log("????구독")
-            subscribe(e.no);
-            setFirst(false);
-        });
-    }, [sub])
+    // useEffect(()=>{
+    //     sub !== null && delay && sub.map((e) => {
+    //         console.log("????구독")
+    //         subscribe(e.no);
+    //         setFirst(false);
+    //     });
+    // }, [sub])
 
 
     useEffect(() => {
@@ -117,6 +117,7 @@ const Chat = () => {
     };
 
     const subscribe = (roomId) => {
+        console.log("????구독")
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
             console.log(line);
