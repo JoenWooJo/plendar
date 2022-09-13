@@ -69,10 +69,14 @@ const Chat = () => {
 
     useEffect(()=>{
         connect();
-        subRooms();
         // return () => {
         //     disconnect();
         // };
+    }, []);
+
+    useEffect(()=>{
+        subRooms();
+       
     }, [delay]);
 
     useEffect(() => {
@@ -127,7 +131,7 @@ const Chat = () => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 3000,
+            reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
