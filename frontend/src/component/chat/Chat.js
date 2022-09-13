@@ -23,8 +23,8 @@ const Chat = () => {
     
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
-    const [first, setFirst] = useState(true);
     const [subStatus, setSubStatus] = useState([]);
+    const [subIds, setSubIds] = useState(null);
     const [delay, setDelay] = useState(false);
 
     const changeRoomIdSelected = (id) => {
@@ -41,9 +41,8 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        delay && rooms.map((e,i)=>{
-            subscribe(e)
-        })
+        setSubIds(rooms);
+
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
@@ -59,7 +58,7 @@ const Chat = () => {
         // return () => {
         //     disconnect();
         // };
-    }, [])
+    }, []);
 
     useEffect(() => {
         fetchAndSetRooms();
@@ -72,6 +71,17 @@ const Chat = () => {
     //         setFirst(false);
     //     });
     // }, [sub])
+
+    useEffect(()=> {
+        if(delay && subIds != null && !subStatus.includes(subIds)) {
+            console.log("구독");
+            subIds.map((e)=> {
+                subscribe(e);
+                setSubStatus([...subStatus, e]);
+            });
+            
+        }
+    }, [subIds, delay]);
 
 
     useEffect(() => {
