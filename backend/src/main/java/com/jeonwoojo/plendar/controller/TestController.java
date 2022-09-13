@@ -23,11 +23,6 @@ public class TestController {
 		return "index";
 	}
 	
-	@GetMapping("/project/myproject")
-	public String test1() {
-		return "index";
-	}
-	
 	
 	@GetMapping("/api/axios/test")
 	public ResponseEntity<JsonResult> axios() {
