@@ -18,11 +18,9 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 	
-	@GetMapping("/")
-	@ResponseBody
+	@GetMapping("")
 	public String test() {
-//		String name = testService.findName();
-		return "Hello Test Good~~";
+		return "index";
 	}
 	
 	
