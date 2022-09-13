@@ -24,8 +24,9 @@ const Chat = () => {
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
     const [subStatus, setSubStatus] = useState([]);
-    const [subIds, setSubIds] = useState(null);
+    const [sub, setSub] = useState(null);
     const [delay, setDelay] = useState(false);
+    const [first, setFirst] = useState(true);
 
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
@@ -41,7 +42,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        delay && setSubIds(rooms);
+        delay && setSub(rooms);
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
@@ -64,26 +65,26 @@ const Chat = () => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    // useEffect(()=>{
-    //     sub !== null && delay && sub.map((e) => {
-    //         console.log("????구독")
-    //         subscribe(e.no);
-    //         setFirst(false);
-    //     });
-    // }, [sub])
+    useEffect(()=>{
+        sub !== null && delay && first && sub.map((e) => {
+            console.log("????구독")
+            subscribe(e.no);
+            setFirst(false);
+        });
+    }, [sub])
 
-    useEffect(()=> {
-        if(delay && subIds != null) {
-            console.log("구독");
-            subIds.map((e)=> {
-                if(!subStatus.includes(e.no)) {
-                    subscribe(e.no);
-                    setSubStatus([...subStatus, e.no]);
-                }
-            });
+    // useEffect(()=> {
+    //     if(delay && subIds != null) {
+    //         console.log("구독");
+    //         subIds.map((e)=> {
+    //             if(!subStatus.includes(e.no)) {
+    //                 subscribe(e.no);
+    //                 setSubStatus([...subStatus, e.no]);
+    //             }
+    //         });
             
-        }
-    }, [subIds, delay, subStatus]);
+    //     }
+    // }, [subIds, delay, subStatus]);
 
 
     useEffect(() => {
