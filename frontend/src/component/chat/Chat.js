@@ -32,24 +32,21 @@ const Chat = () => {
         setRoomIdSelected(id);
     };
 
-    const roomsSubcribe = async () => {
-        if(delay) {
-            const resp = await axios.get('/api/chat/rooms', {
-                params: {
-                    userNo: localStorage.getItem("loginUserNo"),
-                },
-                headers: {
-                    Authorization: window.localStorage.getItem("Authorization"),
-                },
-                });
-            const rooms = resp.data.data;
-            rooms.map((e)=>{subscribe(e.no)});
-        }
+    const subRooms = async () => {
+        const resp = await axios.get('/api/chat/sub/rooms', {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
+        
+        const rooms = resp.data.data;
+        delay && rooms.map((e)=>{subscribe(e.no)});
     }
 
-    useEffect(()=>{
-        roomsSubcribe();
-    }, [delay])
+    useEffect(()=>{subRooms()}, [delay]);
 
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
@@ -77,7 +74,7 @@ const Chat = () => {
         // return () => {
         //     disconnect();
         // };
-    }, [delay]);
+    }, []);
 
     useEffect(() => {
         fetchAndSetRooms();
