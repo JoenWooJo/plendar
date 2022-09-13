@@ -93,7 +93,7 @@ const Header = ({ }) => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 5000,
+            reconnectDelay: 10000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
