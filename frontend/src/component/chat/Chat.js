@@ -51,7 +51,6 @@ const Chat = () => {
 
         setRoomList(rooms);
         setNewRoomList(rooms);
-        setDelay(false);
     }
 
     useEffect(()=>{
