@@ -32,6 +32,25 @@ const Chat = () => {
         setRoomIdSelected(id);
     };
 
+    const roomsSubcribe = async () => {
+        if(delay) {
+            const resp = await axios.get('/api/chat/rooms', {
+                params: {
+                    userNo: localStorage.getItem("loginUserNo"),
+                },
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                });
+            const rooms = resp.data.data;
+            rooms.map((e)=>{subscribe(e.no)});
+        }
+    }
+
+    useEffect(()=>{
+        roomsSubcribe();
+    }, [delay])
+
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
             params: {
@@ -41,16 +60,15 @@ const Chat = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             });
-        const rooms = resp.data.data;
-        delay && setSub(rooms);
+        
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
         }
 
-        setRoomList(rooms);
-        setNewRoomList(rooms);
+        setRoomList(resp.data.data);
+        setNewRoomList(resp.data.data);
     }
 
     useEffect(()=>{
@@ -65,13 +83,13 @@ const Chat = () => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    useEffect(()=>{
-        sub !== null && delay && first && sub.map((e) => {
-            console.log("????구독")
-            subscribe(e.no);
-            setFirst(false);
-        });
-    }, [sub, first, delay])
+    // useEffect(()=>{
+    //     sub !== null && delay && first && sub.map((e) => {
+    //         console.log("????구독")
+    //         subscribe(e.no);
+    //         setFirst(false);
+    //     });
+    // }, [sub, first, delay])
 
     // useEffect(()=> {
     //     if(delay && subIds != null) {
