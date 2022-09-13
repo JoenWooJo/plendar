@@ -23,12 +23,33 @@ const Chat = () => {
     
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
-    const [first, setFirst] = useState(true);
+    const [subStatus, setSubStatus] = useState([]);
     const [sub, setSub] = useState(null);
+    const [delay, setDelay] = useState(false);
+    const [first, setFirst] = useState(true);
 
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
     };
+
+    const roomsSubcribe = async () => {
+        if(delay) {
+            const resp = await axios.get('/api/chat/rooms', {
+                params: {
+                    userNo: localStorage.getItem("loginUserNo"),
+                },
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+                });
+            const rooms = resp.data.data;
+            rooms.map((e)=>{subscribe(e.no)});
+        }
+    }
+
+    useEffect(()=>{
+        roomsSubcribe();
+    }, [delay])
 
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
@@ -39,34 +60,49 @@ const Chat = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             });
-        const rooms = resp.data.data;
-        first && setSub(rooms) 
+        
+
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
         }
 
-        setRoomList(rooms);
-        setNewRoomList(rooms);
+        setRoomList(resp.data.data);
+        setNewRoomList(resp.data.data);
     }
 
     useEffect(()=>{
         connect();
+        
         // return () => {
         //     disconnect();
         // };
-    }, [])
+    }, [delay]);
 
     useEffect(() => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    useEffect(()=>{
-        sub !== null && sub.map((e) => {
-            subscribe(e.no);
-            setFirst(false);
-        });
-    }, [sub])
+    // useEffect(()=>{
+    //     sub !== null && delay && first && sub.map((e) => {
+    //         console.log("????구독")
+    //         subscribe(e.no);
+    //         setFirst(false);
+    //     });
+    // }, [sub, first, delay])
+
+    // useEffect(()=> {
+    //     if(delay && subIds != null) {
+    //         console.log("구독");
+    //         subIds.map((e)=> {
+    //             if(!subStatus.includes(e.no)) {
+    //                 subscribe(e.no);
+    //                 setSubStatus([...subStatus, e.no]);
+    //             }
+    //         });
+            
+    //     }
+    // }, [subIds, delay, subStatus]);
 
 
     useEffect(() => {
@@ -81,20 +117,21 @@ const Chat = () => {
             return;
         }
         if (roomIdSelected != -1) {
+            console.log("hey")
             fetchAndMessageList(roomIdSelected);
         }
-    }, [roomIdSelected, line]);
+    }, [roomIdSelected]);
 
     const connect = async () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
+            webSocketFactory: () => new SockJS("http://34.64.95.204:8080/ws/chat"),
             connectHeaders: {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 5000,
+            reconnectDelay: 10000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
@@ -106,6 +143,7 @@ const Chat = () => {
         });
 
         await client.current.activate();
+        setDelay(true);
     };
 
     const disconnect = () => {
@@ -113,12 +151,13 @@ const Chat = () => {
     };
 
     const subscribe = (roomId) => {
+        console.log("????구독")
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
             console.log(line);
             setLine(line);
             setMessages([...messagesRef.current, line]);
-        });
+        }, {id: `chatting-${roomId}`});
     };
 
     // const unsubscribe = () => {

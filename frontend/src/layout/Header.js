@@ -86,14 +86,14 @@ const Header = ({ }) => {
 
     const connect = async () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
+            webSocketFactory: () => new SockJS("http://34.64.95.204:8080/ws/chat"),
             connectHeaders: {
                 "auth-token": "spring-chat-auth-token",
             },
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 5000,
+            reconnectDelay: 10000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
