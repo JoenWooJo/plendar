@@ -83,7 +83,7 @@ const Chat = () => {
             });
             
         }
-    }, [subIds, delay, subStatus]);
+    }, [subIds, delay]);
 
 
     useEffect(() => {
