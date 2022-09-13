@@ -64,7 +64,7 @@ const Chat = () => {
     }, [ noticeSelected, line ]);
 
     useEffect(()=>{
-        sub !== null && sub.map((e) => {
+        sub !== null && !delay && sub.map((e) => {
             console.log("????구독")
             subscribe(e.no);
             setFirst(false);
