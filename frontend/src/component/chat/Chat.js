@@ -127,7 +127,7 @@ const Chat = () => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 10000,
+            reconnectDelay: 3000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
