@@ -28,7 +28,7 @@ public class MyFilter implements Filter {
 		String headerAuth = req.getHeader("Authorization");
 		if (headerAuth != null) {
 			chain.doFilter(req, res);
-			System.out.println("인증 완료");
+//			System.out.println("인증 완료");
 		} else {
 			PrintWriter outPrintWriter = res.getWriter();
 			outPrintWriter.println("인증 안됨");

@@ -41,7 +41,6 @@ public class TaskController {
 	
 	@PostMapping("/clickTask")
 	public ResponseEntity<JsonResult> clickTask(@RequestBody TaskVo taskVo) {
-		System.out.println("Task Changed" + taskVo);
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(taskService.clickTask(taskVo)));
@@ -49,7 +48,6 @@ public class TaskController {
 	
 	@DeleteMapping("/deleteTask/{taskNo}")
 	public ResponseEntity<JsonResult> deleteTask(@PathVariable("taskNo") Long taskNo) {
-		System.out.println("deleteTask: " + taskNo);
 		taskService.deleteTask(taskNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(taskNo));
 	}

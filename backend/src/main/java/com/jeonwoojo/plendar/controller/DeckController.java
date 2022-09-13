@@ -70,7 +70,6 @@ public class DeckController {
         
 	@PostMapping("/update/move")
 	public ResponseEntity<JsonResult> moveDeck(@RequestBody List<DeckVo> deckList) {
-	System.out.println("컨트롤러덱리스트"+deckList);
 	deckService.moveDeck(deckList);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("아직"));
 

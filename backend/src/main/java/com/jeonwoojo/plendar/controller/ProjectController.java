@@ -37,7 +37,6 @@ public class ProjectController {
 	public ResponseEntity<JsonResult> create(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
 		ProjectVo newVo = projectService.createProject(projectVo, userNo);
 		NoticeMessage noticeMessage= noticeService.insertNoticeProject(newVo, userNo);
-		System.out.println(noticeMessage);
 		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -74,7 +73,6 @@ public class ProjectController {
 	
 	@PostMapping("/update")
 	public ResponseEntity<JsonResult> updateProject(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
-		System.out.println(">>>"+projectVo);
 		String projectTitle = projectService.findProjectTitle(projectVo.getNo());
 		ProjectVo updateProjectVo = projectService.updateProject(projectVo);
 		NoticeMessage noticeMessage= noticeService.insertNoticeUpdateProject(updateProjectVo, userNo, projectTitle);
@@ -87,7 +85,6 @@ public class ProjectController {
 	
 	@DeleteMapping("/delete/{projectNo}")
 	public ResponseEntity<JsonResult> deleteProject(@PathVariable("projectNo")long projectNo) {
-		System.out.println("projectNo: "+projectNo);
 		projectService.deleteProject(projectNo);
 		
 		return ResponseEntity

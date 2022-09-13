@@ -48,7 +48,6 @@ public class UserController {
 	@PostMapping("/join")
 	public ResponseEntity<JsonResult> add(@RequestBody @Valid UserVo vo) {
 		vo.setPassword(this.bcryptPasswordEncoder.encode(vo.getPassword()));
-		System.out.println(vo.getPassword());
 		boolean joinResult = userService.insert(vo);
 
 		if (joinResult) {
@@ -96,7 +95,7 @@ public class UserController {
 	@PostMapping("/confirmPassword")
 	public ResponseEntity<JsonResult> confirmPassword(@RequestBody UserVo vo) {
 		UserVo user = userService.findByNo(vo.getNo());
-		boolean result = userService.confirmPassword(vo);
+		userService.confirmPassword(vo);
 		if(bcryptPasswordEncoder.matches(vo.getPassword(), user.getPassword()));
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(bcryptPasswordEncoder.matches(vo.getPassword(), user.getPassword())));
 	}

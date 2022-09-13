@@ -28,7 +28,6 @@ public class ChatMessageController {
     	
     	chatService.chatMessageInsert(message);
         chatService.chatNoticeUpdate(message);
-        System.out.println("message: "+message);
         
         sendingOperations.convertAndSend("/topic/chat/room/"+message.getRoomId(), message);
         

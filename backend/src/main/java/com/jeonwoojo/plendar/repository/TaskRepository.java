@@ -23,7 +23,6 @@ public class TaskRepository {
 	}
 
 	public boolean updateTaskStatus(TaskVo taskVo) {
-		System.out.println("Task Changed3" + taskVo);
 		return sqlSession.update("task.updateTaskStatus", taskVo) == 1;
 	}
 
