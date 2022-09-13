@@ -73,11 +73,13 @@ const Chat = () => {
     // }, [sub])
 
     useEffect(()=> {
-        if(delay && subIds != null && !subStatus.includes(subIds)) {
+        if(delay && subIds != null) {
             console.log("구독");
             subIds.map((e)=> {
-                subscribe(e);
-                setSubStatus([...subStatus, e]);
+                if(!subStatus.includes(e.no)) {
+                    subscribe(e.no);
+                    setSubStatus([...subStatus, e.no]);
+                }
             });
             
         }
