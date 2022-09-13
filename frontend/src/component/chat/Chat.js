@@ -106,6 +106,16 @@ const Chat = () => {
             }
         });
 
+        // Fallback code
+        if (typeof WebSocket !== 'function') {
+            // For SockJS you need to set a factory that creates a new SockJS instance
+            // to be used for each (re)connect
+            client.current.webSocketFactory = function () {
+            // Note that the URL is different from the WebSocket URL
+            return new SockJS('http://34.64.95.204:8080/ws/chat');
+            };
+        }
+
         await client.current.activate();
     };
 
