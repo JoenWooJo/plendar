@@ -41,7 +41,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        setSubIds(rooms);
+        delay && setSubIds(rooms);
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
