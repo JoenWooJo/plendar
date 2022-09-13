@@ -41,7 +41,9 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        delay && rooms.map((e,i)=>{subscribe(e)})
+        delay && rooms.map((e,i)=>{
+            subscribe(e)
+        })
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
@@ -124,7 +126,7 @@ const Chat = () => {
             console.log(line);
             setLine(line);
             setMessages([...messagesRef.current, line]);
-        });
+        }, { id: `chatting-${roomId}` });
     };
 
     // const unsubscribe = () => {
