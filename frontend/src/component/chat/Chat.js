@@ -64,6 +64,7 @@ const Chat = () => {
 
     useEffect(()=>{
         sub !== null && sub.map((e) => {
+            console.log("????구독")
             subscribe(e.no);
             setFirst(false);
         });
