@@ -46,7 +46,6 @@ const Chat = () => {
         delay && rooms.map((e)=>{subscribe(e.no)});
     }
 
-    useEffect(()=>{subRooms()}, [delay]);
 
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
@@ -70,11 +69,11 @@ const Chat = () => {
 
     useEffect(()=>{
         connect();
-        
+        subRooms();
         // return () => {
         //     disconnect();
         // };
-    }, []);
+    }, [delay]);
 
     useEffect(() => {
         fetchAndSetRooms();
