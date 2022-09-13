@@ -71,7 +71,7 @@ const Chat = () => {
             subscribe(e.no);
             setFirst(false);
         });
-    }, [sub])
+    }, [sub, first, delay])
 
     // useEffect(()=> {
     //     if(delay && subIds != null) {
