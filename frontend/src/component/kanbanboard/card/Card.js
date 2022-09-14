@@ -10,7 +10,6 @@ import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
@@ -98,14 +97,14 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
         setRefresh(refresh => !refresh);
     }
 
-
+    
     return (
         <div style={{ position: "relative" }}>
             {
                 cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="assets/images/new.png" alt="" style={{ position: "absolute", width: "35px" }} /></span> :
                     cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px" }} /></span> : ""
             }
-
+            <div>*{cardView}//{no}*</div>
             <div id={`card-${no}`} >
                 <div className='row'>
                     <div className="col-xl-8 mt-2">
