@@ -177,9 +177,9 @@ const Mypage = () => {
         // Create FormData
         const formData = new FormData();
         formData.append('file', file);
-        console.log("formData>>",formData);
+        
         // Post
-        const response = await client.post(`/user/axios/updateProfile`, formData, {
+        const response = await axios.post(`/api/user/axios/updateProfile`, formData, {
             params: {userNo: localStorage.getItem("loginUserNo")},
             headers: {
                 'Accept': 'application/json',
