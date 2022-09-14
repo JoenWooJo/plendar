@@ -11,6 +11,7 @@ const Myproject = () => {
     const location = useLocation();
     const state = location.state;
     const [projectList, setProjectList] = useState([]);
+    const [projectMember, setProjectMember] = useState([]);
     const userNo = localStorage.getItem("loginUserNo");
 
     const fetchAndProjectList = async () => {
@@ -25,6 +26,21 @@ const Myproject = () => {
             })
     };
 
+    const findProjectMemberByNo = async () => {
+        await axios.get(`/api/project/findProjectMembeByNo`, {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
+            .then((resp) => {
+                const list = resp.data.data
+                setProjectMember(list);
+            })
+    };
+
+    console.log("list", projectMember);
+
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();
         currentPath = location.pathname;
@@ -32,7 +48,7 @@ const Myproject = () => {
 
     useEffect(() => {
         fetchAndProjectList();
-
+        findProjectMemberByNo();
         const f = () => {
             let child = document.getElementById("proj-new-img");
             child != null && child.parentNode.removeChild(child);
@@ -81,6 +97,7 @@ const Myproject = () => {
                                         finished={m.finished}
                                         priority={m.priority}
                                         state={state}
+                                        leader = {!!projectMember[i]&&projectMember[i].leader}
                                     />
                                 );
                             })}

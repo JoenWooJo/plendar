@@ -14,7 +14,7 @@ const Main = () => {
                     </div>
                     <div className="card-body">
                         <div className="text-center">
-                        <img src="img/project.png" style={{width:'300px'}}></img>
+                        <img src="assets/img/project.png" style={{width:'300px'}}></img>
                         <br/><br/>
                         <Link to="/project/createProject" style={{ textDecoration: "none" }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#6667ab" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">

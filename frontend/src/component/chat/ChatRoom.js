@@ -65,7 +65,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
                 <div className="d-flex flex-row" onClick={roomClick}>
                     <div style={{paddingTop: "5px"}}>
                         <Badge id={roomNo} color="error" variant="dot" invisible={invisible}>
-                            <img src="/images/defaultProfile.png" alt="" style={{ width: "50px", borderRadius:"70%"}} />
+                            <img src="assets/images/defaultProfile.png" alt="" style={{ width: "50px", borderRadius:"70%"}} />
                         </Badge>
                     </div>
                     

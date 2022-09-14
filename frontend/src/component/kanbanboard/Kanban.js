@@ -106,7 +106,7 @@ const Kanban = () => {
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>
-          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Porject Kanban</h4>
+          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Project Kanban</h4>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="title" direction="horizontal">

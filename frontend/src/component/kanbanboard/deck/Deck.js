@@ -5,9 +5,7 @@ import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import CardLayout from '../card/CardLayout';
-//import styled from 'styled-components';
-
+import Card from '../card/Card';
 
 const Deck = ({ deckTitle, no, projectNo }) => {
     const [title, setTitle] = useState(deckTitle);
@@ -17,20 +15,12 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     const [cardNo, setCardNo] = useState();
     const [refresh, setRefresh] = useState(false);
     const [morevertList, setMorevertList] = useState(false);
-    const [taskCount, setTaskCount] = useState([]);
-    const [nCount, setNCount] = useState([]);
     const [state, setState] = useState();
 
     // 카드 리스트 가져오기
     const t = async () => {
         const list = await get(`/kanban/card/find/${no}`);
         setCardList(list);
-      
-       list.map((m,i)=>{
-            cardTask(m.no);
-            cardN(m.no);
-            setCardNo(m.no);
-       })
     }
 
     useEffect(()=>{
@@ -47,26 +37,6 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         t();
     }, [no])
 
-     //카드 테스크 개수
-     const cardTask = async (cardNo) => {
-        const list = await get(`/kanban/card/findtaskcount/${cardNo}`);
-        setTaskCount((prevTaskCount)=>(prevTaskCount.concat([list])));
-    }
-    
-    //테스크 완료 개수
-    const cardN = async (cardNo) => {
-        const list = await get(`/kanban/card/findncount/${cardNo}`);
-        setNCount((prevNCount)=>(prevNCount.concat([list])));
-    }
-
-    // useEffect(() => {
-    //     console.log("테스크 개수",taskCount);
-    // }, [taskCount])
-
-    // useEffect(() => {
-    //     console.log("미완료 개수",nCount);
-    // }, [nCount])
-
     const onChangeTitle = (event) => {
         setTitle(event.target.value);
     };
@@ -80,6 +50,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         }
     }
     const keyEnter = (e) => {
+        console.log(e.target.value);
         if (e.key == "Enter") {
             postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
@@ -101,10 +72,13 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
         const newTaskIds = Array.from(column.sequence);
         
+        console.log("출발지점의 값 column:", column);
+        
 
         // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
+        console.log("새로운 배열 newTaskIds", newTaskIds);
 
         const newColumn = {
           ...column,
@@ -169,7 +143,7 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                         <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
                         {provided => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <CardLayout key={index} nCount={nCount} taskCount={taskCount} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        <Card key={index} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
                         {provided.placeholder}
                         </div>
                         )}

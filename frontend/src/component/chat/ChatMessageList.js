@@ -58,13 +58,13 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                             style={{textSizeAdjust: "5px"}}
                         />
                         <button className=" mt-1" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
-                            <img src="/images/envelope.png" alt="" style={{ width: "60px", height: "60px"}} />
+                            <img src="assets/images/envelope.png" alt="" style={{ width: "60px", height: "60px"}} />
                         </button>
                     </div>
                 </div>
             ) : (
                 <div>
-                    <img src="/images/chatImage.svg" alt="" style={chatImage} />
+                    <img src="assets/images/chatImage.svg" alt="" style={chatImage} />
                 </div>
             )}
         </div>
