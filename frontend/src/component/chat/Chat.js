@@ -69,12 +69,13 @@ const Chat = () => {
         const set = new Set(sub);
         const uniquRooms = [...set];
         
-        if(uniquRooms !== null && delay) {
+        if(uniquRooms !== null && delay && first) {
             console.log(uniquRooms);
             uniquRooms.map((e) => {
                 console.log("????구독")
                 subscribe(e.no);
             });
+            setFirst(false);
         }
     }, [sub, delay])
 
