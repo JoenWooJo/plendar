@@ -15,7 +15,7 @@ public class FileUploadService {
    private static String SAVE_PATH = "/plendar-uploads/profile";
    private static String URL_BASE = "/assets/profile";
 
-   public String restoreImage(MultipartFile file) throws FileUploadException {
+   public String restoreImage(MultipartFile file) {
       try {
          File uploadDirectory = new File(SAVE_PATH);
          if(!uploadDirectory.exists()) {
@@ -39,7 +39,7 @@ public class FileUploadService {
          return URL_BASE + "/" + saveFilename;
          
       } catch(IOException ex) {
-         throw new FileUploadException("file upload error:" + ex);
+         throw new RuntimeException("file upload error:" + ex);
       }
    }
 
