@@ -46,7 +46,7 @@ public class NoticeRepository {
 	public NoticeMessage insertNoticeUpdateProject(ProjectVo updateProjectVo, Long userNo, String projectTitle) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		NoticeMessage noticeMessage = new NoticeMessage();
-		noticeMessage.setMessage(projectTitle+" 프로젝트가 수정 되었습니다.");
+		noticeMessage.setMessage(projectTitle+" 프로젝트가 "+ updateProjectVo.getTitle() +"(으)로 수정 되었습니다.");
 		noticeMessage.setType("update");
 		noticeMessage.setTime(dtf.format(LocalDateTime.now()));
 		noticeMessage.setProjectNo(updateProjectVo.getNo());
