@@ -192,7 +192,7 @@ const Mypage = () => {
             window.location.replace("/login");
         }
         setProfile(response.data.data);
-        alert("프로필이 변경되었습니다. 다시 로그인 해주세요.", formData, "//" , response);
+        alert("프로필이 변경되었습니다. 다시 로그인 해주세요."+formData+"//" +response);
         window.location.replace("/login");
         localStorage.removeItem("Authorization");
         localStorage.removeItem("loginUserNo");
