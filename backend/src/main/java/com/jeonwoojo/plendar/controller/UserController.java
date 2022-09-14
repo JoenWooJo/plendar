@@ -87,7 +87,7 @@ public class UserController {
 		 Map<String, Object> map = new HashMap<>();
 		 map.put("profile", profile);
 		 map.put("userNo", no);
-		
+		System.out.println("-----------------------------------------------------"+profile);
 		userService.updateProfile(map);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(profile));
 	}
