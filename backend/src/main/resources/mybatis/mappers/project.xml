@@ -86,6 +86,18 @@
 		]]>
 	</select>
 	
+	<select id="findProjectMemberByNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+			select u.no, u.name, pm.leader, pm.manager, pm.project_no as 'projectNo', p.title  from user u, proj_member pm, project p 
+				where u.no = pm.user_no
+                and pm.project_no = p.no
+				and pm.user_no = #{projectNo}
+                and p.finished="N"
+                and p.visible = 1
+				order by p.priority desc, p.title asc
+		]]>
+	</select>
+	
 	<delete id="deleteMember" parameterType="map">
 		<![CDATA[
 			delete from proj_member where user_no = ${userVo.no} and project_no = ${projectNo }

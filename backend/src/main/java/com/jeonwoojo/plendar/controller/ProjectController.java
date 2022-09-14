@@ -37,6 +37,7 @@ public class ProjectController {
 	public ResponseEntity<JsonResult> create(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
 		ProjectVo newVo = projectService.createProject(projectVo, userNo);
 		NoticeMessage noticeMessage= noticeService.insertNoticeProject(newVo, userNo);
+		System.out.println(noticeMessage);
 		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -51,10 +52,10 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/find/project/{userNo}")
-	public ResponseEntity<JsonResult> findProject(@PathVariable("userNo")long userNo) {;
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(JsonResult.success(projectService.findProject(userNo)));
+	   public ResponseEntity<JsonResult> findProject(@PathVariable("userNo")long userNo) {;
+	      return ResponseEntity
+	            .status(HttpStatus.OK)
+	            .body(JsonResult.success(projectService.findProject(userNo)));
 	}
 	
 	@GetMapping("/find/completeProject")
@@ -69,6 +70,11 @@ public class ProjectController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findProjectMember(projectNo)));
+	}
+	
+	@GetMapping("/findProjectMembeByNo") 
+	public ResponseEntity<JsonResult> findProjectMemberByNo(@RequestParam("userNo") Long userNo) {
+		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(projectService.findProjectMemberByNo(userNo)));
 	}
 	
 	@PostMapping("/update")
