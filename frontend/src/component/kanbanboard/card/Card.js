@@ -10,9 +10,11 @@ import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-
+import { translateRect } from '@fullcalendar/common';
+import './card.css';
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     let location = useLocation();
@@ -25,6 +27,25 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
+    const [noSum, setNoSum] = useState(0);
+    const [taskSum, setTaskSum] = useState(0);
+
+    //카드 테스크 개수
+    const cardTask = async () => {
+        const list = await get(`/kanban/card/findtaskcount/${no}`);
+        setTaskSum(list);
+    }
+
+    //테스크 완료 개수
+    const cardN = async () => {
+        const list = await get(`/kanban/card/findncount/${no}`);
+        setNoSum(list);
+    }
+
+    useEffect(() => {
+        cardTask();
+        cardN();
+    }, [taskList]);
 
     useEffect(() => {
         taskList.length === 0 && t();
@@ -70,7 +91,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
-            })
+        })
             .then((resp) => {
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
@@ -97,67 +118,70 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
         setRefresh(refresh => !refresh);
     }
 
-    
     return (
         <div style={{ position: "relative" }}>
             {
                 cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-21px", left: "-14px" }} /></span> :
-                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-21px", left: "-14px" }}/></span> : ""
+                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-21px", left: "-14px" }} /></span> : ""
             }
-            <div id={`card-${no}`} >
-                <div className='row'>
-                    <div className="col-xl-8 mt-2">
-                        <b>{title}</b>
-                    </div>
-                    {/* 드롭다운 */}
-                    <div className='col-xl-1 mr-1'>
-                        <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
-                            <AddTask cardNo={no} setRefresh={setRefresh} />
-                            <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh}/>
-                            <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
-                        </DropdownButton>
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
-                    <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
-                        {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                    </div>
-                </div>
-                {showDetail
-                    ?
-                    taskList.map((m, i) =>
-                    (
-                        <div key={i}>
-                            <hr />
-                            {/* 체크박스 */}
-                            <div className='row'>
-                                <Checkbox
-                                    className='col-xl-1'
-                                    value={m.no}
-                                    onChange={(e) => {
-                                        changeTaskStatus(e);
-                                    }}
-                                    checked={m.finished === "Y" ? true : false}
-                                />
-
-                                {/* task내용 */}
-                                <TaskList
-                                    content={m.content}
-                                    taskNo={m.no} />
-
-                                {/* 삭제버튼 */}
-                                <div className='col-xl-1'>
-                                    <ClearIcon onClick={() => removeTask(m.no)} />
-                                </div>
+            <div className="card bg-light text-black shadow mb-2" >
+                <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
+                    <div id={`card-${no}`} >
+                        <div className='row'>
+                            <div className="col-xl-8 mt-2">
+                                <b>{title}</b>
+                            </div>
+                            {/* 드롭다운 */}
+                            <div className='col-xl-1 mr-1'>
+                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
+                                    <AddTask cardNo={no} setRefresh={setRefresh} />
+                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} />
+                                    <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
+                                </DropdownButton>
                             </div>
                         </div>
+                        <div className='row'>
+                            <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
+                            <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
+                                {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                            </div>
+                        </div>
+                        {showDetail
+                            ?
+                            taskList.map((m, i) =>
+                            (
+                                <div key={i}>
+                                    <hr />
+                                    {/* 체크박스 */}
+                                    <div className='row'>
+                                        <Checkbox
+                                            className='col-xl-1'
+                                            value={m.no}
+                                            onChange={(e) => {
+                                                changeTaskStatus(e);
+                                            }}
+                                            checked={m.finished === "Y" ? true : false}
+                                        />
 
-                    )
-                    )
-                    :
-                    null
-                }
+                                        {/* task내용 */}
+                                        <TaskList
+                                            content={m.content}
+                                            taskNo={m.no} />
+
+                                        {/* 삭제버튼 */}
+                                        <div className='col-xl-1'>
+                                            <ClearIcon onClick={() => removeTask(m.no)} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            )
+                            )
+                            :
+                            null
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );
