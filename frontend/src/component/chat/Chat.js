@@ -57,7 +57,7 @@ const Chat = () => {
         
         // 다른페이지 가거든 구독해제?
         return () => {
-            console.log(client.current)
+            client.current.unsubscribe();
         };
     }, []);
 
