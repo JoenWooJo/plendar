@@ -23,6 +23,7 @@ const Chat = () => {
     
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
+    const [sub, setSub] = useState(null);
     const [delay, setDelay] = useState(false);
     const [first, setFirst] = useState(true);
 
@@ -40,13 +41,7 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        // delay && first && rooms.map((e, i)=>{
-            
-        //     subscribe(e.no)
-        //     if(rooms.length-1 == i) {
-        //         setFirst(false);
-        //     }
-        // });
+        first && setSub(rooms)
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
@@ -70,13 +65,13 @@ const Chat = () => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    // useEffect(()=>{
-    //     sub !== null && delay && first && sub.map((e) => {
-    //         console.log("????구독")
-    //         subscribe(e.no);
-    //         setFirst(false);
-    //     });
-    // }, [sub, first, delay])
+    useEffect(()=>{
+        sub !== null && delay && sub.map((e) => {
+            console.log("????구독")
+            subscribe(e.no);
+            setFirst(false);
+        });
+    }, [sub, delay])
 
     // useEffect(()=> {
     //     if(delay && subIds != null) {
@@ -123,7 +118,8 @@ const Chat = () => {
             heartbeatOutgoing: 4000,
             onConnect: () => {
                 console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
-                console.log("--------", roomList);
+                setDelay(true);
+                // console.log("--------", roomList);
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -131,7 +127,7 @@ const Chat = () => {
         });
 
         await client.current.activate();
-        setDelay(true);
+        
     };
 
     const disconnect = () => {
