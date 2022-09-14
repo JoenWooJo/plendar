@@ -140,7 +140,6 @@ const Chat = () => {
     };
 
     const subscribe = (roomId) => {
-        console.log("????구독")
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
             console.log(line);
