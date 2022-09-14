@@ -124,4 +124,8 @@ public class ProjectService {
 		projectRepository.finishProject(projectNo);
 	}
 
+
+	public List<ProjectVo> findProjectMemberByNo(Long userNo) {
+		return projectRepository.findProjectMemberByNo(userNo);
+	}
 }

@@ -14,7 +14,7 @@ public class UserVo {
 	private String password;
 	private String profile;
 	private String permission;
-	private String projectNo;
+	private Long projectNo;
 	private int projectCount;
 	private int leader;
 	private int manager;
