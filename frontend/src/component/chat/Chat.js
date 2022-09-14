@@ -40,13 +40,13 @@ const Chat = () => {
             },
             });
         const rooms = resp.data.data;
-        delay && first && rooms.map((e, i)=>{
+        // delay && first && rooms.map((e, i)=>{
             
-            subscribe(e.no)
-            if(rooms.length-1 == i) {
-                setFirst(false);
-            }
-        });
+        //     subscribe(e.no)
+        //     if(rooms.length-1 == i) {
+        //         setFirst(false);
+        //     }
+        // });
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
@@ -118,7 +118,7 @@ const Chat = () => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 10000,
+            reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
