@@ -55,10 +55,10 @@ const Chat = () => {
     useEffect(()=>{
         connect();
         
-        // // 다른페이지 가거든 구독해제?
-        // return () => {
-        //     disconnect();
-        // };
+        // 다른페이지 가거든 구독해제?
+        return () => {
+            client.current.unsubcribe();
+        };
     }, []);
 
     useEffect(() => {
