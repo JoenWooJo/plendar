@@ -23,8 +23,6 @@ const Chat = () => {
     
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
-    const [subStatus, setSubStatus] = useState([]);
-    const [sub, setSub] = useState(null);
     const [delay, setDelay] = useState(false);
     const [first, setFirst] = useState(true);
 
@@ -62,9 +60,10 @@ const Chat = () => {
     useEffect(()=>{
         connect();
         
-        return () => {
-            disconnect();
-        };
+        // // 다른페이지 가거든 구독해제?
+        // return () => {
+        //     disconnect();
+        // };
     }, []);
 
     useEffect(() => {
@@ -123,7 +122,8 @@ const Chat = () => {
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                console.log("--------", roomList);
             },
             onStompError: (frame) => {
                 console.error(frame);
