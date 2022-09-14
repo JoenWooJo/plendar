@@ -23,7 +23,6 @@ const Chat = () => {
     
     const [line, setLine] = useState("");
     const [noticeSelected, setNoticeSelected] = useState("");
-    const [subStatus, setSubStatus] = useState([]);
     const [sub, setSub] = useState(null);
     const [delay, setDelay] = useState(false);
     const [first, setFirst] = useState(true);
@@ -31,25 +30,6 @@ const Chat = () => {
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
     };
-
-    const roomsSubcribe = async () => {
-        if(delay) {
-            const resp = await axios.get('/api/chat/rooms', {
-                params: {
-                    userNo: localStorage.getItem("loginUserNo"),
-                },
-                headers: {
-                    Authorization: window.localStorage.getItem("Authorization"),
-                },
-                });
-            const rooms = resp.data.data;
-            rooms.map((e)=>{subscribe(e.no)});
-        }
-    }
-
-    useEffect(()=>{
-        roomsSubcribe();
-    }, [delay])
 
     const fetchAndSetRooms = async () => {
         const resp = await axios.get('/api/chat/rooms', {
@@ -60,36 +40,44 @@ const Chat = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             });
-        
+        const rooms = resp.data.data;
+        first && setSub(rooms)
 
         if (resp.data.result == "fail") {
             alert(resp.data.message);
             window.location.replace("/login");
         }
 
-        setRoomList(resp.data.data);
-        setNewRoomList(resp.data.data);
+        setRoomList(rooms);
+        setNewRoomList(rooms);
     }
 
     useEffect(()=>{
         connect();
         
-        // return () => {
-        //     disconnect();
-        // };
-    }, [delay]);
+        // 다른페이지 가거든 구독해제?
+        return () => {
+            disconnect();
+        };
+    }, []);
 
     useEffect(() => {
         fetchAndSetRooms();
     }, [ noticeSelected, line ]);
 
-    // useEffect(()=>{
-    //     sub !== null && delay && first && sub.map((e) => {
-    //         console.log("????구독")
-    //         subscribe(e.no);
-    //         setFirst(false);
-    //     });
-    // }, [sub, first, delay])
+    useEffect(()=>{
+        const set = new Set(sub);
+        const uniquRooms = [...set];
+        
+        if(uniquRooms !== null && delay && first) {
+            console.log(uniquRooms);
+            uniquRooms.map((e) => {
+                console.log("????구독")
+                subscribe(e.no);
+            });
+            setFirst(false);
+        }
+    }, [sub, delay])
 
     // useEffect(()=> {
     //     if(delay && subIds != null) {
@@ -131,11 +119,16 @@ const Chat = () => {
             debug: function (str) {
                 // console.log("!!!!!!", str);
             },
-            reconnectDelay: 10000,
+            reconnectDelay: 5000,
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                setDelay(true);
+                // console.log("--------", roomList);
+            },
+            onDisconnect: () => {
+                console.log("연결해제?");
             },
             onStompError: (frame) => {
                 console.error(frame);
@@ -143,15 +136,14 @@ const Chat = () => {
         });
 
         await client.current.activate();
-        setDelay(true);
+        
     };
 
-    const disconnect = () => {
-        client.current.deactivate();
+    const disconnect = async () => {
+        await client.current.deactivate();
     };
 
     const subscribe = (roomId) => {
-        console.log("????구독")
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
             let line = JSON.parse(data.body);
             console.log(line);
