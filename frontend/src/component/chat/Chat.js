@@ -68,7 +68,9 @@ const Chat = () => {
     useEffect(()=>{
         const set = new Set(sub);
         const uniquRooms = [...set];
+        
         if(uniquRooms !== null && delay) {
+            console.log(uniquRooms);
             uniquRooms.map((e) => {
                 console.log("????구독")
                 subscribe(e.no);
