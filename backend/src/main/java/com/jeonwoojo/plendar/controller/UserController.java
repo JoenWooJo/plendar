@@ -26,7 +26,7 @@ import com.jeonwoojo.plendar.vo.UserVo;
 
 @Controller
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:9090", allowedHeaders = "*")
 public class UserController {
 
 	@Autowired
@@ -71,7 +71,6 @@ public class UserController {
 	@PostMapping("/axios/deleteProfile")
 	public ResponseEntity<JsonResult> deleteProfile(@RequestBody UserVo vo) {
 		userService.deleteProfile(vo);
-
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(vo));
 	}
 
@@ -79,14 +78,11 @@ public class UserController {
 	public ResponseEntity<JsonResult> updateProfile(@RequestParam(value = "file") MultipartFile multipartFile,  @RequestParam("userNo") Long no) {
 		
 		String profile = "";
-		try {
-			profile = fileUploadService.restoreImage(multipartFile);
-		} catch (FileUploadException e) {
-			e.printStackTrace();
-		}
-		 Map<String, Object> map = new HashMap<>();
-		 map.put("profile", profile);
-		 map.put("userNo", no);
+		profile = fileUploadService.restoreImage(multipartFile);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("profile", profile);
+		map.put("userNo", no);
 		System.out.println("-----------------------------------------------------"+profile);
 		userService.updateProfile(map);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success(profile));
