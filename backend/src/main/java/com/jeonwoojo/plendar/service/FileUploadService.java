@@ -23,8 +23,8 @@ public class FileUploadService {
          }
          
          if(file.isEmpty()) {
-            // throw new FileUploadException("file upload error: image empty");
-            return null;
+           // throw new FileUploadException("file upload error: image empty");
+            return "image empty!!!!!!!!!!!!!!!!!!!!";
          }
          
          String originFilename = file.getOriginalFilename();
