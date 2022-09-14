@@ -66,11 +66,14 @@ const Chat = () => {
     }, [ noticeSelected, line ]);
 
     useEffect(()=>{
-        sub !== null && delay && sub.map((e) => {
-            console.log("????구독")
-            subscribe(e.no);
-            setFirst(false);
-        });
+        const set = new Set(sub);
+        const uniquRooms = [...set];
+        if(uniquRooms !== null && delay) {
+            uniquRooms.map((e) => {
+                console.log("????구독")
+                subscribe(e.no);
+            });
+        }
     }, [sub, delay])
 
     // useEffect(()=> {
