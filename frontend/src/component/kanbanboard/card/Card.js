@@ -120,12 +120,13 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
 
     return (
         <div style={{ position: "relative" }}>
-            {
-                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-21px", left: "-14px" }} /></span> :
-                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-21px", left: "-14px" }} /></span> : ""
-            }
             <div className="card bg-light text-black shadow mb-2" >
+           
                 <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
+                {
+                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
+                cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
+                }
                     <div id={`card-${no}`} >
                         <div className='row'>
                             <div className="col-xl-8 mt-2">
