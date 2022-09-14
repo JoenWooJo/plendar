@@ -57,7 +57,7 @@ const Chat = () => {
         
         // 다른페이지 가거든 구독해제?
         return () => {
-            client.current.unsubscribe();
+            disconnect();
         };
     }, []);
 
@@ -127,6 +127,9 @@ const Chat = () => {
                 setDelay(true);
                 // console.log("--------", roomList);
             },
+            onDisconnect: () => {
+                console.log("연결해제?");
+            },
             onStompError: (frame) => {
                 console.error(frame);
             }
@@ -136,8 +139,8 @@ const Chat = () => {
         
     };
 
-    const disconnect = () => {
-        client.current.deactivate();
+    const disconnect = async () => {
+        await client.current.deactivate();
     };
 
     const subscribe = (roomId) => {
