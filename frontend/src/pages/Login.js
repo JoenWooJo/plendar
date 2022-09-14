@@ -61,7 +61,7 @@ const Login = () => {
                         <div className="card o-hidden border-0 shadow-lg my-5">
                             <div className="card-body p-0">
                                 <div className="row">
-                                    <div className="col-lg-7 d-none d-lg-block"><img src="img/logo.png"></img></div>
+                                    <div className="col-lg-7 d-none d-lg-block"><img src="assets/img/logo.png"></img></div>
                                     <div className="col-lg-5">
                                         <div className="p-5">
                                             <div className="text-center">
