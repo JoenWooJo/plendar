@@ -118,7 +118,7 @@ const Join = () => {
                 <div className="card-body p-0">
                     {/* <!-- Nested Row within Card Body --> */}
                     <div className="row">
-                        <div className="col-lg-6 d-none d-lg-block "><img src="img/logo.png"></img></div>
+                        <div className="col-lg-6 d-none d-lg-block "><img src="assets/img/logo.png"></img></div>
                         <div className="col-lg-6">
 
                             <div className="p-5">

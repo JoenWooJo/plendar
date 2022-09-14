@@ -102,8 +102,8 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     return (
         <div style={{ position: "relative" }}>
             {
-                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/images/new.png" alt="" style={{ position: "absolute", width: "35px" }} /></span> :
-                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px" }} /></span> : ""
+                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="assets/images/new.png" alt="" style={{ position: "absolute", width: "35px" }} /></span> :
+                    cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px" }} /></span> : ""
             }
 
             <div id={`card-${no}`} >

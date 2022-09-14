@@ -7,7 +7,7 @@ module.exports = function(env) {
         output: {
             path: path.resolve('../backend/src/main/resources'),
             filename: 'assets/js/main.js',
-            assetModuleFilename:'../src/assets/img/[hash][ext]'
+            assetModuleFilename:'assets/img/[hash][ext]'
         },
         resolve: {
             mainFields: [ 'browser', 'dev:module', 'module', 'main' ]
