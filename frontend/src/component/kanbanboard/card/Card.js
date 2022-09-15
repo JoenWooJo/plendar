@@ -119,7 +119,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
         setRefresh(refresh => !refresh);
     }
 
-     // 카드의 현재 유저 불러오기
+    // 카드의 현재 유저 불러오기
     useEffect(() => {
         const findCurrentCardmember = async () => {
             await axios.get(`/api/kanban/card/findCurrentCardmember/${no}`, {
@@ -141,16 +141,16 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
             m.no == localStorage.getItem('loginUserNo')
         );
     })
-    console.log("dddfdfdf", manager.length);
+
     return (
         <div style={{ position: "relative" }}>
             <div className="card bg-light text-black shadow mb-2" >
-           
+
                 <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
-                {
-                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
-                cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
-                }
+                    {
+                        cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
+                            cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
+                    }
                     <div id={`card-${no}`} >
                         <div className='row'>
                             <div className="col-xl-8 mt-2">
@@ -159,11 +159,11 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
                             {/* 드롭다운 */}
                             <div className='col-xl-1 mr-1'>
                                 <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
-                                {(cuList.length != 0 || manager.length!= 0) && <AddTask cardNo={no} setRefresh={setRefresh} />}
-                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager}/>
-                                {(cuList.length != 0 || manager.length != 0) && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
+                                    {(cuList.length != 0 || manager.length != 0) && <AddTask cardNo={no} setRefresh={setRefresh} />}
+                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager} />
+                                    {(cuList.length != 0 || manager.length != 0) && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
                                 </DropdownButton>
-                            </div> 
+                            </div>
                         </div>
                         <div className='row'>
                             <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
@@ -183,7 +183,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
                                             className='col-xl-1'
                                             value={m.no}
                                             onChange={(e) => {
-                                                changeTaskStatus(e);
+                                                (cuList.length != 0 || manager.length != 0) && changeTaskStatus(e);
                                             }}
                                             checked={m.finished === "Y" ? true : false}
                                         />

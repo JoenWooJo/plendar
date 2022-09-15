@@ -75,7 +75,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
     const uu = localStorage.getItem('loginUserNo');
     console.log("uu", uu);
 
-    const cuList = member.filter((m) => {
+    const cuList = member != null && member.filter((m) => {
         return (
             m.no == uu
         );
@@ -238,7 +238,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                                     </thead>
                                     <tbody>
                                         {
-                                            member.map((m, i) => {
+                                            member != null && member.map((m, i) => {
                                                 return (
                                                     <tr key={i}>
                                                         <td>
