@@ -39,8 +39,6 @@ const Myproject = () => {
             })
     };
 
-    console.log("list", projectMember);
-
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();
         currentPath = location.pathname;
@@ -97,7 +95,7 @@ const Myproject = () => {
                                         finished={m.finished}
                                         priority={m.priority}
                                         state={state}
-                                        leader = {!!projectMember[i]&&projectMember[i].leader}
+                                        leader = {!!projectMember[i] && projectMember[i].leader}
                                     />
                                 );
                             })}

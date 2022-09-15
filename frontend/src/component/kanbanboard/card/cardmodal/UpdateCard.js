@@ -13,7 +13,7 @@ import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
 
 
-const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) => {
+const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, member, setMember, manager }) => {
 
     const [title, setTitle] = useState();
     const [description, setDescription] = useState("");
@@ -22,7 +22,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
     const [selectUser, setSelectUser] = useState([]);
     const [cardUserList, setCardUserList] = useState([]);
     const [reset, setReset] = useState(false);
-    const [member, setMember] = useState([]);
+    
 
     //카드 유저 리스트 가져오기
     const getCardUser = async () => {
@@ -30,7 +30,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
-            });
+        });
         setCardUserList((prevcCardUserlist) => prevcCardUserlist.concat(list));
     }
 
@@ -40,7 +40,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
 
     // closeIcon 클릭
     const onRemove = (no) => {
-        setMember(member.filter(user=>user.no!==no));
+        setMember(member.filter(user => user.no !== no));
     }
 
     // 카드 업데이트
@@ -59,7 +59,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
             headers: {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
-            })
+        })
             .then((resp) => {
                 if (resp.data.result == "fail") {
                     alert(resp.data.message);
@@ -71,21 +71,19 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
             })
     }
 
-    // 카드의 현재 유저 불러오기
-    useEffect(() => {
-        const findCurrentCardmember = async () => {
-            await axios.get(`/api/kanban/card/findCurrentCardmember/${cardNo}`, {
-                headers: {
-                    Authorization: window.localStorage.getItem("Authorization"),
-                },
-                })
-            .then((resp) => {
-                const list = resp.data.data;
-                setMember(list);
-            })
-        }
-        findCurrentCardmember();
-    }, []);
+    //로컬스토리지 유저 뽑기
+    const uu = localStorage.getItem('loginUserNo');
+    console.log("uu", uu);
+
+    const cuList = member.filter((m) => {
+        return (
+            m.no == uu
+        );
+    })
+
+    const unUpdateCard =()=>{
+        setShow(!show);
+    }
 
     // 현재 카드 정보 가져오기
     useEffect(() => {
@@ -94,14 +92,14 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                 headers: {
                     Authorization: window.localStorage.getItem("Authorization"),
                 },
-                })
-            .then((resp) => {
-                const info = resp.data.data;
-                setTitle(info.title);
-                setDescription(info.description);
-                setStartDate(info.startDate);
-                setEndDate(info.endDate);
             })
+                .then((resp) => {
+                    const info = resp.data.data;
+                    setTitle(info.title);
+                    setDescription(info.description);
+                    setStartDate(info.startDate);
+                    setEndDate(info.endDate);
+                })
         }
         findCardInfo();
     }, []);
@@ -112,7 +110,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
     }, [])
 
     const checkMember = (element) => {
-        if(element.no == selectUser["no"]) {
+        if (element.no == selectUser["no"]) {
             return true;
         } return false;
     };
@@ -133,12 +131,22 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                             {/* 카드 제목 */}
                             <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
                                 <Form.Label>카드 이름</Form.Label>
-                                <Form.Control
-                                    type="title"
-                                    value={title || ''}
-                                    autoFocus
-                                    onChange={changeTitle}
-                                />
+                                {cuList.length != 0 || manager.length !=0
+                                    ?
+                                    <Form.Control
+                                        type="title"
+                                        value={title || ''}
+                                        autoFocus
+                                        onChange={changeTitle}
+                                    />
+                                    :
+                                    <Form.Control
+                                        type="title"
+                                        value={title || ''}
+                                        autoFocus
+                                        readOnly
+                                    />
+                                }
                             </Form.Group>
 
                             {/* 카드 내용 */}
@@ -149,13 +157,19 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                                 <Form.Label>
                                     설명
                                 </Form.Label>
+                                {cuList.length != 0  || manager.length != 0
+                                ?
                                 <Form.Control as="textarea" rows={3} value={description} onChange={(e) => { setDescription(e.target.value) }} />
+                                :
+                                <Form.Control as="textarea" rows={3} value={description} readOnly />
+                                }
+
                             </Form.Group>
 
                             {/* 시작일 */}
                             <div className='ml-3 mb-3'>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                    <DatePicker
+                                 <DatePicker
                                         label="시작일"
                                         value={startDate}
                                         inputFormat={"yyyy-MM-dd"}
@@ -203,46 +217,47 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                             <div className='mt-2 col-xl-1'>
                                 <button type="submit" className="btn btn-secondary" onClick={(e) => {
                                     e.preventDefault();
-                                    selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]);
+                                    cuList.length != 0 || manager.length !=0 &&
+                                    (selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]));
                                     setReset(reset => !reset);
                                 }}>add</button>
                             </div>
                             <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
-                             <table className="table table-bordered" id="dataTable" width="100%"> 
-                                <thead>
-                                    <tr>
-                                        <th scope="col">name</th>
-                                        <th scope="col">email</th>
-                                        <th scope="col">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                            </svg>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        member.map((m, i) => {
-                                            return (
-                                                <tr key={i}>
-                                                    <td>
-                                                        {m.name}
-                                                    </td>
-                                                    <td>
-                                                        {m.email}
-                                                    </td>
-                                                    <td onClick={()=>onRemove(m.no)}>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16">
-                                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                                                                    </svg>
-                                                                </td>
-                                                </tr>
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table>
+                                <table className="table table-bordered" id="dataTable" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">name</th>
+                                            <th scope="col">email</th>
+                                            <th scope="col">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                </svg>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            member.map((m, i) => {
+                                                return (
+                                                    <tr key={i}>
+                                                        <td>
+                                                            {m.name}
+                                                        </td>
+                                                        <td>
+                                                            {m.email}
+                                                        </td>
+                                                        <td onClick={() => onRemove(m.no)}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" mt-1 bi bi-x" viewBox="0 0 16 16">
+                                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                                            </svg>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -252,7 +267,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                 <Button variant="secondary" onClick={() => setShow(!show)}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={updateCard}>
+                <Button variant="primary" onClick={cuList.length != 0 || manager.length !=0 ? updateCard : unUpdateCard}>
                     Save Changes
                 </Button>
             </Modal.Footer>

@@ -143,7 +143,15 @@ const Deck = ({ deckTitle, no, projectNo, manager }) => {
                         <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
                         {provided => (
                         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Card key={index} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
+                        <Card   key={index} 
+                                title={data.title} 
+                                card={data} 
+                                projectNo={projectNo} 
+                                deckNo={no} 
+                                refresh={refresh} 
+                                setRefresh={setRefresh} 
+                                manager={manager} 
+                        />
                         {provided.placeholder}
                         </div>
                         )}

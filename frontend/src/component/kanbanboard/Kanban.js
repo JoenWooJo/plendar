@@ -120,9 +120,6 @@ const Kanban = () => {
   const uu = localStorage.getItem('loginUserNo');
   //리더, 매니저 가져오기
   const manager = managerList.filter((m) => (m.no == uu));
-
-  console.log("mnnnnnn: ", manager);
-  
   
   // 처음 들어갔을 때 리더멤버 가져오기
   useEffect(() => {

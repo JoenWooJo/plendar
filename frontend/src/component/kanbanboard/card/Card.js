@@ -16,7 +16,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { translateRect } from '@fullcalendar/common';
 import './card.css';
 
-const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
+const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
     let location = useLocation();
     const state = location.state;
     const cardView = state != null ? state["cardNo"] : "";
@@ -29,6 +29,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     const [check, setCheck] = useState([]);
     const [noSum, setNoSum] = useState(0);
     const [taskSum, setTaskSum] = useState(0);
+    const [member, setMember] = useState([]);
 
     //카드 테스크 개수
     const cardTask = async () => {
@@ -118,6 +119,29 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
         setRefresh(refresh => !refresh);
     }
 
+     // 카드의 현재 유저 불러오기
+    useEffect(() => {
+        const findCurrentCardmember = async () => {
+            await axios.get(`/api/kanban/card/findCurrentCardmember/${no}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+            })
+                .then((resp) => {
+                    const list = resp.data.data;
+                    setMember(list);
+                })
+        }
+        findCurrentCardmember();
+    }, []);
+
+
+    const cuList = member.filter((m) => {
+        return (
+            m.no == localStorage.getItem('loginUserNo')
+        );
+    })
+    console.log("dddfdfdf", manager.length);
     return (
         <div style={{ position: "relative" }}>
             <div className="card bg-light text-black shadow mb-2" >
@@ -135,11 +159,11 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                             {/* 드롭다운 */}
                             <div className='col-xl-1 mr-1'>
                                 <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
-                                    <AddTask cardNo={no} setRefresh={setRefresh} />
-                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} />
-                                    <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
+                                {cuList != 0 || manager.length!= 0 && <AddTask cardNo={no} setRefresh={setRefresh} />}
+                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager}/>
+                                {cuList != 0 || manager.length != 0 && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
                                 </DropdownButton>
-                            </div>
+                            </div> 
                         </div>
                         <div className='row'>
                             <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>

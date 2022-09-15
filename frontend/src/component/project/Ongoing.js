@@ -27,8 +27,6 @@ const Ongoing = ({
         priority: priority
     }
 
-    console.log("dddddddd", leader);
-
     return (
         <div className="col-xl-3  mb-4" key={no}  >
             <div className="card border-left-primary shadow h-100 py-2">
