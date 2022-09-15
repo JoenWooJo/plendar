@@ -143,6 +143,14 @@ public class ProjectRepository {
 	public List<ProjectVo> findProjectMemberByNo(Long userNo) {
 		return sqlSession.selectList("project.findProjectMemberByNo", userNo);
 	}
+
+	public List<ProjectVo> searchProject(String word, long userNo) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("word", word);
+		map.put("userNo", userNo);
+		
+		return sqlSession.selectList("project.searchProject", map);
+	}
 	
 
 }

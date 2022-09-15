@@ -128,4 +128,8 @@ public class ProjectService {
 	public List<ProjectVo> findProjectMemberByNo(Long userNo) {
 		return projectRepository.findProjectMemberByNo(userNo);
 	}
+
+	public List<ProjectVo> searchProject(String word, long userNo) {
+		return projectRepository.searchProject(word, userNo);
+	}
 }

@@ -1,5 +1,7 @@
 package com.jeonwoojo.plendar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +107,15 @@ public class ProjectController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("finish ok!"));
+	}
+	
+	@GetMapping("/search/{word}")
+	public ResponseEntity<JsonResult> searchProject(@PathVariable("word") String word, @RequestParam("userNo") long userNo) {
+		List<ProjectVo> searchProjectList = projectService.searchProject(word, userNo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(searchProjectList));
 	}
 	
 }

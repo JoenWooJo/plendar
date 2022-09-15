@@ -132,4 +132,11 @@
 		]]>
 	</update>
 	
+	<select id="searchProject" parameterType="map" resultType="projectvo">
+		<![CDATA[
+			select pj.no, pj.title, pj.description, pj.start_date as startDate, pj.end_date as endDate, pj.priority, pj.finished, pm.leader 
+				from project pj, proj_member pm 
+			  where pj.no = pm.project_no and pm.user_no = #{userNo } and visible = 1 and pj.title like concat('%', #{word }, '%')      
+		]]>
+	</select>
 </mapper>
