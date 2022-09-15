@@ -31,8 +31,6 @@ const CreateDeck = ({ setCreateResult }) => {
     });
   };
 
-  console.log("projectNo: ", projectNo);
-
   const keyEnter = (e) => {
     if (e.key == "Enter") {
       return (
@@ -61,6 +59,13 @@ const CreateDeck = ({ setCreateResult }) => {
     );
   })
 
+  //멤버의 리더, 매니저 뽑기 
+  const managerList = leaderNO.filter((m) => {
+    return (
+      m.leader == 1 || m.manager == 1
+    );
+  })
+  
   // 처음 들어갔을 때 리더멤버 가져오기
   useEffect(() => {
     findMember();
@@ -69,15 +74,19 @@ const CreateDeck = ({ setCreateResult }) => {
   //로컬스토리지 유저 뽑기
   const uu = localStorage.getItem('loginUserNo');
   //리더멤버의 넘버 가져오기
-  const uuarr = leaderList.filter((m) => (m.no == uu))
+  const leader = leaderList.filter((m) => (m.no == uu));
+  //리더, 매니저 가져오기
+  const manager = managerList.filter((m) => (m.no == uu));
   
   return (
     <div>
-      {/* 덱 추가 버튼 */}
+      {/* 리더, 매니저 용 덱 추가 버튼 */}
+      {(manager.length !== 0) &&
       <Button sx={{ mb: 2, ml: 2 }} variant="contained" size="medium" onClick={handleShow}>덱 추가하기</Button>
+      }
 
       {/* 리더만 보이는 프로젝트완료 */}
-      {(uuarr.length !== 0)
+      {(leader.length !== 0)
         &&
         <Link to="/project/completepage">
           <Button variant="contained" type="submit" size="medium" sx={{ mb: 2, ml: 1 }} onClick={() => { projectComplete() }}>프로젝트 완료</Button>

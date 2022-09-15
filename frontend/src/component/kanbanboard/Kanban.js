@@ -21,6 +21,7 @@ const Kanban = () => {
   const [deckList, setDeckLlist] = useState([]);
   const [projectNo, setProjectNo] = useState(0);
   const [createResult, setCreateResult] = useState(false);
+  const [leaderNO, setLeaderNo] = useState([]);
   
   if(projectNo !== params.no) {
     setProjectNo(params.no);
@@ -102,13 +103,39 @@ const Kanban = () => {
     await moveDeck();
 
   };
+
+  const findMember = async () => {
+    const list = await get(`/project/find/member/${projectNo}`);
+    setLeaderNo(list);
+  }
+
+    //멤버의 리더, 매니저 뽑기 
+    const managerList = leaderNO.filter((m) => {
+      return (
+      m.leader == 1 || m.manager == 1
+      );
+  })
+
+  //로컬스토리지 유저 뽑기
+  const uu = localStorage.getItem('loginUserNo');
+  //리더, 매니저 가져오기
+  const manager = managerList.filter((m) => (m.no == uu));
+
+  console.log("mnnnnnn: ", manager);
+  
+  
+  // 처음 들어갔을 때 리더멤버 가져오기
+  useEffect(() => {
+      findMember();
+  }, [])
+
   
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>
           <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Project Kanban</h4>
         </div>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={ manager.length != 0 && onDragEnd}>
           <Droppable droppableId="title" direction="horizontal">
             {provided => (
               <div className="card-body" {...provided.droppableProps} ref={provided.innerRef} style={{ width: "3000px", height: "750px" }}>
@@ -136,6 +163,7 @@ const Kanban = () => {
                           deckTitle={data.title}
                           projectNo={projectNo}
                           index={index}
+                          manager = {manager}
                         />
                         </div>
                         )}

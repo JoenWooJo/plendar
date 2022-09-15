@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Card from '../card/Card';
 
-const Deck = ({ deckTitle, no, projectNo }) => {
+const Deck = ({ deckTitle, no, projectNo, manager }) => {
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
@@ -37,9 +37,11 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         t();
     }, [no])
 
+
     const onChangeTitle = (event) => {
         setTitle(event.target.value);
     };
+
     const onClickDeckTitle = () => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
@@ -48,9 +50,14 @@ const Deck = ({ deckTitle, no, projectNo }) => {
             setChangeTitle(false);
             setClickChk(0);
         }
-    }
+    };
+
+    const notClickDeckTitle = () => {
+        console.log("권한이 없습니다");
+        }
+
+
     const keyEnter = (e) => {
-        console.log(e.target.value);
         if (e.key == "Enter") {
             postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
@@ -71,8 +78,6 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         const column = currentList[source.index];
         //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
         const newTaskIds = Array.from(column.sequence);
-        
-        console.log("출발지점의 값 column:", column);
         
 
         // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
@@ -96,16 +101,11 @@ const Deck = ({ deckTitle, no, projectNo }) => {
        setState(newState);
       };
 
-    //   const Container = styled.div`
-    //     flex-direction: column;
-    //   `;    
-
     return (
         <Paper>
-
             <div className="row">
-                <div className="col-xl-9 mt-4 ml-3" onClick={onClickDeckTitle}>
-                    {changeTitle
+                <div className="col-xl-9 mt-4 ml-3" onClick={manager.length != 0 ? onClickDeckTitle :notClickDeckTitle}>
+                    { changeTitle
                         ?
                         <TextField
                             id="outlined-multiline-flexible"
@@ -130,15 +130,15 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                         cardNo={cardNo}
                         setRefresh={setRefresh}
                         setMorevertList={setMorevertList}
+                        manager = {manager}
                     /> : null}
                 </div>
-                
-                <DragDropContext onDragEnd={onDragEnd}>
+                <DragDropContext>
                 {/* <Container> */}
                 <Droppable droppableId="card">
                 {provided =>(
                 <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
-                    {
+                    {       
                         cardList.map((data, index) => (
                         <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
                         {provided => (
@@ -149,7 +149,8 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                         )}
                         </Draggable>
                         )
-                        )}
+                        )
+                    }
                     {provided.placeholder}
                 </div>
                 )}
