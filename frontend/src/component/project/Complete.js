@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Rating } from "@mui/material";
 
+import '../../assets/css/font.css';
+
 const Complete = () => {
 
     const [projectList, setProjectList] = useState([]);
@@ -30,9 +32,9 @@ const Complete = () => {
                             <div className="card-body" >
                                 <div className="row no-gutters align-items-center">
                                     <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-gray text-uppercase mb-1">
+                                        <div className="text-xs font-weight-bold text-gray text-uppercase mb-1" style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                             완료</div>
-                                        <Link to={`/kanbanboard/${m.no}`} className="h5 mb-0 font-weight-bold text-gray-800" >{m.title}</Link>
+                                        <Link to={`/kanbanboard/${m.no}`} className="h5 mb-0 font-weight-bold text-gray-800" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{m.title}</Link>
                                         <div className='mt-3'>
                                             <Rating
                                                 value={m.priority}
@@ -40,7 +42,7 @@ const Complete = () => {
                                                 readOnly
                                             />
                                         </div>
-                                        <div className="text-xs text-gray text-uppercase mt-3">
+                                        <div className="text-xs text-gray text-uppercase mt-3" style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                             {m.startDate} ~{m.endDate}</div>
                                     </div>
                                     <div className="col-auto">

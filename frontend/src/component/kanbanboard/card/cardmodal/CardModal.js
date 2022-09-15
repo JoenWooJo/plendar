@@ -8,7 +8,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-
+import "../../../../assets/css/font.css";
 
 const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
     const [show, setShow] = useState(false);
@@ -22,17 +22,17 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
 
     return (
         <div>
-            <Dropdown.Item  onClick={handleShow}>카드 정보</Dropdown.Item>
+            <Dropdown.Item  onClick={handleShow} style={{fontFamily: "IBMPlexSansKR-Regular"}}>카드 정보</Dropdown.Item>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>
                     <Modal.Header closeButton>
-                        <Modal.Title className='col-xl-6'>{title}</Modal.Title>
+                        <Modal.Title className='col-xl-6' style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</Modal.Title>
                         <Box className='col-xl-4'>
                             <ButtonGroup variant="text" aria-label="text button group">
-                                <Button  onClick={() => { setPage("card") }}>Card</Button>
-                                <Button  onClick={() => { setPage("comment") }}>Comment</Button>
-                                <Button  onClick={() => { setPage("file") }}>FileUpload</Button>
+                                <Button  onClick={() => { setPage("card") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Card</Button>
+                                <Button  onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
+                                <Button  onClick={() => { setPage("file") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>

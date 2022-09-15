@@ -3,6 +3,7 @@ import {Form, Modal} from 'react-bootstrap';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
+import "../../../assets/css/font.css";
 
 const AddTask = ({cardNo, setRefresh}) => {
 
@@ -35,17 +36,17 @@ const AddTask = ({cardNo, setRefresh}) => {
 
     return (
         <>
-        <Dropdown.Item onClick={handleShow}>테스크 추가</Dropdown.Item>
+        <Dropdown.Item onClick={handleShow} style={{fontFamily: "IBMPlexSansKR-Regular"}}>테스크 추가</Dropdown.Item>
         {/* <MenuItem onClick={handleShow}>테스크 추가</MenuItem> */}
         {/* <form type="button"><AddIcon onClick={handleShow} /></form> */}
         <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>테스크 추가하기</Modal.Title>
+          <Modal.Title style={{fontFamily: "IBMPlexSansKR-Regular"}}>테스크 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>테스크 이름</Form.Label>
+              <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>테스크 이름</Form.Label>
               <Form.Control
                 type='title'
                 autoFocus
@@ -57,10 +58,10 @@ const AddTask = ({cardNo, setRefresh}) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
             Close
           </Button>
-          <Button variant="primary" onClick={createTask}>
+          <Button variant="primary" onClick={createTask} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
             Save Changes
           </Button>
         </Modal.Footer>

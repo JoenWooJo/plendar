@@ -1,7 +1,6 @@
 import React from 'react';
 import Complete from './Complete';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 
 const CompletePage = () => {
@@ -16,10 +15,10 @@ const CompletePage = () => {
                     <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4">
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
                             <label className="btn btn-secondary ">
-                                <Link to="/project/myproject" className='text-white' style={{ textDecoration: "none" }}> 진행중</Link>
+                                <Link to="/project/myproject" className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 진행중</Link>
                             </label>
                             <label className="btn btn-secondary active">
-                                <Link to="/project/completepage" checked className='text-white' style={{ textDecoration: "none" }}> 완료</Link>
+                                <Link to="/project/completepage" checked className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 완료</Link>
                             </label>
                         </div>
                         <NavLink className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" to={'/project/createProject'}>

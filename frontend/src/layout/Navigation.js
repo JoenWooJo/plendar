@@ -8,6 +8,8 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import jwt_decode from "jwt-decode";
 
+import "../assets/css/font.css";
+
 
 
 export default class Navigation extends Component {
@@ -58,7 +60,7 @@ export default class Navigation extends Component {
             <div className="text-center mt-5 2">
                 <img src={decode["profile"]} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
                 <br /><br />
-                <div className="text-light "><h6>{decode["name"]} &nbsp; 님</h6><br /></div>
+                <div className="text-light "><h6 style={{fontFamily: "IBMPlexSansKR-Regular"}}>{decode["name"]} &nbsp; 님</h6><br /></div>
             </div>
             <hr className="sidebar-divider" />
 
