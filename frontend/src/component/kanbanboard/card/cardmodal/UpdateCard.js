@@ -131,7 +131,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                             {/* 카드 제목 */}
                             <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
                                 <Form.Label>카드 이름</Form.Label>
-                                {cuList.length != 0 || manager.length !=0
+                                {(cuList.length != 0 || manager.length !=0)
                                     ?
                                     <Form.Control
                                         type="title"
@@ -157,7 +157,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                                 <Form.Label>
                                     설명
                                 </Form.Label>
-                                {cuList.length != 0  || manager.length != 0
+                                {(cuList.length != 0  || manager.length != 0)
                                 ?
                                 <Form.Control as="textarea" rows={3} value={description} onChange={(e) => { setDescription(e.target.value) }} />
                                 :
@@ -217,7 +217,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                             <div className='mt-2 col-xl-1'>
                                 <button type="submit" className="btn btn-secondary" onClick={(e) => {
                                     e.preventDefault();
-                                    cuList.length != 0 || manager.length !=0 &&
+                                    (cuList.length != 0 || manager.length !=0) &&
                                     (selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]));
                                     setReset(reset => !reset);
                                 }}>add</button>
@@ -267,7 +267,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                 <Button variant="secondary" onClick={() => setShow(!show)}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={cuList.length != 0 || manager.length !=0 ? updateCard : unUpdateCard}>
+                <Button variant="primary" onClick={(cuList.length != 0 || manager.length !=0) ? updateCard : unUpdateCard}>
                     Save Changes
                 </Button>
             </Modal.Footer>

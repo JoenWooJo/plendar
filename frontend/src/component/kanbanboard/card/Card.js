@@ -159,9 +159,9 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
                             {/* 드롭다운 */}
                             <div className='col-xl-1 mr-1'>
                                 <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
-                                {cuList != 0 || manager.length!= 0 && <AddTask cardNo={no} setRefresh={setRefresh} />}
+                                {(cuList.length != 0 || manager.length!= 0) && <AddTask cardNo={no} setRefresh={setRefresh} />}
                                     <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager}/>
-                                {cuList != 0 || manager.length != 0 && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
+                                {(cuList.length != 0 || manager.length != 0) && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
                                 </DropdownButton>
                             </div> 
                         </div>
