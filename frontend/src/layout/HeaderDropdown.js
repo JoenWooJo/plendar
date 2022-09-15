@@ -25,7 +25,7 @@ const HeaderDropdown = ({ alramList, setClick }) => {
         <div>
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show"
                 aria-labelledby="alertsDropdown">
-                <h4 className="dropdown-header">
+                <h4 className="dropdown-header" style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                    NOTICE
                 </h4>
                 <div className="bar" style={{ height: alramList.length<3?"180px":"400px" , overflow: "auto", paddingTop: "0" }}  data-mdb-perfect-scrollbar="true">
@@ -47,8 +47,8 @@ const HeaderDropdown = ({ alramList, setClick }) => {
                                     </Badge>
                                 </div>
                                 <div className="font-weight-bold">
-                                    <div>{e.message}</div>
-                                    <div className="small text-gray-500">{(e.time).slice(0, -5)}</div>
+                                    <div style={{fontFamily: "IBMPlexSansKR-Regular"}}>{e.message}</div>
+                                    <div className="small text-gray-500" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{(e.time).slice(0, -5)}</div>
                                 </div>
                                 
                             </Link>

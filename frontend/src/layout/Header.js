@@ -5,12 +5,14 @@ import * as SockJS from "sockjs-client";
 import '../assets/scss/sb-admin-2.scss';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import ChatIcon from '@mui/icons-material/Chat';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import HeaderDropdown from './HeaderDropdown';
 
 const Header = ({ }) => {
+    const [searchWord, setSearchWord] = useState("");
     const current = decodeURI(window.location.pathname);
     
     const client = useRef({});
@@ -123,23 +125,30 @@ const Header = ({ }) => {
         }, { id: "notice-chat" });
     };
 
+    const searchEnter = (e) => {
+        if (e.key == "Enter") {
+            document.getElementById("searchButton").click();
+            document.getElementById("searchInput").value = "";
+            document.getElementById("searchInput").blur();
+        }
+    }
+    
 
     return (
         <div className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow col-xl-12">
-
-
-            <form
+            
+            <div
                 className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div className="input-group">
-                    <input type="text" className="form-control bg-light border-0 small" placeholder="Search for…"
-                        aria-label="Search" aria-describedby="basic-addon2" />
-                    <div className="input-group-append">
-                        <button className="btn btn-primary" type="button">
-                            <SearchIcon />
-                        </button>
-                    </div>
+                    <input id="searchInput" type="text" className="form-control bg-light border-0 small" placeholder="Search for…"
+                        style={{fontFamily: "IBMPlexSansKR-Regular"}}
+                        aria-label="Search" aria-describedby="basic-addon2" onChange={(e) => { setSearchWord(e.target.value) }} onKeyDown={(e) => searchEnter(e)} /> &nbsp;
+                    {
+                        searchWord == "" ? <Button id="searchButton" variant="contained" type="button" disabled><SearchIcon /></Button> :
+                            <Link to={`/search/${searchWord}`}><Button id="searchButton" variant="contained" type="button" ><SearchIcon /></Button></Link>
+                    }
                 </div>
-            </form>
+            </div>
 
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item dropdown no-arrow mx-1">

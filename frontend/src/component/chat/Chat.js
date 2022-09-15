@@ -6,6 +6,7 @@ import * as SockJS from "sockjs-client";
 import ChatRoomList from './ChatRoomList';
 import ChatMessageList from './ChatMessageList';
 
+import "../../assets/css/font.css";
 
 const Chat = () => {
     const [roomIdSelected, setRoomIdSelected] = useState(-1);
@@ -112,7 +113,7 @@ const Chat = () => {
 
     const connect = async () => {
         client.current = new StompJs.Client({
-            webSocketFactory: () => new SockJS("http://34.64.95.204:8080/ws/chat"),
+            webSocketFactory: () => new SockJS("http://localhost:8080/ws/chat"),
             connectHeaders: {
                 "auth-token": "spring-chat-auth-token",
             },
@@ -188,7 +189,7 @@ const Chat = () => {
     return (
         <div className="col-xl-11 ml-4">
             <div className="card-header py-3">
-                <h4 className="m-0 font-weight-bold text-primary">chatting</h4>
+                <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>chatting</h4>
             </div>
             <div className="card-body" style={{ height: "680px", overflow: "auto" }} >
                 <div className="card-body row" id="chat3" style={{ borderRadius: '15px' }}>

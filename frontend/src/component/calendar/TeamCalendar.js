@@ -69,15 +69,15 @@ export default function TeamCalendar() {
     <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
       <div className="card shadow mb-4">
         <div className="card-header py-3">
-          <h4 className="m-0 font-weight-bold text-primary"><CalendarMonthIcon fontSize="large" />&nbsp;Team Calendar</h4>
+          <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><CalendarMonthIcon fontSize="large" />&nbsp;Team Calendar</h4>
         </div>
         <div className="card-body" style={{ height: "750px", overflow: "auto" }}>
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label className="btn btn-secondary active">
-              <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
+              <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }} > 팀 </Link>
             </label>
             <label className="btn btn-secondary">
-              <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none" }}> 개인 </Link>
+              <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 개인 </Link>
             </label>
           </div>
           <div className="App">
