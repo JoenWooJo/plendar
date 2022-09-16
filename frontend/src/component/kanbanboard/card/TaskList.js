@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import {postJson} from '../../../api/Axios';
+import { Typography } from '@mui/material';
+import "../../../assets/css/font.css";
 
 const TaskList = ({content, taskNo}) => {
     const [taskChange, setTaskChange] = useState(false);
@@ -44,7 +46,7 @@ const TaskList = ({content, taskNo}) => {
              <TextField
              id="outlined-multiline-flexible"
              multiline
-             label='task 수정'
+             label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>task 수정</Typography>}
              maxRows={4}
              value={taskContent}
              onChange={onChangeTask}
@@ -53,7 +55,7 @@ const TaskList = ({content, taskNo}) => {
              size="small"
              />
              :
-             <>{taskContent}</>
+             <div style={{fontFamily: "IBMPlexSansKR-Regular", marginTop: "7px"}}>{taskContent}</div>
              }
              </div>
         </>

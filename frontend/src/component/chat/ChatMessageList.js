@@ -55,7 +55,7 @@ const ChatMessageList = ({ roomIdSelected, messages, publish }) => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             onKeyDown={(e) => { e.key == "Enter" && publish(e.target.value) && setMessage('') }}
-                            style={{textSizeAdjust: "5px"}}
+                            style={{textSizeAdjust: "5px", fontFamily: "IBMPlexSansKR-Regular"}}
                         />
                         <button className=" mt-1" style={{border: "none", backgroundColor: "#fff" }} onClick={() => message != '' && publish(message) && setMessage('')}>
                             <img src="assets/images/envelope.png" alt="" style={{ width: "60px", height: "60px"}} />

@@ -84,18 +84,18 @@ const CreateProject = () => {
             <div className="row">
                 <div className="card shadow ml-5 mt-1 col-xl-6">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-primary">Craete Project</h4>
+                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Craete Project</h4>
                     </div>
                     <div className="card-body">
                         <div className="chart-area">
                             <div className='row'>
                                 <div className='col-xl-5'>
-                                    <Typography component="legend"> 프로젝트 제목</Typography>
+                                    <Typography component="legend" style={{fontFamily: "IBMPlexSansKR-Regular"}}> 프로젝트 제목</Typography>
                                     <TextField id="standard-basic" variant="standard" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                                 </div>
 
                                 <div className='col-xl-5'>
-                                    <Typography component="legend"> 프로젝트 중요도</Typography>
+                                    <Typography component="legend" style={{fontFamily: "IBMPlexSansKR-Regular"}}> 프로젝트 중요도</Typography>
                                     <Rating
                                         name="simple-controlled"
                                         value={priority}
@@ -108,16 +108,17 @@ const CreateProject = () => {
                                 <div className='row'>
                                     <div className='mt-3 ml-2 col-xl-5'>
                                         <div className="form-group">
-                                            <label className="exampleFormControlTextarea3">내용</label>
-                                            <textarea className="form-control" id="exampleFormControlTextarea3" rows="7" onChange={(e) => { setDescription(e.target.value) }}></textarea>
+                                            <label className="exampleFormControlTextarea3" style={{fontFamily: "IBMPlexSansKR-Regular"}}>내용</label>
+                                            <textarea className="form-control" id="exampleFormControlTextarea3" style={{fontFamily: "IBMPlexSansKR-Regular"}}
+                                            rows="7" onChange={(e) => { setDescription(e.target.value) }}></textarea>
                                         </div>
                                     </div>
 
                                     <div className='mt-5 ml-3 col-xl-5'>
-                                        <Typography component="legend"> 시작일 </Typography>
+                                        <Typography component="legend" style={{fontFamily: "IBMPlexSansKR-Regular", marginBottom: "7px"}}> 시작일 </Typography>
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
-                                                label="start-date"
+                                                label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>start-date</Typography>}
                                                 value={startDate}
                                                 inputFormat={"yyyy-MM-dd"}
                                                 mask={"____-__-__"}
@@ -129,10 +130,10 @@ const CreateProject = () => {
                                             />
                                         </LocalizationProvider>
                                         <div className='mt-2'>
-                                            <Typography component="legend"> 마감일 </Typography>
+                                            <Typography component="legend" style={{fontFamily: "IBMPlexSansKR-Regular", marginBottom: "7px"}}> 마감일 </Typography>
                                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                 <DatePicker
-                                                    label="end-date"
+                                                    label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>end-date</Typography>}
                                                     value={endDate}
                                                     inputFormat={"yyyy-MM-dd"}
                                                     mask={"____-__-__"}
@@ -153,7 +154,7 @@ const CreateProject = () => {
 
                 <div className="card shadow ml-3 mt-1 col-xl-4">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-primary">Member</h4>
+                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Member</h4>
                     </div>
                     <div className="card-body">
                         <div className="chart-bar">
@@ -168,7 +169,7 @@ const CreateProject = () => {
                                             newValue != null && setSelectUser(newValue)
                                         }}
                                         getOptionLabel={(user) => user.email + " " + user.name}
-                                        renderInput={(params) => <TextField {...params} label="프로젝트 멤버 추가" id='text' type='select' />
+                                        renderInput={(params) => <TextField {...params} label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>프로젝트 멤버 추가</Typography>} id='text' type='select' />
                                         }
                                     />
                                 </div>
@@ -176,15 +177,15 @@ const CreateProject = () => {
                                     <button type="submit" className="btn btn-secondary" onClick={() => {
                                         selectUser != null && !member.includes(selectUser) && setMember([...member, selectUser]);
                                         setReset(reset => !reset);
-                                    }}>add</button>
+                                    }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>add</button>
                                 </div>
                                 <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
                                     <table className="table table-bordered" id="dataTable" width="100%">
                                         <thead>
                                             <tr className="text-center" >
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>manager</th>
+                                                <th style={{fontFamily: "IBMPlexSansKR-Regular"}}>name</th>
+                                                <th style={{fontFamily: "IBMPlexSansKR-Regular"}}>email</th>
+                                                <th style={{fontFamily: "IBMPlexSansKR-Regular"}}>manager</th>
                                                 <th>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
@@ -198,8 +199,8 @@ const CreateProject = () => {
                                                 member.map((m, i) => {
                                                     return (
                                                         <tr key={i}>
-                                                            <td>{m.name}</td>
-                                                            <td>{m.email}</td>
+                                                            <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>{m.name}</td>
+                                                            <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>{m.email}</td>
                                                             <td><Checkbox id={'permission_checkbox_' + i} onClick={() => { is_checked(i) }}
                                                             /></td>
                                                             <td onClick={() => onRemove(m.no)}>
@@ -228,11 +229,11 @@ const CreateProject = () => {
                     <button type="button" className=" mt-4 mr-2 btn btn-secondary"
                         onClick={(e) => {
                             title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : createProject()
-                        }}>Create</button>
+                        }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Create</button>
                 </Link>
 
                 <Link to="/project/myProject" style={{ textDecoration: "none" }}>
-                    <button type="button" className=" mt-4 btn btn-secondary">취소</button>
+                    <button type="button" className=" mt-4 btn btn-secondary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>취소</button>
                 </Link>
             </center>
         </div>

@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import moment from 'moment';
 import 'moment/locale/ko';
 import {get} from '../../../../api/Axios';
+import "../../../../assets/css/font.css";
 
 const Comment = ({projectNo, deckNo, cardNo}) => {
     let userNo = localStorage.getItem("loginUserNo");
@@ -50,14 +51,14 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
 
     const CommentList = ({name, comment, date}) => {
         return(
-            <div>{name} : {comment } 
-            <div className='float-right'>{(date)=dayjs(date).format("YY-MM-DD HH:mm")}</div>
+            <div style={{fontFamily: "IBMPlexSansKR-Regular"}}>{name} : {comment } 
+            <div className='float-right' style={{fontFamily: "IBMPlexSansKR-Regular"}}>{(date)=dayjs(date).format("YY-MM-DD HH:mm")}</div>
             </div>  
         )
     }
 
     return (
-        <div className= "ml-2">
+        <div className= "ml-2" style={{fontFamily: "IBMPlexSansKR-Regular"}}>
             comment
             <Card style={{ height: "270px", overflow:"auto"}} >
             {feedComments.map((content, i)=>{
@@ -95,7 +96,7 @@ const Comment = ({projectNo, deckNo, cardNo}) => {
                     />
                 </Form.Group>
 
-                <Button style={{ height: "50px" }} className="col-xl-1 mt-3"
+                <Button style={{ height: "50px", fontFamily: "IBMPlexSansKR-Regular" }} className="col-xl-1 mt-3"
                              variant="primary"
                              onClick={post}
                              disabled={isValid?false:true}
