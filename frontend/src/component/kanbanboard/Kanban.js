@@ -5,12 +5,13 @@ import Deck from './deck/Deck';
 import { useParams } from 'react-router';
 import { get, post } from '../../api/Axios';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
+
 
 let currentPath = "";
 
-const Kanban = () => {
+export default function KanbanBoard() {
   let location = useLocation();
   
   const state = location.state;
@@ -22,17 +23,28 @@ const Kanban = () => {
   const [projectNo, setProjectNo] = useState(0);
   const [createResult, setCreateResult] = useState(false);
   const [leaderNO, setLeaderNo] = useState([]);
+  const [title, setTitle] = useState();
+  const [decks, setDecks] = useState([]);
+  const [cardMoving, setCardMoving] = useState(null);
   
   if(projectNo !== params.no) {
     setProjectNo(params.no);
   }
 
+  //title
+  const projectTitle = async () => {
+    const list = await get(`/project/title/${projectNo}`);
+    setTitle(list);
+  }
+
   useEffect(() => {
-    t();
+    fetchDecks();
   }, [createResult])
 
   useEffect(() => {
-    t();
+    fetchDecks();
+    findMember();
+    projectTitle();
   }, [projectNo])
 
   useEffect(() => {
@@ -40,12 +52,41 @@ const Kanban = () => {
     currentPath = location.pathname;
   }, [location]);
 
-  // 덱 리스트 가져오기
-  const t = async () => {
-    const list = await get(`/kanban/deck/find/${projectNo}`);
-    setDeckLlist(list);
-  }
+  // // 덱 리스트 가져오기
+  // const t = async () => {
+  //   const list = await get(`/kanban/deck/find/${projectNo}`);
+  //   setDeckLlist(list);
+  //   console.log("---------------------", list);
+  // }
 
+  //덱, 카드 전체 가져오기
+  const fetchDecks = async () => {
+    try {
+        const response = await fetch(`/api/kanban/deck/${projectNo}`, {
+            method: 'get',
+            headers: {
+              'Accept': 'application/json',
+              Authorization: window.localStorage.getItem("Authorization"),
+            }
+          });
+
+        if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+
+        const json = await response.json();
+        if (json.result !== 'success') {
+            throw new Error(`${json.result} ${json.message}`);
+        }
+
+        setDecks(json.data);
+        console.log("=====덱 + 카드 =====",json.data);
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+  
   useEffect(()=>{
       const f = () => {
           let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
@@ -61,48 +102,109 @@ const Kanban = () => {
     await post(`/kanban/deck/update/move`,deckList);
   }
 
-  const onDragEnd = async (result) => {
-    const currentList = [...deckList];
-    const { destination, source } = result;
+  // const onDragEnd = async (result) => {
+  //   const currentList = [...deckList];
+  //   const { destination, source } = result;
 
-    if (!destination || source.index === destination.index ) {
-      return;
-    }
+  //   if (!destination || source.index === destination.index ) {
+  //     return;
+  //   }
 
-    const column = currentList[source.index-1];
-    if (source.index < destination.index) {
-      currentList.map((e,i)=>{
-        if(e.sequence <= destination.index) {
-          if(source.index >= e.sequence){
-            return;
-          }
-          e.sequence = e.sequence -1
-        }  
-      })
+  //   const column = currentList[source.index-1];
+  //   if (source.index < destination.index) {
+  //     currentList.map((e,i)=>{
+  //       if(e.sequence <= destination.index) {
+  //         if(source.index >= e.sequence){
+  //           return;
+  //         }
+  //         e.sequence = e.sequence -1
+  //       }  
+  //     })
   
-      currentList[source.index-1]["sequence"] = destination.index;
-    } else {
-      currentList.map((e,i)=>{
-        if(e.sequence >= destination.index){
-          if(source.index <= e.sequence){
-            return;
-          }
-          e.sequence = e.sequence +1
-        } 
-      })
+  //     currentList[source.index-1]["sequence"] = destination.index;
+  //   } else {
+  //     currentList.map((e,i)=>{
+  //       if(e.sequence >= destination.index){
+  //         if(source.index <= e.sequence){
+  //           return;
+  //         }
+  //         e.sequence = e.sequence +1
+  //       } 
+  //     })
   
-      currentList[source.index-1]["sequence"] = destination.index;
-    }
+  //     currentList[source.index-1]["sequence"] = destination.index;
+  //   }
 
-    currentList.sort((a, b)=> {
-      return a.sequence - b.sequence;
-    })
+  //   currentList.sort((a, b)=> {
+  //     return a.sequence - b.sequence;
+  //   })
     
-    setDeckLlist(currentList);
+  //   setDeckLlist(currentList);
    
-    await moveDeck();
+  //   await moveDeck();
 
-  };
+  // };
+
+  const onDragEnd = (result) => {
+    console.info(result);
+
+    // 1. 드롭이 가능한 곳에 드롭을 하지 않았음.
+    if (!result.destination) {
+        console.info('Dropped Nowhere');
+        return;
+    }
+
+    const source = result.source;
+    const destination = result.destination;
+
+    // 2. 움직이지 않았음.
+    if (source.droppableId === destination.droppableId && source.index === destination.index) {
+        console.info('Did Not Move Anywhere')
+        return;
+    }
+
+    // 3. 덱 순서 바꾸기
+    if (result.type === 'DECK') {
+        console.info('Reordering Deck');
+
+        const newDecks = [...decks];
+        const [deckRemoved] = newDecks.splice(source.index, 1);
+        newDecks.splice(destination.index, 0, deckRemoved);
+
+        setDecks(newDecks);
+        return;
+    }
+
+    // 4. 두 개의 다른 덱들 또는 하나의 같은 덱에서 카드 이동 하기
+    if (result.type === 'CARD') {
+        console.info('Moving Card between 2 Different Decks or in a Same Deck');
+
+        const srcDeckNo = source.droppableId.split(":")[1];
+        const srcCardIndex = source.index;
+        const destDeckNo = destination.droppableId.split(":")[1];
+        const destCardIndex = destination.index;
+
+        const newDecks = [...decks];
+        const indexSrcDeck = newDecks.findIndex(e => e.no == srcDeckNo)
+        const indexDestDeck = newDecks.findIndex(e => e.no == destDeckNo)
+
+        const [cardRemoved] = newDecks[indexSrcDeck].cards.splice(srcCardIndex, 1);
+        newDecks[indexDestDeck].cards.splice(destCardIndex, 0, cardRemoved);
+
+        setDecks(newDecks);
+        setCardMoving({
+            no: result.draggableId.split(":")[1],
+            dest: {
+               deckNo: destDeckNo,
+               orderNo: destCardIndex
+            },
+            src: {
+               deckNo: srcDeckNo,
+               orderNo: srcCardIndex
+            }
+        });
+    }
+}
 
   const findMember = async () => {
     const list = await get(`/project/find/member/${projectNo}`);
@@ -121,60 +223,48 @@ const Kanban = () => {
   //리더, 매니저 가져오기
   const manager = managerList.filter((m) => (m.no == uu));
   
-  // 처음 들어갔을 때 리더멤버 가져오기
-  useEffect(() => {
-      findMember();
-  }, [])
-
-  
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>
-          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Project Kanban</h4>
+          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;{title}</h4>
         </div>
-        <DragDropContext onDragEnd={ manager.length != 0 && onDragEnd}>
-          <Droppable droppableId="title" direction="horizontal">
-            {provided => (
-              <div className="card-body" {...provided.droppableProps} ref={provided.innerRef} style={{ width: "3000px", height: "750px" }}>
-                {/* 덱 생성하기 버튼 */}
-                <CreateDeck setCreateResult={setCreateResult} />
-                <Box
-                    sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    '& > :not(style)': {
-                        ml: 2,
-                        width: 300,
-                        height: 30
-                    }
-                }}>
-                  {
-                    deckList.map((data, index) => {
-                      return (
-                        <Draggable draggableId={String(index)} index={data.sequence} key={index} direction="horizontal">
-                        {provided =>(
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Deck
+
+          <DragDropContext onDragEnd={ manager.length != 0 && onDragEnd}>
+          <div className="card-body" style={{ width: "3000px", height: "750px" }}>
+            {/* 덱 생성하기 버튼 */}
+            <CreateDeck setCreateResult={setCreateResult} />
+            <Droppable
+            droppableId="KanbanBoard"
+            type="DECK"
+            direction="horizontal"
+            ignoreContainerClipping={false}
+            isCombineEnabled={false}>
+            {(provided) => (<Box
+                sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                '& > :not(style)': { ml: 2, width: 300, height: 80
+                }}}
+                ref={provided.innerRef}
+                {...provided.droppableProps}>
+                
+                  { decks.map((data, index) => {
+                      return ( <Deck
                           no={data.no}
                           key={index}
                           deckTitle={data.title}
                           projectNo={projectNo}
                           index={index}
                           manager = {manager}
+                          deck={data}
                         />
-                        </div>
-                        )}
-                        </Draggable>
                       );
                     })}
-                    </Box>
-                {provided.placeholder}
+                     {provided.placeholder}
+                    </Box>)}
+                    </Droppable>
               </div>
-            )}
-          </Droppable>
         </DragDropContext>
         </div>
   );
 };
-
-export default Kanban;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Rating } from "@mui/material";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const Complete = () => {
 
@@ -18,7 +19,7 @@ const Complete = () => {
                 const list = resp.data.data;
                 setProjectList(list);
             })
-    }, []);
+    }, [projectList]);
 
     return (
         <>
@@ -30,8 +31,12 @@ const Complete = () => {
                             <div className="card-body" >
                                 <div className="row no-gutters align-items-center">
                                     <div className="col mr-2">
-                                        <div className="text-xs font-weight-bold text-gray text-uppercase mb-1">
-                                            완료</div>
+                                        <div className="text-xs font-weight-bold text-gray text-uppercase mb-1"> 완료</div>
+                                            <div className=" col-xl-2 nav-link" href="#" role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" style={{ float: 'right' }} >
+                                            
+                                                <MoreVertIcon />
+                                               
+                                        </div>
                                         <Link to={`/kanbanboard/${m.no}`} className="h5 mb-0 font-weight-bold text-gray-800" >{m.title}</Link>
                                         <div className='mt-3'>
                                             <Rating

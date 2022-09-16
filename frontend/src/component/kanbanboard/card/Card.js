@@ -13,10 +13,10 @@ import TaskList from './TaskList';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { translateRect } from '@fullcalendar/common';
+import { Draggable } from "react-beautiful-dnd";
 import './card.css';
 
-const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
+const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager, index, sequence }) => {
     let location = useLocation();
     const state = location.state;
     const cardView = state != null ? state["cardNo"] : "";
@@ -143,7 +143,13 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
     })
 
     return (
-        <div style={{ position: "relative" }}>
+        <Draggable
+        draggableId={`${card.no}`}
+        index={card.sequence}>
+        {(dragProvided) => ( <div style={{ position: "relative" }}
+        ref={dragProvided.innerRef}
+        {...dragProvided.draggableProps}
+        {...dragProvided.dragHandleProps}>
             <div className="card bg-light text-black shadow mb-2" >
 
                 <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
@@ -208,8 +214,8 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh, manager }) => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>)}
+   </Draggable>);
 };
 
 export default Card;
