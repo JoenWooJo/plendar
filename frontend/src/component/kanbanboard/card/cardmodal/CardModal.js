@@ -28,11 +28,9 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
         setFeedItems((ItemList));
     }
     useEffect(() => {
-        
-    }, [feedItems]);
-    const BringItem = () => {
         communication();
-    }
+    }, [feedItems]);
+
 
     const returnItem = (value) => {
         setFeedItems(value);
@@ -52,7 +50,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
                                 <Button  onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
                                 <Button  onClick={() => { 
                                   setPage("file")
-                                  BringItem() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
+                                  communication() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>
