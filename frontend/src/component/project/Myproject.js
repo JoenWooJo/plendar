@@ -39,7 +39,6 @@ const Myproject = () => {
             })
     };
 
-    console.log("list", projectMember);
 
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();

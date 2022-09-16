@@ -7,17 +7,35 @@ import Comment from './Comment';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import {getData} from "../../../../api/Axios";
 import "../../../../assets/css/font.css";
 
+
 const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
-    const [show, setShow] = useState(false);
+   const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
+    const [feedItems, setFeedItems] = useState([]);
+    const handleFeedItems = () => setFeedItems("");
 
     const handleShow = () => setShow(true);
     const handleClose = () => {
         setShow(false);
         setPage('card');
+    }
+
+    const communication = async(e) => {
+        const ItemList = await getData(`/bringItem/${projectNo}/${cardNo}`);
+        setFeedItems((ItemList));
+    }
+    useEffect(() => {
+        
+    }, [feedItems]);
+    const BringItem = () => {
+        communication();
+    }
+
+    const returnItem = (value) => {
+        setFeedItems(value);
     }
 
     return (
@@ -32,13 +50,15 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
                             <ButtonGroup variant="text" aria-label="text button group">
                                 <Button  onClick={() => { setPage("card") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Card</Button>
                                 <Button  onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
-                                <Button  onClick={() => { setPage("file") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
+                                <Button  onClick={() => { 
+                                  setPage("file")
+                                  BringItem() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>
                         {page === "card" && <UpdateCard show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} setRefresh={setRefresh}/>}
                         {page === "comment" && <Comment show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} title={title} />}
-                        {page === "file" && <FileUpload show={show} setShow={setShow}/>}
+                        {page === "file" && <FileUpload show={show} setShow={setShow} projectNo={projectNo} cardNo={cardNo} feedItems={feedItems} item={returnItem} />}
                     </div>
                 </Modal>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../../../../assets/css/cardFileUpload/Dropzone.css";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 class Dropzone extends Component {
     constructor(props) {
@@ -74,11 +75,7 @@ class Dropzone extends Component {
                     multiple
                     onChange={this.onFilesAdded}
                 />
-                <img
-                    alt="upload"
-                    className="Icon"
-                    src="./baseline-cloud_upload-24px.svg"
-                />
+                <CloudDownloadIcon fontSize="large"/>
                 <span>Upload Files</span>
             </div>
         );

@@ -34,7 +34,6 @@ const CreateDeck = ({ setCreateResult }) => {
     });
   };
 
-  console.log("projectNo: ", projectNo);
 
   const keyEnter = (e) => {
     if (e.key == "Enter") {
