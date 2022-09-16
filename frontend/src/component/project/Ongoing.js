@@ -27,7 +27,6 @@ const Ongoing = ({
         priority: priority
     }
 
-    console.log("dddddddd", leader);
 
     return (
         <div className="col-xl-3  mb-4" key={no}  >
