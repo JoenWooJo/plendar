@@ -101,7 +101,7 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
             const formData = new FormData();
             formData.append("file", file, file.name);
 
-            req.open("POST", "https://jsonplaceholder.typicode.com/photos");
+            // req.open("POST", "https://jsonplaceholder.typicode.com/photos");
             req.send(formData);
         });
     }
