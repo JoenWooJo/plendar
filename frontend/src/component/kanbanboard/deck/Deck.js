@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Card from '../card/Card';
 
-export default function Deck ({ deckTitle, no, projectNo, manager, index }){
+export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, cards }){
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
@@ -17,26 +17,11 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index }){
     const [morevertList, setMorevertList] = useState(false);
     const [state, setState] = useState();
 
-    // 카드 리스트 가져오기
-    const t = async () => {
-        const list = await get(`/kanban/card/find/${no}`);
-        setCardList(list);
-    }
-
     useEffect(()=>{
         if(deckTitle !== title) {
             setTitle(deckTitle);
         }
     }, [deckTitle]);
-    
-    useEffect(() => {
-        t();
-    }, [refresh])
-
-    useEffect(() => {
-        t();
-    }, [no])
-
 
     const onChangeTitle = (event) => {
         setTitle(event.target.value);
@@ -66,7 +51,7 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index }){
     }
 
     return (<Draggable
-        draggableId={title}
+        draggableId={`deck:${no}`}
         index={index}>
         {(provided) => (<Paper
             ref={provided.innerRef}
@@ -104,13 +89,13 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index }){
                 </div>
                 
                 <Droppable
-                    droppableId={title}
+                    droppableId={`deck:${deck.no}`}
                     type={"CARD"}>
                 {(dropProvided) => (<div className="card-body" 
                 ref={dropProvided.innerRef}
                 {...dropProvided.droppableProps}>
                     {       
-                        cardList.map((data, index) => (
+                        cards.map((data, index) => (
                         <Card   key={index} 
                                 title={data.title} 
                                 card={data} 
@@ -121,12 +106,12 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index }){
                                 manager={manager} 
                                 index={index}
                                 sequence={data.sequence}
+                                cards={data}
                         />))}
                     {dropProvided.placeholder}
                 </div>)}
                 </Droppable>
                 </div>
         </Paper>)}
-        </Draggable>
-    );
+        </Draggable>);
 };
