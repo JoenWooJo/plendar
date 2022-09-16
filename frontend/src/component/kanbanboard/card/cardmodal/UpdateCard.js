@@ -11,6 +11,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
+import "../../../../assets/css/font.css";
 
 
 const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) => {
@@ -132,7 +134,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                         <div className='col-xl-6'>
                             {/* 카드 제목 */}
                             <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-                                <Form.Label>카드 이름</Form.Label>
+                                <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>카드 이름</Form.Label>
                                 <Form.Control
                                     type="title"
                                     value={title || ''}
@@ -146,7 +148,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                                 className="mb-3 "
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>
+                                <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                     설명
                                 </Form.Label>
                                 <Form.Control as="textarea" rows={3} value={description} onChange={(e) => { setDescription(e.target.value) }} />
@@ -156,7 +158,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                             <div className='ml-3 mb-3'>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
-                                        label="시작일"
+                                        label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>시작일</Typography>}
                                         value={startDate}
                                         inputFormat={"yyyy-MM-dd"}
                                         mask={"____-__-__"}
@@ -173,7 +175,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                             <div className='ml-3'>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
-                                        label="마감일"
+                                        label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>마감일</Typography>}
                                         value={endDate}
                                         inputFormat={"yyyy-MM-dd"}
                                         mask={"____-__-__"}
@@ -205,14 +207,14 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                                     e.preventDefault();
                                     selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]);
                                     setReset(reset => !reset);
-                                }}>add</button>
+                                }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>add</button>
                             </div>
                             <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
                              <table className="table table-bordered" id="dataTable" width="100%"> 
                                 <thead>
                                     <tr>
-                                        <th scope="col">name</th>
-                                        <th scope="col">email</th>
+                                        <th scope="col" style={{fontFamily: "IBMPlexSansKR-Regular"}}>name</th>
+                                        <th scope="col" style={{fontFamily: "IBMPlexSansKR-Regular"}}>email</th>
                                         <th scope="col">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
@@ -226,10 +228,10 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                                         member.map((m, i) => {
                                             return (
                                                 <tr key={i}>
-                                                    <td>
+                                                    <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                                         {m.name}
                                                     </td>
-                                                    <td>
+                                                    <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                                         {m.email}
                                                     </td>
                                                     <td onClick={()=>onRemove(m.no)}>
@@ -249,10 +251,10 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh }) =>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShow(!show)}>
+                <Button variant="secondary" onClick={() => setShow(!show)} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={updateCard}>
+                <Button variant="primary" onClick={updateCard} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     Save Changes
                 </Button>
             </Modal.Footer>

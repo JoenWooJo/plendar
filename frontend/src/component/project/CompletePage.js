@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Complete from './Complete';
 import { NavLink, Link } from 'react-router-dom';
-import SiteLayout from '../../layout/SiteLayout';
+import { useLocation } from "react-router-dom"
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import axios from 'axios';
+
+let currentPath = "";
 
 const CompletePage = () => {
+    const location = useLocation();
+    const state = location.state;
+
+    const [completeProject, setCompleteProject] = useState([]);
+
+    const findProject = async () => {
+        const resp = await axios.get("/api/project/find/completeProject", {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
+
+        setCompleteProject(resp.data.data);
+    };
+
+    useEffect(()=> {
+        findProject();
+    }, [])
+
+    useEffect(() => {
+        if(currentPath === location.pathname) window.location.reload();
+        currentPath = location.pathname;
+      }, [location]);
+
+
     return (
         <div className="col-xl-11 ml-4">
 
@@ -16,10 +47,10 @@ const CompletePage = () => {
                     <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4">
                         <div className="btn-group btn-group-toggle" data-toggle="buttons">
                             <label className="btn btn-secondary ">
-                                <Link to="/project/myproject" className='text-white' style={{ textDecoration: "none" }}> 진행중</Link>
+                                <Link to="/project/myproject" className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 진행중</Link>
                             </label>
                             <label className="btn btn-secondary active">
-                                <Link to="/project/completepage" checked className='text-white' style={{ textDecoration: "none" }}> 완료</Link>
+                                <Link to="/project/completepage" checked className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 완료</Link>
                             </label>
                         </div>
                         <NavLink className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" to={'/project/createProject'}>
@@ -29,7 +60,19 @@ const CompletePage = () => {
                     </div>
 
                     <div className="row">
-                        <Complete />
+                        {
+                            completeProject.length != 0 && completeProject.map((e,i)=> (
+                                <Complete 
+                                    key={i}
+                                    state={state}
+                                    no={e.no}
+                                    title = {e.title}
+                                    priority={e.priority}
+                                    startDate={e.startDate}
+                                    endDate={e.endDate}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
             </div>

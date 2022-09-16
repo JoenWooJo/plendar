@@ -6,8 +6,8 @@ import FileUpload from '../kanbanboard/card/cardmodal/FileUpload';
 import Comment from '../kanbanboard/card/cardmodal/Comment';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { getData} from "../../api/Axios";
+import "../../assets/css/font.css";
 
 
 const EventCardModal = ({ show, setShow, title, cardNo, projectNo, deckNo}) => {
@@ -39,7 +39,7 @@ const EventCardModal = ({ show, setShow, title, cardNo, projectNo, deckNo}) => {
     console.log("이건 프롭",{ show, setShow, title, cardNo, projectNo, deckNo})
     return (
         <div>
-            <Dropdown.Item  onClick={handleShow}>카드 정보</Dropdown.Item>
+            <div className="col-xl-6 modal-title h4" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</div>
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{ height: "520px" }}>
@@ -47,15 +47,12 @@ const EventCardModal = ({ show, setShow, title, cardNo, projectNo, deckNo}) => {
                             <Modal.Title className='col-xl-6'>{title}</Modal.Title>
                             <Box className='col-xl-4'>
                                 <ButtonGroup variant="text" aria-label="text button group">
-                                    <Button onClick={() => { setPage("card") }}>Card</Button>
-                                    <Button onClick={() => { setPage("comment") }}>Comment</Button>
+                                    <Button onClick={() => { setPage("card") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Card</Button>
+                                    <Button onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
                                     <Button onClick={() => { 
-                                    setPage("file")
-                                    BringItem();
-                                    }}>
-                                FileUpload
-                                </Button>
-                                {console.log("이건 피드",{feedItems})}
+                                      setPage("file")
+                                      BringItem() }} 
+                                      style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
                                 </ButtonGroup>
                             </Box>
                         </Modal.Header>
