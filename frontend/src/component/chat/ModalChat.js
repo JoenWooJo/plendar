@@ -32,7 +32,7 @@ const ModalChat = ({ roomNo }) => {
 
     return (
         <div>
-            <MoreVertIcon  style={{ float: 'right'}} onClick={()=>setShow(true)}  />
+            <MoreVertIcon  onClick={()=>setShow(true)}  />
             <div className='col-xl-1'>
                 <Modal size='L' show={show} onHide={handleClose} style={{height:'100%'}} >
                     <div style={{height:"auto"}}>

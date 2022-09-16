@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import { get } from '../../../api/Axios';
 
 import '../../../assets/css/font.css';
+import ModalMember from '../ModalMember';
 
 const CreateDeck = ({ setCreateResult }) => {
 
@@ -77,7 +78,7 @@ const CreateDeck = ({ setCreateResult }) => {
     <div>
       {/* 덱 추가 버튼 */}
       <Button sx={{ mb: 2, ml: 2 }} variant="contained" size="medium" onClick={handleShow} style={{fontFamily: "IBMPlexSansKR-Regular"}}>덱 추가하기</Button>
-
+      
       {/* 리더만 보이는 프로젝트완료 */}
       {(uuarr.length !== 0)
         &&
