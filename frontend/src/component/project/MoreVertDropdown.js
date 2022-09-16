@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import "../../assets/css/font.css";
 
 const MoreVertDropdown = ({ projectNo, projectData }) => {
     
@@ -19,8 +19,8 @@ const MoreVertDropdown = ({ projectNo, projectData }) => {
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show "
                 aria-labelledby="alertsDropdown">
                 <Link className="dropdown-item d-flex align-items-right" 
-                    to={`/updateProject/${projectNo}`} state={projectData}>수정</Link>
-                <Link className="dropdown-item d-flex align-items-right" to='/project/myproject' onClick={()=>{deleteProject()}}>삭제</Link>
+                    to={`/updateProject/${projectNo}`} state={projectData} style={{fontFamily: "IBMPlexSansKR-Regular"}}>수정</Link>
+                <Link className="dropdown-item d-flex align-items-right" to='/project/myproject' onClick={()=>{deleteProject()}} style={{fontFamily: "IBMPlexSansKR-Regular"}}>삭제</Link>
             </div>
         </div>
     );

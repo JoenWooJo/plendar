@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CreateCard from '../card/CreateCard';
 
+import "../../../assets/css/font.css";
+
 const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, setMorevertList }) => {
 
     const [show, setShow] = useState(false);
@@ -21,7 +23,7 @@ const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, 
                 aria-labelledby="alertsDropdown">
                 <div className="dropdown-item d-flex align-items-right" type="button" onClick={() => {
                     setShow(show => !show)
-                }}>
+                }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     카드 추가하기
                 </div>
                 <CreateCard
@@ -34,7 +36,7 @@ const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, 
                     setRefresh={setRefresh}
                     setMorevertList={setMorevertList}
                 />
-                <Link className="dropdown-item d-flex align-items-right" to={`/kanbanboard/${projectNo}`} onClick={() => delteDeck()}>
+                <Link className="dropdown-item d-flex align-items-right" to={`/kanbanboard/${projectNo}`} onClick={() => delteDeck()} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     삭제
                 </Link>
             </div>

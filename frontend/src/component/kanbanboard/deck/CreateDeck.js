@@ -6,6 +6,9 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { get } from '../../../api/Axios';
 
+import '../../../assets/css/font.css';
+import ModalMember from '../ModalMember';
+
 const CreateDeck = ({ setCreateResult }) => {
 
   const params = useParams();
@@ -31,7 +34,6 @@ const CreateDeck = ({ setCreateResult }) => {
     });
   };
 
-  console.log("projectNo: ", projectNo);
 
   const keyEnter = (e) => {
     if (e.key == "Enter") {
@@ -74,24 +76,24 @@ const CreateDeck = ({ setCreateResult }) => {
   return (
     <div>
       {/* 덱 추가 버튼 */}
-      <Button sx={{ mb: 2, ml: 2 }} variant="contained" size="medium" onClick={handleShow}>덱 추가하기</Button>
-
+      <Button sx={{ mb: 2, ml: 2 }} variant="contained" size="medium" onClick={handleShow} style={{fontFamily: "IBMPlexSansKR-Regular"}}>덱 추가하기</Button>
+      
       {/* 리더만 보이는 프로젝트완료 */}
       {(uuarr.length !== 0)
         &&
         <Link to="/project/completepage">
-          <Button variant="contained" type="submit" size="medium" sx={{ mb: 2, ml: 1 }} onClick={() => { projectComplete() }}>프로젝트 완료</Button>
+          <Button variant="contained" type="submit" size="medium" sx={{ mb: 2, ml: 1 }} onClick={() => { projectComplete() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>프로젝트 완료</Button>
         </Link>
       }
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>덱 추가하기</Modal.Title>
+          <Modal.Title style={{fontFamily: "IBMPlexSansKR-Regular"}}>덱 추가하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>덱 이름</Form.Label>
+              <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>덱 이름</Form.Label>
               <Form.Control
                 type="title"
                 autoFocus
@@ -102,11 +104,11 @@ const CreateDeck = ({ setCreateResult }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
             Close
           </Button>
 
-          <Button variant="primary" onClick={title == '' ? handleClose : createDeck}>
+          <Button variant="primary" onClick={title == '' ? handleClose : createDeck} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
             Add
           </Button>
 

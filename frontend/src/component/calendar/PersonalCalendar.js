@@ -13,6 +13,7 @@ import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 
 import "../../assets/css/calendar.css";
+import "../../assets/css/font.css";
 
 export default function PersonalCalendar() {
 
@@ -77,7 +78,7 @@ export default function PersonalCalendar() {
       <div className="col-xl-11 ml-5"  >
         <div className="card shadow mb-4">
           <div className="card-header py-3">
-            <h4 className="m-0 font-weight-bold text-primary"><CalendarMonthIcon fontSize="large"/>&nbsp;Calendar</h4>
+            <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><CalendarMonthIcon fontSize="large"/>&nbsp;Calendar</h4>
           </div>
           <div className="card-body" style={{ height: "750px", overflow: "auto" }} >
             <div className="btn-group btn-group-toggle" data-toggle="buttons">

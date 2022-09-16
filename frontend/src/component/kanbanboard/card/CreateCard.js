@@ -11,6 +11,9 @@ import { get, post } from '../../../api/Axios';
 import axios from 'axios';
 import dayjs from "dayjs";
 
+import "../../../assets/css/font.css";
+import { Typography } from '@mui/material';
+
 
 const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorevertList}) => {
     const [endDate, setEndDate] = useState(null);
@@ -58,7 +61,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
         <div className='col-xl-1'>
             <Modal size='lg' show={show} onHide={() => setShow(!show)}>
                 <Modal.Header >
-                    <Modal.Title>카드 추가하기</Modal.Title>
+                    <Modal.Title style={{fontFamily: "IBMPlexSansKR-Regular"}}>카드 추가하기</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -66,7 +69,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                             <div className='col-xl-6'>
                                 {/* 카드 제목 */}
                                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-                                    <Form.Label>카드 이름</Form.Label>
+                                    <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>카드 이름</Form.Label>
                                     <Form.Control
                                         type="title"
                                         onChange={(e) => { setTitle(e.target.value) }}
@@ -79,7 +82,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                                     className="mb-3 "
                                     controlId="exampleForm.ControlTextarea1"
                                 >
-                                    <Form.Label>설명</Form.Label>
+                                    <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>설명</Form.Label>
                                     <Form.Control as="textarea" rows={3}
                                         onChange={(e) => { setDescription(e.target.value) }} />
                                 </Form.Group>
@@ -88,7 +91,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                                 <div className='ml-3 mb-3'>
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DatePicker
-                                            label="시작일"
+                                            label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>시작일</Typography>}
                                             value={startDate}
                                             inputFormat={"yyyy-MM-dd"}
                                             mask={"____-__-__"}
@@ -105,7 +108,7 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                                 <div className='ml-3'>
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                                         <DatePicker
-                                            label="마감일"
+                                            label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>마감일</Typography>}
                                             value={endDate}
                                             inputFormat={"yyyy-MM-dd"}
                                             mask={"____-__-__"}
@@ -137,14 +140,14 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                                         e.preventDefault();
                                         selectUser != null && !member.includes(selectUser) && setMember([...member, selectUser]);
                                         setReset(reset => !reset);
-                                    }}>add</button>
+                                    }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>add</button>
                                 </div>
                                 <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
                                     <table className="table table-bordered" id="dataTable" width="100%">
                                         <thead>
                                             <tr>
-                                                <th scope="col">name</th>
-                                                <th scope="col">email</th>
+                                                <th scope="col" style={{fontFamily: "IBMPlexSansKR-Regular"}}>name</th>
+                                                <th scope="col" style={{fontFamily: "IBMPlexSansKR-Regular"}}>email</th>
                                                 <th scope="col">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
@@ -158,10 +161,10 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                                                 member.map((m, i) => {
                                                     return (
                                                         <tr key={i}>
-                                                            <td>
+                                                            <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                                                 {m.name}
                                                             </td>
-                                                            <td>
+                                                            <td style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                                                 {m.email}
                                                             </td>
                                                             <td onClick={() => onRemove(m.no)}>
@@ -179,10 +182,10 @@ const CreateCard = ({ show, setShow, projectNo, no, cardNo, setRefresh, setMorev
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => {setShow(!show), setMorevertList(morevertList=>!morevertList)}}>
+                    <Button variant="secondary" onClick={() => {setShow(!show), setMorevertList(morevertList=>!morevertList)}} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={CreateCard}>
+                    <Button variant="primary" onClick={CreateCard} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

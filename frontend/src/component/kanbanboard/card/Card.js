@@ -10,11 +10,11 @@ import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { translateRect } from '@fullcalendar/common';
 import './card.css';
+
+import "../../../assets/css/font.css";
 
 const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     let location = useLocation();
@@ -130,14 +130,14 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                     <div id={`card-${no}`} >
                         <div className='row'>
                             <div className="col-xl-8 mt-2">
-                                <b>{title}</b>
+                                <b style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</b>
                             </div>
                             {/* 드롭다운 */}
                             <div className='col-xl-1 mr-1'>
-                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
+                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light" >
                                     <AddTask cardNo={no} setRefresh={setRefresh} />
                                     <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} />
-                                    <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => removeCard()} style={{fontFamily: "IBMPlexSansKR-Regular"}}>삭제하기</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                         </div>

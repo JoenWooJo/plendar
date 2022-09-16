@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import FullCalendar from '@fullcalendar/react';
@@ -8,7 +8,7 @@ import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import { Link } from 'react-router-dom';
 import EventCardModal from './EventCardModal';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
+import { getData } from '../../api/Axios';
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 
@@ -57,7 +57,6 @@ export default function TeamCalendar() {
   const [cardNo, setCardNo] = useState('');
   const [title, setTitle] = useState('');
 
-
   const eventClick = (e) => {
     setShow(!show);
     setProjectNo(e.event._def.extendedProps.projectNo);
@@ -69,20 +68,20 @@ export default function TeamCalendar() {
     <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
       <div className="card shadow mb-4">
         <div className="card-header py-3">
-          <h4 className="m-0 font-weight-bold text-primary"><CalendarMonthIcon fontSize="large" />&nbsp;Team Calendar</h4>
+          <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><CalendarMonthIcon fontSize="large" />&nbsp;Team Calendar</h4>
         </div>
         <div className="card-body" style={{ height: "750px", overflow: "auto" }}>
           <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label className="btn btn-secondary active">
-              <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none" }}> 팀 </Link>
+              <Link to="/calendar/team" className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }} > 팀 </Link>
             </label>
             <label className="btn btn-secondary">
-              <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none" }}> 개인 </Link>
+              <Link to="/calendar/personal " checked className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 개인 </Link>
             </label>
           </div>
           <div className="App">
 
-            <FullCalendar
+            <FullCalendar 
               defaultView="dayGridMonth"
               // 헤더 버튼 설정
               headerToolbar={{
@@ -109,9 +108,9 @@ export default function TeamCalendar() {
               }
               events={callback}
               eventBorderColor="red"
-              eventClick={eventClick}
+              eventClick={eventClick }
             />
-            <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo} />
+            <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo}/>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';
@@ -39,7 +39,6 @@ const Myproject = () => {
             })
     };
 
-    console.log("list", projectMember);
 
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();
@@ -77,7 +76,7 @@ const Myproject = () => {
                             </label>
                         </div>
 
-                        <NavLink className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" to={'/project/createProject'}>
+                        <NavLink className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" to={'/project/createProject'} >
                             <i className="fas fa-download fa-sm text-white-50"></i>
                             create project
                         </NavLink>
