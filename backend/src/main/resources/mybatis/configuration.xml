@@ -14,6 +14,7 @@
       <typeAlias type="com.jeonwoojo.plendar.vo.CommentVo" alias="commentvo" />
       <typeAlias type="com.jeonwoojo.plendar.vo.NoticeMessage" alias="noticemessage" />
       <typeAlias type="com.jeonwoojo.plendar.vo.FileSharingVo" alias="filesharingvo" />
+      <typeAlias type="com.jeonwoojo.plendar.vo.UploadItemVo" alias="uploaditemvo" />
       
    </typeAliases>
    
@@ -28,6 +29,8 @@
       <mapper resource="mybatis/mappers/task.xml" />
       <mapper resource="mybatis/mappers/notice.xml" />
       <mapper resource="mybatis/mappers/auth.xml" />
+      <mapper resource="mybatis/mappers/uploaditem.xml" />
+      
    </mappers>
     
 </configuration>

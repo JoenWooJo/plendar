@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="uploaditem">
+	
+	
+	<insert id="insertItem" parameterType="uploaditemvo" >
+		<![CDATA[
+			insert into item
+				values (null,#{name}, #{url}, #{lastModifiedDate}, #{size}, #{type}, #{user_no}, #{project_no}, #{card_no})
+		]]>
+	</insert>
+		
+	<select id="bringItem" resultType="uploaditemvo">
+		<![CDATA[
+		select a.no, a.name, a.url, a.lastModifiedDate, a.size, a.type, a.project_no, a.card_no, b.name as user_name
+		from item a, user b
+        where a.user_no = b.no
+        and a.project_no = #{project_no}
+        and a.card_no = #{card_no}
+        order by a.no asc
+		]]>
+	</select>
+	
+	<select id="findItem" resultType="uploaditemvo" parameterType="long">
+		<![CDATA[
+			select no from item where no = #{no}
+		]]>
+	</select>
+	
+	<delete id="deleteItem" parameterType="uploaditemvo">
+		<![CDATA[
+		delete from item where no=#{no}
+		]]>
+	</delete>
+	
+	<select id="downloadItem" resultType="uploaditemvo" parameterType="string">
+		<![CDATA[
+			select url from item where url = #{url}
+		]]>
+	</select>
+	
+</mapper>
