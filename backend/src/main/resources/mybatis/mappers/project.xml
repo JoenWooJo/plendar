@@ -80,7 +80,8 @@
 	
 	<select id="findProjectMember" parameterType="long" resultType="uservo">
 		<![CDATA[
-			select u.no, u.email, u.name, pm.leader, pm.manager  from user u, proj_member pm 
+			select u.no, u.email, u.name, pm.leader, pm.manager, u.profile  
+			from user u, proj_member pm
 				where u.no = pm.user_no
     		 and project_no = #{projectNo }
 		]]>
@@ -139,4 +140,10 @@
 			  where pj.no = pm.project_no and pm.user_no = #{userNo } and visible = 1 and pj.title like concat('%', #{word }, '%')      
 		]]>
 	</select>
+	
+	<update id="changeOngoing" parameterType="long">
+	<![CDATA[
+		update project set finished="N" where no = #{projectNo }
+		]]>
+	</update>
 </mapper>

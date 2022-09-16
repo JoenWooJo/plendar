@@ -151,6 +151,10 @@ public class ProjectRepository {
 		
 		return sqlSession.selectList("project.searchProject", map);
 	}
+
+	public void changeOngoing(long projectNo) {
+		sqlSession.update("project.changeOngoing", projectNo);
+	}
 	
 
 }

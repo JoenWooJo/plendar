@@ -7,21 +7,28 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 
 import com.jeonwoojo.plendar.repository.ChatRepository;
+import com.jeonwoojo.plendar.repository.NoticeRepository;
 import com.jeonwoojo.plendar.repository.ProjectRepository;
 import com.jeonwoojo.plendar.vo.ChatMessage;
+import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.ProjectVo;
 import com.jeonwoojo.plendar.vo.UserVo;
 
 @Service
 public class ProjectService {
-
+	
+	@Autowired
+	private SimpMessageSendingOperations sendingOperations;
 	@Autowired
 	private ProjectRepository projectRepository;
 	@Autowired
 	private ChatRepository chatRepository;
+	@Autowired
+	private NoticeRepository noticeRepository;
 	
 	public List<UserVo> findUser() {
 		return projectRepository.findUser();
@@ -122,6 +129,23 @@ public class ProjectService {
 
 	public void finishProject(long projectNo) {
 		projectRepository.finishProject(projectNo);
+		
+		List<UserVo> member = projectRepository.findProjectMember(projectNo);
+		String title = projectRepository.findProjectTitle(projectNo);
+		
+		NoticeMessage noticeMessage = new NoticeMessage();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		noticeMessage.setMessage(title+" 프로젝트가 완료되었습니다.");
+		noticeMessage.setType("finished");
+		noticeMessage.setProjectNo(projectNo);
+		
+		for(int i=0;i<member.size();i++) {
+			noticeMessage.setTime(dtf.format(LocalDateTime.now()));
+			noticeMessage.setUserNo(member.get(i).getNo());
+			noticeRepository.insertNotice(noticeMessage);
+			sendingOperations.convertAndSend("/topic/notice/"+member.get(i).getNo(), noticeMessage);
+		}
 	}
 
 
@@ -131,5 +155,28 @@ public class ProjectService {
 
 	public List<ProjectVo> searchProject(String word, long userNo) {
 		return projectRepository.searchProject(word, userNo);
+	}
+
+	public void changeOngoing(long userNo, long projectNo) {
+		projectRepository.changeOngoing(projectNo);
+		
+		List<UserVo> member = projectRepository.findProjectMember(projectNo);
+		String title = projectRepository.findProjectTitle(projectNo);
+		
+		NoticeMessage noticeMessage = new NoticeMessage();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		
+		noticeMessage.setMessage(title+" 프로젝트가 진행중으로 변경되었습니다.");
+		noticeMessage.setType("create");
+		noticeMessage.setProjectNo(projectNo);
+		noticeMessage.setProjectNo(projectNo);
+		
+		for(int i=0;i<member.size();i++) {
+			noticeMessage.setTime(dtf.format(LocalDateTime.now()));
+			noticeMessage.setUserNo(member.get(i).getNo());
+			noticeRepository.insertNotice(noticeMessage);
+			sendingOperations.convertAndSend("/topic/notice/"+member.get(i).getNo(), noticeMessage);
+		}
+		
 	}
 }
