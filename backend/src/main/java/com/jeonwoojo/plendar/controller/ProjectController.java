@@ -107,4 +107,11 @@ public class ProjectController {
 				.body(JsonResult.success("finish ok!"));
 	}
 	
+	@GetMapping("/title/{projectNo}")
+	public ResponseEntity<JsonResult> findProjectTitle(@PathVariable("projectNo")long projectNo) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findProjectTitle(projectNo)));
+	}
+	
 }

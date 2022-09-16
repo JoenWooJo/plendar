@@ -1,6 +1,7 @@
 package com.jeonwoojo.plendar.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,18 @@ public class DeckRepository {
 
 	public void updateSequence(DeckVo deckVo) {
 		sqlSession.update("deck.updateSequence", deckVo);
+	}
+
+	public List<DeckVo> findAll(Long projectNo) {
+		return sqlSession.selectList("deck.findAll", projectNo);
+	}
+
+	public void updateOrderNos(Map moving) {
+		sqlSession.update("deck.updateOrderNos", moving);
+    }
+
+	public void updateOrderNo(Map moving) {
+		sqlSession.update("deck.updateOrderNo", moving);
 	}
 
 }

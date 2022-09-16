@@ -1,9 +1,11 @@
 package com.jeonwoojo.plendar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jeonwoojo.plendar.repository.CardRepository;
 import com.jeonwoojo.plendar.repository.DeckRepository;
@@ -55,5 +57,15 @@ public class DeckService {
 		return false;
 
 	}
+
+    public List<DeckVo> getCardList(Long projectNo) {
+        return deckRepository.findAll(projectNo);
+    }
+
+	@Transactional
+    public void updateDeckOrder(Map moving) {
+        deckRepository.updateOrderNos(moving);
+        deckRepository.updateOrderNo(moving);
+    }
 
 }
