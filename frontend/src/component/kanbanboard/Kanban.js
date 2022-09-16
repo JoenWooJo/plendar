@@ -7,6 +7,8 @@ import { get, post } from '../../api/Axios';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ModalMember from './ModalMember';
 
 let currentPath = "";
 
@@ -102,11 +104,16 @@ const Kanban = () => {
     await moveDeck();
 
   };
+
+  
+
   
   return (
       <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
         <div className="card-header" style={{ width: "3000px" }}>
-          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;Plendar Project Kanban</h4>
+        <ModalMember projectNo={projectNo} style={{width: "10px"}}/>
+          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary" style={{display: "inline", paddingTop: "20px"}}>&nbsp;Plendar Project Kanban&nbsp;&nbsp;&nbsp;
+          </h4>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="title" direction="horizontal">

@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Complete from './Complete';
 import { NavLink, Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom"
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import axios from 'axios';
+
+let currentPath = "";
 
 const CompletePage = () => {
+    const location = useLocation();
+    const state = location.state;
+
+    const [completeProject, setCompleteProject] = useState([]);
+
+    const findProject = async () => {
+        const resp = await axios.get("/api/project/find/completeProject", {
+            params: {
+                userNo: localStorage.getItem("loginUserNo"),
+            },
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            });
+
+        setCompleteProject(resp.data.data);
+    };
+
+    useEffect(()=> {
+        findProject();
+    }, [])
+
+    useEffect(() => {
+        if(currentPath === location.pathname) window.location.reload();
+        currentPath = location.pathname;
+      }, [location]);
+
+
     return (
         <div className="col-xl-11 ml-4">
 
@@ -28,7 +60,19 @@ const CompletePage = () => {
                     </div>
 
                     <div className="row">
-                        <Complete />
+                        {
+                            completeProject.length != 0 && completeProject.map((e,i)=> (
+                                <Complete 
+                                    key={i}
+                                    state={state}
+                                    no={e.no}
+                                    title = {e.title}
+                                    priority={e.priority}
+                                    startDate={e.startDate}
+                                    endDate={e.endDate}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
             </div>

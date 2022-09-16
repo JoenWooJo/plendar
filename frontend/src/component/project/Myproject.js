@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';

@@ -99,7 +99,7 @@ const Header = ({ }) => {
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
             onConnect: () => {
-                // console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
+                console.log("!!!!!!!!!!!!!!!!!!!!!!연결??!");
                 subscribe();
                 // publish("알림확인 메세지 보내주");
 
@@ -115,6 +115,7 @@ const Header = ({ }) => {
     const subscribe = () => {
         client.current.subscribe(`/topic/notice/${localStorage.getItem("loginUserNo")}`, (data) => {
             let list = JSON.parse(data.body);
+            console.log(list);
             setAlramList([list, ...alramRef.current]);
             setAlramCount(alramCountRef.current+1);
         }, { id: "notice-proj" });
