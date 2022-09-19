@@ -58,6 +58,7 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                     Authorization: window.localStorage.getItem("Authorization"),
                 }})
               .then((result) => {
+                console.log("이게 업로드 콘솔", result);
                 if(result.statusText == 'OK'){
                     console.log("이게 업로드 콘솔", result);
                     communication();
