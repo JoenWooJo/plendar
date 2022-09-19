@@ -65,4 +65,56 @@
 			  where no = #{no }
 		]]>
 	</update>
+	
+	<resultMap id="detailDeckResultMap" type="deckvo">
+		<result property="no" column="no"/>
+		<result property="projectNo" column="project_no"/>
+		<result property="title" column="title"/>
+		<result property="sequence" column="sequence"/>
+		<collection property="cards" ofType="cardvo">
+			<result property="no" column="card_no"/>
+			<result property="title" column="card_title"/>
+			<result property="description" column="card_description"/>
+			<result property="sequence" column="card_sequence"/>
+		</collection>
+	</resultMap>
+
+	<select id="findAll" resultMap="detailDeckResultMap">
+		<![CDATA[	
+			 select a.project_no, a.no, a.title, a.sequence, b.no as card_no, b.title as card_title, b.description as card_description, b.sequence as card_sequence
+			from deck a left join card b
+			on a.no = b.deck_no
+            where a.project_no = #{projectNo}
+			order by sequence asc, card_sequence asc;
+
+	  	]]>	
+	</select>
+	
+	<update id="updateOrderNo" parameterType="map">
+		<![CDATA[
+			update deck
+			   set sequence=#{destOrderNo}
+			 where no=#{no}
+	  	]]>
+	</update>
+
+	<update id="updateOrderNos" parameterType="map">
+		<choose>
+			<when test="destOrderNo lt srcOrderNo">
+				<![CDATA[
+					update deck
+					   set sequence = sequence + 1
+					 where (#{destOrderNo} <= sequence and sequence < #{srcOrderNo})
+	  			]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update deck
+					   set sequence = sequence - 1
+					 where (#{srcOrderNo} < sequence and sequence <= #{destOrderNo})
+	  			]]>
+			</otherwise>
+		</choose>
+	</update>
+	
 </mapper>

@@ -64,6 +64,9 @@ export default function PersonalCalendar() {
     const [deckNo, setDeckNo] = useState('');
     const [cardNo, setCardNo] = useState('');
     const [title, setTitle] = useState('');
+    const [member, setMember] = useState([]);
+    const [manager, setManager] = useState([]);
+
   // 이벤트 클릭했을 때 실행
   const eventClick = (e) => {
     setShow(!show);
@@ -119,7 +122,14 @@ export default function PersonalCalendar() {
                 events={callback}
                 eventClick={eventClick}
               />
-              <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo} />
+              <EventCardModal show={show} 
+                              setShow={setShow} 
+                              title={title} 
+                              projectNo={projectNo} 
+                              cardNo={cardNo} 
+                              deckNo={deckNo} 
+              />
+
             </div>
           </div>
         </div>

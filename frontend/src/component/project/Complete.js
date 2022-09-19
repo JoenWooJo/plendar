@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Rating } from "@mui/material";
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '../../assets/css/font.css';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CompleteDropDown from './CompleteDropDown';
@@ -11,18 +11,17 @@ const Complete = ({ state, no, title, priority, startDate, endDate }) => {
     const [morevertList, setMorevertList] = useState(false);
 
     useEffect(() => {
-        const f = () => {
-            let child = document.getElementById("proj-finished-img");
-            child != null && child.parentNode.removeChild(child);
-        }
-        document.addEventListener("click", f);
-
-        return () => {
-            document.removeEventListener("click", f)
-        }
-
-    }, []);
-
+        axios.get('/api/project/find/completeProject', {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
+            .then((resp) => {
+                const list = resp.data.data;
+                setProjectList(list);
+            })
+    }, [projectList]);
 
 
     return (

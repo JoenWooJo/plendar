@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -64,6 +63,8 @@ export default function TeamCalendar() {
     setCardNo(e.event._def.publicId);
     setTitle(e.event._def.title);
   }
+
+  
   return (
     <div className="col-xl-11 ml-4" style={{ height: "750px", overflow: "auto" }} >
       <div className="card shadow mb-4">
@@ -110,7 +111,13 @@ export default function TeamCalendar() {
               eventBorderColor="red"
               eventClick={eventClick }
             />
-            <EventCardModal show={show} setShow={setShow} title={title} projectNo={projectNo} cardNo={cardNo} deckNo={deckNo}/>
+            <EventCardModal show={show} 
+                              setShow={setShow} 
+                              title={title} 
+                              projectNo={projectNo} 
+                              cardNo={cardNo} 
+                              deckNo={deckNo} 
+            />
           </div>
         </div>
       </div>

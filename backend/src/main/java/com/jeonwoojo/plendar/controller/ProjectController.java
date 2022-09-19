@@ -104,6 +104,13 @@ public class ProjectController {
 				.body(JsonResult.success("finish ok!"));
 	}
 	
+
+	@GetMapping("/title/{projectNo}")
+	public ResponseEntity<JsonResult> findProjectTitle(@PathVariable("projectNo")long projectNo) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(projectService.findProjectTitle(projectNo)));
+
 	@GetMapping("/search/{word}")
 	public ResponseEntity<JsonResult> searchProject(@PathVariable("word") String word, @RequestParam("userNo") long userNo) {
 		List<ProjectVo> searchProjectList = projectService.searchProject(word, userNo);
@@ -120,6 +127,7 @@ public class ProjectController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success("change ongoing!"));
+
 	}
 	
 }

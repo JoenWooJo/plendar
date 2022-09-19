@@ -12,33 +12,32 @@ import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Draggable } from "react-beautiful-dnd";
 import './card.css';
 
-import "../../../assets/css/font.css";
+const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence, cards, deck }) => {
 
-const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
     let location = useLocation();
     const state = location.state;
     const cardView = state != null ? state["cardNo"] : "";
     const noticeType = state != null ? state["type"] : "";
     const noticeNo = state != null && state["noticeNo"] ? state["noticeNo"] : "";
-
-    const { description, title, no } = card;
     const [showDetail, setShowDetail] = useState(false);
     const [taskList, setTaskList] = useState([]);
     const [check, setCheck] = useState([]);
     const [noSum, setNoSum] = useState(0);
     const [taskSum, setTaskSum] = useState(0);
+    const [member, setMember] = useState([]);
 
     //카드 테스크 개수
     const cardTask = async () => {
-        const list = await get(`/kanban/card/findtaskcount/${no}`);
+        const list = await get(`/kanban/card/findtaskcount/${cards.no}`);
         setTaskSum(list);
     }
 
     //테스크 완료 개수
     const cardN = async () => {
-        const list = await get(`/kanban/card/findncount/${no}`);
+        const list = await get(`/kanban/card/findncount/${cards.no}`);
         setNoSum(list);
     }
 
@@ -62,7 +61,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
 
     //테스크 리스트 가져오기
     const t = async () => {
-        const list = await get(`/kanban/task/find/${no}`);
+        const list = await get(`/kanban/task/find/${cards.no}`);
         setTaskList(list);
     }
 
@@ -114,35 +113,64 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
 
     //카드 삭제하기
     const removeCard = async () => {
-        await remove(`/kanban/card/deleteCard/${projectNo}/${no}`);
+        await remove(`/kanban/card/deleteCard/${projectNo}/${cards.no}`);
         setRefresh(refresh => !refresh);
     }
 
+    // 카드의 현재 유저 불러오기
+    useEffect(() => {
+        const findCurrentCardmember = async () => {
+            await axios.get(`/api/kanban/card/findCurrentCardmember/${cards.no}`, {
+                headers: {
+                    Authorization: window.localStorage.getItem("Authorization"),
+                },
+            })
+                .then((resp) => {
+                    const list = resp.data.data;
+                    setMember(list);
+                })
+        }
+        findCurrentCardmember();
+    }, []);
+
+
+    const cuList = member.filter((m) => {
+        return (
+            m.no == localStorage.getItem('loginUserNo')
+        );
+    })
+
     return (
-        <div style={{ position: "relative" }}>
+        <Draggable
+        draggableId={`cards:${cards.no}` }
+        index={index}>
+        {(dragProvided) => ( <div style={{ position: "relative" }}
+        ref={dragProvided.innerRef}
+        {...dragProvided.draggableProps}
+        {...dragProvided.dragHandleProps}>
             <div className="card bg-light text-black shadow mb-2" >
-           
+
                 <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
-                {
-                cardView == no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
-                cardView == no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
-                }
-                    <div id={`card-${no}`} >
+                    {
+                        cardView == cards.no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
+                            cardView == cards.no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
+                    }
+                    <div id={`card-${cards.no}`} >
                         <div className='row'>
                             <div className="col-xl-8 mt-2">
-                                <b style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</b>
+                                <b>{cards.title}</b>
                             </div>
                             {/* 드롭다운 */}
                             <div className='col-xl-1 mr-1'>
-                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light" >
-                                    <AddTask cardNo={no} setRefresh={setRefresh} />
-                                    <CardModal title={title} projectNo={projectNo} deckNo={deckNo} cardNo={no} setRefresh={setRefresh} />
-                                    <Dropdown.Item onClick={() => removeCard()} style={{fontFamily: "IBMPlexSansKR-Regular"}}>삭제하기</Dropdown.Item>
+                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
+                                    {(cuList.length != 0 || manager.length != 0) && <AddTask cardNo={cards.no} setRefresh={setRefresh} />}
+                                    <CardModal title={cards.title} projectNo={projectNo} deckNo={deckNo} cardNo={cards.no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager} />
+                                    {(cuList.length != 0 || manager.length != 0) && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}
                                 </DropdownButton>
                             </div>
                         </div>
                         <div className='row'>
-                            <div className="col-xl-9 mt-3 text-black-50 small">{description}</div>
+                            <div className="col-xl-9 mt-3 text-black-50 small">{cards.description}</div>
                             <div className='col-xl-2 mt-2' type="button" onClick={onChangeCard}>
                                 {showDetail ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                             </div>
@@ -159,7 +187,7 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                                             className='col-xl-1'
                                             value={m.no}
                                             onChange={(e) => {
-                                                changeTaskStatus(e);
+                                                (cuList.length != 0 || manager.length != 0) && changeTaskStatus(e);
                                             }}
                                             checked={m.finished === "Y" ? true : false}
                                         />
@@ -184,8 +212,8 @@ const Card = ({ card, projectNo, deckNo, refresh, setRefresh }) => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>)}
+   </Draggable>);
 };
 
 export default Card;

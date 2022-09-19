@@ -5,7 +5,6 @@ import Main from './component/Main';
 import Mypage from './component/user/Mypage';
 import MypageChecked from './component/user/MypageChecked';
 import Calendar from './component/calendar/Calendar';
-import FileSharing from './component/fileSharing/FileSharing';
 import Myproject from './component/project/Myproject';
 import Login from './pages/Login';
 import Join from './pages/Join';
@@ -35,7 +34,6 @@ const App= () => (
         {path: '/user/mypagechecked', element: <MypageChecked />},
         {path: '/calendar/team', element: <Calendar />},
         {path: '/calendar/Personal', element: <PersonalCalendar />},
-        {path: '/fileSharing/fileSharing', element: <FileSharing />},
         {path: '/project/myproject', element: <Myproject />},
         {path: '/project/createProject', element: <CreateProject />},
         {path: '/updateProject/:no', element: <UpdateProject />},
