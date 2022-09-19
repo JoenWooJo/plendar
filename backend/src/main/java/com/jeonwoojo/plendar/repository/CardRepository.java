@@ -77,9 +77,11 @@ public class CardRepository {
 	public void deleteCard(Long cardNo) {
 		sqlSession.delete("card.deleteTask", cardNo);
 		sqlSession.delete("card.deleteComment", cardNo);
+		sqlSession.delete("card.deleteItem", cardNo);
 		sqlSession.delete("card.deleteCardNotice", cardNo);
 		sqlSession.delete("card.deleteCardMember", cardNo);
 		sqlSession.delete("card.deleteCard", cardNo);
+		
 		
 	}
 

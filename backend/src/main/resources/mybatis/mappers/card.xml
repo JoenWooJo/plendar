@@ -132,6 +132,12 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteItem" parameterType="long">
+		<![CDATA[
+			delete from item where card_no = #{cardNo }
+		]]>
+	</delete>
+	
 	<delete id="deleteCardMember" parameterType="long">
 		<![CDATA[
 			delete from card_member where card_no = #{no}
