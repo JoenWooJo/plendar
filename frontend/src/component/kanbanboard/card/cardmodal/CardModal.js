@@ -28,11 +28,9 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh, member, setMem
         setFeedItems((ItemList));
     }
     useEffect(() => {
-        
+        // communication();
     }, [feedItems]);
-    const BringItem = () => {
-        communication();
-    }
+
 
     const returnItem = (value) => {
         setFeedItems(value);
@@ -44,7 +42,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh, member, setMem
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>
-                    <Modal.Header closeButton>
+                    <Modal.Header >
                         <Modal.Title className='col-xl-6' style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</Modal.Title>
                         <Box className='col-xl-4'>
                             <ButtonGroup variant="text" aria-label="text button group">
@@ -52,7 +50,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh, member, setMem
                                 <Button  onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
                                 <Button  onClick={() => { 
                                   setPage("file")
-                                  BringItem() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
+                                  communication() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>
