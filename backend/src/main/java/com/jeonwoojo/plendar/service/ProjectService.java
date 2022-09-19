@@ -79,7 +79,7 @@ public class ProjectService {
 		for(int i=0;i<newMember.size();i++) {
 			map.put("userVo", newMember.get(i));
 			projectRepository.memberUpdate(map);
-			chatRepository.chatNoticeUpdate(newMember.get(i).getNo(), projectVo.getNo());
+			chatRepository.updateNoticeInsert(newMember.get(i).getNo(), projectVo.getNo());
 			UserVo memVo = new UserVo();
 			memVo.setNo(newMember.get(i).getNo());
 			memVo.setName(newMember.get(i).getName());

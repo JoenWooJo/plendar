@@ -61,7 +61,7 @@ public class ChatRepository {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("roomId", roomId);
 		map.put("userNo", userNo);
-		sqlSession.update("chat.updateNoticeInsert", map);
+		sqlSession.update("chat.noticeUpdateTrue", map);
 	}
 
 	public ChatMessage findLastMessage(long roomId) {
@@ -70,6 +70,14 @@ public class ChatRepository {
 
 	public int findNoticeCount(Long userNo) {
 		return sqlSession.selectOne("chat.findNoticeCount", userNo);
+	}
+
+	public void updateNoticeInsert(Long userNo, long roomId) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("roomId", roomId);
+		map.put("userNo", userNo);
+		sqlSession.update("chat.updateNoticeInsert", map);
+		
 	}
 
 }
