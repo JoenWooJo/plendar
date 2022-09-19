@@ -38,6 +38,7 @@ export default function PersonalCalendar() {
     
     let li = response.data.data; 
     for (let i = 0; i < li.length; i++) {
+      li[i]['borderColor'] = '#fff';
       if (li[i]['priority'] == 5) {
         li[i]['color'] = '#77aaff';
       }

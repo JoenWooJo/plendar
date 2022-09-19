@@ -11,7 +11,7 @@ import { set } from "date-fns";
 import moment from "moment";
 import { Button } from "@mui/material";
 
-const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, item }) => {
+const Upload = ({ cardNo, projectNo, feedItems, item }) => {
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState({});
@@ -197,7 +197,7 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                 </div>
 
                 <div className="row" style={{ height: "270px", overflow:"auto"}}>
-                {feedItems.map((content, i)=>{
+                {feedItems.length !=0 && feedItems.map((content, i)=>{
                     return(
                     <Fragment key={i}>
                         <div className="col-xl-11 mt-1 ml-2">
@@ -218,7 +218,7 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                 <div className="Actions1">{renderActions() }</div>
             </div>
             <div className="Files1" style={{height:'150px'}}>
-                    {files.map((file, i) => {
+                    {files.length != 0 && files.map((file, i) => {
                         return (
                              <div key={i} style={{height:'30px'}}>
                                 <span className="Filename1">{file.name}</span>
