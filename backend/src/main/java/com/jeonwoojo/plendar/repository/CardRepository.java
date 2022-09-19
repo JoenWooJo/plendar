@@ -2,6 +2,7 @@ package com.jeonwoojo.plendar.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,18 @@ public class CardRepository {
 	public Long findNCount(Long cardNo) {
 		return sqlSession.selectOne("card.findNCount", cardNo);
 	}
+
+
+	@SuppressWarnings("rawtypes")
+	public void updateOrderNo(Map moving) {
+		sqlSession.update("card.updateOrderNo", moving);
+	}
+
+
+	@SuppressWarnings("rawtypes")
+	public void updateOrderNos(Map moving) {
+		sqlSession.update("card.updateOrderNos", moving);
+	}
+
 	
 }

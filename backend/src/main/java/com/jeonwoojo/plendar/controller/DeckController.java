@@ -1,6 +1,7 @@
 package com.jeonwoojo.plendar.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -72,7 +74,23 @@ public class DeckController {
 	public ResponseEntity<JsonResult> moveDeck(@RequestBody List<DeckVo> deckList) {
 	deckService.moveDeck(deckList);
 		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.success("아직"));
+	}
+	
+	@GetMapping("/{projectNo}")
+	public ResponseEntity<JsonResult> readCard(@PathVariable("projectNo") Long projectNo) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(deckService.getCardList(projectNo)));
+	}
+	
+	@PutMapping("/mv")
+	public ResponseEntity<JsonResult> updateDeck(@RequestBody Map<?,?> moving) {
+		System.out.println(moving);
+		deckService.updateDeckOrder(moving);
 
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success("ok"));
 	}
 
 }

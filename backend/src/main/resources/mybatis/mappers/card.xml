@@ -157,4 +157,33 @@
 		]]>
 	</select>
 	
+	<update id="updateOrderNo" parameterType="map">
+		<![CDATA[
+			update card
+			   set sequence=#{orderNo}, deck_no=#{deckNo}
+			 where no=#{no}
+	  	]]>
+	</update>
+
+	<update id="updateOrderNos" parameterType="map">
+		<choose>
+			<when test="ascending">
+				<![CDATA[
+					update card
+					   set sequence = sequence + 1
+					 where deck_no = #{deckNo}
+					   and sequence >= #{sequence}
+	  			]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+					update card
+					   set sequence = sequence - 1
+					 where deck_no = #{deckNo}
+					   and sequence > #{sequence}
+	  			]]>
+			</otherwise>
+		</choose>
+	</update>
+	
 </mapper>

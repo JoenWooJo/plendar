@@ -2,10 +2,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CreateCard from '../card/CreateCard';
-
 import "../../../assets/css/font.css";
 
-const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, setMorevertList }) => {
+const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, setMorevertList, manager }) => {
 
     const [show, setShow] = useState(false);
 
@@ -36,9 +35,11 @@ const MoreVertDropdown = ({ projectNo, deckNo, cardNo, setCardList, setRefresh, 
                     setRefresh={setRefresh}
                     setMorevertList={setMorevertList}
                 />
-                <Link className="dropdown-item d-flex align-items-right" to={`/kanbanboard/${projectNo}`} onClick={() => delteDeck()} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
+                { manager.length != 0 &&
+                <Link className="dropdown-item d-flex align-items-right" to={`/kanbanboard/${projectNo}`} onClick={() => delteDeck()}  style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     삭제
                 </Link>
+                }
             </div>
         </div>
     );

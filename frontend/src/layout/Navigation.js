@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import ComputerIcon from '@mui/icons-material/Computer';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import jwt_decode from "jwt-decode";
 
 import "../assets/css/font.css";
@@ -90,16 +89,6 @@ export default class Navigation extends Component {
                     </NavLink>
                 </li>
                 <hr className="sidebar-divider" />
-
-
-                <li className="nav-item active">
-                    <NavLink className="nav-link"
-                        to={'/fileSharing/fileSharing'}>
-                        <AttachFileIcon fontSize="large" />  &nbsp; File Sharing
-                    </NavLink>
-                </li>
-                <hr className="sidebar-divider" />
-
             </div>
         </ul>
         )
