@@ -28,7 +28,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
         setFeedItems((ItemList));
     }
     useEffect(() => {
-        communication();
+        // communication();
     }, [feedItems]);
 
 
@@ -42,7 +42,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>
-                    <Modal.Header closeButton>
+                    <Modal.Header >
                         <Modal.Title className='col-xl-6' style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</Modal.Title>
                         <Box className='col-xl-4'>
                             <ButtonGroup variant="text" aria-label="text button group">

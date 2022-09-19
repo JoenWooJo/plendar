@@ -9,6 +9,7 @@ import {remove, getData} from '../../../../../api/Axios';
 import dayjs from "dayjs";
 import { set } from "date-fns";
 import moment from "moment";
+import { Button } from "@mui/material";
 
 const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, item }) => {
     const [files, setFiles] = useState([]);
@@ -121,24 +122,30 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
     const renderActions= () => {
         if (successfullUploaded) {
             return (
-                <button
+                <Button
                     onClick={() =>
                         {setFiles([]);
                         setSuccessfullUploaded(false);}
                     }
+                    variant="outlined" 
+                    color="primary"
+                    size="medium"
                 >
                     Clear
-                </button>
+                </Button>
             );
         } else {
             return (
-                <button
+                <Button
                     disabled={files.length < 0 || uploading}
+                    variant="contained"
+                    color="primary"
+                    size="medium"
                     onClick={() => {uploadFiles()
                         setUploadProgress({})
                         setUploading(true)}}>
                     Upload
-                </button>
+                </Button>
             );
         }
     }
@@ -208,11 +215,12 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                     );
                 })}
                 </div>
+                <div className="Actions1">{renderActions() }</div>
             </div>
-            <div className="Files1" style={{height:'200px'}}>
+            <div className="Files1" style={{height:'150px'}}>
                     {files.map((file, i) => {
                         return (
-                             <div key={i} style={{height:'70px'}}>
+                             <div key={i} style={{height:'30px'}}>
                                 <span className="Filename1">{file.name}</span>
                                 {renderProgress(file)
                                 }
@@ -220,9 +228,7 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                         );
                     })}
             </div>
-            <div className="Actions1">{renderActions() }1</div>
         </div>
-        <div className="Actions1">{renderActions() }2</div>
 
 
         </>
