@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 import ChatRoom from './ChatRoom';
 
 
-const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewRoomList, setNoticeSelected, messages}) => {
+const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewRoomList, setNoticeSelected, messages, line}) => {
     document.getElementById("selectedRoom") != null && document.getElementById("selectedRoom").scrollIntoView({behavior: "smooth"});
 
     return (
@@ -22,6 +22,7 @@ const ChatRoomList = ({callback, roomIdSelected, roomList, newRoomList , setNewR
                                 roomNo={e.no}
                                 roomIdSelected={roomIdSelected}
                                 messages={messages}
+                                lines={line}
                                 setNoticeSelected={setNoticeSelected}
                                 callback={callback}/>
                         ))                            

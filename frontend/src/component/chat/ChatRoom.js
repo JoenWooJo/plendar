@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import "../../assets/css/font.css";
 
-const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, messages, setNoticeSelected}) => {
+const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, messages, lines, setNoticeSelected}) => {
     const [invisible, setInvisible] = useState(true);
     const [line, setLine] = useState({});
     const [date, setDate] = useState('');
@@ -55,7 +55,7 @@ const ChatRoom = ({selected, chatRoomName, roomNo, callback, roomIdSelected, mes
     useEffect(()=>{
         fetchAndNotice();
         getLastMessage();
-    }, [messages]);
+    }, [messages, lines]);
 
     useEffect(()=>{
         setNoticeSelected(invisible);

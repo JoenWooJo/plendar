@@ -15,10 +15,10 @@ const Chat = () => {
 
     const client = useRef({});
     const [messages, _setMessages] = useState([]);
-    const messagesRef = useRef(messages);
+    const messagesRef = useRef({roomId: -1, messages: messages});
 
     const setMessages = (messages) => {
-        messagesRef.current = messages;
+        messagesRef.current.messages = messages;
         _setMessages(messages);
     }
     
@@ -30,6 +30,8 @@ const Chat = () => {
 
     const changeRoomIdSelected = (id) => {
         setRoomIdSelected(id);
+        messagesRef.current.roomId = id;
+        console.log("roomID>>",typeof(messagesRef.current.roomId));
     };
 
     const fetchAndSetRooms = async () => {
@@ -78,7 +80,7 @@ const Chat = () => {
             });
             setFirst(false);
         }
-    }, [sub, delay])
+    }, [sub])
 
     // useEffect(()=> {
     //     if(delay && subIds != null) {
@@ -146,10 +148,14 @@ const Chat = () => {
 
     const subscribe = (roomId) => {
         client.current.subscribe(`/topic/chat/room/${roomId}`, (data) => {
+            console.log("sub - roomid", typeof(roomId));
             let line = JSON.parse(data.body);
-            console.log(line);
             setLine(line);
-            setMessages([...messagesRef.current, line]);
+            if(messagesRef.current.roomId == roomId) {
+                console.log(line);
+                setMessages([...messagesRef.current.messages, line]);
+            }
+            
         }, {id: `chatting-${roomId}`});
     };
 
@@ -200,6 +206,7 @@ const Chat = () => {
                         newRoomList={newRoomList}
                         setNewRoomList={setNewRoomList}
                         messages={messages}
+                        line={line}
                         setNoticeSelected={setNoticeSelected}
                     />
                     <ChatMessageList
