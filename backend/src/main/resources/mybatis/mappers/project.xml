@@ -105,6 +105,12 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteChatNotice" parameterType="map">
+		<![CDATA[
+			delete from chat_notice where user_no = ${userVo.no} and room_id = ${projectNo }
+		]]>
+	</delete>
+	
 	
 	<insert id="memberUpdate" parameterType="map">
 		<![CDATA[

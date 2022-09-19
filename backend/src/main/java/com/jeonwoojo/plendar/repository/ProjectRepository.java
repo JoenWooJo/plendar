@@ -155,6 +155,10 @@ public class ProjectRepository {
 	public void changeOngoing(long projectNo) {
 		sqlSession.update("project.changeOngoing", projectNo);
 	}
+
+	public void deleteChatNotice(HashMap<String, Object> map) {
+		sqlSession.delete("project.deleteChatNotice", map);
+	}
 	
 
 }

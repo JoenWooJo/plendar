@@ -67,6 +67,7 @@ public class ProjectService {
 		for(int i=0;i<origin.size();i++) {
 			map.put("userVo", origin.get(i));
 			projectRepository.deleteMember(map);
+			projectRepository.deleteChatNotice(map);
 			UserVo memVo = new UserVo();
 			memVo.setNo(origin.get(i).getNo());
 			memVo.setName(origin.get(i).getName());
