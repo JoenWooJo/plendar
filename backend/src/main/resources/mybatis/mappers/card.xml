@@ -147,7 +147,7 @@
 
 	<delete id="deleteCardNotice" parameterType="long">
 		<![CDATA[
-			delete from notice where card_no = #{no } and type= "card"
+			delete from notice where card_no = #{no } and type= "card" or type="comment"
 		]]>
 	</delete>
 
