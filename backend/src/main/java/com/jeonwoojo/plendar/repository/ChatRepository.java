@@ -61,7 +61,7 @@ public class ChatRepository {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("roomId", roomId);
 		map.put("userNo", userNo);
-		sqlSession.update("chat.noticeUpdateTrue", map);
+		sqlSession.update("chat.updateNoticeInsert", map);
 	}
 
 	public ChatMessage findLastMessage(long roomId) {

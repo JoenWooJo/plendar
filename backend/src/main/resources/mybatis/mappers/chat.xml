@@ -85,9 +85,15 @@
 		]]>
 	</select>
 	
-	<update id="noticeUpdateTrue" parameterType="map">
+	<update id="updateNoticeInsert" parameterType="map">
 		<![CDATA[
 			insert into chat_notice values (null, #{roomId }, #{userNo }, 1)
+		]]>
+	</update>
+	
+	<update id="noticeUpdateTrue" parameterType="map">
+		<![CDATA[
+			update chat_notice set notice = 1 where user_no = ${userNo } and room_id = ${roomId }
 		]]>
 	</update>
 	
