@@ -143,7 +143,8 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                     size="medium"
                     onClick={() => {uploadFiles()
                         setUploadProgress({})
-                        setUploading(true)}}>
+                        setUploading(true)
+                        communication();}}>
                     Upload
                 </Button>
             );
