@@ -7,6 +7,7 @@ import { get, post } from '../../api/Axios';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 
 let currentPath = "";
@@ -27,6 +28,7 @@ export default function KanbanBoard() {
   const [decks, setDecks] = useState([]);
   const [cardMoving, setCardMoving] = useState(null);
   const [deckMoving, setDeckMoving] = useState(null);
+  const [member, setMember] = useState([]);
 
   if (projectNo !== params.no) {
     setProjectNo(params.no);
@@ -130,6 +132,7 @@ export default function KanbanBoard() {
     }
   }
 
+
   const onDragEnd = (result) => {
     console.info(result);
 
@@ -201,13 +204,16 @@ export default function KanbanBoard() {
   }
 
     useEffect(() => {
-      deckMoving && moveDeck();
+    deckMoving && moveDeck();
   }, [deckMoving]);
 
   useEffect(() => {
       cardMoving && moveCard();
   }, [cardMoving]);
 
+  useEffect(()=>{
+    fetchDecks();
+  },[])
   //---------------------------권한 관리-------------------------------------
   const findMember = async () => {
     const list = await get(`/project/find/member/${projectNo}`);
@@ -236,18 +242,18 @@ export default function KanbanBoard() {
   //리더, 매니저 가져오기
   const manager = managerList.filter((m) => (m.no == uu));
 
-  return (
+return (
     <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
-      <div className="card-header" style={{ width: "3000px" }}>
+      <div className="card-header">
         <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;{title}</h4>
       </div>
 
-      <DragDropContext onDragEnd={manager.length != 0 && onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd}>
         <div className="card-body" style={{ width: "3000px", height: "750px" }}>
           {/* 덱 생성하기 버튼 */}
           <CreateDeck setCreateResult={setCreateResult} />
           <Droppable
-            droppableId="KanbanBoard"
+            droppableId={"KanbanBoard"}
             type="DECK"
             direction="horizontal"
             ignoreContainerClipping={false}
@@ -276,7 +282,7 @@ export default function KanbanBoard() {
                 />
                 );
               })}
-              {provided.placeholder}
+               {provided.placeholder}
             </Box>)}
           </Droppable>
         </div>

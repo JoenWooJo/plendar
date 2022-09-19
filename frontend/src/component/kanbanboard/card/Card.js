@@ -142,7 +142,7 @@ const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence
 
     return (
         <Draggable
-        draggableId={`cards:${cards.no}`}
+        draggableId={`cards:${cards.no}` }
         index={index}>
         {(dragProvided) => ( <div style={{ position: "relative" }}
         ref={dragProvided.innerRef}
