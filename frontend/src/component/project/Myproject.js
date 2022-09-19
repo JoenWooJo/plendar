@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import Ongoing from './Ongoing';
 import ComputerIcon from '@mui/icons-material/Computer';
+import "../../assets/css/font.css";
 
 let currentPath = "";
 
@@ -68,10 +69,10 @@ const Myproject = () => {
                     <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4 ">
                         <div className="btn-group btn-group-toggle" data-toggle="button">
                             <label className="btn btn-secondary active">
-                                <Link to="/project/myproject" className='text-white ' style={{ textDecoration: "none" }}> 진행중</Link>
+                                <Link to="/project/myproject" className='text-white ' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 진행중</Link>
                             </label>
                             <label className="btn btn-secondary">
-                                <Link to="/project/completepage " className='text-white' style={{ textDecoration: "none" }}> 완료</Link>
+                                <Link to="/project/completepage " className='text-white' style={{ textDecoration: "none", fontFamily: "IBMPlexSansKR-Regular" }}> 완료</Link>
                             </label>
                         </div>
 

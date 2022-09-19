@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import axios from "axios";
 
 import '../assets/scss/sb-admin-2.scss';
+import '../assets/css/font.css';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const Join = () => {
     const [name, setName] = useState("");
@@ -124,7 +126,7 @@ const Join = () => {
                             <div className="p-5">
 
                                 <div className="text-center">
-                                    <h1 className="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                    <h1 className="h4 text-gray-900 mb-4" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Create an Account!</h1>
                                 </div>
                                 <form className="user">
                                     {/* 이름 입력 창 */}
@@ -135,7 +137,7 @@ const Join = () => {
                                     {/* 이메일 입력 창 */}
                                     <div className="form-group row">
                                         <input type="email" className=" col-sm-8 mb-3 ml-2 mb-sm-0 form-control form-control-user" value={email} onChange={onEmailHandler} placeholder="Email Address..." required />
-                                        <button type="button" className=" col-sm-3 ml-2 btn btn-primary btn-user btn-block" value="submit" onClick={doubleCheck} >중복검사</button>
+                                        <Button className=" col-sm-3 ml-2 btn btn-primary btn-user btn-block" variant="contained" color="primary" onClick={doubleCheck} style={{fontFamily: "IBMPlexSansKR-Regular"}} >중복검사</Button>
                                     </div>
 
                                     <div className="form-group row">
@@ -149,17 +151,13 @@ const Join = () => {
                                         </div>
                                     </div>
                                     <Link to="/login">
-                                        <button type="submit" className="btn btn-primary btn-user btn-block" value="submit" onClick={joinClick} >Register Account</button>
+                                        <Button type="submit" className="btn btn-primary btn-user btn-block" variant="contained" color="primary" onClick={joinClick} style={{fontFamily: "IBMPlexSansKR-Regular"}} >Register Account</Button>
                                     </Link>
                                 </form>
                                 <hr />
-
+                                <br/>
                                 <div className="text-center">
-                                    <a className="small" href="/forgotpw">Forgot Password?</a>
-                                </div>
-
-                                <div className="text-center">
-                                    <a className="small" href="/login">Already have an account? Login!</a>
+                                    <Link className="small" to="/login">Already have an account? Login!</Link>
                                 </div>
 
                             </div>

@@ -12,6 +12,7 @@ const CompletePage = () => {
     const state = location.state;
 
     const [completeProject, setCompleteProject] = useState([]);
+    const [projectMember, setProjectMember] = useState([]);
 
     const findProject = async () => {
         const resp = await axios.get("/api/project/find/completeProject", {
@@ -24,11 +25,28 @@ const CompletePage = () => {
             });
 
         setCompleteProject(resp.data.data);
+        console.log(resp.data.data);
+    };
+
+    const findProjectMemberByNo = async () => {
+        await axios.get(`/api/project/findProjectMembeByNo`, {
+            params: {userNo: localStorage.getItem("loginUserNo")},
+            headers: {
+                Authorization: window.localStorage.getItem("Authorization"),
+            },
+            })
+            .then((resp) => {
+                const list = resp.data.data
+                setProjectMember(list);
+            })
     };
 
     useEffect(()=> {
         findProject();
-    }, [])
+        findProjectMemberByNo();
+    }, []);
+
+    
 
     useEffect(() => {
         if(currentPath === location.pathname) window.location.reload();
@@ -70,6 +88,7 @@ const CompletePage = () => {
                                     priority={e.priority}
                                     startDate={e.startDate}
                                     endDate={e.endDate}
+                                    leader = {!!projectMember[i] && projectMember[i].leader}
                                 />
                             ))
                         }

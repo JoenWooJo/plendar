@@ -43,12 +43,12 @@ const Ongoing = ({
                         <div className="col mr-2">
                             <div className='row'>
                                 <div className="col-xl-10 text-xs font-weight-bold text-primary text-uppercase mb-1" style={{fontFamily: "IBMPlexSansKR-Regular"}}>진행중</div>
-                                <div className=" col-xl-2 nav-link" href="#" role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" style={{ float: 'right' }} >
+                                <div className=" col-xl-2 nav-link" role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" style={{ float: 'right' }} >
                                     {
-                                        !!leader && leader === 1 && (<> 
+                                        !!leader && leader === 1 ? (<> 
                                         <MoreVertIcon onClick={e => { setMorevertList(morevertList => !morevertList) }} />
                                         {morevertList ? <MoreVertDropdown projectNo={no} projectData={projectData} /> : null}
-                                        </>)
+                                        </>) : <div>&nbsp;</div>
                                     }
                                 </div>
                             </div>

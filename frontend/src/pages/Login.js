@@ -3,6 +3,9 @@ import '../assets/scss/sb-admin-2.scss';
 import { useState } from 'react';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Link } from 'react-router-dom';
+import "../assets/css/font.css";
+import { Button } from '@mui/material';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -65,7 +68,7 @@ const Login = () => {
                                     <div className="col-lg-5">
                                         <div className="p-5">
                                             <div className="text-center">
-                                                <h1 className="h1 text-gray-900 mb-4">Login</h1>
+                                                <h1 className="h1 text-gray-900 mb-4" variant="contained"  style={{fontFamily: "IBMPlexSansKR-Regular"}}>Login</h1>
                                             </div>
                                             <form className= "user" >
                                                 {/* 이메일 입력 창 */}
@@ -78,16 +81,14 @@ const Login = () => {
                                                     <input type="password" pattern=".{6,}" className="form-control form-control-user" value={password} onChange={onPasswordHandler} placeholder="Password..." required/>
                                                 </div>
                                                 
-                                                <button type="submit" className="btn btn-primary btn-user btn-block" value="submit" onClick={loginClick} >Login</button>
+                                                <Button type="submit" className="btn btn-primary btn-user btn-block"  variant="contained" color="primary" onClick={loginClick}  style={{fontFamily: "IBMPlexSansKR-Regular"}} >Login</Button>
 
                                             </form>
                                             <hr />
 
+                                            
                                             <div className="text-center">
-                                                <a className="small" href="/forgotpw">Forgot Password?</a>
-                                            </div>
-                                            <div className="text-center">
-                                                <a className="small" href="/join">Create an Account!</a>
+                                                <Link className="small" to="/join"  style={{fontFamily: "IBMPlexSansKR-Regular"}}>Create an Account!</Link>
                                             </div>
                                             
                                         </div>
