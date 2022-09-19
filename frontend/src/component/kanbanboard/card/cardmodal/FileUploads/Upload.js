@@ -197,7 +197,7 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                 </div>
 
                 <div className="row" style={{ height: "270px", overflow:"auto"}}>
-                {feedItems.map((content, i)=>{
+                {feedItems.length !=0 && feedItems.map((content, i)=>{
                     return(
                     <Fragment key={i}>
                         <div className="col-xl-11 mt-1 ml-2">
