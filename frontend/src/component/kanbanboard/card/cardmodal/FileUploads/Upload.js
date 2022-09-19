@@ -59,6 +59,7 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                 }})
               .then((result) => {
                 if(result.statusText == 'OK'){
+                    console.log("이게 업로드 콘솔", result);
                     communication();
             }
         })
@@ -125,7 +126,9 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                 <Button
                     onClick={() =>
                         {setFiles([]);
-                        setSuccessfullUploaded(false);}
+                        setSuccessfullUploaded(false);
+                        communication();
+                    }
                     }
                     variant="outlined" 
                     color="primary"
