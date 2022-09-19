@@ -56,7 +56,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh, member, setMem
                     </Modal.Header>
                         {page === "card" && <UpdateCard show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager}/>}
                         {page === "comment" && <Comment show={show} setShow={setShow} projectNo={projectNo} deckNo={deckNo} cardNo={cardNo} title={title}/>}
-                        {page === "file" && <FileUpload show={show} setShow={setShow}/>}
+                        {page === "file" && <FileUpload show={show} setShow={setShow} feedItems={feedItems} cardNo={cardNo} projectNo={projectNo} item={returnItem}/>}
                     </div>
                 </Modal>
             </div>
