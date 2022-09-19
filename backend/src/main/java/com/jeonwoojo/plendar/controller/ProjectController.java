@@ -110,6 +110,7 @@ public class ProjectController {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findProjectTitle(projectNo)));
+	}
 
 	@GetMapping("/search/{word}")
 	public ResponseEntity<JsonResult> searchProject(@PathVariable("word") String word, @RequestParam("userNo") long userNo) {
