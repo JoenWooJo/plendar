@@ -247,7 +247,9 @@ export default function KanbanBoard() {
 return (
     <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
       <div className="card-header">
-        <h4 className=" col-xl-10 m-0 font-weight-bold text-primary"><BackupTableIcon fontSize="large" />&nbsp;{title}</h4>
+          <ModalMember projectNo={projectNo} style={{width: "10px"}}/>
+          <h4 className=" col-xl-10 m-0 font-weight-bold text-primary" style={{display: "inline", paddingTop: "20px"}}>&nbsp;{title}
+          </h4>
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
