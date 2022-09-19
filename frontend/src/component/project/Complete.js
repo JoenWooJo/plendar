@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Rating } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '../../assets/css/font.css';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CompleteDropDown from './CompleteDropDown';
 
 

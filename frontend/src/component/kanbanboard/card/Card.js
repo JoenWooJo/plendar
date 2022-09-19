@@ -157,12 +157,12 @@ const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence
                     }
                     <div id={`card-${cards.no}`} >
                         <div className='row'>
-                            <div className="col-xl-8 mt-2">
+                            <div className="col-xl-7 mt-2">
                                 <b>{cards.title}</b>
                             </div>
                             {/* 드롭다운 */}
-                            <div className='col-xl-1 mr-1'>
-                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light">
+                            <div className='col-xl-2 mr-2'>
+                                <DropdownButton id="dropdown-basic-button" title="더보기" size="sm" variant="light" >
                                     {(cuList.length != 0 || manager.length != 0) && <AddTask cardNo={cards.no} setRefresh={setRefresh} />}
                                     <CardModal title={cards.title} projectNo={projectNo} deckNo={deckNo} cardNo={cards.no} setRefresh={setRefresh} member={member} setMember={setMember} manager={manager} />
                                     {(cuList.length != 0 || manager.length != 0) && <Dropdown.Item onClick={() => removeCard()} >삭제하기</Dropdown.Item>}

@@ -49,7 +49,7 @@ export default class Navigation extends Component {
         const decode = jwt_decode(localStorage.getItem("Authorization"));
         
         return (
-        <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2">
+        <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2" >
             <NavLink className="sidebar-brand align-items-center justify-content-center "
                 to={"/project/myproject"}> <h1>plendar</h1> </NavLink>
 
@@ -65,7 +65,7 @@ export default class Navigation extends Component {
 
 
             <div className='ml-3'>
-                <li className="nav-item active">
+                <li className="nav-item active" style={{listStyle: "none"}}>
                     <NavLink className="nav-link"
                         to={'/user/mypagechecked'}>
                         <PersonIcon fontSize="large" /> &nbsp; My Page
@@ -73,7 +73,7 @@ export default class Navigation extends Component {
                 </li>
                 <hr className="sidebar-divider" />
 
-                <li className="nav-item active">
+                <li className="nav-item active" style={{listStyle: "none"}}>
                     <NavLink className="nav-link"
                         to={'/calendar/team'}>
                         <CalendarMonthIcon fontSize="large" />  &nbsp; Calendar
@@ -82,7 +82,7 @@ export default class Navigation extends Component {
                 <hr className="sidebar-divider" />
 
 
-                <li className="nav-item active">
+                <li className="nav-item active" style={{listStyle: "none"}}>
                     <NavLink className="nav-link"
                         to={'/project/myproject'}>
                         <ComputerIcon fontSize="large" /> &nbsp; My Project
