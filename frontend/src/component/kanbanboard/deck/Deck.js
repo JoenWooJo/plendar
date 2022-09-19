@@ -4,10 +4,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import Card from '../card/Card';
 
-const Deck = ({ deckTitle, no, projectNo }) => {
+export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, cards }){
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
@@ -17,29 +17,16 @@ const Deck = ({ deckTitle, no, projectNo }) => {
     const [morevertList, setMorevertList] = useState(false);
     const [state, setState] = useState();
 
-    // 카드 리스트 가져오기
-    const t = async () => {
-        const list = await get(`/kanban/card/find/${no}`);
-        setCardList(list);
-    }
-
     useEffect(()=>{
         if(deckTitle !== title) {
             setTitle(deckTitle);
         }
     }, [deckTitle]);
-    
-    useEffect(() => {
-        t();
-    }, [refresh])
-
-    useEffect(() => {
-        t();
-    }, [no])
 
     const onChangeTitle = (event) => {
         setTitle(event.target.value);
     };
+
     const onClickDeckTitle = () => {
         setClickChk(clickChk + 1);
         setChangeTitle(true)
@@ -48,9 +35,14 @@ const Deck = ({ deckTitle, no, projectNo }) => {
             setChangeTitle(false);
             setClickChk(0);
         }
-    }
+    };
+
+    const notClickDeckTitle = () => {
+        console.log("권한이 없습니다");
+        }
+
+
     const keyEnter = (e) => {
-        console.log(e.target.value);
         if (e.key == "Enter") {
             postJson(`/kanban/deck/update`, JSON.stringify({ title: title, no: no, cardNo: cardNo }));
             setChangeTitle(false);
@@ -58,54 +50,16 @@ const Deck = ({ deckTitle, no, projectNo }) => {
         }
     }
 
-    const onDragEnd = async (result) => {
-        const currentList = [...cardList];
-        const { destination, source, draggableId } = result;
-    
-        //위치 예외처리
-        if (!destination || source.index === destination.index ) {
-            return;
-          }
-        
-        //출발지점의 값
-        const column = currentList[source.index];
-        //기존 state를 mutatins 하는것을 막기위해 새로운 배열 만들기
-        const newTaskIds = Array.from(column.sequence);
-        
-        console.log("출발지점의 값 column:", column);
-        
-
-        // 원래 원소를 제거하고 destination에 원소를 끌어 놓아서 재배열
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
-        console.log("새로운 배열 newTaskIds", newTaskIds);
-
-        const newColumn = {
-          ...column,
-          index: newTaskIds,
-        };
-    
-        const newState = {
-          ...state,
-          index: {
-            ...state,
-            [newColumn.id]: newColumn,
-          },
-        };
-    
-       setState(newState);
-      };
-
-    //   const Container = styled.div`
-    //     flex-direction: column;
-    //   `;    
-
-    return (
-        <Paper>
-
-            <div className="row">
-                <div className="col-xl-9 mt-4 ml-3" onClick={onClickDeckTitle}>
-                    {changeTitle
+    return (<Draggable
+        draggableId={`deck:${no}`}
+        index={index}>
+        {(provided) => (<Paper
+            ref={provided.innerRef}
+            {...provided.draggableProps}>
+            <div className="row" 
+                {...provided.dragHandleProps}>
+                <div className="col-xl-9 mt-4 ml-3" onClick={manager.length != 0 ? onClickDeckTitle :notClickDeckTitle}>
+                    { changeTitle
                         ?
                         <TextField
                             id="outlined-multiline-flexible"
@@ -130,35 +84,34 @@ const Deck = ({ deckTitle, no, projectNo }) => {
                         cardNo={cardNo}
                         setRefresh={setRefresh}
                         setMorevertList={setMorevertList}
+                        manager = {manager}
                     /> : null}
                 </div>
                 
-                <DragDropContext onDragEnd={onDragEnd}>
-                {/* <Container> */}
-                <Droppable droppableId="card">
-                {provided =>(
-                <div className="card-body" ref={provided.innerRef} {...provided.droppableProps}>
-                    {
-                        cardList.map((data, index) => (
-                        <Draggable draggableId={String(data.no)} index={index} key={index} direction="horizontal">
-                        {provided => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Card key={index} title={data.title} card={data} projectNo={projectNo} deckNo={no} refresh={refresh} setRefresh={setRefresh} />
-                        {provided.placeholder}
-                        </div>
-                        )}
-                        </Draggable>
-                        )
-                        )}
-                    {provided.placeholder}
-                </div>
-                )}
+                <Droppable
+                    droppableId={`deck:${deck.no}`}
+                    type={"CARD"}>
+                {(dropProvided) => (<div className="card-body" 
+                ref={dropProvided.innerRef}
+                {...dropProvided.droppableProps}>
+                    {       
+                        cards.map((data, index) => (
+                        <Card   key={index} 
+                                title={data.title} 
+                                card={data} 
+                                projectNo={projectNo} 
+                                deckNo={no} 
+                                refresh={refresh} 
+                                setRefresh={setRefresh} 
+                                manager={manager} 
+                                index={index}
+                                sequence={data.sequence}
+                                cards={data}
+                        />))}
+                    {dropProvided.placeholder}
+                </div>)}
                 </Droppable>
-                {/* </Container> */}
-                </DragDropContext>
-            </div>
-        </Paper>
-    );
+                </div>
+        </Paper>)}
+        </Draggable>);
 };
-
-export default Deck;
