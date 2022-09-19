@@ -52,7 +52,7 @@ const Complete = ({ state, no, title, priority, startDate, endDate, leader }) =>
                                 <Rating
                                     value={priority}
                                     size="small"
-                                    readOnly
+                                    disabled 
                                 />
                             </div>
                             <div className="text-xs text-gray text-uppercase mt-3" style={{ fontFamily: "IBMPlexSansKR-Regular" }}>
