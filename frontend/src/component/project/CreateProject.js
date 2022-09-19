@@ -38,7 +38,8 @@ const CreateProject = () => {
             })
     }, []);
 
-    const createProject = () => {
+    const createProject = (e) => {
+        e.preventDefault();
         axios.post('/api/project/create', {
             title: title,
             description: description,
@@ -52,6 +53,7 @@ const CreateProject = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             }).then((resp) => {
+                resp.data.result == "success" && window.location.replace("/project/myProject");
         }).catch((err) => {
             console.error(err)
         });
@@ -228,7 +230,7 @@ const CreateProject = () => {
                     "/project/myProject"} style={{ textDecoration: "none" }}>
                     <button type="button" className=" mt-4 mr-2 btn btn-secondary"
                         onClick={(e) => {
-                            title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : createProject()
+                            title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : createProject(e)
                         }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Create</button>
                 </Link>
 
