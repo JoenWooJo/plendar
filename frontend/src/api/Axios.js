@@ -20,6 +20,15 @@ export const get = async (url) => {
     }
 }
 
+export const getData = async (url, data) => {
+    try {
+        let response = await client.get(url, data);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error >>", error);
+    }
+}
+
 /**
  * axios POST(Create) 요청
  * @param {string} url api 서버 url [도메인 제외]

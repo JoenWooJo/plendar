@@ -21,7 +21,7 @@ public class NoticeRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public NoticeMessage insertNoticeProject(ProjectVo projectVo, Long userNo) {
+	public void insertNoticeProject(ProjectVo projectVo, Long userNo) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		NoticeMessage noticeMessage = new NoticeMessage();
 		noticeMessage.setMessage(projectVo.getTitle()+" 프로젝트가 생성 되었습니다.");
@@ -33,17 +33,15 @@ public class NoticeRepository {
 		for(int i=0;i<member.size();i++) {
 			noticeMessage.setUserNo(member.get(i).getNo());
 			sqlSession.insert("notice.insertNoticeProject", noticeMessage);
+			sendingOperations.convertAndSend("/topic/notice/"+member.get(i).getNo(), noticeMessage);
 		}
-		noticeMessage.setUserNo(userNo);
-		
-		return noticeMessage;
 	}
 
 	public List<NoticeMessage> getAlramList(Long userNo) {
 		return sqlSession.selectList("notice.getAlramList", userNo);
 	}
 
-	public NoticeMessage insertNoticeUpdateProject(ProjectVo updateProjectVo, Long userNo, String projectTitle) {
+	public void insertNoticeUpdateProject(ProjectVo updateProjectVo, Long userNo, String projectTitle) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		NoticeMessage noticeMessage = new NoticeMessage();
 		noticeMessage.setMessage(projectTitle+" 프로젝트가 "+ updateProjectVo.getTitle() +"(으)로 수정 되었습니다.");
@@ -54,10 +52,9 @@ public class NoticeRepository {
 		for(int i=0;i<updateProjectVo.getMember().size();i++) {
 			noticeMessage.setUserNo(updateProjectVo.getMember().get(i).getNo());
 			sqlSession.insert("notice.insertNoticeProject", noticeMessage);
+			sendingOperations.convertAndSend("/topic/notice/"+updateProjectVo.getMember().get(i).getNo(), noticeMessage);
 		}
-		noticeMessage.setUserNo(userNo);
 		
-		return noticeMessage;
 	}
 
 	public NoticeMessage insertNoticeCard(CardVo newCardVo, String projectTitle) {
@@ -88,7 +85,12 @@ public class NoticeRepository {
 	}
 
 	public void insertNotice(NoticeMessage noticeMessage) {
-		sqlSession.insert("notice.insertNotice", noticeMessage);
+		if(noticeMessage.getCardNo() != 0) {
+			sqlSession.insert("notice.insertNoticeOnlyCard", noticeMessage);
+		} else {
+			sqlSession.insert("notice.insertNotice", noticeMessage);
+		}
+		
 	}
 
 	public void insertNoticeDelete(NoticeMessage noticeMessage) {

@@ -4,6 +4,8 @@ import MoreVertDropdown from './MoreVertDropdown';
 import { Link } from 'react-router-dom';
 import { Rating } from "@mui/material";
 
+import '../../assets/css/font.css';
+
 const Ongoing = ({
     no,
     title,
@@ -40,7 +42,7 @@ const Ongoing = ({
                     <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">
                             <div className='row'>
-                                <div className="col-xl-10 text-xs font-weight-bold text-primary text-uppercase mb-1">진행중</div>
+                                <div className="col-xl-10 text-xs font-weight-bold text-primary text-uppercase mb-1" style={{fontFamily: "IBMPlexSansKR-Regular"}}>진행중</div>
                                 <div className=" col-xl-2 nav-link" href="#" role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" style={{ float: 'right' }} >
                                     {
                                         !!leader && leader === 1 && (<> 
@@ -50,7 +52,7 @@ const Ongoing = ({
                                     }
                                 </div>
                             </div>
-                            <Link to={`/kanbanboard/${no}`} className="h5 mb-0 font-weight-bold text-gray-800" >{title}</Link>
+                            <Link to={`/kanbanboard/${no}`} className="h5 mb-0 font-weight-bold text-gray-800" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</Link>
                             <div className='mt-3'>
                                 <Rating
                                     name="read-only"
@@ -59,7 +61,7 @@ const Ongoing = ({
                                     readOnly
                                 />
                             </div>
-                            <div className="text-xs text-gray text-uppercase mt-3">{startDate} ~{endDate}</div>
+                            <div className="text-xs text-gray text-uppercase mt-3" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{startDate} ~{endDate}</div>
                         </div>
                         <div className="col-auto">
                             <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>

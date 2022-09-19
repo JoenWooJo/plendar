@@ -8,6 +8,8 @@ import BackupTableIcon from '@mui/icons-material/BackupTable';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ModalMember from './ModalMember';
 
 
 let currentPath = "";

@@ -43,7 +43,7 @@
 	
 	<insert id="commentInsert" parameterType="commentvo">
       <![CDATA[
-         insert into comment values(null, #{cardNo}, #{userNo}, #{projectNo}, #{content}, #{date})
+         insert into comment values(null, #{cardNo}, #{content}, #{date}, #{userNo}, #{projectNo})
       ]]>
       <selectKey keyProperty="no" resultType="long" order="AFTER">
 		<![CDATA[
@@ -56,7 +56,7 @@
       <![CDATA[
          select b.name as userName, a.content, a.date 
             from comment a, user b
-            where a.pm_user_no = b.no 
+            where a.user_no = b.no 
             and a.card_no=#{cardNo } 
             order by a.date asc
       ]]>

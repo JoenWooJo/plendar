@@ -16,6 +16,8 @@ import Chat from './component/chat/Chat';
 import CompletePage from './component/project/CompletePage';
 import PersonalCalendar from './component/calendar/PersonalCalendar';
 import About from './About';
+import Search from './component/search/Search';
+
 
 const App= () => (
   
@@ -37,7 +39,8 @@ const App= () => (
         {path: '/updateProject/:no', element: <UpdateProject />},
         {path: '/project/completepage', element: <CompletePage />},   
         {path: '/chat', element: <Chat />}, 
-        {path: '/kanbanboard/:no', element: <Kanban />}
+        {path: '/kanbanboard/:no', element: <Kanban />},
+        {path: '/search/:word', element: <Search />}
       ]
     }
       

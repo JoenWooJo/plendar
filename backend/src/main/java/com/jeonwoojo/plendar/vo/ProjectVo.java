@@ -13,5 +13,6 @@ public class ProjectVo {
 	private String endDate;
 	private int priority;
 	private String finished;
-	private List<UserVo> member; 
+	private List<UserVo> member;
+	private int leader;
 }

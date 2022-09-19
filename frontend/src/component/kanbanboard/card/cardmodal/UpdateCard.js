@@ -11,6 +11,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Modal } from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
+import "../../../../assets/css/font.css";
 
 
 const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, member, setMember, manager }) => {
@@ -154,7 +156,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                                 className="mb-3 "
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>
+                                <Form.Label style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                                     설명
                                 </Form.Label>
                                 {(cuList.length != 0  || manager.length != 0)
@@ -187,7 +189,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                             <div className='ml-3'>
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
-                                        label="마감일"
+                                        label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>마감일</Typography>}
                                         value={endDate}
                                         inputFormat={"yyyy-MM-dd"}
                                         mask={"____-__-__"}
@@ -220,7 +222,7 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                                     (cuList.length != 0 || manager.length !=0) &&
                                     (selectUser != null && !member.some(checkMember) && setMember([...member, selectUser]));
                                     setReset(reset => !reset);
-                                }}>add</button>
+                                }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>add</button>
                             </div>
                             <div className="table-responsive mt-3" style={{ height: "200px", overflow: "auto" }}>
                                 <table className="table table-bordered" id="dataTable" width="100%">
@@ -258,13 +260,14 @@ const UpdateCard = ({ show, setShow, projectNo, deckNo, cardNo, setRefresh, memb
                                         }
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShow(!show)}>
+                <Button variant="secondary" onClick={() => setShow(!show)} style={{fontFamily: "IBMPlexSansKR-Regular"}}>
                     Close
                 </Button>
                 <Button variant="primary" onClick={(cuList.length != 0 || manager.length !=0) ? updateCard : unUpdateCard}>

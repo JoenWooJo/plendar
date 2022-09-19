@@ -10,13 +10,13 @@ import { get, remove } from '../../../api/Axios';
 import axios from 'axios';
 import ClearIcon from '@mui/icons-material/Clear';
 import TaskList from './TaskList';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Draggable } from "react-beautiful-dnd";
 import './card.css';
 
 const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence, cards, deck }) => {
+
     let location = useLocation();
     const state = location.state;
     const cardView = state != null ? state["cardNo"] : "";

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Rating } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import '../../assets/css/font.css';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CompleteDropDown from './CompleteDropDown';
 
-const Complete = () => {
 
-    const [projectList, setProjectList] = useState([]);
+const Complete = ({ state, no, title, priority, startDate, endDate}) => {
+    let projectNo = state != null ? state["projectNo"] : "";
+    const [morevertList, setMorevertList] = useState(false);
 
     useEffect(() => {
         axios.get('/api/project/find/completeProject', {
@@ -20,6 +22,9 @@ const Complete = () => {
                 setProjectList(list);
             })
     }, [projectList]);
+
+
+    
 
     return (
         <>
@@ -52,12 +57,21 @@ const Complete = () => {
                                         <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
+
                             </div>
+                            <div className="text-xs text-gray text-uppercase mt-3" style={{fontFamily: "IBMPlexSansKR-Regular"}}>
+                                {startDate} ~{endDate}</div>
+                        </div>
+                        <div className="col-auto">
+                            <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
-                );
-            })}
-        </>
+                </div>
+            </div>
+        </div>
+        );
+        })}
+       </>
     );
 };
 

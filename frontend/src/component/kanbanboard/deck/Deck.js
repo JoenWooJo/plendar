@@ -6,8 +6,11 @@ import { get, postJson } from '../../../api/Axios';
 import Paper from '@mui/material/Paper';
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Card from '../card/Card';
+import '../../../assets/css/font.css';
+import { Typography } from '@mui/material';
 
 export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, cards }){
+
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
@@ -64,7 +67,7 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, 
                         <TextField
                             id="outlined-multiline-flexible"
                             multiline
-                            label='제목 수정'
+                            label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>제목 수정</Typography>}
                             maxRows={4}
                             value={title}
                             onChange={(e) => onChangeTitle(e)}
@@ -73,7 +76,7 @@ export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, 
                             size="small"
                         />
                         :
-                        <h5 className="mb-3 font-weight-bold text-gray-dark">{title}</h5>
+                        <h5 className="mb-3 font-weight-bold text-gray-dark" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{title}</h5>
                     }
                 </div>
                 <div className="col-xl-2 mt-2">

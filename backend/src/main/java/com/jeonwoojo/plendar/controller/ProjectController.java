@@ -1,9 +1,10 @@
 package com.jeonwoojo.plendar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jeonwoojo.plendar.dto.JsonResult;
 import com.jeonwoojo.plendar.service.NoticeService;
 import com.jeonwoojo.plendar.service.ProjectService;
-import com.jeonwoojo.plendar.vo.NoticeMessage;
 import com.jeonwoojo.plendar.vo.ProjectVo;
 
 @Controller
@@ -27,8 +27,6 @@ import com.jeonwoojo.plendar.vo.ProjectVo;
 public class ProjectController {
 	
 	@Autowired
-	private SimpMessageSendingOperations sendingOperations;
-	@Autowired
 	private ProjectService projectService;
 	@Autowired
 	private NoticeService noticeService;
@@ -36,9 +34,8 @@ public class ProjectController {
 	@PostMapping("/create")
 	public ResponseEntity<JsonResult> create(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
 		ProjectVo newVo = projectService.createProject(projectVo, userNo);
-		NoticeMessage noticeMessage= noticeService.insertNoticeProject(newVo, userNo);
-		System.out.println(noticeMessage);
-		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
+		noticeService.insertNoticeProject(newVo, userNo);
+		
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(newVo));
@@ -81,8 +78,8 @@ public class ProjectController {
 	public ResponseEntity<JsonResult> updateProject(@RequestParam("userNo") long userNo, @RequestBody ProjectVo projectVo) {
 		String projectTitle = projectService.findProjectTitle(projectVo.getNo());
 		ProjectVo updateProjectVo = projectService.updateProject(projectVo);
-		NoticeMessage noticeMessage= noticeService.insertNoticeUpdateProject(updateProjectVo, userNo, projectTitle);
-		sendingOperations.convertAndSend("/topic/notice/"+userNo, noticeMessage);
+		
+		noticeService.insertNoticeUpdateProject(updateProjectVo, userNo, projectTitle);
 		
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -107,11 +104,30 @@ public class ProjectController {
 				.body(JsonResult.success("finish ok!"));
 	}
 	
+
 	@GetMapping("/title/{projectNo}")
 	public ResponseEntity<JsonResult> findProjectTitle(@PathVariable("projectNo")long projectNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(projectService.findProjectTitle(projectNo)));
+
+	@GetMapping("/search/{word}")
+	public ResponseEntity<JsonResult> searchProject(@PathVariable("word") String word, @RequestParam("userNo") long userNo) {
+		List<ProjectVo> searchProjectList = projectService.searchProject(word, userNo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(searchProjectList));
+	}
+	
+	@PutMapping("/change/ongoing")
+	public ResponseEntity<JsonResult> changeOngoing(@RequestParam("userNo") long userNo, @RequestParam("projectNo") long projectNo) {
+		projectService.changeOngoing(userNo, projectNo);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success("change ongoing!"));
+
 	}
 	
 }
