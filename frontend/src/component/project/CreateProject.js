@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 const CreateProject = () => {
@@ -86,7 +88,7 @@ const CreateProject = () => {
             <div className="row">
                 <div className="card shadow ml-5 mt-1 col-xl-6">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Craete Project</h4>
+                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><BorderColorIcon fontSize='large' />Create Project</h4>
                     </div>
                     <div className="card-body">
                         <div className="chart-area">
@@ -171,7 +173,7 @@ const CreateProject = () => {
                                             newValue != null && setSelectUser(newValue)
                                         }}
                                         getOptionLabel={(user) => user.email + " " + user.name}
-                                        renderInput={(params) => <TextField {...params} label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}>프로젝트 멤버 추가</Typography>} id='text' type='select' />
+                                        renderInput={(params) => <TextField {...params} label={<Typography style={{fontFamily: "IBMPlexSansKR-Regular"}}><PersonAddIcon fontSize='large' />프로젝트 멤버 추가</Typography>} id='text' type='select' />
                                         }
                                     />
                                 </div>
