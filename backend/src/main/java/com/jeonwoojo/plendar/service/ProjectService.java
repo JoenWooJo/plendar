@@ -141,6 +141,8 @@ public class ProjectService {
 		noticeMessage.setType("finished");
 		noticeMessage.setProjectNo(projectNo);
 		
+		noticeRepository.deleteProjectNotice(projectNo);
+		
 		for(int i=0;i<member.size();i++) {
 			noticeMessage.setTime(dtf.format(LocalDateTime.now()));
 			noticeMessage.setUserNo(member.get(i).getNo());
