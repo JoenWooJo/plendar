@@ -24,6 +24,7 @@ const ModalMember = ({ projectNo }) => {
 
     useEffect(()=>{
         findMember();
+        console.log(member);
     },[show])
 
     return (
@@ -43,8 +44,9 @@ const ModalMember = ({ projectNo }) => {
                                         alt="avatar" className="d-flex align-self-center me-3" width="50" />
                                 </div>
                                 <div className="pt-1 ml-2">
-                                    <p className="fw-bold mb-0" style={{ fontFamily: "IBMPlexSansKR-Regular" }}>{e.name}</p>
+                                    <p className="fw-bold mb-0" style={{ fontFamily: "IBMPlexSansKR-Regular" }}>{e.name} {e.leader == 1 ? " - leader" : e.leader == 0 && e.manager == 1 ? " - manager" : ""}</p>
                                     <p className="small text-muted" style={{ fontFamily: "IBMPlexSansKR-Regular" }}>{e.email}</p>
+                                    
                                 </div>
                             </div>
                         ))
