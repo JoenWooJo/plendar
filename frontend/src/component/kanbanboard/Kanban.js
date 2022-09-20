@@ -31,6 +31,7 @@ export default function KanbanBoard() {
   const [cardMoving, setCardMoving] = useState(null);
   const [deckMoving, setDeckMoving] = useState(null);
   const [member, setMember] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   if (projectNo !== params.no) {
     setProjectNo(params.no);
@@ -215,7 +216,7 @@ export default function KanbanBoard() {
 
   useEffect(()=>{
     fetchDecks();
-  },[])
+  },[refresh])
   //---------------------------권한 관리-------------------------------------
   const findMember = async () => {
     const list = await get(`/project/find/member/${projectNo}`);
@@ -283,6 +284,8 @@ return (
                   manager={manager}
                   deck={data}
                   cards={data.cards}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
                 />
                 );
               })}

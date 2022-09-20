@@ -54,7 +54,8 @@ const UpdateProject = () => {
         setMember(projMember.data.data);
     }
 
-    const updateProject = async () => {
+    const updateProject = async (e) => {
+        e.preventDefault();
         const projectData = {
             no: projectNo,
             title: title,
@@ -72,6 +73,8 @@ const UpdateProject = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             });
+        
+        resp.data.result == "success" && window.location.replace("/project/myProject");
     };
 
     const is_checked = (event, index) => {
@@ -271,7 +274,7 @@ const UpdateProject = () => {
                     "/project/myProject"} style={{ textDecoration: "none" }}>
                     <button type="button" className=" mt-4 mr-2 btn btn-secondary"
                         onClick={(e) => {
-                            title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : updateProject()
+                            title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : updateProject(e)
                         }}>Update</button>
                 </Link>
 

@@ -9,14 +9,13 @@ import Card from '../card/Card';
 import '../../../assets/css/font.css';
 import { Typography } from '@mui/material';
 
-export default function Deck ({ deckTitle, no, projectNo, manager, index, deck, cards }){
+export default function Deck ({ refresh, setRefresh, deckTitle, no, projectNo, manager, index, deck, cards }){
 
     const [title, setTitle] = useState(deckTitle);
     const [changeTitle, setChangeTitle] = useState(false);
     const [clickChk, setClickChk] = useState(0);
     const [cardList, setCardList] = useState([]);
     const [cardNo, setCardNo] = useState();
-    const [refresh, setRefresh] = useState(false);
     const [morevertList, setMorevertList] = useState(false);
     const [state, setState] = useState();
 

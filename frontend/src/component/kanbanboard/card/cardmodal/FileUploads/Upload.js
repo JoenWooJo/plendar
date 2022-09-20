@@ -58,7 +58,7 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                     Authorization: window.localStorage.getItem("Authorization"),
                 }})
               .then((result) => {
-                if(result.statusText == 'OK'){
+                if(result.data.result == 'success'){
                     communication();
             }
         })
@@ -125,7 +125,9 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                 <Button
                     onClick={() =>
                         {setFiles([]);
-                        setSuccessfullUploaded(false);}
+                        setSuccessfullUploaded(false);
+                        communication();
+                    }
                     }
                     variant="outlined" 
                     color="primary"
@@ -143,7 +145,8 @@ const Upload = ({ cardNo, projectNo, feedItems, item }) => {
                     size="medium"
                     onClick={() => {uploadFiles()
                         setUploadProgress({})
-                        setUploading(true)}}>
+                        setUploading(true)
+                        communication();}}>
                     Upload
                 </Button>
             );

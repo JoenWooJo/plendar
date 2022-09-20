@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 const CreateProject = () => {
@@ -86,7 +88,7 @@ const CreateProject = () => {
             <div className="row">
                 <div className="card shadow ml-5 mt-1 col-xl-6">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Craete Project</h4>
+                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><BorderColorIcon fontSize='large' />Create Project</h4>
                     </div>
                     <div className="card-body">
                         <div className="chart-area">
@@ -156,7 +158,7 @@ const CreateProject = () => {
 
                 <div className="card shadow ml-3 mt-1 col-xl-4">
                     <div className="card-header py-3">
-                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}>Member</h4>
+                        <h4 className="m-0 font-weight-bold text-primary" style={{fontFamily: "IBMPlexSansKR-Regular"}}><PersonAddIcon fontSize='large' />Member</h4>
                     </div>
                     <div className="card-body">
                         <div className="chart-bar">
