@@ -72,11 +72,16 @@
 		]]>
 	</select>
 	
-	<select id="deleteNotice" parameterType="long">
+	<delete id="deleteNotice" parameterType="long">
 		<![CDATA[
 			delete from notice where no = #{noticeNo }
 		]]>
-	</select>
+	</delete>
 	
+	<delete id="deleteProjectNotice" parameterType="long">
+		<![CDATA[
+			delete from notice where project_no = #{projectNo }
+		]]>
+	</delete>
 	
 </mapper>
