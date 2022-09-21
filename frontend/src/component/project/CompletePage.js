@@ -59,7 +59,7 @@ const CompletePage = () => {
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                    <h4 className="m-0 font-weight-bold text-gray"> <LibraryAddCheckIcon fontSize='large' />&nbsp;Complete project</h4>
+                    <h4 className="m-0 font-weight-bold text-gray"> <LibraryAddCheckIcon fontSize='large' />&nbsp;Complete projects</h4>
                 </div>
                 <div className="card-body">
                     <div className="d-sm-flex align-items-center justify-content-between col-xl-12 mb-4">

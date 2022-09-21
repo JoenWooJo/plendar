@@ -40,7 +40,7 @@ const Complete = ({ state, no, title, priority, startDate, endDate, leader }) =>
                                     완료</div>
                                 <div className=" col-xl-2 nav-link" role="button" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase" style={{ float: 'right' }} >
                                 {
-                                    !!leader && leader === 1 ? (<>
+                                    (!!leader && leader === 1) ? (<>
                                         <MoreVertIcon onClick={e => { setMorevertList(morevertList => !morevertList) }} />
                                         {morevertList ? <CompleteDropDown projectNo={no} /> : null}
                                     </>) : <div>&nbsp;</div>
