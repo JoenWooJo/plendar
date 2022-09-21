@@ -44,8 +44,8 @@ const ModalChat = ({ roomNo }) => {
                                 chatMember.map((e, i) => (
                                     <div className="ml-3 mt-3 d-flex flex-row" key={i}>
                                         <div>
-                                            <img src={e.profile} style={{borderRadius:'70%'}}
-                                                alt="avatar" className="d-flex align-self-center me-3" width="50" />
+                                            <img src={e.profile} style={{borderRadius:'70%', width: "50px", height: "50px"}}
+                                                alt="avatar" className="d-flex align-self-center me-3"  />
                                         </div>
                                         <div className="pt-1 ml-2">
                                             <p className="fw-bold mb-0" style={{fontFamily: "IBMPlexSansKR-Regular"}}>{e.name }</p>

@@ -46,6 +46,7 @@ const Header = ({ }) => {
             });
         localStorage.removeItem("Authorization");
         localStorage.removeItem("loginUserNo");
+        localStorage.removeItem("loginUserProfile");
         
         window.location.replace("/login");
     };

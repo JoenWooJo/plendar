@@ -22,7 +22,7 @@ const Mypage = () => {
     const decode = jwt_decode(localStorage.getItem("Authorization"));
     const [name, setName] = useState(decode["name"]);
     const [email, setEmail] = useState(decode["email"]);
-    const [profile, setProfile] = useState(decode["profile"])
+    const [profile, setProfile] = useState(localStorage.getItem('loginUserProfile'))
     const [imageSrc, setImageSrc] = useState(profile);
     
 
@@ -91,16 +91,9 @@ const Mypage = () => {
             },
             })
             .then((resp) => {
-                if (resp.data.result == "fail") {
-                    alert(resp.data.message);
-                    window.location.replace("/login");
-                }
-                setProfile(resp.data.data);
-
-                localStorage.removeItem("Authorization");
-                localStorage.removeItem("loginUserNo");
-                alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
-                window.location.replace("/login");
+                setProfile(localStorage.setItem('loginUserProfile', '/assets/profile/defaultProfile.png'));
+                alert("프로필이 기본 프로필로 변경되었습니다.");
+                window.location.replace("/user/mypage");
             });
     }
 
@@ -192,10 +185,9 @@ const Mypage = () => {
             window.location.replace("/login");
         }
         
-        alert("프로필이 변경되었습니다. 다시 로그인 해주세요.");
-        window.location.replace("/login");
-        localStorage.removeItem("Authorization");
-        localStorage.removeItem("loginUserNo");
+                setProfile(localStorage.setItem('loginUserProfile', response.data.data));
+                alert("프로필이 변경되었습니다.");
+                window.location.replace("/user/mypage");
     }
 
     // 파일 미리보기 로직

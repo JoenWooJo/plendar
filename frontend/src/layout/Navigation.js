@@ -47,6 +47,7 @@ export default class Navigation extends Component {
 
     render() {
         const decode = jwt_decode(localStorage.getItem("Authorization"));
+        const profile = localStorage.getItem('loginUserProfile');
         
         return (
         <ul className=" bg-gradient-primary sidebar sidebar-dark col-xl-2" >
@@ -57,7 +58,7 @@ export default class Navigation extends Component {
 
 
             <div className="text-center mt-5 2">
-                <img src={decode["profile"]} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
+                <img src={profile} style={{ height: '200px', width: '200px', borderRadius: '70%' }}></img>
                 <br /><br />
                 <div className="text-light "><h6 style={{fontFamily: "IBMPlexSansKR-Regular"}}>{decode["name"]} &nbsp; 님</h6><br /></div>
             </div>

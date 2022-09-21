@@ -33,6 +33,7 @@ const Login = () => {
                 localStorage.setItem('Authorization', accesToken);
                 const decode = jwt_decode(accesToken);
                 localStorage.setItem('loginUserNo', decode["no"]);
+                localStorage.setItem('loginUserProfile', decode["profile"]);
             }).catch(error => {
                 alert("로그인 정보가 시스템에 있는 계정과 일치하지 않습니다.");
             });
