@@ -18,8 +18,7 @@ const Ongoing = ({
     leader
 }) => {
 
-    let projectNo = state != null ? state["projectNo"] : "";
-    let alramType = state != null ? state["type"] : "";
+    
     const [morevertList, setMorevertList] = useState(false);
     const projectData = {
         no: no,
@@ -29,13 +28,23 @@ const Ongoing = ({
         endDate: endDate,
         priority: priority
     }
+    // require("/assets/images/update.png").default
+    // require("/assets/images/new.png").default
+    let projectNo = state != null ? state["projectNo"] : "";
+    let alramType = state != null ? state["type"] : "";
+    let src = (projectNo == no && alramType == "update") ? "/assets/images/update.png"  : (projectNo == no && alramType == "create") ? "/assets/images/new.png" : ""
 
-    let src = projectNo == no && alramType == "update" ? "/assets/images/update.png"  : projectNo == no && alramType == "create" ? "/assets/images/new.png" : ""
+    useEffect(()=>{
+        console.log("src>>", src)
+    }, [])
+
+    
 
     return (
         <div className="col-xl-3  mb-4" key={no}  >
             <div className="card border-left-primary shadow h-100 py-2">
-            <span><img id={"proj-new-img"} className="mb-3 ml-1" src={src} alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>
+            <span><img id={"proj-new-img"} className="mb-3 ml-1" src={src} 
+                    alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>
                 <div className="card-body" >
                     <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">

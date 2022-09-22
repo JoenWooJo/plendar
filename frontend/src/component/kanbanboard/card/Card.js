@@ -140,6 +140,7 @@ const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence
         );
     })
 
+
     return (
         <Draggable
         draggableId={`cards:${cards.no}` }
@@ -151,10 +152,12 @@ const Card = ({ projectNo, deckNo, refresh, setRefresh, manager, index, sequence
             <div className="card bg-light text-black shadow mb-2" >
 
                 <div className="card-body" id={noSum == 0 && taskSum != 0 ? "card-border" : ""}>
+                    <div id="noticeImg">
                     {
                         cardView == cards.no && noticeType == "card" ? <span><img id="new-img" className="mb-3 ml-1" src="/assets/images/new.png" alt="" style={{ position: "absolute", width: "35px", top: "-12px", left: "-3px" }} /></span> :
                             cardView == cards.no && noticeType == "comment" ? <span><img id={`new-img-${noticeNo}`} className='mb-3 ml-1' src='/assets/images/comment.png' alt='' style={{ position: "absolute", width: "30px", paddingTop: "5px", top: "-12px", left: "-3px" }} /></span> : ""
                     }
+                    </div>
                     <div id={`card-${cards.no}`} >
                         <div className='row'>
                             <div className="col-xl-7 mt-2">

@@ -14,6 +14,7 @@ const Myproject = () => {
     const [projectList, setProjectList] = useState([]);
     const [projectMember, setProjectMember] = useState([]);
     const userNo = localStorage.getItem("loginUserNo");
+    const [abc, setAbc] = useState(false);
 
     const fetchAndProjectList = async () => {
         await axios.get(`/api/project/find/project/${userNo}`, {
@@ -40,24 +41,31 @@ const Myproject = () => {
             })
     };
 
-    useEffect(() => {
-        if(currentPath === location.pathname) window.location.reload();
-        currentPath = location.pathname;
-      }, [location]);
+    // useEffect(() => {
+    //     if(currentPath === location.pathname) window.location.reload();
+    //     currentPath = location.pathname;
+    //   }, [location]);
 
     useEffect(() => {
         fetchAndProjectList();
         findProjectMemberByNo();
-        const f = () => {
-            let child = document.getElementById("proj-new-img");
-            child != null && child.parentNode.removeChild(child);
-        }
-        document.addEventListener("click", f);
+        // const f = () => {
+        //     // let child = document.getElementById("proj-new-img");
+        //     // child != null && child.parentNode.removeChild(child);
+        //     console.log("dd",document.getElementById("proj-new-img"))
+        //     document.getElementById("proj-new-img").src = "#";
+            
+        // }
+        // document.addEventListener("click", f);
 
-        return () => {
-            document.removeEventListener("click", f)
-        }
+        // return () => {
+        //     document.removeEventListener("click", f)
+        // }
     }, []);
+
+    useEffect(()=>{
+        console.log("state>>",state)
+    }, [state])
 
 
     return (
@@ -85,6 +93,7 @@ const Myproject = () => {
                     <div className="row mb-4" style={{ overflow: "auto" }}>
                         {
                             projectList.map((m, i) => {
+                                
                                 return (
                                     <Ongoing
                                         key={i}

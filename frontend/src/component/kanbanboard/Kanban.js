@@ -231,9 +231,13 @@ export default function KanbanBoard() {
   })
 
   useEffect(() => {
+
+    console.log("state>>",state);
     const f = () => {
       let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
       child != null && child.parentNode.removeChild(child);
+      // child.src = "#";
+
     }
     document.addEventListener("click", f)
 
@@ -250,7 +254,7 @@ export default function KanbanBoard() {
   const manager = managerList.filter((m) => (m.no == uu));
 
 return (
-    <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto" }}>
+    <div className="col-xl-11 ml-4" style={{ width: "1000px", "overflow": "auto"}}>
       <div className="card-header">
           <ModalMember projectNo={projectNo} style={{width: "10px"}}/>
           <h4 className=" col-xl-10 m-0 font-weight-bold text-primary" style={{display: "inline", paddingTop: "20px"}}>&nbsp;{title}

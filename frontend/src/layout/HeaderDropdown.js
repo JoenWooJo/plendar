@@ -14,11 +14,11 @@ const HeaderDropdown = ({ alramList, setClick }) => {
 
     const alramClick = async (alram) => {
         // notice => 삭제
-        await axios.delete(`/api/notice/delete/${alram.no}`, {
-            headers: {
-                Authorization: window.localStorage.getItem("Authorization"),
-            },
-        });
+        // await axios.delete(`/api/notice/delete/${alram.no}`, {
+        //     headers: {
+        //         Authorization: window.localStorage.getItem("Authorization"),
+        //     },
+        // });
         setClick(click=>!click);
     };
 
