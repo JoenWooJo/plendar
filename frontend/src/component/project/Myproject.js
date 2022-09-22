@@ -40,10 +40,10 @@ const Myproject = () => {
             })
     };
 
-    // useEffect(() => {
-    //     if(currentPath === location.pathname) window.location.reload();
-    //     currentPath = location.pathname;
-    //   }, [location]);
+    useEffect(() => {
+        if(currentPath === location.pathname) window.location.reload();
+        currentPath = location.pathname;
+      }, [location]);
 
     useEffect(() => {
         fetchAndProjectList();
