@@ -163,6 +163,8 @@ public class ProjectService {
 	public void changeOngoing(long userNo, long projectNo) {
 		projectRepository.changeOngoing(projectNo);
 		
+		noticeRepository.deleteProjectNotice(projectNo);
+		
 		List<UserVo> member = projectRepository.findProjectMember(projectNo);
 		String title = projectRepository.findProjectTitle(projectNo);
 		
