@@ -237,6 +237,10 @@ export default function KanbanBoard() {
     }
     document.addEventListener("click", f)
 
+    return () => {
+      document.removeEventListener("click", f)
+    }
+
 
   }, [state])
 
