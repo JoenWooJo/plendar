@@ -50,7 +50,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh, member, setMem
                                 <Button  onClick={() => { setPage("comment") }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>Comment</Button>
                                 <Button  onClick={() => { 
                                   setPage("file")
-                                  communication() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileUpload</Button>
+                                  communication() }} style={{fontFamily: "IBMPlexSansKR-Regular"}}>FileSharing</Button>
                             </ButtonGroup>
                         </Box>
                     </Modal.Header>

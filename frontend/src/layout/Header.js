@@ -81,7 +81,7 @@ const Header = ({ }) => {
     useEffect(()=>{
         getChatAlramCount();
         console.log("노티스")
-    }, [current, alramCount]);
+    }, [current]);
 
     useEffect(()=>{
         getAlramList();
@@ -120,6 +120,9 @@ const Header = ({ }) => {
             console.log(list);
             setAlramList([list, ...alramRef.current]);
             setAlramCount(alramCountRef.current+1);
+            if(list["type"] == "finished") {
+                getAlramList();
+            }
         }, { id: "notice-proj" });
 
         client.current.subscribe(`/topic/notice/chat/${localStorage.getItem("loginUserNo")}`, (data) => {
