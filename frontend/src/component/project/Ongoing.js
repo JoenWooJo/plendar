@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import $ from "jquery";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreVertDropdown from './MoreVertDropdown';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,7 @@ const Ongoing = ({
     state,
     leader
 }) => {
+
     let projectNo = state != null ? state["projectNo"] : "";
     let alramType = state != null ? state["type"] : "";
     const [morevertList, setMorevertList] = useState(false);
@@ -28,13 +30,19 @@ const Ongoing = ({
         endDate: endDate,
         priority: priority
     }
+    useEffect(()=>{
+        reloadDivArea();
+    }, [state])
 
+    const reloadDivArea = () => {
+        $('#noticeImg').load(location.href+' #proj-new-img');
+    }
     let src = projectNo == no && alramType == "update" ? "/assets/images/update.png"  : projectNo == no && alramType == "create" ? "/assets/images/new.png" : ""
 
     return (
         <div className="col-xl-3  mb-4" key={no}  >
             <div className="card border-left-primary shadow h-100 py-2">
-            <span><img id={"proj-new-img"} className="mb-3 ml-1" src={src} alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>
+            <span id='noticeImg'><img id={"proj-new-img"} className="mb-3 ml-1" src={src} alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>
                 <div className="card-body" >
                     <div className="row no-gutters align-items-center" >
                         <div className="col mr-2">
