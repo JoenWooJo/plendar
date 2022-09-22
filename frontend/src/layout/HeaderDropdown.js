@@ -41,11 +41,12 @@ const HeaderDropdown = ({ alramList, setClick }) => {
                             <Link key={i} to={to} state={state} className="dropdown-item d-flex align-items-center" onClick={()=>alramClick(e)}>
                                 <div className="dropdown-list-image mr-3">
                                     <Badge color={e.type=="update"?"warning":e.type=="finished" ? "success" : "primary"} variant="dot">
-                                        {e.type=="create"?<CreateNewFolderIcon fontSize='large'/>:e.type=="card"?
+                                        {e.type=="card"?
                                         <NoteAddIcon fontSize='large' />: e.type=="comment"?
                                         <SmsIcon fontSize='large' /> : e.type == "finished" ?
-                                        <CheckCircleOutlineIcon fontSize='large' />:
-                                        <PublishedWithChangesIcon fontSize='large' />}
+                                        <CheckCircleOutlineIcon fontSize='large' />: e.type=="update" ?
+                                        <PublishedWithChangesIcon fontSize='large' /> :
+                                        <CreateNewFolderIcon fontSize='large'/>}
                                     </Badge>
                                 </div>
                                 <div className="font-weight-bold">

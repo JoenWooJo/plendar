@@ -119,7 +119,7 @@ const Header = ({ }) => {
             let list = JSON.parse(data.body);
             console.log(list);
             
-            if(list["type"] == "finished") {
+            if(list["type"] == "finished" || list["type"] == "onGoing") {
                 getAlramList();
             } else {
                 setAlramList([list, ...alramRef.current]);
