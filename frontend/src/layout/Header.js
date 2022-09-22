@@ -118,10 +118,12 @@ const Header = ({ }) => {
         client.current.subscribe(`/topic/notice/${localStorage.getItem("loginUserNo")}`, (data) => {
             let list = JSON.parse(data.body);
             console.log(list);
-            setAlramList([list, ...alramRef.current]);
-            setAlramCount(alramCountRef.current+1);
+            
             if(list["type"] == "finished") {
                 getAlramList();
+            } else {
+                setAlramList([list, ...alramRef.current]);
+                setAlramCount(alramCountRef.current+1);
             }
         }, { id: "notice-proj" });
 
