@@ -172,7 +172,7 @@ public class ProjectService {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
 		noticeMessage.setMessage(title+" 프로젝트가 진행중으로 변경되었습니다.");
-		noticeMessage.setType("create");
+		noticeMessage.setType("onGoging");
 		noticeMessage.setProjectNo(projectNo);
 		noticeMessage.setProjectNo(projectNo);
 		
