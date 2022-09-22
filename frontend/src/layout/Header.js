@@ -80,6 +80,7 @@ const Header = ({ }) => {
 
     useEffect(()=>{
         getChatAlramCount();
+        console.log("노티스")
     }, [current, alramCount]);
 
     useEffect(()=>{
