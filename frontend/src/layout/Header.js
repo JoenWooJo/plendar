@@ -80,7 +80,7 @@ const Header = ({ }) => {
 
     useEffect(()=>{
         getChatAlramCount();
-    }, [current]);
+    }, [current, alramCount]);
 
     useEffect(()=>{
         getAlramList();
