@@ -14,7 +14,6 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
    const [show, setShow] = useState(false);
     const [page, setPage] = useState('card');
     const [feedItems, setFeedItems] = useState([]);
-    const handleFeedItems = () => setFeedItems("");
 
     const handleShow = () => setShow(true);
     const handleClose = () => {
@@ -29,9 +28,6 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
     useEffect(() => {
         
     }, [feedItems]);
-    const BringItem = () => {
-        communication();
-    }
 
     const returnItem = (value) => {
         setFeedItems(value);
@@ -43,7 +39,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
             <div className='col-xl-1'>
                 <Modal size='lg' show={show} onHide={handleClose}>
                     <div style={{height:"520px"}}>
-                    <Modal.Header closeButton>
+                    <Modal.Header >
                         <Modal.Title className='col-xl-6'>{title}</Modal.Title>
                         <Box className='col-xl-4'>
                             <ButtonGroup variant="text" aria-label="text button group">
@@ -51,7 +47,7 @@ const CardModal = ({title, projectNo, deckNo, cardNo, setRefresh}) => {
                                 <Button  onClick={() => { setPage("comment") }}>Comment</Button>
                                 <Button  onClick={() => { 
                                         setPage("file")
-                                        BringItem();
+                                        communication();
                                         }}>
                                     FileUpload
                                 </Button>

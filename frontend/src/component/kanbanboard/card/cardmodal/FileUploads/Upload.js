@@ -136,7 +136,9 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                     disabled={files.length < 0 || uploading}
                     onClick={() => {uploadFiles()
                         setUploadProgress({})
-                        setUploading(true)}}>
+                        setUploading(true)
+                        communication();
+                    }}>
                     Upload
                 </button>
             );
@@ -181,8 +183,8 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
     return (
         <>
         <div className="Upload1" >
-            <div className="Content1" >
-                <div>
+            <div className="Content1" style={{height: "380px"}} >
+                <div style={{height: "250px"}}>
                     <Dropzone
                         onFilesAdded={onFilesAdded}
                         disabled={uploading || successfullUploaded}
@@ -203,16 +205,19 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                                         url = {content.url}
                                     />
                             </Card>
+                            
                         </div>
                     </Fragment>
-                    );
+                    );                    
                 })}
                 </div>
+                <div className="Actions1 ">{renderActions() }1</div>
+
             </div>
-            <div className="Files1" style={{height:'200px'}}>
+            <div className="Files1" style={{height:'150px'}}>
                     {files.map((file, i) => {
-                        return (
-                             <div key={i} style={{height:'70px'}}>
+                        return  (
+                             <div key={i} style={{height:'30px'}}>
                                 <span className="Filename1">{file.name}</span>
                                 {renderProgress(file)
                                 }
@@ -220,13 +225,8 @@ const Upload = ({ show, setShow, title, cardNo, projectNo, deckNo, feedItems, it
                         );
                     })}
             </div>
-            <div className="Actions1">{renderActions() }1</div>
         </div>
-        <div className="Actions1">{renderActions() }2</div>
-
-
         </>
-        
     );
 };
 
