@@ -32,12 +32,6 @@ const Ongoing = ({
     // require("/assets/images/new.png").default
     let projectNo = state != null ? state["projectNo"] : "";
     let alramType = state != null ? state["type"] : "";
-     
-
-    useEffect(()=>{
-        console.log("src>>", src)
-    }, [])
-
     
 
     return (
