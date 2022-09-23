@@ -64,6 +64,10 @@ const Myproject = () => {
         // }
     }, [state]);
 
+    useEffect(()=>{
+        console.log("list",projectList)
+    }, [projectList])
+
     // useEffect(()=>{
     //     console.log("state>>",state)
     // }, [state])
