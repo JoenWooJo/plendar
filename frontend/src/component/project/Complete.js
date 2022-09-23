@@ -10,18 +10,18 @@ const Complete = ({ state, no, title, priority, startDate, endDate, leader }) =>
     let projectNo = state != null ? state["projectNo"] : "";
     const [morevertList, setMorevertList] = useState(false);
 
-    useEffect(() => {
-        const f = () => {
-            let child = document.getElementById("proj-finished-img");
-            child != null && child.parentNode.removeChild(child);
-        }
-        document.addEventListener("click", f);
+    // useEffect(() => {
+    //     const f = () => {
+    //         let child = document.getElementById("proj-finished-img");
+    //         child != null && child.parentNode.removeChild(child);
+    //     }
+    //     document.addEventListener("click", f);
 
-        return () => {
-            document.removeEventListener("click", f)
-        }
+    //     return () => {
+    //         document.removeEventListener("click", f)
+    //     }
 
-    }, []);
+    // }, []);
 
 
 

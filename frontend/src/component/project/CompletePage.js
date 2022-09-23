@@ -48,10 +48,10 @@ const CompletePage = () => {
 
     
 
-    useEffect(() => {
-        if(currentPath === location.pathname) window.location.reload();
-        currentPath = location.pathname;
-      }, [location]);
+    // useEffect(() => {
+    //     if(currentPath === location.pathname) window.location.reload();
+    //     currentPath = location.pathname;
+    //   }, [location]);
 
 
     return (
