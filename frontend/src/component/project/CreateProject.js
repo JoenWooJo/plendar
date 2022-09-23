@@ -229,7 +229,7 @@ const CreateProject = () => {
             <center>
 
                 <Link to={title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? "/project/createProject" :
-                    "/project/myProject"} style={{ textDecoration: "none" }}>
+                    "/project/myProject"} state={"create"} style={{ textDecoration: "none" }}>
                     <button type="button" className=" mt-4 mr-2 btn btn-secondary"
                         onClick={(e) => {
                             title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : createProject(e)

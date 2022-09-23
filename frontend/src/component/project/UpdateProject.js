@@ -271,7 +271,7 @@ const UpdateProject = () => {
 
             <center>
                 <Link to={title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? `/updateProject/${projectNo}` :
-                    "/project/myProject"} style={{ textDecoration: "none" }}>
+                    "/project/myProject"} state={"update"} style={{ textDecoration: "none" }}>
                     <button type="button" className=" mt-4 mr-2 btn btn-secondary"
                         onClick={(e) => {
                             title == '' || description == '' || priority == 0 || startDate == null || endDate == null || member == [] ? alert("모두 입력해주세요") : updateProject(e)

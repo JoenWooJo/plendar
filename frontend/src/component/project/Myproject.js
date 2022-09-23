@@ -61,11 +61,11 @@ const Myproject = () => {
         // return () => {
         //     document.removeEventListener("click", f)
         // }
-    }, []);
+    }, [state]);
 
-    useEffect(()=>{
-        console.log("state>>",state)
-    }, [state])
+    // useEffect(()=>{
+    //     console.log("state>>",state)
+    // }, [state])
 
 
     return (
