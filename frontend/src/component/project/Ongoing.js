@@ -45,7 +45,7 @@ const Ongoing = ({
             <div className="card border-left-primary shadow h-100 py-2">
                 {
                     (projectNo == no && alramType == "update") ? <span><img id={"proj-new-img"} className="mb-3 ml-1" src="/assets/images/update.png"
-                    alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>  : (projectNo == no && alramType == "create") ? 
+                    alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>  : (projectNo == no && (alramType == "create" || alramType == "onGoing")) ? 
                     <span><img id={"proj-new-img"} className="mb-3 ml-1" src="/assets/images/new.png"
                                     alt="" style={{ position: "absolute", width: "30px", left: "75%", marginBottom: "5px" }} /></span>: ""
                 }
