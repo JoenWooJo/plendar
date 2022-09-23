@@ -14,7 +14,7 @@ const Myproject = () => {
     const [projectList, setProjectList] = useState([]);
     const [projectMember, setProjectMember] = useState([]);
     const userNo = localStorage.getItem("loginUserNo");
-    const [abc, setAbc] = useState(false);
+    
 
     const fetchAndProjectList = async () => {
         await axios.get(`/api/project/find/project/${userNo}`, {
@@ -24,7 +24,7 @@ const Myproject = () => {
             })
             .then((resp) => {
                 const list = resp.data.data;
-                setProjectList(list);
+                setProjectList((prev)=>prev.concat(list));
             })
     };
 
