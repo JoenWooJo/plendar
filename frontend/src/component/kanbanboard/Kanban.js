@@ -53,10 +53,10 @@ export default function KanbanBoard() {
     projectTitle();
   }, [projectNo])
 
-  useEffect(() => {
-    if (currentPath === location.pathname) window.location.reload();
-    currentPath = location.pathname;
-  }, [location]);
+  // useEffect(() => {
+  //   if (currentPath === location.pathname) window.location.reload();
+  //   currentPath = location.pathname;
+  // }, [location]);
 
   // ------------------------------드래그 앤 드롭---------------------------------------------------
   const moveDeck = async () => {
@@ -230,23 +230,23 @@ export default function KanbanBoard() {
     );
   })
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    console.log("state>>",state);
-    const f = () => {
-      let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
-      child != null && child.parentNode.removeChild(child);
-      // child.src = "#";
+  //   console.log("state>>",state);
+  //   const f = () => {
+  //     let child = noticeType == "comment" ? document.getElementById(`new-img-${noticeNo}`) : document.getElementById("new-img");
+  //     child != null && child.parentNode.removeChild(child);
+  //     // child.src = "#";
 
-    }
-    document.addEventListener("click", f)
+  //   }
+  //   document.addEventListener("click", f)
 
-    return () => {
-      document.removeEventListener("click", f)
-    }
+  //   return () => {
+  //     document.removeEventListener("click", f)
+  //   }
 
 
-  }, [state])
+  // }, [state])
 
   //로컬스토리지 유저 뽑기
   const uu = localStorage.getItem('loginUserNo');
