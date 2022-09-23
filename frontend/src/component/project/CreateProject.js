@@ -41,7 +41,7 @@ const CreateProject = () => {
     }, []);
 
     const createProject = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         axios.post('/api/project/create', {
             title: title,
             description: description,
@@ -55,7 +55,7 @@ const CreateProject = () => {
                 Authorization: window.localStorage.getItem("Authorization"),
             },
             }).then((resp) => {
-                resp.data.result == "success" && window.location.replace("/project/myProject");
+                // resp.data.result == "success" && window.location.replace("/project/myProject");
         }).catch((err) => {
             console.error(err)
         });

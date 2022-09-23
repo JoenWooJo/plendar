@@ -55,7 +55,7 @@ const UpdateProject = () => {
     }
 
     const updateProject = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const projectData = {
             no: projectNo,
             title: title,
@@ -74,7 +74,7 @@ const UpdateProject = () => {
             },
             });
         
-        resp.data.result == "success" && window.location.replace("/project/myProject");
+        // resp.data.result == "success" && window.location.replace("/project/myProject");
     };
 
     const is_checked = (event, index) => {
