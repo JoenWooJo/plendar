@@ -47,6 +47,7 @@ const Myproject = () => {
     //   }, [location]);
 
     useEffect(() => {
+        console.log(">>>", state);
         fetchAndProjectList();
         findProjectMemberByNo();
         // const f = () => {
