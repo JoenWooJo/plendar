@@ -24,7 +24,8 @@ const Myproject = () => {
             })
             .then((resp) => {
                 const list = resp.data.data;
-                setProjectList((prev)=>prev.concat(list));
+                console.log("axios>",list)
+                setProjectList(list);
             })
     };
 
@@ -62,7 +63,7 @@ const Myproject = () => {
         // return () => {
         //     document.removeEventListener("click", f)
         // }
-    }, [state]);
+    }, []);
 
     useEffect(()=>{
         console.log("list",projectList)

@@ -55,7 +55,7 @@ const UpdateProject = () => {
     }
 
     const updateProject = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         const projectData = {
             no: projectNo,
             title: title,
@@ -74,6 +74,7 @@ const UpdateProject = () => {
             },
             });
         
+            if (resp.data.result == "success") window.location = '/project/myProject';
         // resp.data.result == "success" && window.location.replace("/project/myProject");
     };
 
